@@ -51,7 +51,9 @@
       "<=bowerComponentsPath>/material-design-lite/src/tooltip/tooltip.js",
       "<=bowerComponentsPath>/material-design-lite/src/layout/layout.js",
       "<=bowerComponentsPath>/material-design-lite/src/data-table/data-table.js",
-      "<=bowerComponentsPath>/material-design-lite/src/ripple/ripple.js"
+      "<=bowerComponentsPath>/material-design-lite/src/ripple/ripple.js",
+      "<=bowerComponentsPath>/vue/dist/vue.js",
+      "<=resourcesPath>public/js/**/*.js"
     ],
     "other": [
       "<=bowerComponentsPath>html5shiv/dist/html5shiv.min.js"

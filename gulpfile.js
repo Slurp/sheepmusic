@@ -183,18 +183,23 @@ gulp.task('scripts-prod', ['jshint'], function() {
 });
 
 gulp.task('inject-prod-scripts', ['scripts-prod'], function() {
+    var files = gulp.src(config.dist.js + '/**/*.js');
     return gulp.src('src/' + config.project.mainBundlePath + '/Resources/views/' + config.project.mainJsInclude.folder + '/' + config.project.mainJsInclude.fileName)
         // Inject
-        .pipe(plugins.inject(gulp.src(config.dist.js + '/**/*.js'), {
+        .pipe(plugins.inject(files, {
             transform: addAsyncTag,
             ignorePath: '/web'
         }))
 
-        // Chmod for local use
-        .pipe(plugins.if(allowChmod, plugins.chmod(777)))
+        // Rebase
+        .pipe(rebase({
+            script: {
+                '(\/[^"]*\/)': '/frontend/js/'
+            }
+        }))
 
         // Write
-        .pipe(gulp.dest('src/Resources/views/' + config.project.mainJsInclude.folder + '/'));
+        .pipe(gulp.dest('app/Resources/views/' + config.project.mainJsInclude.folder + '/'));
 });
 
 
