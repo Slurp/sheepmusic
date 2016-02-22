@@ -1,0 +1,8 @@
+{% extends 'Layout/layout.html.twig' %}
+
+{% block content %}
+    <div class="mdl-grid">
+        {% include '@BlackSheepMusicLibrary/Partials/album-list.html.twig' with {'album': album} only %}
+    </div>
+{% endblock %}
+

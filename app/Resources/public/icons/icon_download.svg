@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="18px" height="20px" viewBox="0 0 18 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_download</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="icon_download" sketch:type="MSArtboardGroup" fill="#FFFFFF">
+            <path d="M15,15 L15,17 L3,17 L3,15 L0,15 L0,19 C0,19.5527 0.4473,20 1,20 L17,20 C17.5527,20 18,19.5527 18,19 L18,15 L15,15 L15,15 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+            <path d="M7.9414,14.4766 C8.1982,14.7979 8.5879,14.9854 9,14.9854 C9.4121,14.9854 9.8018,14.7979 10.0586,14.4766 L15.8408,7.2432 C16.2539,6.7275 16.2344,5.9893 15.7949,5.4961 C15.3555,5.0029 14.625,4.8965 14.0645,5.248 L11,7.1611 L11,1.4194 C11,0.332 10.0605,0.0083 9.001,0.0083 C7.9395,0.0083 7,0.332 7,1.4194 L7,7.1611 L3.9355,5.248 C3.374,4.8975 2.6445,5.0039 2.2051,5.4961 C1.7656,5.9893 1.7461,6.7275 2.1592,7.2432 L7.9414,14.4766 L7.9414,14.4766 Z" id="Shape" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

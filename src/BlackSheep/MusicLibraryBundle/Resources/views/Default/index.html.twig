@@ -1,0 +1,22 @@
+{% extends 'Layout/layout.html.twig' %}
+
+{% block header_submenu %}
+    <div class="mdl-layout__header-row">
+        <div class="mdl-layout-spacer"></div>
+        <!-- Navigation -->
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="">Link</a>
+            <a class="mdl-navigation__link" href="">Link</a>
+        </nav>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="mdl-grid">
+        {% for artist in artists %}
+            {% include '@BlackSheepMusicLibrary/Partials/artist-card.html.twig' with {'artist': artist} only %}
+        {% endfor %}
+    </div>
+{% endblock %}

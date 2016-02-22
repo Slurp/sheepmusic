@@ -1,0 +1,73 @@
+{
+  "vars": {
+    "distPath": "web/frontend/",
+    "resourcesPath": "app/Resources/",
+    "bowerComponentsPath": "app/Resources/public/vendor/"
+  },
+
+  "project": {
+    "name": "",
+    "mainBundlePath": "Appbundle",
+    "mainBundleName": "Appbundle",
+    "mainJsInclude": {
+      "folder": "Layout/",
+      "fileName": "_js_footer.html.twig"
+    }
+  },
+
+  "dist": {
+    "css": "<=distPath>css",
+    "js": "<=distPath>js",
+    "img": "<=distPath>img",
+    "fonts": "<=distPath>fonts",
+    "styleguide": "<=distPath>styleguide"
+  },
+
+  "scssFolder": "<=resourcesPath>public/scss/",
+  "styleguideFolder": "<=resourcesPath>public/styleguide",
+
+  "img": "<=resourcesPath>public/img/**/*.{png,jpg,jpeg,gif,svg,webp}",
+  "fonts": "<=resourcesPath>public/fonts/**/*.{eot,svg,ttf,woff,woff2}",
+  "twig": "<=resourcesPath>views/**/*.html.twig",
+  "scss": "<=resourcesPath>public/scss/**/*.scss",
+
+  "js": {
+    "app": "<=resourcesPath>public/js/**/*.js",
+    "footer": [
+      "<=bowerComponentsPath>/material-design-lite/src/mdlComponentHandler.js",
+      "<=bowerComponentsPath>/material-design-lite/src/third_party/**/*.js",
+      "<=bowerComponentsPath>/material-design-lite/src/button/button.js",
+      "<=bowerComponentsPath>/material-design-lite/src/checkbox/checkbox.js",
+      "<=bowerComponentsPath>/material-design-lite/src/icon-toggle/icon-toggle.js",
+      "<=bowerComponentsPath>/material-design-lite/src/menu/menu.js",
+      "<=bowerComponentsPath>/material-design-lite/src/progress/progress.js",
+      "<=bowerComponentsPath>/material-design-lite/src/radio/radio.js",
+      "<=bowerComponentsPath>/material-design-lite/src/slider/slider.js",
+      "<=bowerComponentsPath>/material-design-lite/src/snackbar/snackbar.js",
+      "<=bowerComponentsPath>/material-design-lite/src/spinner/spinner.js",
+      "<=bowerComponentsPath>/material-design-lite/src/switch/switch.js",
+      "<=bowerComponentsPath>/material-design-lite/src/tabs/tabs.js",
+      "<=bowerComponentsPath>/material-design-lite/src/textfield/textfield.js",
+      "<=bowerComponentsPath>/material-design-lite/src/tooltip/tooltip.js",
+      "<=bowerComponentsPath>/material-design-lite/src/layout/layout.js",
+      "<=bowerComponentsPath>/material-design-lite/src/data-table/data-table.js",
+      "<=bowerComponentsPath>/material-design-lite/src/ripple/ripple.js"
+    ],
+    "other": [
+      "<=bowerComponentsPath>html5shiv/dist/html5shiv.min.js"
+    ],
+    "addAsync": "false"
+  },
+
+  "browserSupport": [
+    "last 2 versions",
+    "ie 9",
+    "ie 10",
+    "ie 11"
+  ],
+
+  "liveReloadFiles": [
+    "<=distPath>css/style.min.css",
+    "<=distPath>js/*.js"
+  ]
+}

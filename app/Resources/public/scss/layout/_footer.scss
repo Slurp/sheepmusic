@@ -1,0 +1,16 @@
+footer.player {
+  height: $footer-fixed-height;
+  padding-top: 0;
+  padding-bottom: 0;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 999;
+  .player-button {
+    height: $footer-fixed-height;
+    i {
+      font-size: $footer-fixed-height;
+    }
+  }
+}

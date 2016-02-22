@@ -1,0 +1,26 @@
+.album-card {
+  @extend .mdl-card;
+  @extend .mdl-card__border;
+  @extend .mdl-shadow--3dp;
+  @extend .mdl-cell;
+  @extend .mdl-cell--6-col;
+  > div {
+    border-top: 1px solid $card-border-color;
+  }
+  .card-image {
+    @extend .mdl-card__media;
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .title {
+    @extend .mdl-card__title;
+  }
+  .text {
+    @extend .mdl-card__supporting-text;
+  }
+  .actions {
+    @extend .mdl-card__actions;
+  }
+}

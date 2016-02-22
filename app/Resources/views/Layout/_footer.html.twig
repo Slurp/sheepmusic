@@ -1,0 +1,73 @@
+<footer id="footer" class="mdl-mini-footer player">
+
+    <div class="mdl-mini-footer--left-section player-controls">
+        <div class="player-prev player-button">
+            <i class="material-icons">skip_previous</i>
+        </div>
+        <div class="player-play player-button">
+            <i class="material-icons">play_circle_outline</i>
+            <i class="material-icons">pause_circle_outline</i>
+        </div>
+        <div class="player-next player-button">
+            <i class="material-icons">skip_next</i>
+        </div>
+    </div>
+    <div class="mdl-mini-footer--middle-section player-info ">
+        <img src="{{ asset('frontend/img/default.png') }}" class="song-image" />
+        <div class="progress-wrapper">
+            <input id="progress-bar"
+                   class="mdl-slider mdl-js-slider"
+                   type="range"
+                   min="0"
+                   max="100"
+                   value="0" step="1"/>
+        </div>
+        <div id="now-playing" href="#albums">
+            <a href="#" class="playing-song-title">
+                Nothing Playing
+            </a>
+            <span class="playing-song-meta"></span>
+        </div>
+        <div id="time">
+            <div class="time-cur">0</div>
+            <div class="time-total">0</div>
+        </div>
+    </div>
+
+    <div class="mdl-mini-footer--right-section player-extra">
+        <div class="volume-wrapper">
+            <input id="volume"
+                   class="mdl-slider mdl-js-slider"
+                   type="range"
+                   min="0"
+                   max="100"
+                   value="0" step="1"/>
+        </div>
+
+            <span class="player-mute player-button">
+                <i class="material-icons">volume_down</i>
+                <i class="material-icons hide">volume_up</i>
+            </span>
+            <span class="player-repeat player-button" title="Repeat is off">
+                <i class="material-icons">repeat</i>
+            </span>
+            <span class="player-random player-button" title="Random is On">
+                <i class="material-icons">shuffle</i>
+            </span>
+            <!-- Right aligned menu on top of button  -->
+            <div class="actions-wrapper actions-secondary dropup">
+                <button id="demo-menu-top-right"
+                        class="mdl-button mdl-js-button mdl-button--icon">
+                    <i class="material-icons">more_vert</i>
+                </button>
+
+                <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect"
+                    data-mdl-for="demo-menu-top-right">
+                    <li class="mdl-menu__item">Some Action</li>
+                    <li class="mdl-menu__item">Another Action</li>
+                    <li disabled class="mdl-menu__item">Disabled Action</li>
+                    <li class="mdl-menu__item">Yet Another Action</li>
+                </ul>
+            </div>
+    </div>
+</footer>

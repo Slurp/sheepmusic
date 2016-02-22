@@ -1,0 +1,24 @@
+// Use color primarily for emphasis. Choose colors that fit with
+// your brand and provide good contrast between visual components.
+@import "../vendor/material-design-lite/src/color-definitions";
+
+$color-primary: $palette-blue-grey-700 !default;
+$color-primary-dark: $palette-blue-grey-900 !default;
+$color-accent: $palette-light-blue-400 !default;
+
+/* ==========  Player  ========== */
+$player-button-color: unquote("rgb(#{$palette-blue-grey-300})") !default;
+$progress-background-color: unquote("rgb(#{$palette-light-blue-700})") !default;
+
+/* ==========  Card  ========== */
+
+$card-background-color: unquote("rgb(#{$palette-blue-grey-50})") !default;
+
+
+/* ==========  Footer  ========== */
+$footer-fixed-height: 70px !default;
+$footer-bg-color: unquote("rgb(#{$color-primary})") !default;
+$footer-color: unquote("rgb(#{$color-dark-contrast})") !default;
+$footer-heading-color: unquote("rgb(#{$palette-light-blue-300})") !default;
+$footer-button-fill-color: $footer-color !default;
+$footer-underline-color: $footer-color !default;

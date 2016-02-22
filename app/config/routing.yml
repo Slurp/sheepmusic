@@ -1,0 +1,9 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+library:
+    resource: "@BlackSheepMusicLibraryBundle/Resources/config/routing.yml"
+    prefix:   /library/
+
+
+

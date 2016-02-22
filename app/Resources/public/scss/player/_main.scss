@@ -1,0 +1,74 @@
+.player {
+  .player-button {
+    color: $player-button-color;
+  }
+  .player-controls {
+    width: 25%;
+    .player-button {
+      height: 70px;
+      width: 33%;
+      float: left;
+    }
+  }
+  .player-info {
+    width: 50%;
+    position: relative;
+    .song-image {
+      width: auto;
+      height: 70px;
+      float: left;
+      margin-right:10px
+    }
+    .progress-wrapper {
+      background-color:transparent;
+      padding-top:1px;
+      margin-bottom: -1px;
+      .mdl-slider__background-flex {
+        top:0;
+        height: 20px;
+      }
+    }
+
+    #time {
+      float: right;
+      width: 50%;
+      text-align: right;
+      > div {
+        float: left;
+        width: 50%;
+      }
+    }
+  }
+  .player-extra {
+    width: 25%;
+    .player-button {
+      height: $footer-fixed-height - 30px;
+      padding-left: 20px;
+      i {
+        font-size: $footer-fixed-height - 30px;
+        &.hide {
+          display: none;
+        }
+      }
+    }
+    .actions-wrapper {
+      float: right;
+      padding-right: 20px;
+      .mdl-button--icon {
+        height: $footer-fixed-height - 30px;
+        width: $footer-fixed-height - 30px;
+        i {
+          font-size: $footer-fixed-height - 40px;
+          line-height: $footer-fixed-height - 40px;
+          width: $footer-fixed-height - 40px;
+          transform: translate(-($footer-fixed-height - 40px) /2, -($footer-fixed-height - 40px) /2);
+        }
+      }
+    }
+  }
+  .progress-wrapper,
+  .volume-wrapper {
+    height: 20px;
+  }
+
+}

@@ -1,0 +1,13 @@
+{% extends 'Layout/layout.html.twig' %}
+
+{% block content %}
+    <div class="mdl-grid">
+        {% include '@BlackSheepMusicLibrary/Partials/artist-card.html.twig' with {'artist': artist} only %}
+    </div>
+    <div class="mdl-grid">
+        {% for album in artist.albums %}
+            {% include '@BlackSheepMusicLibrary/Partials/album-card.html.twig' with {'album': album} only %}
+        {% endfor %}
+    </div>
+{% endblock %}
+

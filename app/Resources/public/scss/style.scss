@@ -1,0 +1,31 @@
+/**
+ * Bureaublauwgeel
+ * @author: Stephan Langeweg - www.bureaublauwgeel.nl
+ * @url: http://bureaublauwgeel.nl
+ */
+
+// Variables and mixins
+@import "variables";
+@import "../vendor/material-design-lite/src/variables";
+@import "../vendor/material-design-lite/src/mixins";
+
+// Resets and dependencies
+@import "../vendor/material-design-lite/src/resets/resets";
+@import "../vendor/material-design-lite/src/typography/typography";
+@import "vendor/material-design-lite";
+//own files
+
+// Layout
+@import "layout/header";
+@import "layout/footer";
+@import "layout/main";
+@import "layout/navigation";
+
+// Library
+@import "library/artist";
+@import "library/album";
+
+// Player
+@import "player/main";
+
+

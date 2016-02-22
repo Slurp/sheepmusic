@@ -1,0 +1,4 @@
+black_sheep_music_libary_homepage:
+    resource: '@BlackSheepMusicLibraryBundle/Controller/'
+    type:     annotation
+
