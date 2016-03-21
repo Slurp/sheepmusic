@@ -1,3 +1,17 @@
-main {
+body {
+  background: $layout-background-color;
+}
+
+.mdl-layout {
+  &.center {
+    align-items: center;
+  }
+}
+
+.mdl-layout__content {
   padding-bottom: 134px;
 }
+
+
+
+

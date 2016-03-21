@@ -1,4 +1,9 @@
 .player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
   .player-button {
     color: $player-button-color;
   }
@@ -20,13 +25,12 @@
       margin-right:10px
     }
     .progress-wrapper {
-      background-color:transparent;
       padding-top:1px;
       margin-bottom: -1px;
-      .mdl-slider__background-flex {
-        top:0;
-        height: 20px;
-      }
+      //.mdl-slider__background-flex {
+      //  top:0;
+      //  height: 20px;
+      //}
     }
 
     #time {
@@ -66,9 +70,9 @@
       }
     }
   }
-  .progress-wrapper,
-  .volume-wrapper {
-    height: 20px;
-  }
+  //.progress-wrapper,
+  //.volume-wrapper {
+  //  height: 20px;
+  //}
 
 }

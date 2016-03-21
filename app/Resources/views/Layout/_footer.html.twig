@@ -1,3 +1,4 @@
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 <footer id="footer" class="mdl-mini-footer player">
 
     <div class="mdl-mini-footer--left-section player-controls">
@@ -6,7 +7,7 @@
         </div>
         <div class="player-play player-button">
             <i class="material-icons">play_circle_outline</i>
-            <i class="material-icons">pause_circle_outline</i>
+            {#<i class="material-icons">pause_circle_outline</i>#}
         </div>
         <div class="player-next player-button">
             <i class="material-icons">skip_next</i>
@@ -14,7 +15,7 @@
     </div>
     <div class="mdl-mini-footer--middle-section player-info ">
         <img src="{{ asset('frontend/img/default.png') }}" class="song-image" />
-        <div class="progress-wrapper">
+        <div class="progress-wrapper ">
             <input id="progress-bar"
                    class="mdl-slider mdl-js-slider"
                    type="range"
@@ -71,3 +72,4 @@
             </div>
     </div>
 </footer>
+{% endif %}

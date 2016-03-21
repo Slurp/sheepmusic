@@ -1,3 +1,4 @@
+/app/Resources/vue
 /app/Resources/public/vendor
 /app/config/parameters.yml
 /build/
@@ -16,3 +17,4 @@
 /vendor/
 /web/bundles/
 /node_modules/
+/web/frontend

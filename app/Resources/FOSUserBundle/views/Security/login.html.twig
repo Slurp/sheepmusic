@@ -1,0 +1,38 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+{% block extra_layout_classes %}center{% endblock %}
+{% block fos_user_content %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <div class="mdl-card mdl-shadow--6dp login">
+        <form action="{{ path("fos_user_security_check") }}" method="post">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text"> SheepMusic</h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="username" name="_username"
+                           value="{{ last_username }}" required="required"/>
+                    <label class="mdl-textfield__label" for="username">{{ 'security.login.username'|trans }}</label>
+                </div>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="password" d="password" name="_password"
+                           required="required"/>
+                    <label class="mdl-textfield__label" for="password">{{ 'security.login.password'|trans }}</label>
+                </div>
+                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="_remember_me">
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" class="mdl-checkbox__input">
+                    <span class="mdl-checkbox__label">{{ 'security.login.remember_me'|trans }}</span>
+                </label>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <input class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit"
+                       id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}"/>
+            </div>
+        </form>
+    </div>
+{% endblock fos_user_content %}

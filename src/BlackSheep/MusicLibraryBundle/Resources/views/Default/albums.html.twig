@@ -1,4 +1,4 @@
-{% extends 'Layout/layout.html.twig' %}
+{% if app.request.xmlHttpRequest is false %}{% extends 'Layout/layout.html.twig' %} {% endif %}
 
 {% block content %}
     <div class="mdl-grid">

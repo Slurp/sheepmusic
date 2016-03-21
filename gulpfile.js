@@ -32,6 +32,7 @@ var gulp = require('gulp'),
 var autoprefixer = require('autoprefixer');
 var mqpacker = require('css-mqpacker');
 var csswring = require('csswring');
+var webpack = require('webpack-stream');
 
 
 // Gulp Config
@@ -146,7 +147,7 @@ gulp.task('styles', function() {
 /* Javascript
  ========================================================================== */
 // Jshint
-gulp.task('jshint', function() {
+gulp.task('jshint',['webpack'], function() {
     return gulp.src([config.js.app, '!' + resourcesPath + '/ui/js/vendors/**/*.js'])
         // Jshint
         .pipe(plugins.jshint())
@@ -285,6 +286,13 @@ gulp.task('clean', function(done) {
 });
 
 
+// Run webpack
+gulp.task('webpack', function(){
+    return gulp.src('app/Resources/vue/main.js')
+        .pipe(webpack( require('./webpack.config.js') ))
+        .pipe(gulp.dest('web/frontend/js/'));
+});
+
 
 /* Default tasks
  ========================================================================== */
@@ -294,7 +302,6 @@ gulp.task('watch', function() {
     plugins.livereload.listen();
     gulp.watch(config.liveReloadFiles).on('change', function(file) {
         plugins.livereload.changed(file.path);
-        //runSequence('styleguide', 'styleguide-dev-js');
     });
 
     // Styles
@@ -305,6 +312,8 @@ gulp.task('watch', function() {
 
     // Images
     gulp.watch(config.img, ['images']);
+
+    gulp.watch('app/Resources/vue/**/*.*',['inject-dev-scripts']);
 });
 
 

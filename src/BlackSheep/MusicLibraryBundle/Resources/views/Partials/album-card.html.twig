@@ -16,7 +16,8 @@
         {{ album.updatedAt|date }}
     </div>
     <div class="actions">
-        <a href="{{ url('library_album',{'artist': album.artist.id, 'album':album.id }) }}" class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
+        <a href="{{ url('library_album',{'artist': album.artist.id, 'album':album.id }) }}"
+           class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
             detail
         </a>
     </div>

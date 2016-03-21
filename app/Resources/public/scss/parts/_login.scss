@@ -1,0 +1,9 @@
+.login {
+  margin : auto;
+  padding-top:70px;
+  flex: 1;
+  .mdl-card__title {
+    background-color: $login-header-color;
+    color:$card-supporting-text-text-color;
+  }
+}

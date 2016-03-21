@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping AS ORM;
 class Artists extends BaseEntity
 {
     /**
-     * @ORM\Column(nullable=true)
+     * @ORM\Column(nullable=false)
      */
     protected $name;
 
@@ -22,12 +22,17 @@ class Artists extends BaseEntity
     protected $image;
 
     /**
+     * @ORM\Column(nullable=true)
+     */
+    protected $playCount;
+
+    /**
      * @ORM\OneToMany(targetEntity="Albums", mappedBy="artist",cascade={"all"})
      */
     protected $albums;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Songs", mappedBy="artists")
+     * @ORM\ManyToMany(targetEntity="Songs", mappedBy="artists" , fetch="EXTRA_LAZY")
      */
     protected $songs;
 
@@ -139,6 +144,24 @@ class Artists extends BaseEntity
         if ($this->songs->contains($song) === false) {
             $this->songs->add($song);
         }
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlayCount()
+    {
+        return $this->playCount;
+    }
+
+    /**
+     * @param mixed $playCount
+     * @return Artists
+     */
+    public function setPlayCount($playCount)
+    {
+        $this->playCount = $playCount;
         return $this;
     }
 }
