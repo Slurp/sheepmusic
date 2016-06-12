@@ -1,12 +1,12 @@
-<p class="pull-xs-left hidden-sm-up">
-    <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Toggle nav</button>
-</p>
-<div class="sidebar">
-    <a href="{{ path('homepage') }}" class="logo-wrapper">
+<nav>
+    <ul id="slide-out" class="side-nav fixed">
+        <li class="logo">
+            <a id="logo-container" href="{{ path('homepage') }}" class="brand-logo">
 
-        <img class="logo" src="{{ asset('frontend/img/zwartschaap.png') }}">
-    </a>
-    <ul class="nav nav-pills nav-stacked">
+                <img class="logo" src="{{ asset('frontend/img/zwartschaap.png') }}">
+            </a>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link" href="{{ path('library') }}">Artists</a>
         </li>
@@ -15,5 +15,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ path('library_recent_albums') }}">Recent albums</a>
         </li>
+
     </ul>
-</div>
+    <a href="#" data-activates="slide-out" class="button-collapse top-nav"> &#9776;</a>
+</nav>

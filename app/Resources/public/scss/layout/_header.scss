@@ -1,14 +1,9 @@
 .sheepnav {
   @extend .navbar;
   @extend .navbar-fixed-top;
-  background-color: $player-bg-color;
-  @include make-col-span(9);
-  @include make-col-push(1);
-  @include make-col-pull(2);
-  @include media-breakpoint-up(md) {
-    @include make-col-push(2);
-    @include make-col-span(10);
-    @include make-col-pull(2);
+  background-color: $accent-color;
+  @include media-breakpoint-up(sm) {
+    margin-left: 200px;
   }
 
 
@@ -17,7 +12,13 @@
       @include img-fluid();
     }
   }
-  ~ div .main-content {
-    margin-top: 70px;
+  .page-title
+  {
+    @include media-breakpoint-down(xs) {
+      margin-left: 60px;
+    }
+    font-size: 2.4rem;
+    padding-bottom: 0;
+    font-weight: bold;
   }
 }

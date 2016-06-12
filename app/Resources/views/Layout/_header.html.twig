@@ -1,18 +1,18 @@
-{#<nav class="sheepnav">#}
-    {#<button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">#}
-        {#&#9776;#}
-    {#</button>#}
-    {#<div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">#}
-        {#<ul class="nav navbar-nav">#}
-            {##}
-        {#</ul>#}
-        {#<form class="form-inline pull-xs-right">#}
-            {#<input class="form-control" type="text" placeholder="Search">#}
-            {#<button class="btn btn-success-outline" type="submit">Search</button>#}
-        {#</form>#}
-    {#</div>#}
+<nav class="sheepnav">
+    <ul class="nav navbar-nav">
+        <h1 class="navbar-brand page-title">SheepMusic</h1>
+    </ul>
+    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+        <i class="material-icons">search</i>
+    </button>
+    <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
+        <form class="form-inline pull-xs-right">
+            <input class="form-control" type="text" placeholder="Search">
+            <button class="btn btn-secondary-outline" type="submit">Search</button>
+        </form>
+    </div>
 
-    {#<!-- Bottom row, not visible on scroll -->#}
-    {#{% block header_submenu %}#}
-    {#{% endblock %}#}
-{#</nav>#}
+    <!-- Bottom row, not visible on scroll -->
+    {% block header_submenu %}
+    {% endblock %}
+</nav>

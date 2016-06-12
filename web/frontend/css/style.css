@@ -1861,6 +1861,8 @@
 /* ==========  Footer  ========== */
 /* ==========  Login  ========== */
 /* ==========  Bootstrap  ========== */
+/* 14. Side Navigation
+   ========================================================================== */
 /*!
  * Bootstrap v4.0.0-alpha.2 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
@@ -4965,16 +4967,16 @@ input[type="button"].btn-block {
   .navbar-divider::before {
     content: "\00a0"; }
 
-.navbar-toggler {
+.navbar-toggler, header .button-collapse {
   padding: .5rem .75rem;
   font-size: 1.25rem;
   line-height: 1;
   background: none;
   border: 1px solid transparent; }
-  .navbar-toggler:focus {
+  .navbar-toggler:focus, header .button-collapse:focus {
     text-decoration: none; }
   @media (hover: hover) {
-    .navbar-toggler:hover {
+    .navbar-toggler:hover, header .button-collapse:hover {
       text-decoration: none; } }
 
 @media (min-width: 544px) {
@@ -8818,7 +8820,7 @@ a.bg-danger:focus {
 .popover,
 .navbar, .sheepnav, .info-bar,
 .dropdown-menu,
-.pagination, .btn, .pager li a, .playlist, .sidebar {
+.pagination, .btn, .pager li a, .playlist, .side-nav {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
 
 .z-depth-1-half, .media img, .btn:hover, .btn-secondary.active, .btn-secondary.dropdown-toggle, .btn-primary.active, .btn-default.active, .btn-success.active, .btn-info.active, .btn-warning.active, .btn-danger.active, .pager li a:hover {
@@ -8864,6 +8866,7 @@ ul {
 .alert,
 .nav .nav-link, .info-bar .nav-link,
 .navbar-toggler,
+header .button-collapse,
 .navbar,
 .sheepnav,
 .info-bar,
@@ -12304,9 +12307,9 @@ textarea {
     margin-right: 5px;
     margin-bottom: 1px; }
 
-.navbar .navbar-toggler, .sheepnav .navbar-toggler, .info-bar .navbar-toggler {
+.navbar .navbar-toggler, .sheepnav .navbar-toggler, .info-bar .navbar-toggler, .navbar header .button-collapse, header .navbar .button-collapse, .sheepnav header .button-collapse, header .sheepnav .button-collapse, .info-bar header .button-collapse, header .info-bar .button-collapse {
   float: right; }
-  .navbar .navbar-toggler:focus, .sheepnav .navbar-toggler:focus, .info-bar .navbar-toggler:focus {
+  .navbar .navbar-toggler:focus, .sheepnav .navbar-toggler:focus, .info-bar .navbar-toggler:focus, .navbar header .button-collapse:focus, header .navbar .button-collapse:focus, .sheepnav header .button-collapse:focus, header .sheepnav .button-collapse:focus, .info-bar header .button-collapse:focus, header .info-bar .button-collapse:focus {
     background-color: inherit; }
 
 .navbar .breadcrumb, .sheepnav .breadcrumb, .info-bar .breadcrumb {
@@ -12319,7 +12322,7 @@ textarea {
 .navbar.navbar-dark .breadcrumb .active, .navbar-dark.sheepnav .breadcrumb .active, .navbar-dark.info-bar .breadcrumb .active {
   color: #90caf9; }
 
-.navbar.navbar-dark .navbar-toggler, .navbar-dark.sheepnav .navbar-toggler, .navbar-dark.info-bar .navbar-toggler {
+.navbar.navbar-dark .navbar-toggler, .navbar-dark.sheepnav .navbar-toggler, .navbar-dark.info-bar .navbar-toggler, .navbar.navbar-dark header .button-collapse, header .navbar.navbar-dark .button-collapse, .navbar-dark.sheepnav header .button-collapse, header .navbar-dark.sheepnav .button-collapse, .navbar-dark.info-bar header .button-collapse, header .navbar-dark.info-bar .button-collapse {
   color: #fff; }
 
 .navbar.navbar-light .breadcrumb a, .navbar-light.sheepnav .breadcrumb a, .navbar-light.info-bar .breadcrumb a {
@@ -12328,7 +12331,7 @@ textarea {
 .navbar.navbar-light .breadcrumb .active, .navbar-light.sheepnav .breadcrumb .active, .navbar-light.info-bar .breadcrumb .active {
   color: #757575; }
 
-.navbar.navbar-light .navbar-toggler, .navbar-light.sheepnav .navbar-toggler, .navbar-light.info-bar .navbar-toggler {
+.navbar.navbar-light .navbar-toggler, .navbar-light.sheepnav .navbar-toggler, .navbar-light.info-bar .navbar-toggler, .navbar.navbar-light header .button-collapse, header .navbar.navbar-light .button-collapse, .navbar-light.sheepnav header .button-collapse, header .navbar-light.sheepnav .button-collapse, .navbar-light.info-bar header .button-collapse, header .navbar-light.info-bar .button-collapse {
   color: #000; }
 
 @media (max-width: 544px) {
@@ -12800,25 +12803,21 @@ footer.page-footer {
     border-radius: 0.25rem; }
 
 .sheepnav {
-  background-color: #FFFFFF;
-  -webkit-flex: 0 0 75%;
-      -ms-flex: 0 0 75%;
-          flex: 0 0 75%;
-  left: 8.33333%;
-  right: 16.66667%; }
-  @media (min-width: 768px) {
+  background-color: #FF4081; }
+  @media (min-width: 544px) {
     .sheepnav {
-      left: 16.66667%;
-      -webkit-flex: 0 0 83.33333%;
-          -ms-flex: 0 0 83.33333%;
-              flex: 0 0 83.33333%;
-      right: 16.66667%; } }
+      margin-left: 200px; } }
   .sheepnav .navbar-brand img {
     display: block;
     max-width: 100%;
     height: auto; }
-  .sheepnav ~ div .main-content {
-    margin-top: 70px; }
+  .sheepnav .page-title {
+    font-size: 2.4rem;
+    padding-bottom: 0;
+    font-weight: bold; }
+    @media (max-width: 543px) {
+      .sheepnav .page-title {
+        margin-left: 60px; } }
 
 footer {
   position: fixed;
@@ -12835,6 +12834,13 @@ footer {
       footer.footer-player .player-button i {
         font-size: 70px; }
 
+html {
+  -webkit-font-smoothing: antialiased; }
+
+@media (min-width: 544px) {
+  header ~ main.container-fluid {
+    margin-left: 200px; } }
+
 .main-content {
   position: relative;
   min-height: 1px;
@@ -12843,12 +12849,13 @@ footer {
   -webkit-flex: 0 0 75%;
       -ms-flex: 0 0 75%;
           flex: 0 0 75%;
-  padding-top: 0.9375rem; }
-  @media (min-width: 768px) {
+  padding-top: 0.9375rem;
+  margin-top: 70px; }
+  @media (min-width: 544px) {
     .main-content {
-      -webkit-flex: 0 0 66.66667%;
-          -ms-flex: 0 0 66.66667%;
-              flex: 0 0 66.66667%; } }
+      -webkit-flex: 0 0 83.33333%;
+          -ms-flex: 0 0 83.33333%;
+              flex: 0 0 83.33333%; } }
   .main-content .barba-container {
     position: relative;
     min-height: 1px;
@@ -12863,23 +12870,148 @@ footer {
   min-height: 1px;
   padding-left: 0.9375rem;
   padding-right: 0.9375rem;
-  -webkit-flex: 0 0 16.66667%;
-      -ms-flex: 0 0 16.66667%;
-          flex: 0 0 16.66667%; }
-
-.sidebar {
-  position: relative;
-  min-height: 1px;
-  padding-left: 0.9375rem;
-  padding-right: 0.9375rem;
-  -webkit-flex: 0 0 8.33333%;
-      -ms-flex: 0 0 8.33333%;
-          flex: 0 0 8.33333%; }
-  @media (min-width: 768px) {
-    .sidebar {
+  -webkit-flex: 0 0 25%;
+      -ms-flex: 0 0 25%;
+          flex: 0 0 25%;
+  width: 25%;
+  margin-top: 70px; }
+  @media (min-width: 544px) {
+    .playlist {
       -webkit-flex: 0 0 16.66667%;
           -ms-flex: 0 0 16.66667%;
-              flex: 0 0 16.66667%; } }
+              flex: 0 0 16.66667%;
+      width: 16.66667%; } }
+
+header .button-collapse.top-nav {
+  position: absolute;
+  text-align: center;
+  height: 32px;
+  width: 32px;
+  top: 6px;
+  float: none;
+  margin-left: 1.5rem;
+  color: #fff;
+  font-size: 32px;
+  z-index: 2000; }
+  @media (min-width: 544px) {
+    header .button-collapse.top-nav {
+      display: none; } }
+
+.side-nav {
+  position: fixed;
+  width: 200px;
+  left: 0;
+  top: 0;
+  margin: 0;
+  -webkit-transform: translateX(-100%);
+      -ms-transform: translateX(-100%);
+          transform: translateX(-100%);
+  height: 100%;
+  height: calc(100% + 60px);
+  height: -moz-calc(100%);
+  padding-bottom: 60px;
+  background-color: #4B515D;
+  z-index: 999;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  overflow-y: auto;
+  will-change: transform;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transform: translateX(-105%);
+      -ms-transform: translateX(-105%);
+          transform: translateX(-105%); }
+  .side-nav.right-aligned {
+    right: 0;
+    -webkit-transform: translateX(105%);
+        -ms-transform: translateX(105%);
+            transform: translateX(105%);
+    left: auto;
+    -webkit-transform: translateX(100%);
+        -ms-transform: translateX(100%);
+            transform: translateX(100%); }
+  .side-nav .collapsible {
+    margin: 0; }
+  .side-nav li {
+    float: none;
+    line-height: 64px; }
+    .side-nav li.active {
+      background-color: rgba(0, 0, 0, 0.05); }
+    .side-nav li.logo {
+      height: 57px;
+      margin-bottom: 32px; }
+      .side-nav li.logo .logo {
+        display: inline-block;
+        height: 100%;
+        pointer-events: none; }
+  .side-nav a {
+    color: #FFFFFF;
+    display: block;
+    font-size: 1rem;
+    height: 64px;
+    line-height: 64px;
+    padding: 0 30px; }
+    .side-nav a:hover {
+      background-color: rgba(0, 0, 0, 0.05); }
+    .side-nav a.btn, .side-nav a.btn-large, .side-nav a.btn-flat, .side-nav a.btn-floating {
+      margin: 10px 15px; }
+    .side-nav a.btn, .side-nav a.btn-large, .side-nav a.btn-floating {
+      color: #FFFFFF; }
+    .side-nav a.btn-flat {
+      color: #FFFFFF; }
+    .side-nav a.btn:hover, .side-nav a.btn-large:hover {
+      background-color: #ff5a92; }
+    .side-nav a.btn-floating:hover {
+      background-color: #FF4081; }
+
+.drag-target {
+  height: 100%;
+  width: 10px;
+  position: fixed;
+  top: 0;
+  z-index: 998; }
+
+.side-nav.fixed a {
+  display: block;
+  padding: 0 30px;
+  color: #FFFFFF; }
+
+.side-nav.fixed {
+  left: 0;
+  -webkit-transform: translateX(0);
+      -ms-transform: translateX(0);
+          transform: translateX(0);
+  position: fixed; }
+  .side-nav.fixed.right-aligned {
+    right: 0;
+    left: auto; }
+
+@media (max-width: 543px) {
+  .side-nav.fixed {
+    -webkit-transform: translateX(-105%);
+        -ms-transform: translateX(-105%);
+            transform: translateX(-105%); }
+    .side-nav.fixed.right-aligned {
+      -webkit-transform: translateX(105%);
+          -ms-transform: translateX(105%);
+              transform: translateX(105%); } }
+
+.side-nav .collapsible-body li.active,
+.side-nav.fixed .collapsible-body li.active {
+  background-color: #4285F4; }
+  .side-nav .collapsible-body li.active a,
+  .side-nav.fixed .collapsible-body li.active a {
+    color: #4B515D; }
+
+#sidenav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 120vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 997;
+  will-change: opacity; }
 
 .sidebar {
   border-right: 1px solid #CFD8DC;
@@ -13079,8 +13211,7 @@ body {
             flex-shrink: 1 !important;
     -webkit-flex-grow: 1 !important;
         -ms-flex-positive: 1 !important;
-            flex-grow: 1 !important;
-    padding-bottom: 70px; }
+            flex-grow: 1 !important; }
     @media (min-width: 768px) {
       .card-deck .artist-card, .album-list .artist-card {
         -webkit-flex: 0 0 25%;
@@ -13091,20 +13222,30 @@ body {
         -webkit-flex: 0 0 20.83333%;
             -ms-flex: 0 0 20.83333%;
                 flex: 0 0 20.83333%; } }
+  .artist-card .card-img-overlay {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    padding: 0;
+    background-color: rgba(62, 69, 81, 0.7); }
   .artist-card .card-img-top {
     display: block;
     max-width: 100%;
-    height: auto; }
+    height: auto;
+    width: 100%; }
+  .artist-card .card-text,
   .artist-card .card-title {
-    word-break: break-word; }
+    word-break: break-word;
+    padding: 1.25rem;
+    background-color: rgba(62, 69, 81, 0.7); }
+  .artist-card .card-footer {
+    background-color: rgba(62, 69, 81, 0.7); }
   .artist-card .actions {
-    background-color: #FFFFFF;
-    position: absolute;
-    bottom: 0;
-    /* height: 70px; */
-    width: 100%;
-    left: 0;
-    right: 0; }
+    margin-top: auto;
+    width: 100%; }
 
 .album-list .album-card {
   -webkit-flex: 0 0 50%;
@@ -13228,8 +13369,9 @@ body {
     text-align: center; }
 
 .playlist {
-  background-color: #4B515D; }
-  .playlist .navbar-toggler {
+  color: #212121;
+  background-color: #FFFFFF; }
+  .playlist .navbar-toggler, .playlist header .button-collapse, header .playlist .button-collapse {
     float: right; }
   .playlist .playlist-header {
     padding-top: 30px; }

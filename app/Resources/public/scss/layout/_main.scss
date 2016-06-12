@@ -1,29 +1,36 @@
-
+html {
+  -webkit-font-smoothing: antialiased;
+}
+@include media-breakpoint-up(sm) {
+  header ~ main.container-fluid {
+    margin-left: 200px;
+  }
+}
 .main-content {
   @include make-col();
   @include make-col-span(9);
-  @include media-breakpoint-up(md) {
-    @include make-col-span(8);
+  @include media-breakpoint-up(sm) {
+    @include make-col-span(10);
   }
   padding-top: ($grid-gutter-width / 2);
   .barba-container {
     @include make-col();
     @include make-col-span(12);
   }
+  margin-top: 70px;
 
 }
 .playlist {
   @include make-col();
-  @include make-col-span(2);
-  @extend .z-depth-1;
-}
-.sidebar {
-  @include make-col();
-  @include make-col-span(1);
-  @include media-breakpoint-up(md) {
+  @include make-col-span(3);
+  width: percentage(3 / 12 );
+  @include media-breakpoint-up(sm) {
     @include make-col-span(2);
+    width: percentage(2 / 12 );
   }
   @extend .z-depth-1;
+  margin-top: 70px;
+
 }
 
 

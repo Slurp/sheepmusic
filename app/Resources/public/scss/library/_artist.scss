@@ -25,24 +25,31 @@
       flex-direction: row;
       flex-shrink: 1 !important;
       flex-grow: 1 !important;
-      padding-bottom: 70px;
+  }
+  .card-img-overlay {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background-color: $rgba-stylish-strong;
   }
   .card-img-top {
       @include img-fluid();
+    width: 100%;
   }
+  .card-text,
   .card-title {
     word-break: break-word;
+    padding: 1.25rem;
+    background-color: $rgba-stylish-strong;
+  }
+  .card-footer {
+    background-color: $rgba-stylish-strong;
   }
   .text {
 
   }
   .actions {
-    background-color: $card-footer-color;
-    position: absolute;
-    bottom: 0;
-    /* height: 70px; */
+    margin-top: auto;
     width: 100%;
-    left: 0;
-    right: 0;
   }
 }

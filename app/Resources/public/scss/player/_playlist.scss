@@ -6,7 +6,9 @@
   .playlist-header {
     padding-top: 30px;
   }
-  background-color: $navbar-bg-color;
+  color: $player-txt-color;
+  background-color: $player-bg-color;
+
   ul {
     @extend .list-group;
     li {

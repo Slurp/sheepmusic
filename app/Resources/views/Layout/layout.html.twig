@@ -32,41 +32,40 @@
 
 {# Outdated browser message #}
 {% include 'Layout/_outdatedbrowser.html.twig' %}
-{# Header #}
+<header>
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    {% block header %}
-        {% include 'Layout/_header.html.twig' %}
+    {# Header #}
+
+    {% block submenu %}
+        {% include 'Layout/_submenu.html.twig' %}
     {% endblock %}
 {% endif %}
-<div class="container-fluid  {% block extra_layout_classes %}{% endblock %}">
+</header>
+<main role="main" class="container-fluid  {% block extra_layout_classes %}{% endblock %}">
     <div class="row">
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            {% block submenu %}
-                {% include 'Layout/_submenu.html.twig' %}
-            {% endblock %}
-        {% endif %}
         {# Content #}
-
-        <main role="main" id="barba-wrapper" class="main-content">
+         <div id="barba-wrapper" class="main-content">
             <div class="row">
                 <div class="barba-container">
+                    {% block header %}
+                        {% include 'Layout/_header.html.twig' %}
+                    {% endblock %}
                     {% block content %}
                     {% endblock %}
                 </div>
             </div>
-        </main>
+        </div>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         <div class="playlist">
-            <button class="navbar-toggler" type="button">
-                &#9776;
-            </button>
             <h3 class="playlist-header">Current Playlist</h3>
             <ul>
                 <li> no songs</li>
             </ul>
             <div class="playlist-actions">actions</div>
         </div>
+        {% endif %}
     </div>
-</div>
+</main>
 
 {# Footer #}
 {% block footer %}
