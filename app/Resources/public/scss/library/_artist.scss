@@ -1,26 +1,48 @@
-.artist-card {
-  @extend .mdl-card;
-  @extend .mdl-card__border;
-  @extend .mdl-shadow--3dp;
-  @extend .mdl-cell;
-  @extend .mdl-cell--3-col;
-  > div {
-    border-top: 1px solid $card-border-color;
-  }
-  .card-image {
-    @extend .mdl-card__media;
-    img {
-      width: 100%;
-      height: auto;
+.info-bar.artist {
+  background-color: $card-bg;
+  border: 1px solid $card-border-color;
+  .info-bar-content {
+    color: $primary-color-text;
+    &.artist-name {
+
     }
   }
-  .title {
-    @extend .mdl-card__title;
+}
+.card-deck {
+
+}
+.artist-card {
+  position: relative;
+    .card-deck & {
+      @include make-col(0rem);
+      @include make-col-span(4);
+      @include media-breakpoint-up(md) {
+        @include make-col-span(3)
+      }
+      @include media-breakpoint-up(lg) {
+        @include make-col-span(2.5)
+      }
+      flex-direction: row;
+      flex-shrink: 1 !important;
+      flex-grow: 1 !important;
+      padding-bottom: 70px;
+  }
+  .card-img-top {
+      @include img-fluid();
+  }
+  .card-title {
+    word-break: break-word;
   }
   .text {
-    @extend .mdl-card__supporting-text;
+
   }
   .actions {
-    @extend .mdl-card__actions;
+    background-color: $card-footer-color;
+    position: absolute;
+    bottom: 0;
+    /* height: 70px; */
+    width: 100%;
+    left: 0;
+    right: 0;
   }
 }

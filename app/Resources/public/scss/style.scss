@@ -5,15 +5,40 @@
  */
 
 // Variables and mixins
+// Variables
+// Variables
+@import "vendor/mdb4/data/colors";
+@import "vendor/mdb4/data/variables";
+@import "../vendor/bootstrap/scss/variables";
 @import "variables";
-@import "../vendor/material-design-lite/src/variables";
-@import "../vendor/material-design-lite/src/mixins";
+@import "vendor/bootstrap";
+@import "vendor/mdb4/data/prefixer";
+@import "vendor/mdb4/data/mixins";
 
-// Resets and dependencies
-@import "../vendor/material-design-lite/src/resets/resets";
-@import "../vendor/material-design-lite/src/typography/typography";
-@import "vendor/material-design-lite";
+// Variables
+@import "vendor/mdb4/data/colors";
+@import "vendor/mdb4/data/variables";
+
+//Global
+@import "vendor/mdb4/global";
+
+// MDB Free
+@import "vendor/mdb4/roboto";
+@import "vendor/mdb4/typography";
+@import "vendor/mdb4/animations";
+@import "vendor/mdb4/waves";
+@import "vendor/mdb4/helpers";
+@import "vendor/mdb4/buttons";
+@import "vendor/mdb4/forms-basic";
+@import "vendor/mdb4/cards-basic";
+@import "vendor/mdb4/navbars";
+@import "vendor/mdb4/hover-effects";
+@import "vendor/mdb4/footer";
+@import "vendor/mdb4/carousels-basic";
 //own files
+
+//forms 
+@import "forms/_range.scss";
 
 // Layout
 @import "layout/header";
@@ -21,11 +46,13 @@
 @import "layout/main";
 @import "layout/navigation";
 
+@import "layout/offcanvas";
 // Parts
 
 @import "parts/login";
 @import "parts/overlay";
 @import "parts/loading";
+@import "parts/info-bar";
 
 // Library
 @import "library/artist";
@@ -33,5 +60,6 @@
 
 // Player
 @import "player/main";
+@import "player/playlist";
 
 

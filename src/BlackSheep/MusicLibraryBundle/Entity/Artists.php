@@ -1,9 +1,9 @@
 <?php
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
+use BlackSheep\MusicLibraryBundle\Services\LastFmService;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping AS ORM;
-
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
@@ -12,22 +12,32 @@ use Doctrine\ORM\Mapping AS ORM;
 class Artists extends BaseEntity
 {
     /**
-     * @ORM\Column(nullable=false)
+     * @ORM\Column(type="string", nullable=false)
      */
     protected $name;
 
     /**
-     * @ORM\Column(nullable=true)
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $musicBrainzId;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $image;
 
     /**
-     * @ORM\Column(nullable=true)
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $biography;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
      */
     protected $playCount;
 
     /**
-     * @ORM\OneToMany(targetEntity="Albums", mappedBy="artist",cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Albums", mappedBy="artist",cascade={"all"} , fetch="EXTRA_LAZY")
      */
     protected $albums;
 
@@ -41,7 +51,7 @@ class Artists extends BaseEntity
     public function __construct()
     {
         $this->albums = new ArrayCollection();
-        $this->songs = new ArrayCollection();
+        $this->songs  = new ArrayCollection();
     }
 
     /**
@@ -50,8 +60,14 @@ class Artists extends BaseEntity
      */
     public static function createNew($name)
     {
-        $artist = new self();
+        $artist       = new self();
         $artist->name = $name;
+        $lastFmService = new LastFmService();
+        $lastFmInfo = $lastFmService->getArtistInfo($artist->name);
+        $artist->setMusicBrainzId($lastFmInfo['mbid']);
+        $artist->setImage($lastFmInfo['image']['large']);
+        $artist->setPlayCount(0);
+        $artist->setBiography($lastFmInfo['bio']['summary']);
         return $artist;
     }
 
@@ -65,12 +81,30 @@ class Artists extends BaseEntity
 
     /**
      * @param mixed $name
-     *
      * @return Artists
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMusicBrainzId()
+    {
+        return $this->musicBrainzId;
+    }
+
+    /**
+     * @param mixed $musicBrainzId
+     * @return Artists
+     */
+    public function setMusicBrainzId($musicBrainzId)
+    {
+        $this->musicBrainzId = $musicBrainzId;
 
         return $this;
     }
@@ -85,12 +119,30 @@ class Artists extends BaseEntity
 
     /**
      * @param mixed $image
-     *
      * @return Artists
      */
     public function setImage($image)
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBiography()
+    {
+        return $this->biography;
+    }
+
+    /**
+     * @param mixed $biography
+     * @return Artists
+     */
+    public function setBiography($biography)
+    {
+        $this->biography = $biography;
 
         return $this;
     }
@@ -105,7 +157,6 @@ class Artists extends BaseEntity
 
     /**
      * @param mixed $albums
-     *
      * @return Artists
      */
     public function setAlbums($albums)
@@ -125,7 +176,6 @@ class Artists extends BaseEntity
 
     /**
      * @param mixed $songs
-     *
      * @return Artists
      */
     public function setSongs($songs)
@@ -144,6 +194,7 @@ class Artists extends BaseEntity
         if ($this->songs->contains($song) === false) {
             $this->songs->add($song);
         }
+
         return $this;
     }
 
@@ -162,6 +213,17 @@ class Artists extends BaseEntity
     public function setPlayCount($playCount)
     {
         $this->playCount = $playCount;
+
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastFmInfo()
+    {
+        $lastFmService = new LastFmService();
+
+        return $lastFmService->getArtistInfo($this->getName());
     }
 }

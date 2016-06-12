@@ -2,7 +2,8 @@
   "vars": {
     "distPath": "web/frontend/",
     "resourcesPath": "app/Resources/",
-    "bowerComponentsPath": "app/Resources/public/vendor/"
+    "bowerComponentsPath": "app/Resources/public/vendor/",
+    "npmPath": "node_modules"
   },
 
   "project": {
@@ -34,25 +35,22 @@
   "js": {
     "app": "<=resourcesPath>public/js/**/*.js",
     "footer": [
-      "<=bowerComponentsPath>/material-design-lite/src/mdlComponentHandler.js",
-      "<=bowerComponentsPath>/material-design-lite/src/third_party/**/*.js",
-      "<=bowerComponentsPath>/material-design-lite/src/button/button.js",
-      "<=bowerComponentsPath>/material-design-lite/src/checkbox/checkbox.js",
-      "<=bowerComponentsPath>/material-design-lite/src/icon-toggle/icon-toggle.js",
-      "<=bowerComponentsPath>/material-design-lite/src/menu/menu.js",
-      "<=bowerComponentsPath>/material-design-lite/src/progress/progress.js",
-      "<=bowerComponentsPath>/material-design-lite/src/radio/radio.js",
-      "<=bowerComponentsPath>/material-design-lite/src/slider/slider.js",
-      "<=bowerComponentsPath>/material-design-lite/src/snackbar/snackbar.js",
-      "<=bowerComponentsPath>/material-design-lite/src/spinner/spinner.js",
-      "<=bowerComponentsPath>/material-design-lite/src/switch/switch.js",
-      "<=bowerComponentsPath>/material-design-lite/src/tabs/tabs.js",
-      "<=bowerComponentsPath>/material-design-lite/src/textfield/textfield.js",
-      "<=bowerComponentsPath>/material-design-lite/src/tooltip/tooltip.js",
-      "<=bowerComponentsPath>/material-design-lite/src/layout/layout.js",
-      "<=bowerComponentsPath>/material-design-lite/src/data-table/data-table.js",
-      "<=bowerComponentsPath>/material-design-lite/src/ripple/ripple.js",
+      "<=bowerComponentsPath>/jquery/dist/jquery.js",
+      "<=bowerComponentsPath>/tether/dist/js/tether.js",
+      "<=bowerComponentsPath>/Stickyfill/dist/stickyfill.js",
+      "<=bowerComponentsPath>/bootstrap/js/dist/alert.js",
+      "<=bowerComponentsPath>/bootstrap/js/dist/button.js",
+      "<=bowerComponentsPath>/bootstrap/js/dist/carousel.js",
+      "<=bowerComponentsPath>/bootstrap/js/dist/collapse.js",
+      "<=bowerComponentsPath>/bootstrap/js/dist/dropdown.js",
+      "<=bowerComponentsPath>/bootstrap/js/dist/modal.js",
+      "<=bowerComponentsPath>/bootstrap/js/dist/tooltip.js",
+      "<=bowerComponentsPath>/bootstrap/js/dist/popover.js",
+      "<=bowerComponentsPath>/bootstrap/js/dist/tab.js",
+      "<=bowerComponentsPath>/bootstrap/js/dist/util.js",
+      "<=bowerComponentsPath>/holderjs/holder.js",
       "<=bowerComponentsPath>/vue/dist/vue.js",
+      "<=npmPath>/barba.js/dist/barba.js",
       "<=resourcesPath>public/js/**/*.js"
     ],
     "other": [

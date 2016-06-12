@@ -118,6 +118,7 @@ gulp.task('styles', function() {
     return gulp.src([config.scss, '!' + config.scssFolder + 'admin-style.scss'])
         // Sass
         .pipe(plugins.sourcemaps.init())
+        .pipe(plugins.plumber({errorHandler: plugins.notify.onError("Styles: <%= error.message %>")}))
         .pipe(plugins.sass()).on('error', function (err){
             errorLogger('rubySass Error', err.message);
         })
@@ -164,6 +165,7 @@ gulp.task('scripts-prod', ['jshint'], function() {
                 except: ['jQuery']
             }
         }))
+        .pipe(plugins.plumber({errorHandler: plugins.notify.onError("JS: <%= error.message %>")}))
         .on('error', function (err){
             errorLogger('Javascript Error', err.message);
         })
@@ -215,9 +217,10 @@ gulp.task('scripts-dev', ['jshint'], function() {
 });
 
 gulp.task('inject-dev-scripts', ['scripts-dev'], function() {
-    var files = gulp.src(config.js.footer, {read: false})
+    var files = gulp.src(config.js.footer, {read: false});
 
     return gulp.src('src/' + config.project.mainBundlePath + '/Resources/views/' + config.project.mainJsInclude.folder + '/' + config.project.mainJsInclude.fileName)
+        
         // Inject
         .pipe(plugins.inject(files))
 

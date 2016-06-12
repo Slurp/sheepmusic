@@ -1,15 +1,19 @@
-<div class=" mdl-layout__drawer" v-component="sidebar">
-    <span class="mdl-layout-title">
-        <img class="android-logo-image" src="{{ asset('frontend/img/zwartschaap.png') }}"> SheepMusic
-    </span>
-    <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="#" v-link="{ path: '/' }">Go to home</a>
-        <a class="mdl-navigation__link" href="#" v-link="{ path: '/artists' }">Artists</a>
+<p class="pull-xs-left hidden-sm-up">
+    <button type="button" class="btn btn-primary btn-sm" data-toggle="offcanvas">Toggle nav</button>
+</p>
+<div class="sidebar">
+    <a href="{{ path('homepage') }}" class="logo-wrapper">
 
-
-        <div class="android-drawer-separator"></div>
-        <span class="mdl-navigation__link" href="">Versions</span>
-        <div class="android-drawer-separator"></div>
-        <div class="android-drawer-separator"></div>
-    </nav>
+        <img class="logo" src="{{ asset('frontend/img/zwartschaap.png') }}">
+    </a>
+    <ul class="nav nav-pills nav-stacked">
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('library') }}">Artists</a>
+        </li>
+        <li class="nav-item">
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('library_recent_albums') }}">Recent albums</a>
+        </li>
+    </ul>
 </div>

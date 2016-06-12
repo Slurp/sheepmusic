@@ -19,7 +19,7 @@
 
 
 {% block content %}
-    <div class="mdl-grid">
+    <div class="card-deck">
         {% for artist in artists %}
             {% include '@BlackSheepMusicLibrary/Partials/artist-card.html.twig' with {'artist': artist} only %}
         {% endfor %}

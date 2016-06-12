@@ -1,34 +1,13 @@
-.android-navigation-container {
-  direction: rtl;
-  order: 1;
-}
-.android-navigation {
-  direction: ltr;
-  justify-content: flex-end;
-  .mdl-navigation__link {
-    display: inline-block;
-    height: 60px;
-    line-height: 68px;
+.sidebar {
+  border-right: 1px solid $primary-color-light;
+  background-color: $navbar-bg-color;
+  .logo-wrapper {
+    img {
+      @include img-fluid();
+      max-height: 80px;
+    }
   }
-}
+  .nav {
 
-.android-drawer {
-  border-right: none;
-  .mdl-navigation__link.mdl-navigation__link {
-    font-size: 14px;
   }
-
-  .mdl-layout-title {
-    position: relative;
-    height: 160px;
-  }
-  .android-logo-image {
-    position: absolute;
-    bottom: 16px;
-  }
-}
-.android-drawer-separator {
-  height: 1px;
-  background-color: #dcdcdc;
-  margin: 8px 0;
 }

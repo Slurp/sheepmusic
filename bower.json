@@ -16,6 +16,10 @@
   "dependencies": {
     "modernizr": "~2.8.3",
     "normalize-css": "~3.0.3",
-    "html5shiv": "~3.7.3"
+    "html5shiv": "~3.7.3",
+    "tether": "^1.3.2",
+    "bootstrap": "v4.0.0-alpha.2",
+    "holderjs": "^2.9.3",
+    "Stickyfill": "^1.1.4"
   }
 }

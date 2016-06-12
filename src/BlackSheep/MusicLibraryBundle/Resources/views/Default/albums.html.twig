@@ -1,8 +1,16 @@
-{% if app.request.xmlHttpRequest is false %}{% extends 'Layout/layout.html.twig' %} {% endif %}
+{% extends app.request.xmlHttpRequest
+? 'Layout/ajaxLayout.html.twig'
+: 'Layout/layout.html.twig' %}
 
 {% block content %}
-    <div class="mdl-grid">
-        {% include '@BlackSheepMusicLibrary/Partials/album-list.html.twig' with {'album': album} only %}
+    <div class="album-list">
+        {% if albums is defined and albums is not null %}
+            {% for album in albums %}
+                {% include '@BlackSheepMusicLibrary/Partials/album-card.html.twig' with {'album': album} only %}
+            {% endfor %}
+        {% else %}
+            {% include '@BlackSheepMusicLibrary/Partials/album-list.html.twig' with {'album': album} only %}
+        {% endif %}
     </div>
 {% endblock %}
 

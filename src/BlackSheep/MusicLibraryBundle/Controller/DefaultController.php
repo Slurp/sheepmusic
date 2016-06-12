@@ -23,6 +23,17 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/recent/albums", name="library_recent_albums")
+     *
+     * @return Response
+     */
+    public function recentAlbumsAction()
+    {
+        $albums = $this->getDoctrine()->getRepository(Albums::class)->findAll();
+        return $this->render('BlackSheepMusicLibraryBundle:Default:albums.html.twig', ['albums' => $albums]);
+    }
+
+    /**
      * @Route("/artist/{artist}", name="library_artist")
      *
      * @param Artists $artist

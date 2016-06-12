@@ -1,40 +1,18 @@
-<div class="sheepmusic-header mdl-layout__header mdl-layout__header--waterfall">
-    <div class="mdl-layout__header-row">
-          <span class="mdl-layout-title">
-              <img class="android-logo-image" src="{{ asset('frontend/img/zwartschaap.png') }}"> SheepMusic
-          </span>
-        <!-- Add spacer, to align navigation to the right in desktop -->
+{#<nav class="sheepnav">#}
+    {#<button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">#}
+        {#&#9776;#}
+    {#</button>#}
+    {#<div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">#}
+        {#<ul class="nav navbar-nav">#}
+            {##}
+        {#</ul>#}
+        {#<form class="form-inline pull-xs-right">#}
+            {#<input class="form-control" type="text" placeholder="Search">#}
+            {#<button class="btn btn-success-outline" type="submit">Search</button>#}
+        {#</form>#}
+    {#</div>#}
 
-        <div class="mdl-layout-spacer"></div>
-        <!-- Navigation -->
-        <nav class="android-navigation mdl-navigation">
-            <a class="mdl-navigation__link mdl-typography--text-uppercase" href="{{ path('library') }}">Library</a>
-        </nav>
-        <div class="mdl-layout-spacer"></div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable mdl-textfield--floating-label mdl-textfield--align-right mdl-textfield--full-width">
-            <label class="mdl-button mdl-js-button mdl-button--icon" for="search-field">
-                <i class="material-icons">search</i>
-            </label>
-            <div class="mdl-textfield__expandable-holder">
-                <input class="mdl-textfield__input" type="text" id="search-field">
-            </div>
-        </div>
-
-            <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="more-button">
-                <i class="material-icons">more_vert</i>
-            </button>
-            <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right mdl-js-ripple-effect" for="more-button">
-                <li disabled class="mdl-menu__item">
-                    {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
-                </li>
-                <li class="mdl-menu__item">
-                    <a href="{{ path('fos_user_security_logout') }}">
-                        {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-                    </a>
-                </li>
-            </ul>
-    </div>
-    <!-- Bottom row, not visible on scroll -->
-    {% block header_submenu %}
-    {% endblock %}
-</div>
+    {#<!-- Bottom row, not visible on scroll -->#}
+    {#{% block header_submenu %}#}
+    {#{% endblock %}#}
+{#</nav>#}

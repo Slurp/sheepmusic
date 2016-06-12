@@ -29,47 +29,62 @@
 </head>
 
 <body>
-<div id="sheepMusic">
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header {% block extra_layout_classes %}{% endblock %}">
-        {# Outdated browser message #}
-        {% include 'Layout/_outdatedbrowser.html.twig' %}
-        {# Header #}
+
+{# Outdated browser message #}
+{% include 'Layout/_outdatedbrowser.html.twig' %}
+{# Header #}
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    {% block header %}
+        {% include 'Layout/_header.html.twig' %}
+    {% endblock %}
+{% endif %}
+<div class="container-fluid  {% block extra_layout_classes %}{% endblock %}">
+    <div class="row">
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            {% block header %}
-                {% include 'Layout/_header.html.twig' %}
-            {% endblock %}
             {% block submenu %}
                 {% include 'Layout/_submenu.html.twig' %}
             {% endblock %}
         {% endif %}
-
         {# Content #}
-        <main role="main" class="mdl-layout__content ">
-            {% block content %}
-                <!-- use v-link directive for navigation. -->
-                <router-view></router-view>
-            {% endblock %}
+
+        <main role="main" id="barba-wrapper" class="main-content">
+            <div class="row">
+                <div class="barba-container">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
         </main>
-
-        {# Footer #}
-        {% block footer %}
-            {% include 'Layout/_footer.html.twig' %}
-        {% endblock %}
-
-        {# Cookieconsent #}
-        {% block cookieconsent %}
-            {#{% include 'Layout/_cookieconsent.html.twig' %}#}
-        {% endblock %}
+        <div class="playlist">
+            <button class="navbar-toggler" type="button">
+                &#9776;
+            </button>
+            <h3 class="playlist-header">Current Playlist</h3>
+            <ul>
+                <li> no songs</li>
+            </ul>
+            <div class="playlist-actions">actions</div>
+        </div>
     </div>
-    {# Google Tagmanager #}
-    {% include 'Layout/_googletagmanager.html.twig' %}
-    {# JS Footer #}
-    <script src="/frontend/js/app.js"></script>
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
-    {% include 'Layout/_js_footer.html.twig' %}
-    {% block modals %}{% endblock %}
-    {% block pageJavascript %}{% endblock %}
 </div>
+
+{# Footer #}
+{% block footer %}
+    {% include 'Layout/_footer.html.twig' %}
+{% endblock %}
+
+{# Cookieconsent #}
+{% block cookieconsent %}
+    {#{% include 'Layout/_cookieconsent.html.twig' %}#}
+{% endblock %}
+
+{# Google Tagmanager #}
+{% include 'Layout/_googletagmanager.html.twig' %}
+{# JS Footer #}
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+{% include 'Layout/_js_footer.html.twig' %}
+{% block modals %}{% endblock %}
+{% block pageJavascript %}{% endblock %}
 </body>
 </html>

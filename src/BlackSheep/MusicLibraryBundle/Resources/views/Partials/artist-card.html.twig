@@ -1,15 +1,16 @@
-<div class="artist-card" v-on:click="loadMainView('/artist/{{ artist.id  }}')">
-    <div class="card-image"
-         style="background-image: url('{% if artist.image is not null %} {{ artist.image }}  {% else %} {{ asset('frontend/img/default.png') }} {% endif %}') ">
-        <div class="title">
+<div class="card artist-card">
+    <img class="card-img-top"
+         src='{% if artist.image is not null %}{{ artist.image }}{% else %}{{ asset('frontend/img/default.png') }}{% endif %}'/>
+    <div class="card-img-overlay">
+        <h4 class="card-title">
             {{ artist.name }}
-        </div>
-        <div class="text">
+        </h4>
+        <p class="card-text">
             {{ artist.updatedAt|date }}
-        </div>
-        <div class="actions">
-            <a href="#"
-               class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+
+        <div class="card-footer text-muted actions">
+            <a href="{{ path('library_artist', {'artist' : artist.id } ) }}"
+               class="btn btn-primary-outline"
             >
                 detail
             </a>

@@ -1,123 +1,172 @@
 /**
- * @license
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * --------------------------------------------------------------------------
+ * Bootstrap (v4.0.0-alpha.2): button.js
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * --------------------------------------------------------------------------
  */
 
-(function() {
-  'use strict';
+'use strict';
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+
+var Button = (function ($) {
 
   /**
-   * Class constructor for Button MDL component.
-   * Implements MDL component design pattern defined at:
-   * https://github.com/jasonmayes/mdl-component-design-pattern
-   *
-   * @param {HTMLElement} element The element that will be upgraded.
+   * ------------------------------------------------------------------------
+   * Constants
+   * ------------------------------------------------------------------------
    */
-  var MaterialButton = function MaterialButton(element) {
-    this.element_ = element;
 
-    // Initialize instance.
-    this.init();
+  var NAME = 'button';
+  var VERSION = '4.0.0-alpha';
+  var DATA_KEY = 'bs.button';
+  var EVENT_KEY = '.' + DATA_KEY;
+  var DATA_API_KEY = '.data-api';
+  var JQUERY_NO_CONFLICT = $.fn[NAME];
+
+  var ClassName = {
+    ACTIVE: 'active',
+    BUTTON: 'btn',
+    FOCUS: 'focus'
   };
-  window['MaterialButton'] = MaterialButton;
 
-  /**
-   * Store constants in one place so they can be updated easily.
-   *
-   * @enum {string | number}
-   * @private
-   */
-  MaterialButton.prototype.Constant_ = {
-    // None for now.
+  var Selector = {
+    DATA_TOGGLE_CARROT: '[data-toggle^="button"]',
+    DATA_TOGGLE: '[data-toggle="buttons"]',
+    INPUT: 'input',
+    ACTIVE: '.active',
+    BUTTON: '.btn'
   };
 
-  /**
-   * Store strings for class names defined by this component that are used in
-   * JavaScript. This allows us to simply change it in one place should we
-   * decide to modify at a later date.
-   *
-   * @enum {string}
-   * @private
-   */
-  MaterialButton.prototype.CssClasses_ = {
-    RIPPLE_EFFECT: 'mdl-js-ripple-effect',
-    RIPPLE_CONTAINER: 'mdl-button__ripple-container',
-    RIPPLE: 'mdl-ripple'
+  var Event = {
+    CLICK_DATA_API: 'click' + EVENT_KEY + DATA_API_KEY,
+    FOCUS_BLUR_DATA_API: 'focus' + EVENT_KEY + DATA_API_KEY + ' ' + ('blur' + EVENT_KEY + DATA_API_KEY)
   };
 
   /**
-   * Handle blur of element.
-   *
-   * @param {Event} event The event that fired.
-   * @private
+   * ------------------------------------------------------------------------
+   * Class Definition
+   * ------------------------------------------------------------------------
    */
-  MaterialButton.prototype.blurHandler_ = function(event) {
-    if (event) {
-      this.element_.blur();
+
+  var Button = (function () {
+    function Button(element) {
+      _classCallCheck(this, Button);
+
+      this._element = element;
     }
-  };
 
-  // Public methods.
+    /**
+     * ------------------------------------------------------------------------
+     * Data Api implementation
+     * ------------------------------------------------------------------------
+     */
 
-  /**
-   * Disable button.
-   *
-   * @public
-   */
-  MaterialButton.prototype.disable = function() {
-    this.element_.disabled = true;
-  };
-  MaterialButton.prototype['disable'] = MaterialButton.prototype.disable;
+    // getters
 
-  /**
-   * Enable button.
-   *
-   * @public
-   */
-  MaterialButton.prototype.enable = function() {
-    this.element_.disabled = false;
-  };
-  MaterialButton.prototype['enable'] = MaterialButton.prototype.enable;
+    _createClass(Button, [{
+      key: 'toggle',
 
-  /**
-   * Initialize element.
-   */
-  MaterialButton.prototype.init = function() {
-    if (this.element_) {
-      if (this.element_.classList.contains(this.CssClasses_.RIPPLE_EFFECT)) {
-        var rippleContainer = document.createElement('span');
-        rippleContainer.classList.add(this.CssClasses_.RIPPLE_CONTAINER);
-        this.rippleElement_ = document.createElement('span');
-        this.rippleElement_.classList.add(this.CssClasses_.RIPPLE);
-        rippleContainer.appendChild(this.rippleElement_);
-        this.boundRippleBlurHandler = this.blurHandler_.bind(this);
-        this.rippleElement_.addEventListener('mouseup', this.boundRippleBlurHandler);
-        this.element_.appendChild(rippleContainer);
+      // public
+
+      value: function toggle() {
+        var triggerChangeEvent = true;
+        var rootElement = $(this._element).closest(Selector.DATA_TOGGLE)[0];
+
+        if (rootElement) {
+          var input = $(this._element).find(Selector.INPUT)[0];
+
+          if (input) {
+            if (input.type === 'radio') {
+              if (input.checked && $(this._element).hasClass(ClassName.ACTIVE)) {
+                triggerChangeEvent = false;
+              } else {
+                var activeElement = $(rootElement).find(Selector.ACTIVE)[0];
+
+                if (activeElement) {
+                  $(activeElement).removeClass(ClassName.ACTIVE);
+                }
+              }
+            }
+
+            if (triggerChangeEvent) {
+              input.checked = !$(this._element).hasClass(ClassName.ACTIVE);
+              $(this._element).trigger('change');
+            }
+          }
+        } else {
+          this._element.setAttribute('aria-pressed', !$(this._element).hasClass(ClassName.ACTIVE));
+        }
+
+        if (triggerChangeEvent) {
+          $(this._element).toggleClass(ClassName.ACTIVE);
+        }
       }
-      this.boundButtonBlurHandler = this.blurHandler_.bind(this);
-      this.element_.addEventListener('mouseup', this.boundButtonBlurHandler);
-      this.element_.addEventListener('mouseleave', this.boundButtonBlurHandler);
+    }, {
+      key: 'dispose',
+      value: function dispose() {
+        $.removeData(this._element, DATA_KEY);
+        this._element = null;
+      }
+
+      // static
+
+    }], [{
+      key: '_jQueryInterface',
+      value: function _jQueryInterface(config) {
+        return this.each(function () {
+          var data = $(this).data(DATA_KEY);
+
+          if (!data) {
+            data = new Button(this);
+            $(this).data(DATA_KEY, data);
+          }
+
+          if (config === 'toggle') {
+            data[config]();
+          }
+        });
+      }
+    }, {
+      key: 'VERSION',
+      get: function get() {
+        return VERSION;
+      }
+    }]);
+
+    return Button;
+  })();
+
+  $(document).on(Event.CLICK_DATA_API, Selector.DATA_TOGGLE_CARROT, function (event) {
+    event.preventDefault();
+
+    var button = event.target;
+
+    if (!$(button).hasClass(ClassName.BUTTON)) {
+      button = $(button).closest(Selector.BUTTON);
     }
+
+    Button._jQueryInterface.call($(button), 'toggle');
+  }).on(Event.FOCUS_BLUR_DATA_API, Selector.DATA_TOGGLE_CARROT, function (event) {
+    var button = $(event.target).closest(Selector.BUTTON)[0];
+    $(button).toggleClass(ClassName.FOCUS, /^focus(in)?$/.test(event.type));
+  });
+
+  /**
+   * ------------------------------------------------------------------------
+   * jQuery
+   * ------------------------------------------------------------------------
+   */
+
+  $.fn[NAME] = Button._jQueryInterface;
+  $.fn[NAME].Constructor = Button;
+  $.fn[NAME].noConflict = function () {
+    $.fn[NAME] = JQUERY_NO_CONFLICT;
+    return Button._jQueryInterface;
   };
 
-  // The component registers itself. It can assume componentHandler is available
-  // in the global scope.
-  componentHandler.register({
-    constructor: MaterialButton,
-    classAsString: 'MaterialButton',
-    cssClass: 'mdl-js-button',
-    widget: true
-  });
-})();
+  return Button;
+})(jQuery);
+//# sourceMappingURL=button.js.map

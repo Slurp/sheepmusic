@@ -1,8 +1,11 @@
 <?php
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
+use BlackSheep\MusicLibraryBundle\Services\LastFmService;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @ORM\Entity
@@ -14,6 +17,11 @@ class Albums extends BaseEntity
      * @ORM\Column(type="string", length=255, nullable=false)
      */
     protected $name;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $releaseDate;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -30,6 +38,20 @@ class Albums extends BaseEntity
      */
     protected $artist;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $musicBrainzId;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $lastFmId;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $lastFmUrl;
 
     /**
      */
@@ -50,6 +72,19 @@ class Albums extends BaseEntity
         $album->setName($name);
         $album->setArtist($artist);
         $album->setCover($cover);
+
+        $lastFmService = new LastFmService();
+        $lastFmInfo    = $lastFmService->getAlbumInfo($album->getName(), $album->getArtist()->getName());
+        $album->setMusicBrainzId($lastFmInfo['mbid']);
+        $album->setLastFmId($lastFmInfo['lastfmid']);
+        $album->setLastFmUrl($lastFmInfo['url']);
+        if ($album->cover === null) {
+            $album->setCover($lastFmInfo['image']['large']);
+        }
+        if ($lastFmInfo['releasedate'] !== false) {
+            $album->setReleaseDate(new DateTime($lastFmInfo['releasedate']));
+        }
+
         return $album;
     }
 
@@ -68,6 +103,7 @@ class Albums extends BaseEntity
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -76,6 +112,10 @@ class Albums extends BaseEntity
      */
     public function getCover()
     {
+        if (strpos($this->cover, 'http') !== 0) {
+            return $this->getUploadDirectory() . $this->cover;
+        }
+
         return $this->cover;
     }
 
@@ -85,8 +125,79 @@ class Albums extends BaseEntity
      */
     public function setCover($cover)
     {
+        if (is_array($cover)) {
+            $cover = $this->generateCover($cover);
+        }
         $this->cover = $cover;
+
         return $this;
+    }
+
+    /**
+     * Generate a cover from provided data.
+     *
+     * @param array $cover The cover data in array format, extracted by getID3.
+     *                     For example:
+     *                     [
+     *                     'data' => '<binary data>',
+     *                     'image_mime' => 'image/png',
+     *                     'image_width' => 512,
+     *                     'image_height' => 512,
+     *                     'imagetype' => 'PNG', // not always present
+     *                     'picturetype' => 'Other',
+     *                     'description' => '',
+     *                     'datalength' => 7627,
+     *                     ]
+     * @return string
+     */
+    public function generateCover(array $cover)
+    {
+        $extension = explode('/', $cover['image_mime']);
+        $extension = empty($extension[1]) ? 'png' : $extension[1];
+
+        return $this->writeCoverFile($cover['data'], $extension);
+    }
+
+    /**
+     * Write a cover image file with binary data and update the Album with the new cover file.
+     *
+     * @param string $binaryData
+     * @param string $extension The file extension
+     * @return string
+     */
+    private function writeCoverFile($binaryData, $extension)
+    {
+        $extension = trim(strtolower($extension), '. ');
+        $fileName  = uniqid() . ".$extension";
+        $coverPath = $this->getUploadRootDirectory() . $fileName;
+        $fs        = new Filesystem();
+        $fs->dumpFile($coverPath, $binaryData);
+
+        return $fileName;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUploadRootDirectory()
+    {
+        return $this->getWebDirectory() . $this->getUploadDirectory();
+    }
+
+    /**
+     * @return string
+     */
+    public function getWebDirectory()
+    {
+        return __DIR__ . "/../../../../web";
+    }
+
+    /**
+     * @return string
+     */
+    public function getUploadDirectory()
+    {
+        return "/uploads/" . $this->getArtist()->getName() . "/";
     }
 
     /**
@@ -104,6 +215,7 @@ class Albums extends BaseEntity
     public function setSongs($songs)
     {
         $this->songs = $songs;
+
         return $this;
     }
 
@@ -117,11 +229,12 @@ class Albums extends BaseEntity
             $this->songs->add($song);
             $song->setAlbum($this);
         }
+
         return $this;
     }
 
     /**
-     * @return mixed
+     * @return Artists
      */
     public function getArtist()
     {
@@ -135,6 +248,93 @@ class Albums extends BaseEntity
     public function setArtist($artists)
     {
         $this->artist = $artists;
+
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReleaseDate()
+    {
+        return $this->releaseDate;
+    }
+
+    /**
+     * @param mixed $releaseDate
+     * @return Albums
+     */
+    public function setReleaseDate($releaseDate)
+    {
+        $this->releaseDate = $releaseDate;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMusicBrainzId()
+    {
+        return $this->musicBrainzId;
+    }
+
+    /**
+     * @param mixed $musicBrainzId
+     * @return Albums
+     */
+    public function setMusicBrainzId($musicBrainzId)
+    {
+        $this->musicBrainzId = $musicBrainzId;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastFmId()
+    {
+        return $this->lastFmId;
+    }
+
+    /**
+     * @param mixed $lastFmId
+     * @return Albums
+     */
+    public function setLastFmId($lastFmId)
+    {
+        $this->lastFmId = $lastFmId;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastFmUrl()
+    {
+        return $this->lastFmUrl;
+    }
+
+    /**
+     * @param mixed $lastFmUrl
+     * @return Albums
+     */
+    public function setLastFmUrl($lastFmUrl)
+    {
+        $this->lastFmUrl = $lastFmUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastFmInfo()
+    {
+        $lastFmService = new LastFmService();
+
+        return $lastFmService->getAlbumInfo($this->getName(), $this->getArtist()->getName());
     }
 }

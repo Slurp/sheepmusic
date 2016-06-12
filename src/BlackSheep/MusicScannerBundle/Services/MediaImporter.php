@@ -1,10 +1,10 @@
 <?php
 /**
- * @author: Stephan Langeweg <stephan@zwartschaap.net>
+ * @author    : Stephan Langeweg <stephan@zwartschaap.net>
  * Date: 15/02/16
  * Time: 23:11
  * @copyright 2016 Zwartschaap
- * @version 1.0
+ * @version   1.0
  */
 namespace BlackSheep\MusicScannerBundle\Services;
 
@@ -27,7 +27,6 @@ use Symfony\Component\Stopwatch\Stopwatch;
  */
 class MediaImporter
 {
-
     /**
      * @var string
      */
@@ -58,13 +57,31 @@ class MediaImporter
      */
     protected $songsRepository;
 
+    /**
+     * @var Artists $artistCache
+     */
+    protected $artistCache;
+
+    /**
+     * @var Albums $albumCache
+     */
+    protected $albumCache;
+
+    /**
+     * @var ArtistRepository $artistRepository
+     */
+    protected $artistRepository;
+    /**
+     * @var AlbumsRepository $albumRepository
+     */
+    protected $albumRepository;
 
     /**
      * @param $path
      */
     public function __construct($path)
     {
-        $this->path = $path;
+        $this->path      = $path;
         $this->tagHelper = new TagHelper();
         $this->stopwatch = new Stopwatch();
     }
@@ -74,7 +91,7 @@ class MediaImporter
      */
     public function setEntityManager(EntityManager $entityManager)
     {
-        $this->entityManager = $entityManager;
+        $this->entityManager   = $entityManager;
         $this->songsRepository = $entityManager->getRepository(Songs::class);
     }
 
@@ -105,51 +122,20 @@ class MediaImporter
     public function import()
     {
         $this->stopwatch->start('import_music');
+
+        $this->artistRepository = $this->entityManager->getRepository(Artists::class);
+        $this->albumRepository = $this->entityManager->getRepository(Albums::class);
+
         $importingFiles = $this->gatherFiles($this->path);
         $this->setupProgressBar(count($importingFiles));
 
-        /** @var Artists $artistCache */
-        $artistCache = null;
-        /** @var Albums $albumCache */
-        $albumCache = null;
-        /** @var ArtistRepository $artistRepository */
-        $artistRepository = $this->entityManager->getRepository(Artists::class);
-        /** @var AlbumsRepository $albumRepository */
-        $albumRepository = $this->entityManager->getRepository(Albums::class);
         /** @var SplFileInfo $file */
         foreach ($importingFiles as $file) {
             $this->stopwatch->lap('import_music');
-            $songInfo = $this->tagHelper->getInfo($file);
+            $songInfo   = $this->tagHelper->getInfo($file);
             $songEntity = $this->songsRepository->needsImporting($songInfo);
             if ($songEntity === null) {
-
-                if ($artistCache === null || $artistCache->getName() !== $songInfo['artist']) {
-                    $artistCache = $artistRepository->addOrUpdateByName($songInfo['artist']);
-                }
-                if ($albumCache === null || $albumCache->getName() !== $songInfo['album']) {
-                    $albumCache = $albumRepository->addOrUpdateByArtistAndName(
-                        $artistCache,
-                        $songInfo['album'],
-                        $songInfo
-                    );
-                }
-
-
-                /** @var Songs $songEntity */
-                $songEntity = Songs::createFromArray($songInfo);
-                $songEntity->addArtist($artistCache);
-                $albumCache->addSong($songEntity);
-
-                $this->entityManager->persist($songEntity);
-                if ($albumCache instanceof Albums) {
-                    $this->entityManager->persist($albumCache);
-                }
-                if ($artistCache instanceof Artists) {
-                    $this->entityManager->persist($artistCache);
-                } else {
-                    $artistCache = null;
-                }
-
+                $this->importSong($songInfo);
                 $this->debugStep("ADDING", $songInfo['artist'] . " " . $songInfo['album']);
             } else {
                 $this->debugStep("SKIPPING", $songInfo['artist'] . " " . $songInfo['album']);
@@ -157,6 +143,37 @@ class MediaImporter
         }
         $this->entityManager->flush();
         $this->debugEnd();
+    }
+
+    /**
+     * @param $songInfo
+     */
+    protected function importSong($songInfo)
+    {
+        if ($this->artistCache === null || $this->artistCache->getName() !== $songInfo['artist']) {
+            $this->artistCache = $this->artistRepository->addOrUpdateByName($songInfo['artist']);
+        }
+        if ($this->albumCache === null || $this->albumCache->getName() !== $songInfo['album']) {
+            $this->albumCache = $this->albumRepository->addOrUpdateByArtistAndName(
+                $this->artistCache,
+                $songInfo['album'],
+                $songInfo
+            );
+        }
+        /** @var Songs $songEntity */
+        $songEntity = Songs::createFromArray($songInfo);
+        $songEntity->addArtist($this->artistCache);
+        $this->albumCache->addSong($songEntity);
+        
+        $this->entityManager->persist($songEntity);
+        if ($this->albumCache instanceof Albums) {
+            $this->entityManager->persist($this->albumCache);
+        }
+        if ($this->artistCache instanceof Artists) {
+            $this->entityManager->persist($this->artistCache);
+        } else {
+            $this->artistCache = null;
+        }
     }
 
     /**
@@ -187,13 +204,10 @@ class MediaImporter
      * Gather all applicable files in a given directory.
      *
      * @param string $path The directory's full path
-     *
      * @return array An array of SplFileInfo objects
      */
     public function gatherFiles($path)
     {
         return Finder::create()->files()->name('/\.(mp3|ogg|m4a|flac)$/i')->in($path);
     }
-
-
 }

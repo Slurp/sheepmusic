@@ -1,13 +1,16 @@
-{% extends 'Layout/layout.html.twig' %}
+{% extends app.request.xmlHttpRequest
+? 'Layout/ajaxLayout.html.twig'
+: 'Layout/layout.html.twig'%}
 
 {% block content %}
-    <div class="mdl-grid">
-        {% include '@BlackSheepMusicLibrary/Partials/artist-card.html.twig' with {'artist': artist} only %}
+
+    {% include '@BlackSheepMusicLibrary/Artist/info-bar.html.twig' with {'artist': artist} only %}
+
+    <div class="album-list">
+    {% for album in artist.albums %}
+        {% include '@BlackSheepMusicLibrary/Partials/album-card.html.twig' with {'album': album} only %}
+    {% endfor %}
     </div>
-    <div class="mdl-grid">
-        {% for album in artist.albums %}
-            {% include '@BlackSheepMusicLibrary/Partials/album-card.html.twig' with {'album': album} only %}
-        {% endfor %}
-    </div>
+
 {% endblock %}
 

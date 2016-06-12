@@ -53,9 +53,9 @@ class TagHelper
             return;
         }
         $cover = null;
-//        if (isset($info['comments']['picture'])) {
-//            $cover = $info['comments']['picture'][0];
-//        }
+        if (isset($info['comments']['picture'])) {
+            $cover = $info['comments']['picture'][0];
+        }
         $props = [
             'artist' => '',
             'album' => '',

@@ -1,0 +1,20 @@
+.info-bar {
+  @extend .nav;
+  @extend .navbar;
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .info-bar-image {
+    @include make-col();
+    @include make-col-span(2);
+    img {
+      @include img-fluid();
+    }
+  }
+  .info-bar-content {
+    @include make-col();
+    @include make-col-span(10);
+  }
+}
