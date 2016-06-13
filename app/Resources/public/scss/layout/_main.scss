@@ -18,6 +18,7 @@ html {
     @include make-col-span(12);
   }
   margin-top: 70px;
+  padding-bottom: ($footer-fixed-height * 2);
 
 }
 .playlist {

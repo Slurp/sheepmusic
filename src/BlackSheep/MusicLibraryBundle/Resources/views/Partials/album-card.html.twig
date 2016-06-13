@@ -15,11 +15,12 @@
         <p class="card-text">
            {{ album.updatedAt|date }}
         </p>
-    </div>
-    <div class="card-footer text-muted actions">
-        <a href="{{ url('library_album',{'artist': album.artist.id, 'album':album.id }) }}"
-           class="btn btn-primary-outline"">
+        <div class="card-footer text-muted actions">
+            <a href="{{ url('library_album',{'artist': album.artist.id, 'album':album.id }) }}"
+               class="btn btn-primary-outline"">
             detail
-        </a>
+            </a>
+        </div>
     </div>
+
 </div>

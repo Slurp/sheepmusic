@@ -35,7 +35,9 @@
 <header>
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     {# Header #}
-
+    {% block header %}
+        {% include 'Layout/_header.html.twig' %}
+    {% endblock %}
     {% block submenu %}
         {% include 'Layout/_submenu.html.twig' %}
     {% endblock %}
@@ -44,12 +46,10 @@
 <main role="main" class="container-fluid  {% block extra_layout_classes %}{% endblock %}">
     <div class="row">
         {# Content #}
+        {% include 'Components/loading-overlay.html.twig' %}
          <div id="barba-wrapper" class="main-content">
             <div class="row">
                 <div class="barba-container">
-                    {% block header %}
-                        {% include 'Layout/_header.html.twig' %}
-                    {% endblock %}
                     {% block content %}
                     {% endblock %}
                 </div>

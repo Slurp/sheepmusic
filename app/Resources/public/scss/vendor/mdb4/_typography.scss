@@ -3,27 +3,6 @@ body {
     font-family: "Roboto", sans-serif;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-weight: 300;
-}
-
-html {
-    @media only screen and (min-width: 0) {
-        font-size: 15px;
-    }
-    @media only screen and (min-width: $medium-screen) {
-        font-size: 15.5px;
-    }
-    @media only screen and (min-width: $large-screen) {
-        font-size: 16px;
-    }
-}
-
 .text-fluid {
     font-weight: 300;
     $i: 0;

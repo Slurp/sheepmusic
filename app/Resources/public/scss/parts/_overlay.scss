@@ -1,16 +1,29 @@
-#overlay {
+
+#loading-overlay {
+
   position: fixed;
-  top: 0;
+  top: $footer-fixed-height;
   left: 0;
+  bottom: $footer-fixed-height;
+  @include media-breakpoint-up(sm) {
+    left: 200px;
+  }
+
+  @include  make-col-pull(3);
+  @include media-breakpoint-up(sm) {
+    right: calc( 16.66667% - 2rem);
+  }
   z-index: 9999;
-  width: 100%;
-  height: 100%;
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;
-  display: flex;
+  display: none;
+
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  &.show{
+    display: flex;
+  }
   .display {
     display: flex;
     align-items: center;

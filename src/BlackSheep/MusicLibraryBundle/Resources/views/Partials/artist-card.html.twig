@@ -5,9 +5,6 @@
         <h4 class="card-title">
             {{ artist.name }}
         </h4>
-        <p class="card-text">
-            {{ artist.updatedAt|date }}
-
         <div class="card-footer text-muted actions">
             <a href="{{ path('library_artist', {'artist' : artist.id } ) }}"
                class="btn btn-primary-outline"
