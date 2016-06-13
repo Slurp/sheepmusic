@@ -42,6 +42,13 @@
       @include img-fluid();
     width: 100%;
   }
+  .card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    width: 100%;
+    padding: 1rem;
+  }
   .card-text,
   .card-title {
     @include media-breakpoint-up(md) {

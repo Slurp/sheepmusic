@@ -12,7 +12,8 @@ input[type=number],
 input[type=search-md],
 textarea.md-textarea {
     // General Styles
-    background-color: transparent;
+    background-color: $input-bg-color;
+    color: $input-color;
     border: none;
     border-bottom: 1px solid $input-border-color;
     border-radius: 0;
@@ -80,11 +81,15 @@ textarea.md-textarea {
         opacity: 0;
         transition: .2s opacity ease-out, .2s color ease-out;
     }
-}
-
-label {
-    font-size: $label-font-size;
-    color: darken ($input-border-color, 90%);
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:active,
+    input:-webkit-autofill:focus {
+        background-color: #FFFFFF !important;
+        color: #555 !important;
+        -webkit-box-shadow: 0 0 0 1000px white inset !important;
+        -webkit-text-fill-color: #555555 !important;
+    }
 }
 
 .form-control {

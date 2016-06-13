@@ -30,7 +30,6 @@
 @import "vendor/mdb4/helpers";
 @import "vendor/mdb4/buttons";
 @import "vendor/mdb4/forms-basic";
-@import "vendor/mdb4/cards-basic";
 @import "vendor/mdb4/navbars";
 @import "vendor/mdb4/hover-effects";
 @import "vendor/mdb4/footer";
@@ -40,6 +39,7 @@
 //forms 
 @import "forms/_range.scss";
 
+@import "bootstrap4/card";
 // Layout
 @import "layout/header";
 @import "layout/footer";

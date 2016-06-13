@@ -1,4 +1,216 @@
 .login {
-  margin : auto;
-  padding-top:70px;
+
+  .form-group {
+    position: relative;
+    margin-bottom: 45px;
+  }
+
+  /* Label */
+
+  label {
+    position: absolute;
+    pointer-events: none;
+    top: 6px;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    color: $input-color-placeholder;
+    left: $input-padding-x;
+  }
+
+  input {
+    background-color: $input-bg-color;
+    padding: $input-padding-y $input-padding-x;
+    box-sizing: border-box;
+  }
+
+  /* active */
+  input:-webkit-autofill,
+  input:focus,
+  input.used {
+    ~ label {
+      top: (-20 - $input-padding-y);
+      color: $accent-color;
+      left: 0;
+    }
+  }
+
+  /* Underline */
+
+  .bar {
+    position: relative;
+    display: block;
+    width: 100%;
+  }
+
+  .bar:before,
+  .bar:after {
+    content: '';
+    height: 2px;
+    width: 50%;
+    bottom: 1px;
+    position: absolute;
+    background: $divider-color;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+  }
+
+  .bar:before {
+    left: 50%;
+  }
+
+  .bar:after {
+    right: 50%;
+  }
+
+  /* active */
+
+  input:focus ~ .bar:before,
+  input:focus ~ .bar:after {
+    width: 50%;
+    background: $accent-color;
+  }
+
+  /* Highlight */
+
+  .highlight {
+    position: absolute;
+    height: 60%;
+    width: 100px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  /* active */
+
+  input:focus ~ .highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+  }
+
+  /* Animations */
+
+  @-webkit-keyframes inputHighlighter {
+    from {
+      background: #4a89dc;
+    }
+    to {
+      width: 0;
+      background: transparent;
+    }
+  }
+
+  @keyframes inputHighlighter {
+    from {
+      background: #4a89dc;
+    }
+    to {
+      width: 0;
+      background: transparent;
+    }
+  }
+
+  /* Button */
+
+  .button {
+    position: relative;
+    display: inline-block;
+    padding: 12px 24px;
+    margin: .3em 0 1em 0;
+    width: 100%;
+    vertical-align: middle;
+    color: #fff;
+    font-size: 16px;
+    line-height: 20px;
+    -webkit-font-smoothing: antialiased;
+    text-align: center;
+    letter-spacing: 1px;
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid #3160B6;
+    cursor: pointer;
+    -webkit-transition: all 0.15s ease;
+    transition: all 0.15s ease;
+  }
+  .button:focus {
+    outline: 0;
+  }
+
+  /* Button modifiers */
+
+  .buttonBlue {
+    background: #4a89dc;
+    text-shadow: 1px 1px 0 rgba(39, 110, 204, .5);
+  }
+
+  .buttonBlue:hover {
+    background: #357bd8;
+  }
+
+  /* Ripples container */
+
+  .ripples {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+  }
+
+  /* Ripples circle */
+
+  .ripplesCircle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .ripples.is-active .ripplesCircle {
+    -webkit-animation: ripples .4s ease-in;
+    animation: ripples .4s ease-in;
+  }
+
+  /* Ripples animation */
+
+  @-webkit-keyframes ripples {
+    0% {
+      opacity: 0;
+    }
+
+    25% {
+      opacity: 1;
+    }
+
+    100% {
+      width: 200%;
+      padding-bottom: 200%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes ripples {
+    0% {
+      opacity: 0;
+    }
+
+    25% {
+      opacity: 1;
+    }
+
+    100% {
+      width: 200%;
+      padding-bottom: 200%;
+      opacity: 0;
+    }
+  }
 }
