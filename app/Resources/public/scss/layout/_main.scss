@@ -7,32 +7,16 @@ html {
   }
 }
 .main-content {
-  @include make-col();
-  @include make-col-span(9);
-  @include media-breakpoint-up(sm) {
-    @include make-col-span(10);
-  }
+  @include make-row();
   padding-top: ($grid-gutter-width / 2);
+  margin-top: 70px;
+  padding-bottom: ($footer-fixed-height * 2);
   .barba-container {
     @include make-col();
     @include make-col-span(12);
   }
-  margin-top: 70px;
-  padding-bottom: ($footer-fixed-height * 2);
-
 }
-.playlist {
-  @include make-col();
-  @include make-col-span(3);
-  width: percentage(3 / 12 );
-  @include media-breakpoint-up(sm) {
-    @include make-col-span(2);
-    width: percentage(2 / 12 );
-  }
-  @extend .z-depth-1;
-  margin-top: 70px;
 
-}
 
 
 

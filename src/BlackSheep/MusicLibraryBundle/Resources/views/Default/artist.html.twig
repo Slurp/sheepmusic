@@ -3,7 +3,8 @@
 : 'Layout/layout.html.twig'%}
 
 {% block content %}
-
+    <div class="artist-backdrop" style="background-image: url({% if artist.albumArt is not null %}{{ artist.albumArt }}{% endif %})">
+    </div>
     {% include '@BlackSheepMusicLibrary/Artist/info-bar.html.twig' with {'artist': artist} only %}
 
     <div class="album-list">

@@ -33,37 +33,25 @@
 {# Outdated browser message #}
 {% include 'Layout/_outdatedbrowser.html.twig' %}
 <header>
-{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    {# Header #}
-    {% block header %}
-        {% include 'Layout/_header.html.twig' %}
-    {% endblock %}
-    {% block submenu %}
-        {% include 'Layout/_submenu.html.twig' %}
-    {% endblock %}
-{% endif %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        {# Header #}
+        {% block header %}
+            {% include 'Layout/_header.html.twig' %}
+        {% endblock %}
+        {% block submenu %}
+            {% include 'Layout/_submenu.html.twig' %}
+        {% endblock %}
+    {% endif %}
 </header>
 <main role="main" class="container-fluid  {% block extra_layout_classes %}{% endblock %}">
-    <div class="row">
-        {# Content #}
-        {% include 'Components/loading-overlay.html.twig' %}
-         <div id="barba-wrapper" class="main-content">
-            <div class="row">
-                <div class="barba-container">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
+    {# Content #}
+    {% include 'Components/loading-overlay.html.twig' %}
+    <div id="barba-wrapper" class="main-content">
+        <div class="barba-container">
+            {% block content %}
+            {% endblock %}
         </div>
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        <div class="playlist">
-            <h3 class="playlist-header">Current Playlist</h3>
-            <ul>
-                <li> no songs</li>
-            </ul>
-            <div class="playlist-actions">actions</div>
-        </div>
-        {% endif %}
+
     </div>
 </main>
 

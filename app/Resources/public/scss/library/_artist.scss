@@ -1,6 +1,32 @@
+.artist-backdrop {
+  background-size: cover;
+
+  height: 350px;
+  position: absolute;
+  left: -10rem;
+  right: -10rem;
+  background-position: 50% 50%;
+  top: -95px;
+  z-index: 1;
+  &:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 350px;
+    background-color: $rgba-white-light;
+    position: absolute;
+    top: 0;
+    z-index: 2;
+  }
+  ~ .info-bar.artist {
+    margin-top: 200px;
+    z-index: 3;
+  }
+}
+
 .info-bar.artist {
-  background-color: $card-bg;
-  border: 1px solid $card-border-color;
+  background-color: rgba($card-bg, 0.8);
+  border: 1px solid rgba($card-border-color, 0.8);
   .info-bar-content {
     color: $primary-color-text;
     &.artist-name {
@@ -8,6 +34,7 @@
     }
   }
 }
+
 .artist-card {
   position: relative;
     .card-deck & {

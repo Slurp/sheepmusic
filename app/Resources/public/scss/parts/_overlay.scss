@@ -8,11 +8,7 @@
   @include media-breakpoint-up(sm) {
     left: 200px;
   }
-
-  @include  make-col-pull(3);
-  @include media-breakpoint-up(sm) {
-    right: calc( 16.66667% - 2rem);
-  }
+  right: 0;
   z-index: 9999;
   background-color: rgba(0, 0, 0, 0.8);
   color: #fff;

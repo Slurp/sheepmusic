@@ -60,14 +60,15 @@ class Artists extends BaseEntity
      */
     public static function createNew($name)
     {
-        $artist       = new self();
-        $artist->name = $name;
+        $artist        = new self();
+        $artist->name  = $name;
         $lastFmService = new LastFmService();
-        $lastFmInfo = $lastFmService->getArtistInfo($artist->name);
+        $lastFmInfo    = $lastFmService->getArtistInfo($artist->name);
         $artist->setMusicBrainzId($lastFmInfo['mbid']);
         $artist->setImage($lastFmInfo['image']['large']);
         $artist->setPlayCount(0);
         $artist->setBiography($lastFmInfo['bio']['summary']);
+
         return $artist;
     }
 
@@ -225,5 +226,18 @@ class Artists extends BaseEntity
         $lastFmService = new LastFmService();
 
         return $lastFmService->getArtistInfo($this->getName());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAlbumArt()
+    {
+        /** @var Albums $album */
+        foreach ($this->getAlbums() as $album) {
+            if ($album->getCover() !== null) {
+                return $album->getCover();
+            }
+        }
     }
 }

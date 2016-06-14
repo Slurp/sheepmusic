@@ -1,21 +1,23 @@
 .album-list {
   @extend .card-deck;
+  align-items: center;
   .album-card {
-    @include make-col(0rem);
-    max-width: 50%;
-    @include make-col-span(6);
-    @include media-breakpoint-up(md) {
-      @include make-col-span(4)
-    }
-    @include media-breakpoint-up(lg) {
-      @include make-col-span(3)
-    }
-    @include media-breakpoint-up(xl) {
-      @include make-col-span(2.5)
-    }
 
-    flex-direction: row;
-    flex-shrink: 1 !important;
+      @include make-col(0rem);
+      @include make-col-span(6);
+      @include media-breakpoint-up(md) {
+        @include make-col-span(4)
+      }
+      @include media-breakpoint-up(lg) {
+        @include make-col-span(2.5)
+      }
+      @include media-breakpoint-up(xl) {
+        @include make-col-span(2)
+      }
+
+
+      flex-shrink: 1 !important;
+
   }
 }
 

@@ -1,7 +1,7 @@
 .sheepnav {
   @extend .navbar;
   @extend .navbar-fixed-top;
-  background-color: $accent-color;
+  background-color: $rgba-white-light;
   @include media-breakpoint-up(sm) {
     margin-left: 200px;
   }
