@@ -1,42 +1,16 @@
-.artist-backdrop {
-  background-size: cover;
-
-  height: 350px;
-  position: absolute;
-  left: -10rem;
-  right: -10rem;
-  background-position: 50% 50%;
-  top: -95px;
-  z-index: 1;
-  &:after {
-    content: "";
-    display: block;
-    width: 100%;
-    height: 350px;
-    background-color: $rgba-white-light;
-    position: absolute;
-    top: 0;
-    z-index: 2;
-  }
-  ~ .info-bar.artist {
-    margin-top: 200px;
-    z-index: 3;
-  }
-}
-
-.info-bar.artist {
-  background-color: rgba($card-bg, 0.8);
-  border: 1px solid rgba($card-border-color, 0.8);
-  .info-bar-content {
-    color: $primary-color-text;
-    &.artist-name {
-
-    }
+@mixin make-col-span($size, $columns: $grid-columns) {
+  @if $enable-flex {
+    flex: 1 0 percentage($size / $columns);
+    //width: percentage($size / $columns);
+  } @else {
+    width: percentage($size / $columns);
   }
 }
 
 .artist-card {
+  color: $primary-color-text;
   position: relative;
+  justify-content:         space-between;
     .card-deck & {
       @include make-col(0rem);
       @include make-col-span(6);
@@ -49,11 +23,6 @@
       @include media-breakpoint-up(xl) {
         @include make-col-span(2)
       }
-
-        flex-direction: row;
-        flex-shrink: 1 !important;
-        flex-grow: 1 !important;
-
   }
   .card-img-overlay {
     position: static;
@@ -95,5 +64,35 @@
     padding-bottom: 0;
     text-align: right;
     padding-right: 0;
+  }
+}
+
+.info-bar.artist {
+  .info-bar-content {
+    color: $primary-color-text;
+    &.artist-name {
+
+    }
+  }
+}
+
+.artist-info {
+  @extend .media;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba($accent-color, 0.8);
+  .artist-image {
+    @extend .media-left;
+    img {
+      @extend .media-object;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+  }
+  .artist-content{
+    @extend .media-body;
+    .artist-name{
+      @extend .media-heading;
+    }
   }
 }

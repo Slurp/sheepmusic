@@ -1,8 +1,22 @@
-.playlist {
-
-  .navbar-toggler {
-    float: right;
+.btn-playlist {
+  @extend .btn-primary;
+  margin-top: 0;
+  padding:6px 8px 0;
+  &:after{
+    display: none;
   }
+}
+.playlist {
+  top: auto;
+  left: auto;
+  right: 32px;
+  margin-right: 0;
+  margin-bottom: 0;
+  padding: 0 1rem;
+  width: 300px;
+  height: calc(100vh - 110px - 64px - 24px);
+  z-index: 1!important;
+  transition: width 0.3s ease;
   .playlist-header {
     padding-top: 30px;
   }
@@ -10,9 +24,7 @@
   background-color: $player-bg-color;
 
   ul {
-    @extend .list-group;
     li {
-      @extend .list-group-item;
       background-color: $primary-color-light;
     }
   }

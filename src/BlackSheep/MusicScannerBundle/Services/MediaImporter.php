@@ -71,6 +71,7 @@ class MediaImporter
      * @var ArtistRepository $artistRepository
      */
     protected $artistRepository;
+
     /**
      * @var AlbumsRepository $albumRepository
      */
@@ -124,19 +125,20 @@ class MediaImporter
         $this->stopwatch->start('import_music');
 
         $this->artistRepository = $this->entityManager->getRepository(Artists::class);
-        $this->albumRepository = $this->entityManager->getRepository(Albums::class);
+        $this->albumRepository  = $this->entityManager->getRepository(Albums::class);
 
         $importingFiles = $this->gatherFiles($this->path);
         $this->setupProgressBar(count($importingFiles));
 
         /** @var SplFileInfo $file */
         foreach ($importingFiles as $file) {
+
             $this->stopwatch->lap('import_music');
             $songInfo   = $this->tagHelper->getInfo($file);
             $songEntity = $this->songsRepository->needsImporting($songInfo);
-            if ($songEntity === null) {
+            if ($songEntity === null || $songInfo['artist'] === "") {
                 $this->importSong($songInfo);
-                $this->debugStep("ADDING", $songInfo['artist'] . " " . $songInfo['album']);
+                $this->debugStep("ADDING", $songInfo['artist'] . " " . $songInfo['album']. $file->getGroup());
             } else {
                 $this->debugStep("SKIPPING", $songInfo['artist'] . " " . $songInfo['album']);
             }
@@ -150,8 +152,13 @@ class MediaImporter
      */
     protected function importSong($songInfo)
     {
-        if ($this->artistCache === null || $this->artistCache->getName() !== $songInfo['artist']) {
-            $this->artistCache = $this->artistRepository->addOrUpdateByName($songInfo['artist']);
+        if ($this->artistCache === null ||
+            (
+                $this->artistCache->getName() !== $songInfo['artist'] ||
+                $songInfo['artist_mbid'] !== $this->artistCache->getMusicBrainzId()
+            )
+        ) {
+            $this->artistCache = $this->artistRepository->addOrUpdate($songInfo['artist'], $songInfo['artist_mbid']);
         }
         if ($this->albumCache === null || $this->albumCache->getName() !== $songInfo['album']) {
             $this->albumCache = $this->albumRepository->addOrUpdateByArtistAndName(
@@ -164,7 +171,7 @@ class MediaImporter
         $songEntity = Songs::createFromArray($songInfo);
         $songEntity->addArtist($this->artistCache);
         $this->albumCache->addSong($songEntity);
-        
+
         $this->entityManager->persist($songEntity);
         if ($this->albumCache instanceof Albums) {
             $this->entityManager->persist($this->albumCache);

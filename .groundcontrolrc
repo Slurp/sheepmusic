@@ -49,7 +49,7 @@
       "<=bowerComponentsPath>/bootstrap/js/dist/tab.js",
       "<=bowerComponentsPath>/bootstrap/js/dist/util.js",
       "<=bowerComponentsPath>/holderjs/holder.js",
-      "<=bowerComponentsPath>/vue/dist/vue.js",
+      "<=bowerComponentsPath>/plyr/src/js/plyr.js",
       "<=npmPath>/barba.js/dist/barba.js",
       "<=resourcesPath>public/js/**/*.js"
     ],

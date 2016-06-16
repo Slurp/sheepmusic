@@ -4,6 +4,7 @@ namespace BlackSheep\MusicLibraryBundle\Entity;
 use BlackSheep\MusicLibraryBundle\Services\LastFmService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
@@ -11,6 +12,24 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Artists extends BaseEntity
 {
+    /**
+     * @Gedmo\Slug(fields={"name"})
+     * @ORM\Column(type="string" , unique=true)
+     */
+    protected $slug;
+
+    /**
+     * @Gedmo\Slug(handlers={
+     *      @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\InversedRelativeSlugHandler", options={
+     *          @Gedmo\SlugHandlerOption(name="relationClass", value="Albums"),
+     *          @Gedmo\SlugHandlerOption(name="mappedBy", value="albums"),
+     *          @Gedmo\SlugHandlerOption(name="inverseSlugField", value="slug")
+     *      })
+     * }, fields={"name"})
+     * @ORM\Column(type="string" , unique=true)
+     */
+    protected $alias;
+
     /**
      * @ORM\Column(type="string", nullable=false)
      */
@@ -55,21 +74,41 @@ class Artists extends BaseEntity
     }
 
     /**
-     * @param $name
+     * @param      $name
+     * @param null $musicBrainzId
      * @return Artists
      */
-    public static function createNew($name)
+    public static function createNew($name, $musicBrainzId = null)
     {
-        $artist        = new self();
-        $artist->name  = $name;
+        $artist = new self();
+        $artist->setName($name);
+        $artist->setMusicBrainzId($musicBrainzId);
         $lastFmService = new LastFmService();
         $lastFmInfo    = $lastFmService->getArtistInfo($artist->name);
-        $artist->setMusicBrainzId($lastFmInfo['mbid']);
+        if ($artist->musicBrainzId !== null) {
+            $artist->setMusicBrainzId($lastFmInfo['mbid']);
+        }
         $artist->setImage($lastFmInfo['image']['large']);
         $artist->setPlayCount(0);
         $artist->setBiography($lastFmInfo['bio']['summary']);
 
         return $artist;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAlias()
+    {
+        return $this->alias;
     }
 
     /**

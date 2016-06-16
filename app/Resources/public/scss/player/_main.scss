@@ -24,7 +24,7 @@
       width: auto;
       height: 70px;
       float: left;
-      margin-right:10px
+      margin-right:1rem;
     }
     .progress-wrapper {
       padding-top:1px;
@@ -46,7 +46,7 @@
     @include make-col-span(3);
     .player-button {
       height: $footer-fixed-height - 30px;
-      padding-left: 20px;
+      padding-left: 1.5rem;
       i {
         font-size: $footer-fixed-height - 30px;
         &.hide {

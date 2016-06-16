@@ -15,6 +15,7 @@
 @import "vendor/mdb4/data/prefixer";
 @import "vendor/mdb4/data/mixins";
 
+
 // Variables
 @import "vendor/mdb4/data/colors";
 @import "vendor/mdb4/data/variables";
@@ -32,14 +33,17 @@
 @import "vendor/mdb4/forms-basic";
 @import "vendor/mdb4/navbars";
 @import "vendor/mdb4/hover-effects";
-@import "vendor/mdb4/footer";
-@import "vendor/mdb4/carousels-basic";
+
+@import "vendor/materialize/_buttons.scss";
+
 //own files
 
 //forms 
 @import "forms/_range.scss";
 
 @import "bootstrap4/card";
+@import "bootstrap4/listgroup";
+@import "bootstrap4/buttons";
 // Layout
 @import "layout/header";
 @import "layout/footer";
@@ -54,10 +58,12 @@
 @import "parts/overlay";
 @import "parts/loading";
 @import "parts/info-bar";
+@import "parts/image-backdrop";
 
 // Library
 @import "library/artist";
 @import "library/album";
+@import "library/songs";
 
 // Player
 @import "player/main";

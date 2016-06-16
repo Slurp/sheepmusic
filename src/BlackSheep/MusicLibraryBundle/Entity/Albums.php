@@ -6,6 +6,7 @@ use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Filesystem\Filesystem;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity
@@ -13,6 +14,18 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 class Albums extends BaseEntity
 {
+    /**
+     * @Gedmo\Slug(handlers={
+     *      @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\RelativeSlugHandler", options={
+     *          @Gedmo\SlugHandlerOption(name="relationField", value="artist"),
+     *          @Gedmo\SlugHandlerOption(name="relationSlugField", value="alias"),
+     *          @Gedmo\SlugHandlerOption(name="separator", value="/")
+     *      })
+     * }, separator="-", updatable=true, fields={"name"})
+     * @ORM\Column(type="string", unique=true)
+     */
+    private $slug;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
      */
@@ -66,12 +79,13 @@ class Albums extends BaseEntity
      * @param $cover
      * @return Albums
      */
-    public static function createArtistAlbum($name, $artist, $cover)
+    public static function createArtistAlbum($name, $artist, $extraInfo)
     {
         $album = new self();
         $album->setName($name);
         $album->setArtist($artist);
-        $album->setCover($cover);
+        $album->setCover($extraInfo['cover']);
+        $album->setMusicBrainzId($extraInfo['album_mbid']);
 
         $lastFmService = new LastFmService();
         $lastFmInfo    = $lastFmService->getAlbumInfo($album->getName(), $album->getArtist()->getName());
@@ -86,6 +100,14 @@ class Albums extends BaseEntity
         }
 
         return $album;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -197,7 +219,7 @@ class Albums extends BaseEntity
      */
     public function getUploadDirectory()
     {
-        return "/uploads/" . $this->getArtist()->getName() . "/";
+        return "/uploads/" . $this->getArtist()->getSlug() . "/";
     }
 
     /**

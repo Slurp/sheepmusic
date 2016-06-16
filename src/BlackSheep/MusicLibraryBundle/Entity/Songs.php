@@ -10,6 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Songs extends BaseEntity
 {
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $track;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -37,6 +41,11 @@ class Songs extends BaseEntity
     protected $album;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $playCount;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Playlist", inversedBy="songs")
      * @ORM\JoinTable(
      *     name="PlaylistSongs",
@@ -56,7 +65,6 @@ class Songs extends BaseEntity
      */
     protected $artists;
 
-
     /**
      *
      */
@@ -72,11 +80,32 @@ class Songs extends BaseEntity
     public static function createFromArray($songInfo)
     {
         $song = new self();
+        $song->setTrack($songInfo['track']);
         $song->setTitle($songInfo['title']);
         $song->setLength($songInfo['length']);
         $song->setMTime($songInfo['mTime']);
         $song->setPath($songInfo['path']);
+
         return $song;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTrack()
+    {
+        return $this->track;
+    }
+
+    /**
+     * @param mixed $track
+     * @return Songs
+     */
+    public function setTrack($track)
+    {
+        $this->track = $track;
+
+        return $this;
     }
 
     /**
@@ -94,6 +123,7 @@ class Songs extends BaseEntity
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -112,6 +142,7 @@ class Songs extends BaseEntity
     public function setLength($length)
     {
         $this->length = $length;
+
         return $this;
     }
 
@@ -130,6 +161,7 @@ class Songs extends BaseEntity
     public function setMTime($mTime)
     {
         $this->mTime = $mTime;
+
         return $this;
     }
 
@@ -148,6 +180,7 @@ class Songs extends BaseEntity
     public function setPath($path)
     {
         $this->path = $path;
+
         return $this;
     }
 
@@ -160,12 +193,32 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @param mixed $albums
+     * @param mixed $album
      * @return Songs
      */
     public function setAlbum($album)
     {
         $this->album = $album;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlayCount()
+    {
+        return $this->playCount;
+    }
+
+    /**
+     * @param mixed $playCount
+     * @return Songs
+     */
+    public function setPlayCount($playCount)
+    {
+        $this->playCount = $playCount;
+
         return $this;
     }
 
@@ -184,6 +237,7 @@ class Songs extends BaseEntity
     public function setPlaylist($playlist)
     {
         $this->playlist = $playlist;
+
         return $this;
     }
 
@@ -202,6 +256,7 @@ class Songs extends BaseEntity
     public function setArtists($artists)
     {
         $this->artists = $artists;
+
         return $this;
     }
 
@@ -214,8 +269,7 @@ class Songs extends BaseEntity
         if ($this->artists->contains($artist) === false) {
             $this->artists->add($artist);
         }
+
         return $this;
     }
-
-
 }

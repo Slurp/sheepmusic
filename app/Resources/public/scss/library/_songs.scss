@@ -1,0 +1,49 @@
+.song-list{
+  background-color: $songlist-bg-color;
+  @extend .z-depth-1-half;
+  .song-list-header,
+  .song-list-item {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .song-list-header
+  {
+    border-bottom: 3px solid $accent-color;
+    .col {
+      font-weight: 700;
+      padding: 0.8rem 0.5rem 0.3rem;
+    }
+
+  }
+  .col{
+    padding: 0.8rem 0.5rem;
+    flex: 1 1 auto;
+    vertical-align: middle;
+    width: 25%;
+    &.col-playcount,
+    &.col-queue,
+    &.col-track {
+      width: 2.5rem;
+      text-align: right;
+    }
+    &.col-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+    &.col-duration {
+      width: 9rem;
+      text-align: center;
+    }
+    &.col-artist {
+      display: none;
+      @include media-breakpoint-up(md) {
+        display: block;
+      }
+    }
+  }
+}

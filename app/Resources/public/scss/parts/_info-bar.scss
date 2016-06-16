@@ -1,10 +1,16 @@
 .info-bar {
   @extend .nav;
   @extend .navbar;
+  &.album {
+    @extend .z-depth-0;
+  }
   width: 100%;
   margin-bottom: 20px;
   display: flex;
   flex-wrap: wrap;
+
+  background-color: rgba($card-bg, 0.95);
+  border: 1px solid rgba($card-border-color, 0.8);
 
   .info-bar-image {
     @include make-col();
@@ -16,5 +22,10 @@
   .info-bar-content {
     @include make-col();
     @include make-col-span(10);
+  }
+
+  ~ .song-list {
+    padding-top: 20px;
+    margin-top: -20px;
   }
 }

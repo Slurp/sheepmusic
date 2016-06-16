@@ -1,4 +1,3 @@
-/web/uploads/*
 /app/Resources/vue
 /app/Resources/public/vendor
 /app/config/parameters.yml
@@ -19,3 +18,4 @@
 /web/bundles/
 /node_modules/
 /web/frontend
+/web/uploads/

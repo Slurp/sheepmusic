@@ -73,13 +73,25 @@ $sidenav-item-height: 64px !default;
 // Settings for the `<body>` element.
 
 $body-bg:                    #fafafa;
-$body-color:                 $primary-color-text;
+$body-color:                 $primary-text-color;
 
 // btn
 
 $btn-primary-color: $primary-color-text;
 $btn-primary-bg: $accent-color;
 $btn-primary-border: $accent-color;
+
+// Flat buttons
+$button-flat-color: #343434 !default;
+$button-flat-disabled-color: lighten(#999, 10%) !default;
+
+// Floating buttons
+$button-floating-background: $btn-primary-bg !default;
+$button-floating-background-hover: $button-floating-background !default;
+$button-floating-color: $btn-primary-color !default;
+$button-floating-size: 37px !default;
+$button-floating-large-size: $button-floating-size * 1.5 !default;
+$button-floating-radius: 50% !default;
 
 // Links
 //
@@ -97,3 +109,12 @@ $card-border-color: $primary-color-dark;
 $card-link-hover-color: $accent-color;
 $card-footer-color:  $primary-color-text;
 $card-cap-bg:  $rgba-stylish-strong;
+
+// info-bar
+$infobar-bg-color: rgba($card-bg, 0.95);
+$infobar-border-color: rgba($card-border-color, 0.8);
+
+
+$backdrop-overlay-color: $rgba-stylish-light;
+
+$songlist-bg-color: $primary-color-text;

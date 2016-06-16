@@ -1,5 +1,0 @@
-black_sheep_music_libary_homepage:
-    resource: '@BlackSheepMusicLibraryBundle/Controller/DefaultController.php'
-    type:     annotation
-
-

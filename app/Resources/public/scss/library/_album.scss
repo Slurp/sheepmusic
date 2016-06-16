@@ -1,6 +1,16 @@
+@mixin make-col-span($size, $columns: $grid-columns) {
+  @if $enable-flex {
+    flex: 1 0 percentage($size / $columns);
+    min-width: percentage($size / $columns);
+    max-width: percentage(($size + 1) / $columns);
+  } @else {
+    width: percentage($size / $columns);
+  }
+}
+
 .album-list {
   @extend .card-deck;
-  align-items: center;
+  color: $primary-color-text;
   .album-card {
 
       @include make-col(0rem);
@@ -16,7 +26,10 @@
       }
 
 
-      flex-shrink: 1 !important;
+    flex-direction: row;
+    flex-shrink: 1 !important;
+    flex-grow: 1 !important;
+
 
   }
 }
@@ -56,5 +69,34 @@
     padding-bottom: 0;
     text-align: right;
     padding-right: 0;
+  }
+  .song-list {
+    li {
+      background: $rgba-stylish-strong;
+    }
+  }
+}
+
+
+
+.info-bar.album {
+
+  padding-bottom: 0;
+
+  .info-bar-image {
+    margin-left: -2.0rem;
+    margin-top: -10px;
+    @include make-col-span(3);
+    img {
+      width: 100%;
+    }
+  }
+  .info-bar-content {
+    @include make-col-span(9);
+    color: $primary-color-text;
+    &.album-name {
+      display: block;
+      width: 100%;
+    }
   }
 }

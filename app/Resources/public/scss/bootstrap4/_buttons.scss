@@ -1,0 +1,13 @@
+.btn-play-album {
+  .info-bar.album & {
+    position: absolute;
+    right: ($gutter-width / 2);
+    top: -2.1rem;
+    width: 3.5rem;
+    height: 3.5rem;
+    i {
+      line-height: 3.5rem;
+      font-size: 3rem;
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{# @var album \BlackSheep\MusicLibraryBundle\Entity\Albums#}
+{# @var song \BlackSheep\MusicLibraryBundle\Entity\Songs#}
+{% if album.cover is not null %}
+    {% set backgroundImage = asset(album.cover) %}
+{% else %}
+    {% set backgroundImage = asset('frontend/img/default.png') %}
+{% endif %}
+
+<div class="song-list">
+    <div class="song-list-header">
+        <div class="col col-track">track</div>
+        <div class="col col-title">title</div>
+        <div class="col col-duration"><i class="material-icons">av_timer</i> </div>
+        <div class="col col-artist">artist</div>
+        <div class="col col-playcount"><i class="material-icons">music_note</i></div>
+        <div class="col col-queue"></div>
+    </div>
+    {% for song in album.getSongs() %}
+        <div class="song-list-item">
+            <div class="col col-track">{{ song.track }}</div>
+            <div class="col col-title">{{ song.title }}</div>
+            <div class="col col-duration">{{ song.length|duration }}</div>
+            <div class="col col-artist">{{ song.artists.first.name }}</div>
+            <div class="col col-playcount">{{ song.playCount }}</div>
+            <div class="col col-queue"><i class="material-icons">add_to_queue</i></div>
+        </div>
+    {% endfor %}
+</div>
