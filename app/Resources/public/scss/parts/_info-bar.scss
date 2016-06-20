@@ -9,8 +9,8 @@
   display: flex;
   flex-wrap: wrap;
 
-  background-color: rgba($card-bg, 0.95);
-  border: 1px solid rgba($card-border-color, 0.8);
+  background-color: $infobar-bg-color;
+  border: 1px solid $infobar-border-color;
 
   .info-bar-image {
     @include make-col();

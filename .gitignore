@@ -17,5 +17,9 @@
 /vendor/
 /web/bundles/
 /node_modules/
-/web/frontend
+/web/frontend/
 /web/uploads/
+
+web/frontend/css/style.css
+
+web/frontend/css/style.min.css

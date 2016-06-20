@@ -22,7 +22,7 @@
             <div class="col col-duration">{{ song.length|duration }}</div>
             <div class="col col-artist">{{ song.artists.first.name }}</div>
             <div class="col col-playcount">{{ song.playCount }}</div>
-            <div class="col col-queue"><i class="material-icons">add_to_queue</i></div>
+            <a class="col col-queue" data-song="{{ url('library_song', {'song' : song.id}) }}"><i class="material-icons">add_to_queue</i></a>
         </div>
     {% endfor %}
 </div>

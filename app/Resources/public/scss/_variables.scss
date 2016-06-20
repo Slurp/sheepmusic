@@ -104,15 +104,16 @@ $link-hover-decoration:      none;
 
 
 // card
-$card-bg: $primary-color-dark;
+$card-bg: #ffffff;
+$card-action-color: $accent-color;
 $card-border-color: $primary-color-dark;
 $card-link-hover-color: $accent-color;
 $card-footer-color:  $primary-color-text;
 $card-cap-bg:  $rgba-stylish-strong;
 
 // info-bar
-$infobar-bg-color: rgba($card-bg, 0.95);
-$infobar-border-color: rgba($card-border-color, 0.8);
+$infobar-bg-color: rgba($primary-color-dark, 0.95);
+$infobar-border-color: rgba($primary-color-dark, 0.8);
 
 
 $backdrop-overlay-color: $rgba-stylish-light;

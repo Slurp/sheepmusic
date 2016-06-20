@@ -1,16 +1,27 @@
 <div class="card artist-card">
+    <a href="{{ path('library_artist', {'artist' : artist.slug } ) }}">
+
     <img class="card-img-top"
          src='{% if artist.image is not null %}{{ artist.image }}{% else %}{{ asset('frontend/img/default.png') }}{% endif %}'/>
-    <div class="card-img-overlay">
-        <h4 class="card-title">
-            {{ artist.name }}
+    </a>
+    <div class="card-block">
+        <h4 class="card-title activator">
+            <a href="{{ path('library_artist', {'artist' : artist.slug } ) }}"> {{ artist.name }}</a><i class="material-icons right">more_vert</i>
         </h4>
-        <div class="card-footer text-muted actions">
-            <a href="{{ path('library_artist', {'artist' : artist.slug } ) }}"
-               class="btn btn-primary-outline"
-            >
-                detail
-            </a>
-        </div>
+    </div>
+    <div class="card-reveal">
+        <h4 class="card-title grey-text text-darken-4">
+            {{ artist.name }}<i class="material-icons right">close</i>
+        </h4>
+        <div>Added on:</div>
+        <span class="label label-info"> {{ artist.createdAt | localdatetime }}</span>
+        <div>Updated on:</div>
+        <span class="label label-info"> {{ artist.updatedAt | localdatetime }}</span>
+
+        <a href="{{ path('library_artist', {'artist' : artist.slug } ) }}"
+           class="btn btn-primary-outline"
+        >
+            show albums
+        </a>
     </div>
 </div>

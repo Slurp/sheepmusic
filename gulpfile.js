@@ -149,9 +149,11 @@ gulp.task('styles', function() {
  ========================================================================== */
 // Jshint
 gulp.task('jshint',['webpack'], function() {
-    return gulp.src([config.js.app, '!' + resourcesPath + '/ui/js/vendors/**/*.js'])
+    return gulp.src([config.js.app, '!' + resourcesPath + '/public/js/vendors/**/*.js'])
         // Jshint
-        .pipe(plugins.jshint())
+        .pipe(plugins.jshint({
+            esversion: 6
+        }))
         .pipe(plugins.jshint.reporter(require('jshint-stylish')));
 });
 
@@ -291,7 +293,7 @@ gulp.task('clean', function(done) {
 
 // Run webpack
 gulp.task('webpack', function(){
-    return gulp.src('app/Resources/vue/main.js')
+    return gulp.src('app/Resources/*/**.js')
         .pipe(webpack( require('./webpack.config.js') ))
         .pipe(gulp.dest('web/frontend/js/'));
 });

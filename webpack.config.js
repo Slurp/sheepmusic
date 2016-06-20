@@ -1,8 +1,8 @@
-var webpack = require('webpack')
+var webpack = require('webpack');
 
 module.exports =  {
   entry: [
-    './app/Resources/vue/main.js'
+    './app/Resources/public/js/es6/player.js'
   ],
   output: {
     path: "/web/frontend/js/",
@@ -16,7 +16,7 @@ module.exports =  {
         test: /\.js$/,
         // excluding some local linked packages.
         // for normal use cases only node_modules is needed.
-        exclude: /node_modules|vue\/src|vue-router\//,
+        exclude: /node_modules/,
         loader: 'babel'
       },
       {

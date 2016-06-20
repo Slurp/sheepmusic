@@ -22,6 +22,7 @@
     "holderjs": "^2.9.3",
     "Stickyfill": "^1.1.4",
     "Materialize": "materialize#^0.97.6",
-    "plyr": "^1.8.2"
+    "plyr": "^1.8.2",
+    "lodash": "^4.13.1"
   }
 }

@@ -1,4 +1,118 @@
 .card {
   border: 0;
   overflow: hidden;
+  .card-title {
+    .card-block & {
+      padding: 0.5rem 0;
+    }
+    &.activator {
+      cursor: pointer;
+      position: relative;
+      margin-right: 20px;
+      word-break: break-word;
+      margin-bottom: 0;
+      i {
+        padding: 0.5rem 0;
+        position: absolute;
+        right: -20px;
+        top:0;
+        color: $card-action-color;
+      }
+    }
+  }
+
+  .card-img-overlay {
+    position: static;
+    @include media-breakpoint-up(md) {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+      background-color: $rgba-stylish-strong;
+    }
+    .card-text,
+    .card-title {
+      @include media-breakpoint-up(md) {
+        padding: 1.25rem;
+      }
+    }
+    .card-title {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      width: 100%;
+      padding: 1rem;
+    }
+    .card-footer {
+      background-color: $rgba-stylish-strong;
+    }
+    .actions {
+      margin-top: auto;
+      width: 100%;
+      padding-top: 0;
+      padding-bottom: 0;
+      text-align: right;
+      padding-right: 0;
+    }
+  }
+
+  .card-block {
+    background-color:#ffffff;
+    padding: 0.5rem;
+    color:$stylish-color-dark;
+    a {
+      color:$stylish-color-dark;
+    }
+    .card-title {
+      padding: 0.5rem;
+    }
+    .card-footer {
+      padding: 0;
+      background-color:$rgba-white-light;
+    }
+  }
+  .card-img-top {
+    @include img-fluid();
+    width: 100%;
+  }
+
+
+  .card-action {
+    position: relative;
+    background-color: inherit;
+    border-top: 1px solid rgba(160,160,160,.2);
+    padding: $card-padding;
+    z-index: 2;
+
+    a:not(.btn):not(.btn-large):not(.btn-floating) {
+      color: $card-link-color;
+      margin-right: $card-padding;
+      transition: color .3s ease;
+      text-transform: uppercase;
+
+      &:hover { color: $card-link-color-light; }
+    }
+
+    & + .card-reveal {
+      z-index: 1;
+      padding-bottom: 64px;
+    }
+  }
+
+  .card-reveal {
+    padding: $card-padding;
+    position: absolute;
+    background-color: $card-bg-color;
+    width: 100%;
+    overflow-y: auto;
+    top: 100%;
+    height: 100%;
+    z-index: 3;
+    display: none;
+
+    .card-title {
+      cursor: pointer;
+      display: block;
+    }
+  }
 }

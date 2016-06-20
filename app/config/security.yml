@@ -11,12 +11,14 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
-
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            remember_me:
+                secret: "%secret%"
+                httponly: false
             pattern:  ^/
             form_login:
                 provider: fos_userbundle
@@ -27,6 +29,7 @@ security:
             anonymous:    true
 
     access_control:
+#        - { path: ^/song/*, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
