@@ -46,7 +46,7 @@ class Songs extends BaseEntity
     protected $playCount;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Playlist", inversedBy="songs")
+     * @ORM\ManyToMany(targetEntity="Playlist", inversedBy="songs" , fetch="EXTRA_LAZY")
      * @ORM\JoinTable(
      *     name="PlaylistSongs",
      *     joinColumns={@ORM\JoinColumn(name="songs_id", referencedColumnName="id", nullable=true)},
@@ -56,7 +56,7 @@ class Songs extends BaseEntity
     protected $playlist;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Artists", inversedBy="songs")
+     * @ORM\ManyToMany(targetEntity="Artists", inversedBy="songs", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(
      *     name="ArtistSongs",
      *     joinColumns={@ORM\JoinColumn(name="songs_id", referencedColumnName="id", nullable=true)},

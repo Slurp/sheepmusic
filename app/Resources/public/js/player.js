@@ -1,6 +1,6 @@
 var BlackSheepPlayer = BlackSheepPlayer || {};
 
-BlackSheepPlayer = (function ($, window, plyr, undefined)
+BlackSheepPlayer = (function ($, window, plyr, Push, undefined)
 {
 
     /**
@@ -8,6 +8,8 @@ BlackSheepPlayer = (function ($, window, plyr, undefined)
      */
     var init,
         watchSongs,
+        watchButtons,
+        notifySong,
         restart,
         setVolume,
         mute,
@@ -24,7 +26,7 @@ BlackSheepPlayer = (function ($, window, plyr, undefined)
         $volumeInput = null,
         repeatModes  = ['NO_REPEAT', 'REPEAT_ALL', 'REPEAT_ONE'],
         initialized  = false;
-
+    currentSong      = null;
     /**
      * Init the module
      */
@@ -37,7 +39,8 @@ BlackSheepPlayer = (function ($, window, plyr, undefined)
         $volumeInput = $('#volumeRange');
 
         player = plyr.setup({
-            controls: []
+            controls:   [],
+            loadSprite: false
         })[0].plyr;
 
         /**
@@ -51,6 +54,7 @@ BlackSheepPlayer = (function ($, window, plyr, undefined)
         });
 
         watchSongs();
+        watchButtons();
     };
 
     watchSongs = function ()
@@ -59,8 +63,16 @@ BlackSheepPlayer = (function ($, window, plyr, undefined)
         {
             var $element = $(this);
             console.log($element.data('song'));
-            $('title').text(`♫ sheepMusic`);
-            $('.plyr audio').attr('title', $element.data('song'));
+            console.log($element.data('song_info'));
+            $.get($element.data('song_info')).done(function (data)
+            {
+                console.log(data);
+                self.currentSong = data;
+                $('title').text(`${self.currentSong.title} ♫ sheepMusic`);
+                $('.plyr audio').attr('title', `${self.currentSong.artists[0].name} - ${self.currentSong.title}`);
+                notifySong();
+            });
+
             player.source({
                 type:    'audio',
                 title:   'Example title',
@@ -75,30 +87,48 @@ BlackSheepPlayer = (function ($, window, plyr, undefined)
         });
     };
 
+    watchButtons = function ()
+    {
+        $('.player-play').on('click', '.player', function ()
+        {
+            if (player.playing) {
+                pause();
+            } else {
+                resume();
+            }
+        });
+
+        $('.player-play').on('click', '.player', function ()
+        {
+
+        });
+
+        $('.player-play').on('click', '.player', function ()
+        {
+
+        });
+    };
+
+    notifySong = function ()
+    {
+        var promise = Push.create(`♫ ${currentSong.title}`, {
+            body:    `${currentSong.album.name} – ${currentSong.artists[0].name}`,
+            icon: `/uploads/${currentSong.artists[0].name}/${currentSong.album.cover}`,
+            timeout: 5000
+        });
+     
+
+        // Somewhere later in your code...
+
+        promise.then(function(notification) {
+            notification.close();
+        });
+    };
+
     restart = function ()
     {
         player.restart();
         player.play();
-
-        // Show the notification if we're allowed to
-        if (!window.Notification) {
-            return;
-        }
-
-        try {
-            const notification = new Notification(`♫ ${song.title}`, {
-                icon: song.album.cover,
-                body: `${song.album.name} – ${song.artist.name}`
-            });
-
-            notification.onclick = () => window.focus();
-
-            // Close the notif after 5 secs.
-            window.setTimeout(() => notification.close(), 5000);
-        } catch (e) {
-            // Notification fails.
-            // @link https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorkerRegistration/showNotification
-        }
     };
 
     /**
@@ -142,7 +172,7 @@ BlackSheepPlayer = (function ($, window, plyr, undefined)
      */
     pause = function ()
     {
-        this.player.pause();
+        player.pause();
     };
 
     /**
@@ -150,14 +180,14 @@ BlackSheepPlayer = (function ($, window, plyr, undefined)
      */
     resume = function ()
     {
-        this.player.play();
+        player.play();
     };
 
     return {
         init: init
     };
 
-}(jQuery, window, plyr));
+}(jQuery, window, plyr, Push));
 
 $(function ()
 {

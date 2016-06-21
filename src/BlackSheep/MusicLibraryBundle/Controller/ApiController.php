@@ -4,11 +4,12 @@ namespace BlackSheep\MusicLibraryBundle\Controller;
 
 use BlackSheep\MusicLibraryBundle\Entity\Albums;
 use BlackSheep\MusicLibraryBundle\Entity\Artists;
+use BlackSheep\MusicLibraryBundle\Entity\Songs;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use Pagerfanta\Adapter\ArrayAdapter;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  *
@@ -16,38 +17,53 @@ use Pagerfanta\Pagerfanta;
 class ApiController extends FOSRestController
 {
     /**
-     * @Route("/user", name="api_user", options={"expose"=true})
+     * @Route("/user", options={"expose"=true})
      */
-    public function userAction()
+    public function getUserAction()
     {
-        $data = array(
-            'currentUser' => $this->getUser()
-        );
+        $data = [
+            'currentUser' => $this->getUser(),
+        ];
         $view = $this->view($data);
+
         return $this->handleView($view);
     }
 
     /**
-     * @Route("/artist", name="api_artist", options={"expose"=true})
+     * @Route("/artist", options={"expose"=true})
      */
-    public function artistAction()
+    public function getArtistAction()
     {
 
-        $adapter = new ArrayAdapter($this->getDoctrine()->getRepository(Artists::class)->findAll());
-        $pagerFanta = new Pagerfanta($adapter);
+        $adapter    = new ArrayAdapter($this->getDoctrine()->getRepository(Artists::class)->findAll());
+        $pager = new Pagerfanta($adapter);
 
-        return $this->handleView($this->view(['artists' => $pagerFanta->getCurrentPageResults()]));
+        return $this->handleView($this->view(['artists' => $pager->getCurrentPageResults()]));
     }
 
     /**
-     * @Route("/albums", name="api_albums", options={"expose"=true})
+     * @Route("/albums", options={"expose"=true})
+     * @return Response
      */
     public function albumsAction()
     {
-        $data = array(
-            'albums' => $this->getDoctrine()->getRepository(Albums::class)->findAll()
-        );
+        $data = [
+            'albums' => $this->getDoctrine()->getRepository(Albums::class)->findAll(),
+        ];
         $view = $this->view($data);
+
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Route("/song/{song}", options={"expose"=true})
+     * @param Songs $song
+     * @return Response
+     */
+    public function getSongInfoAction(Songs $song)
+    {
+        $view = $this->view($song);
+
         return $this->handleView($view);
     }
 }

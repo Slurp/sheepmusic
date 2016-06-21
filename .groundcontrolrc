@@ -51,6 +51,7 @@
       "<=bowerComponentsPath>/holderjs/holder.js",
       "<=bowerComponentsPath>/plyr/src/js/plyr.js",
       "<=bowerComponentsPath>/lodash/dist/lodash.js",
+      "<=bowerComponentsPath>/push.js/push.js",
       "<=bowerComponentsPath>/Materialize/js/cards.js",
       "<=npmPath>/barba.js/dist/barba.js",
       "<=resourcesPath>public/js/vendor/*.js",
