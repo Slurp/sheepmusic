@@ -76,6 +76,6 @@ class TranscodingStreamer extends AbstractStreamer
             array_unshift($args, "-ss {$this->startTime}");
         }
 
-        passthru("$ffmpeg " . implode($args, ' '));
+        passthru("$this->ffmpeg " . implode($args, ' '));
     }
 }
