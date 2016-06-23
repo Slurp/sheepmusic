@@ -1,10 +1,8 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
-black_sheep_music_libary_api:
-    resource: '@BlackSheepMusicLibraryBundle/Controller/ApiController.php'
-    type:     rest
-    prefix:   /api/
+black_sheep_music_library:
+    resource: '@BlackSheepMusicLibraryBundle/Resources/config/routing.yml'
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 fos_js_routing:

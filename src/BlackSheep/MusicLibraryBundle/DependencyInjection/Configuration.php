@@ -7,7 +7,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * This is the class that validates and merges configuration from your app/config files.
- *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/configuration.html}
  */
 class Configuration implements ConfigurationInterface
@@ -18,12 +17,17 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('black_sheep_music_libary');
+        $rootNode    = $treeBuilder->root('black_sheep_music_library');
 
-        // Here you should define the parameters that are allowed to
-        // configure your bundle. See the documentation linked above for
-        // more information on that topic.
-
+        $rootNode
+            ->children()
+                ->scalarNode('ffmpeg_path')->defaultValue('/usr/local/bin/ffmpeg')->end()
+                ->scalarNode('bitrate')->defaultValue(192)->end()
+                ->scalarNode('binary_timeout')->defaultValue(60)->end()
+                ->scalarNode('threads_count')->defaultValue(4)->end()
+            ->end()
+        ->end();
+        $treeBuilder->buildTree();
         return $treeBuilder;
     }
 }

@@ -1,4 +1,7 @@
 services:
-#    black_sheep_music_libary.example:
+#    black_sheep_music_library.example:
 #        class: BlackSheep\MusicLibraryBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
+    black_sheep_music_library.services.streamer_service:
+        class: BlackSheep\MusicLibraryBundle\Services\StreamerService
+        arguments: ["%black_sheep_music_library.ffmpeg_path%", "%black_sheep_music_library.bitrate%"]
