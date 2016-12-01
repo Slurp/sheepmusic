@@ -1,83 +1,64 @@
 <?php
-namespace BlackSheep\MusicLibraryBundle\Entity;
+namespace BlackSheep\MusicLibraryBundle\Model;
 
-use BlackSheep\MusicLibraryBundle\Services\LastFmService;
-use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Filesystem\Filesystem;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity
- * @ORM\Entity(repositoryClass="BlackSheep\MusicLibraryBundle\Repository\AlbumsRepository")
+ *
  */
-class Albums extends BaseEntity
+class Album implements AlbumInterface
 {
     /**
-     * @Gedmo\Slug(handlers={
-     *      @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\RelativeSlugHandler", options={
-     *          @Gedmo\SlugHandlerOption(name="relationField", value="artist"),
-     *          @Gedmo\SlugHandlerOption(name="relationSlugField", value="alias"),
-     *          @Gedmo\SlugHandlerOption(name="separator", value="/")
-     *      })
-     * }, separator="-", updatable=true, fields={"name"})
-     * @ORM\Column(type="string", unique=true)
+     * @var string
      */
-    private $slug;
+    protected $slug;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @var string
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="datetime", nullable=true)
+     * @var string
      */
     protected $releaseDate;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var array
      */
     protected $cover;
 
     /**
-     * @ORM\OneToMany(targetEntity="Songs", mappedBy="album",cascade={"all"})
+     * @var array
      */
     protected $songs;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Artists", inversedBy="albums",cascade={"all"})
+     * @var array
      */
     protected $artist;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var array
      */
     protected $musicBrainzId;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var array
      */
     protected $lastFmId;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var array
      */
     protected $lastFmUrl;
 
     /**
-     */
-    public function __construct()
-    {
-        $this->songs = new ArrayCollection();
-    }
-
-    /**
      * @param $name
      * @param $artist
-     * @param $cover
-     * @return Albums
+     * @param $extraInfo
+     *
+     * @return AlbumInterface
      */
     public static function createArtistAlbum($name, $artist, $extraInfo)
     {
@@ -86,18 +67,7 @@ class Albums extends BaseEntity
         $album->setArtist($artist);
         $album->setCover($extraInfo['cover']);
         $album->setMusicBrainzId($extraInfo['album_mbid']);
-
-        $lastFmService = new LastFmService();
-        $lastFmInfo    = $lastFmService->getAlbumInfo($album->getName(), $album->getArtist()->getName());
-        $album->setMusicBrainzId($lastFmInfo['mbid']);
-        $album->setLastFmId($lastFmInfo['lastfmid']);
-        $album->setLastFmUrl($lastFmInfo['url']);
-        if ($album->cover === null) {
-            $album->setCover($lastFmInfo['image']['large']);
-        }
-        if ($lastFmInfo['releasedate'] !== false) {
-            $album->setReleaseDate(new DateTime($lastFmInfo['releasedate']));
-        }
+        $album->updateLastFmInfo();
 
         return $album;
     }
@@ -119,8 +89,7 @@ class Albums extends BaseEntity
     }
 
     /**
-     * @param mixed $name
-     * @return Albums
+     * @inheritdoc
      */
     public function setName($name)
     {
@@ -130,7 +99,7 @@ class Albums extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getCover()
     {
@@ -142,8 +111,7 @@ class Albums extends BaseEntity
     }
 
     /**
-     * @param mixed $cover
-     * @return Albums
+     * @inheritdoc
      */
     public function setCover($cover)
     {
@@ -156,21 +124,7 @@ class Albums extends BaseEntity
     }
 
     /**
-     * Generate a cover from provided data.
-     *
-     * @param array $cover The cover data in array format, extracted by getID3.
-     *                     For example:
-     *                     [
-     *                     'data' => '<binary data>',
-     *                     'image_mime' => 'image/png',
-     *                     'image_width' => 512,
-     *                     'image_height' => 512,
-     *                     'imagetype' => 'PNG', // not always present
-     *                     'picturetype' => 'Other',
-     *                     'description' => '',
-     *                     'datalength' => 7627,
-     *                     ]
-     * @return string
+     * @inheritdoc
      */
     public function generateCover(array $cover)
     {
@@ -185,21 +139,22 @@ class Albums extends BaseEntity
      *
      * @param string $binaryData
      * @param string $extension The file extension
+     *
      * @return string
      */
     private function writeCoverFile($binaryData, $extension)
     {
         $extension = trim(strtolower($extension), '. ');
-        $fileName  = uniqid() . ".$extension";
+        $fileName = uniqid() . ".$extension";
         $coverPath = $this->getUploadRootDirectory() . $fileName;
-        $fs        = new Filesystem();
+        $fs = new Filesystem();
         $fs->dumpFile($coverPath, $binaryData);
 
         return $fileName;
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getUploadRootDirectory()
     {
@@ -231,8 +186,7 @@ class Albums extends BaseEntity
     }
 
     /**
-     * @param mixed $songs
-     * @return Albums
+     * @inheritdoc
      */
     public function setSongs($songs)
     {
@@ -242,21 +196,19 @@ class Albums extends BaseEntity
     }
 
     /**
-     * @param Songs $song
-     * @return Albums
+     * @inheritdoc
      */
-    public function addSong(Songs $song)
+    public function addSong(SongInterface $song)
     {
-        if ($this->songs->contains($song) === false) {
-            $this->songs->add($song);
-            $song->setAlbum($this);
+        if (in_array($song, $this->songs) === false) {
+            $this->songs[] = $song;
         }
 
         return $this;
     }
 
     /**
-     * @return Artists
+     * @inheritdoc
      */
     public function getArtist()
     {
@@ -264,8 +216,7 @@ class Albums extends BaseEntity
     }
 
     /**
-     * @param mixed $artists
-     * @return Albums
+     * @inheritdoc
      */
     public function setArtist($artists)
     {
@@ -275,7 +226,7 @@ class Albums extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getReleaseDate()
     {
@@ -283,8 +234,7 @@ class Albums extends BaseEntity
     }
 
     /**
-     * @param mixed $releaseDate
-     * @return Albums
+     * @inheritdoc
      */
     public function setReleaseDate($releaseDate)
     {
@@ -294,7 +244,7 @@ class Albums extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getMusicBrainzId()
     {
@@ -302,8 +252,7 @@ class Albums extends BaseEntity
     }
 
     /**
-     * @param mixed $musicBrainzId
-     * @return Albums
+     * @inheritdoc
      */
     public function setMusicBrainzId($musicBrainzId)
     {
@@ -322,7 +271,8 @@ class Albums extends BaseEntity
 
     /**
      * @param mixed $lastFmId
-     * @return Albums
+     *
+     * @return AlbumInterface
      */
     public function setLastFmId($lastFmId)
     {
@@ -341,7 +291,8 @@ class Albums extends BaseEntity
 
     /**
      * @param mixed $lastFmUrl
-     * @return Albums
+     *
+     * @return AlbumInterface
      */
     public function setLastFmUrl($lastFmUrl)
     {
@@ -351,12 +302,13 @@ class Albums extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @return array
      */
-    public function getLastFmInfo()
+    public function getApiData()
     {
-        $lastFmService = new LastFmService();
-
-        return $lastFmService->getAlbumInfo($this->getName(), $this->getArtist()->getName());
+        return [
+            'name' => $this->getName(),
+            'cover' => $this->getCover(),
+        ];
     }
 }

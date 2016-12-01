@@ -1,10 +1,8 @@
 <?php
-
 namespace BlackSheep\MusicLibraryBundle\Controller;
 
-use BlackSheep\MusicLibraryBundle\Entity\Albums;
-use BlackSheep\MusicLibraryBundle\Entity\Artists;
-use BlackSheep\MusicLibraryBundle\Entity\Songs;
+use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
+use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use Pagerfanta\Adapter\ArrayAdapter;
@@ -21,10 +19,9 @@ class ApiController extends FOSRestController
      */
     public function getUserAction()
     {
-        $data = [
+        $view = $this->view([
             'currentUser' => $this->getUser(),
-        ];
-        $view = $this->view($data);
+        ]);
 
         return $this->handleView($view);
     }
@@ -34,10 +31,8 @@ class ApiController extends FOSRestController
      */
     public function getArtistAction()
     {
-
-        $adapter    = new ArrayAdapter($this->getDoctrine()->getRepository(Artists::class)->findAll());
+        $adapter = new ArrayAdapter($this->getDoctrine()->getRepository(ArtistsEntity::class)->findAll());
         $pager = new Pagerfanta($adapter);
-
         return $this->handleView($this->view(['artists' => $pager->getCurrentPageResults()]));
     }
 
@@ -47,22 +42,22 @@ class ApiController extends FOSRestController
      */
     public function albumsAction()
     {
-        $data = [
-            'albums' => $this->getDoctrine()->getRepository(Albums::class)->findAll(),
-        ];
-        $view = $this->view($data);
+        $view = $this->view([
+            'albums' => $this->getDoctrine()->getRepository(ArtistsEntity::class)->findAll(),
+        ]);
 
         return $this->handleView($view);
     }
 
     /**
      * @Route("/song/{song}", options={"expose"=true})
-     * @param Songs $song
+     * @param SongEntity $song
+     *
      * @return Response
      */
-    public function getSongInfoAction(Songs $song)
+    public function getSongInfoAction(SongEntity $song)
     {
-        $view = $this->view($song);
+        $view = $this->view($song->getApiData());
 
         return $this->handleView($view);
     }

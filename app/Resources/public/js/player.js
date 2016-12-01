@@ -1,6 +1,6 @@
 var BlackSheepPlayer = BlackSheepPlayer || {};
 
-BlackSheepPlayer = (function ($, window, plyr, Push, undefined)
+BlackSheepPlayer = (function ($, window, plyr, Push)
 {
 
     /**
@@ -9,6 +9,7 @@ BlackSheepPlayer = (function ($, window, plyr, Push, undefined)
     var init,
         watchSongs,
         watchButtons,
+        watchEvents,
         notifySong,
         restart,
         setVolume,
@@ -25,8 +26,8 @@ BlackSheepPlayer = (function ($, window, plyr, Push, undefined)
     var player       = null,
         $volumeInput = null,
         repeatModes  = ['NO_REPEAT', 'REPEAT_ALL', 'REPEAT_ONE'],
-        initialized  = false;
-    currentSong      = null;
+        initialized  = false,
+        currentSong  = null;
     /**
      * Init the module
      */
@@ -38,11 +39,14 @@ BlackSheepPlayer = (function ($, window, plyr, Push, undefined)
         }
         $volumeInput = $('#volumeRange');
 
-        player = plyr.setup({
-            controls:   [],
+        var instances = plyr.setup({
+            debug:      false,
+            controls:   ['progress'],
             loadSprite: false
-        })[0].plyr;
+        });
 
+        // Plyr returns an array regardless
+        player = instances[0];
         /**
          * Listen to 'input' event on the volume range control.
          * When user drags the volume control, this event will be triggered, and we
@@ -55,27 +59,24 @@ BlackSheepPlayer = (function ($, window, plyr, Push, undefined)
 
         watchSongs();
         watchButtons();
+        watchEvents();
     };
 
     watchSongs = function ()
     {
-        $('[data-song]').on('click', function ()
+        $("main").on('click', '[data-song]', function ()
         {
             var $element = $(this);
-            console.log($element.data('song'));
-            console.log($element.data('song_info'));
             $.get($element.data('song_info')).done(function (data)
             {
-                console.log(data);
                 self.currentSong = data;
                 $('title').text(`${self.currentSong.title} ♫ sheepMusic`);
-                $('.plyr audio').attr('title', `${self.currentSong.artists[0].name} - ${self.currentSong.title}`);
+                $('.plyr audio').attr('title', `${self.currentSong.artist.name} - ${self.currentSong.title}`);
                 notifySong();
             });
-
             player.source({
                 type:    'audio',
-                title:   'Example title',
+                title:   '-',
                 sources: [{
                     src:  $element.data('song'),
                     type: 'audio/mp3'
@@ -89,46 +90,67 @@ BlackSheepPlayer = (function ($, window, plyr, Push, undefined)
 
     watchButtons = function ()
     {
-        $('.player-play').on('click', '.player', function ()
+
+        $(".player-play").on('click', function ()
         {
-            if (player.playing) {
+            if (player.getMedia().paused === false) {
                 pause();
             } else {
                 resume();
             }
         });
 
-        $('.player-play').on('click', '.player', function ()
+        $(".player-mute").on('click', '.player', function ()
         {
-
+            if (player.getMedia().muted === false) {
+                mute();
+            } else {
+                unmute();
+            }
         });
+    };
 
-        $('.player-play').on('click', '.player', function ()
+    watchEvents = function ()
+    {
+        player.on('timeupdate', function (event)
         {
-
+            updateSongProgress(event.detail.plyr);
         });
+    };
+
+    updateSongProgress = function (plyr)
+    {
+        if (typeof plyr === 'string' || plyr instanceof String) {
+            $('.player .progress').val(plyr);
+        } else {
+            var percentage = (plyr.getCurrentTime() / plyr.getDuration()) * 100;
+            $('.player .progress').val(percentage);
+            $('.player #time .time-cur').text(plyr.getCurrentTime());
+        }
     };
 
     notifySong = function ()
     {
         var promise = Push.create(`♫ ${currentSong.title}`, {
-            body:    `${currentSong.album.name} – ${currentSong.artists[0].name}`,
-            icon: `/uploads/${currentSong.artists[0].name}/${currentSong.album.cover}`,
+            body:    `${currentSong.album.name} – ${currentSong.artist.name}`,
+            icon:    `${currentSong.album.cover}`,
             timeout: 5000
         });
-     
-
+        $('.player .playing-song-title').text(currentSong.artist.name + ' : ' + currentSong.title);
+        $('.player .song-image').attr('src', currentSong.album.cover);
         // Somewhere later in your code...
 
-        promise.then(function(notification) {
+        promise.then(function (notification)
+        {
             notification.close();
         });
     };
 
     restart = function ()
     {
-        player.restart();
+        player.restart(0);
         player.play();
+        $('.player #time .time-total').text(player.getDuration());
     };
 
     /**

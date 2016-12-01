@@ -53,7 +53,7 @@
     "gulp-postcss": "^6.1.0",
     "gulp-rename": "1.2.0",
     "gulp-rev": "3.0.1",
-    "gulp-ruby-sass": "0.7.1",
+    "gulp-ruby-sass": "2.1.0",
     "gulp-sass": "^2.2.0",
     "gulp-shell": "0.2.11",
     "gulp-size": "1.2.0",

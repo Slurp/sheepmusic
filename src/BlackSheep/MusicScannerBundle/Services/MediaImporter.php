@@ -8,9 +8,15 @@
  */
 namespace BlackSheep\MusicScannerBundle\Services;
 
-use BlackSheep\MusicLibraryBundle\Entity\Albums;
-use BlackSheep\MusicLibraryBundle\Entity\Artists;
-use BlackSheep\MusicLibraryBundle\Entity\Songs;
+use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
+use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
+use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
+use BlackSheep\MusicLibraryBundle\LastFm\LastFmAlbum;
+use BlackSheep\MusicLibraryBundle\LastFm\LastFmAlbumInfo;
+use BlackSheep\MusicLibraryBundle\LastFm\LastFmArtist;
+use BlackSheep\MusicLibraryBundle\LastFm\LastFmArtistInfo;
+use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
+use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use BlackSheep\MusicLibraryBundle\Repository\AlbumsRepository;
 use BlackSheep\MusicLibraryBundle\Repository\ArtistRepository;
 use BlackSheep\MusicLibraryBundle\Repository\SongsRepository;
@@ -58,12 +64,12 @@ class MediaImporter
     protected $songsRepository;
 
     /**
-     * @var Artists $artistCache
+     * @var ArtistInterface $artistCache
      */
     protected $artistCache;
 
     /**
-     * @var Albums $albumCache
+     * @var AlbumInterface $albumCache
      */
     protected $albumCache;
 
@@ -76,6 +82,12 @@ class MediaImporter
      * @var AlbumsRepository $albumRepository
      */
     protected $albumRepository;
+
+    /** @var  LastFmArtist */
+    protected $lastFmArtist;
+
+    /** @var  LastFmAlbum */
+    protected $lastFmAlbum;
 
     /**
      * @param $path
@@ -93,7 +105,6 @@ class MediaImporter
     public function setEntityManager(EntityManager $entityManager)
     {
         $this->entityManager   = $entityManager;
-        $this->songsRepository = $entityManager->getRepository(Songs::class);
     }
 
     /**
@@ -120,14 +131,20 @@ class MediaImporter
         }
     }
 
+    /**
+     *
+     */
     public function import()
     {
         $this->stopwatch->start('import_music');
-
-        $this->artistRepository = $this->entityManager->getRepository(Artists::class);
-        $this->albumRepository  = $this->entityManager->getRepository(Albums::class);
-
+        // Make service calls out of these
+        $this->artistRepository = $this->entityManager->getRepository(ArtistsEntity::class);
+        $this->albumRepository  = $this->entityManager->getRepository(AlbumEntity::class);
+        $this->songsRepository = $this->entityManager->getRepository(SongEntity::class);
+        $this->lastFmArtist = new LastFmArtist(new LastFmArtistInfo());
+        $this->lastFmAlbum = new LastFmAlbum(new LastFmAlbumInfo());
         $importingFiles = $this->gatherFiles($this->path);
+
         $this->setupProgressBar(count($importingFiles));
 
         /** @var SplFileInfo $file */
@@ -150,7 +167,7 @@ class MediaImporter
     /**
      * @param $songInfo
      */
-    protected function importSong($songInfo)
+    protected function importArtist($songInfo)
     {
         if ($this->artistCache === null ||
             (
@@ -159,24 +176,42 @@ class MediaImporter
             )
         ) {
             $this->artistCache = $this->artistRepository->addOrUpdate($songInfo['artist'], $songInfo['artist_mbid']);
+            $this->lastFmArtist->updateLastFmInfo($this->artistCache);
         }
+    }
+
+    /**
+     * @param $songInfo
+     */
+    protected function importAlbum($songInfo)
+    {
+        $this->importArtist($songInfo);
         if ($this->albumCache === null || $this->albumCache->getName() !== $songInfo['album']) {
             $this->albumCache = $this->albumRepository->addOrUpdateByArtistAndName(
                 $this->artistCache,
                 $songInfo['album'],
                 $songInfo
             );
+            $this->lastFmAlbum->updateLastFmInfo($this->albumCache);
         }
-        /** @var Songs $songEntity */
-        $songEntity = Songs::createFromArray($songInfo);
+    }
+
+    /**
+     * @param $songInfo
+     */
+    protected function importSong($songInfo)
+    {
+        $this->importAlbum($songInfo);
+        /** @var SongEntity $songEntity */
+        $songEntity = SongEntity::createFromArray($songInfo);
         $songEntity->addArtist($this->artistCache);
         $this->albumCache->addSong($songEntity);
 
         $this->entityManager->persist($songEntity);
-        if ($this->albumCache instanceof Albums) {
+        if ($this->albumCache instanceof AlbumEntity) {
             $this->entityManager->persist($this->albumCache);
         }
-        if ($this->artistCache instanceof Artists) {
+        if ($this->artistCache instanceof ArtistsEntity) {
             $this->entityManager->persist($this->artistCache);
         } else {
             $this->artistCache = null;
@@ -196,6 +231,9 @@ class MediaImporter
         }
     }
 
+    /**
+     *
+     */
     protected function debugEnd()
     {
         if ($this->progress !== null) {

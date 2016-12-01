@@ -12,6 +12,9 @@ use getID3;
 use getid3_lib;
 use SplFileInfo;
 
+/**
+ *
+ */
 class TagHelper
 {
     /**
@@ -38,7 +41,7 @@ class TagHelper
         $info = $this->getID3->analyze($file->getPathname());
 
         if (isset($info['error'])) {
-            return;
+            return null;
         }
 
         // Copy the available tags over to comment.
@@ -48,7 +51,7 @@ class TagHelper
         getid3_lib::CopyTagsToComments($info);
 
         if (!isset($info['playtime_seconds'])) {
-            return;
+            return null;
         }
         $cover = null;
         if (isset($info['comments']['picture'])) {

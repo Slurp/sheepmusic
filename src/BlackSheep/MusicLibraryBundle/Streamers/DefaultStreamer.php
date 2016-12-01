@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  *
  */
-class DefaultStreamer extends AbstractStreamer
+class DefaultStreamer extends AbstractStreamer implements AudioStreamInterface
 {
     /**
      *

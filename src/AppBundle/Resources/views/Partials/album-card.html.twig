@@ -4,25 +4,28 @@
     {% set backgroundImage = asset('frontend/img/default.png') %}
 {% endif %}
 <div class="card album-card">
-    <img class="card-img-top"
-         src='{{ backgroundImage }}'/>
+    <a href="{{ url('library_album',{'album':album.slug }) }}" >
+        <img class="card-img-top" src='{{ backgroundImage }}'/>
+    </a>
     <div class="card-block">
-        <h4 class="card-title">
-            <a href="{{ url('library_album',{'album':album.slug }) }}">
-                {{ album.name }}
-            </a>
+        <h4 class="card-title activator">
+            {{ album.artist.name }}<i class="material-icons right">more_vert</i>
         </h4>
         <p class="card-text">
-            <a href="{{ url('library_artist',{'artist': album.artist.id}) }}">
-                {{ album.artist.name }}
-            </a>
+            {{ album.name }}
         </p>
-        <div class="card-footer text-muted actions">
-            <a href="{{ url('library_album',{'album':album.slug }) }}"
-               class="btn btn-primary-outline">
-            detail
-            </a>
-        </div>
     </div>
+    <div class="card-reveal">
+        <h4 class="card-title grey-text text-darken-4">
+            {{ album.artist.name }} <br />
+            {{ album.name }}
+            <i class="material-icons close right">close</i>
+        </h4>
 
+        <a href="#"
+           class="btn btn-primary-outline"
+        >
+            Play all
+        </a>
+    </div>
 </div>

@@ -5,7 +5,7 @@
     @extend .z-depth-0;
   }
   width: 100%;
-  margin-bottom: 20px;
+  margin-top: 80px;
   display: flex;
   flex-wrap: wrap;
 
@@ -13,15 +13,15 @@
   border: 1px solid $infobar-border-color;
 
   .info-bar-image {
-    @include make-col();
-    @include make-col-span(2);
+    @include make-col-ready();
+    @include make-col(2);
     img {
       @include img-fluid();
     }
   }
   .info-bar-content {
-    @include make-col();
-    @include make-col-span(10);
+    @include make-col-ready();
+    @include make-col(10);
   }
 
   ~ .song-list {

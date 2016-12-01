@@ -1,20 +1,13 @@
 <?php
-/**
- * @author    : @{USER} <stephan@bureaublauwgeel.nl>
- * Date: 23/06/16
- * Time: 22:25
- * @copyright 2016 Bureau Blauwgeel
- * @version   1.0
- */
 namespace BlackSheep\MusicLibraryBundle\Streamers;
 
-use BlackSheep\MusicLibraryBundle\Entity\Songs;
+use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use Exception;
 
 /**
  *
  */
-class TranscodingStreamer extends AbstractStreamer
+class TranscodingStreamer extends AbstractStreamer implements AudioStreamInterface
 {
     /**
      * Bitrate the stream should be transcoded at.
@@ -36,17 +29,17 @@ class TranscodingStreamer extends AbstractStreamer
     private $ffmpeg;
 
     /**
-     * @param Songs $song
-     * @param       $bitrate
-     * @param       $ffmpeg
-     * @param int   $startTime
+     * @param SongInterface $song
+     * @param $bitrate
+     * @param $ffmpeg
+     * @param int $startTime
      */
-    public function __construct(Songs $song, $bitrate, $ffmpeg, $startTime = 0)
+    public function __construct(SongInterface $song, $bitrate, $ffmpeg, $startTime = 0)
     {
         parent::__construct($song);
-        $this->bitrate   = $bitrate;
+        $this->bitrate = $bitrate;
         $this->startTime = $startTime;
-        $this->ffmpeg    = $ffmpeg;
+        $this->ffmpeg = $ffmpeg;
     }
 
     /**

@@ -1,12 +1,14 @@
 <?php
 namespace BlackSheep\MusicLibraryBundle\Entity;
-use Doctrine\ORM\Mapping AS ORM;
+
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
  */
-class Playlist extends BaseEntity
+class Playlist
 {
+    use BaseEntity;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -14,7 +16,7 @@ class Playlist extends BaseEntity
     protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Songs", mappedBy="playlist")
+     * @ORM\ManyToMany(targetEntity="SongEntity", mappedBy="playlist")
      */
     protected $songs;
 }

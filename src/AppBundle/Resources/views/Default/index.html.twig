@@ -19,7 +19,7 @@
 
 
 {% block content %}
-    <div class="card-deck">
+    <div class="artist-list">
         {% for artist in artists %}
             {% include '@App/Partials/artist-card.html.twig' with {'artist': artist} only %}
         {% endfor %}

@@ -2,8 +2,8 @@
 
 namespace AppBundle\Controller;
 
-use BlackSheep\MusicLibraryBundle\Entity\Albums;
-use BlackSheep\MusicLibraryBundle\Entity\Artists;
+use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
+use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -19,7 +19,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $artists = $this->getDoctrine()->getRepository(Artists::class)->findAll();
+        $artists = $this->getDoctrine()->getRepository(ArtistsEntity::class)->findAll();
 
         return $this->render('AppBundle:Default:index.html.twig', ['artists' => $artists]);
     }
@@ -29,18 +29,22 @@ class DefaultController extends Controller
      */
     public function artistAction()
     {
-        $artists = $this->getDoctrine()->getRepository(Artists::class)->findAll();
+        $artists = $this->getDoctrine()->getRepository(ArtistsEntity::class)->findAll();
 
         return $this->render('AppBundle:Default:index.html.twig', ['artists' => $artists]);
     }
 
     /**
      * @Route("/artist/{artist}", name="library_artist")
-     * @ParamConverter("artist", class="BlackSheepMusicLibraryBundle:Artists", options={"mapping": {"artist": "slug"}})
-     * @param Artists $artist
+     * @ParamConverter(
+     *     "artist",
+     *     class="BlackSheepMusicLibraryBundle:ArtistsEntity",
+     *     options={"mapping": {"artist": "slug"}}
+     * )
+     * @param ArtistsEntity $artist
      * @return Response
      */
-    public function artistDetailAction(Artists $artist)
+    public function artistDetailAction(ArtistsEntity $artist)
     {
         return $this->render('AppBundle:Default:artist.html.twig', ['artist' => $artist]);
     }
@@ -51,7 +55,7 @@ class DefaultController extends Controller
      */
     public function albumsAction()
     {
-        $albums = $this->getDoctrine()->getRepository(Albums::class)->findAll();
+        $albums = $this->getDoctrine()->getRepository(AlbumEntity::class)->findAll();
 
         return $this->render('AppBundle:Default:albums.html.twig', ['albums' => $albums]);
     }
@@ -62,18 +66,22 @@ class DefaultController extends Controller
      */
     public function recentAlbumsAction()
     {
-        $albums = $this->getDoctrine()->getRepository(Albums::class)->getRecentAlbums();
+        $albums = $this->getDoctrine()->getRepository(AlbumEntity::class)->getRecentAlbums();
 
         return $this->render('AppBundle:Default:albums.html.twig', ['albums' => $albums]);
     }
 
     /**
      * @Route("/album/{album}", name="library_album",requirements={"album"=".+"})
-     * @ParamConverter("album", class="BlackSheepMusicLibraryBundle:Albums", options={"mapping": {"album": "slug"}})
-     * @param Albums $album
+     * @ParamConverter(
+     *     "album",
+     *     class="BlackSheepMusicLibraryBundle:AlbumEntity",
+     *     options={"mapping": {"album": "slug"}}
+     * )
+     * @param AlbumEntity $album
      * @return Response
      */
-    public function albumDetailAction(Albums $album)
+    public function albumDetailAction(AlbumEntity $album)
     {
         return $this->render(
             'AppBundle:Default:albums.html.twig',

@@ -2,7 +2,7 @@
 #loading-overlay {
 
   position: fixed;
-  top: $footer-fixed-height;
+  top:0;
   left: 0;
   bottom: $footer-fixed-height;
   @include media-breakpoint-up(sm) {

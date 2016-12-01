@@ -1,9 +1,8 @@
 .card {
-  border: 0;
-  overflow: hidden;
+  border-color: $divider-color;
   .card-title {
     .card-block & {
-      padding: 0.5rem 0;
+      padding: 0.25rem 0;
     }
     &.activator {
       cursor: pointer;
@@ -12,9 +11,9 @@
       word-break: break-word;
       margin-bottom: 0;
       i {
-        padding: 0.5rem 0;
+        padding: 0;
         position: absolute;
-        right: -20px;
+        right: -8px;
         top:0;
         color: $card-action-color;
       }
@@ -30,18 +29,12 @@
       padding: 0;
       background-color: $rgba-stylish-strong;
     }
-    .card-text,
-    .card-title {
-      @include media-breakpoint-up(md) {
-        padding: 1.25rem;
-      }
-    }
+
     .card-title {
       overflow: hidden;
       text-overflow: ellipsis;
       display: block;
       width: 100%;
-      padding: 1rem;
     }
     .card-footer {
       background-color: $rgba-stylish-strong;
@@ -109,7 +102,11 @@
     height: 100%;
     z-index: 3;
     display: none;
-
+    .close {
+      position: absolute;
+      top: 0;
+      right:0;
+    }
     .card-title {
       cursor: pointer;
       display: block;

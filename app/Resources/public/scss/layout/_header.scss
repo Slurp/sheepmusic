@@ -1,16 +1,15 @@
 .sheepnav {
   @extend .navbar;
   @extend .navbar-fixed-top;
-  background-color: $rgba-white-light;
-  @include media-breakpoint-up(sm) {
-    margin-left: 200px;
-  }
-
+  background-color: $sidenav-bg-color;
 
   .navbar-brand {
-    img {
-      @include img-fluid();
+
+    .logo {
+      width: 2rem;
+      height: 2rem;
     }
+
   }
   .page-title
   {

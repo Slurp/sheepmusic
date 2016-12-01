@@ -1,26 +1,29 @@
-@mixin make-col-span($size, $columns: $grid-columns) {
-  @if $enable-flex {
-    flex: 1 0 percentage($size / $columns);
-    //width: percentage($size / $columns);
-  } @else {
-    width: percentage($size / $columns);
+.artist-list {
+  @extend .card-deck;
+  color: $primary-color-text;
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  align-items: stretch;
+  .card {
+    display: block;
+    flex-basis: 20%; /* change this value for each breakpoint*/
+    margin-bottom: 1rem;
   }
 }
-
 .artist-card {
-  color: $primary-color-text;
-    .card-deck & {
-      @include make-col(0rem);
-      @include make-col-span(6);
-      @include media-breakpoint-up(md) {
-        @include make-col-span(4)
-      }
-      @include media-breakpoint-up(lg) {
-        @include make-col-span(2.5)
-      }
-      @include media-breakpoint-up(xl) {
-        @include make-col-span(2)
-      }
+  color: $primary-text-color;
+  font-size: 0.8rem;
+  .card-text,
+  .card-title {
+    font-size: 0.9rem;
+    line-height: 1.0rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 100%;
+    padding: 0.25rem;
+    margin:0;
   }
 
   .card-reveal {

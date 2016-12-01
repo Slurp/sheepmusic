@@ -1,7 +1,7 @@
 <?php
 namespace BlackSheep\MusicLibraryBundle\Streamers;
 
-use BlackSheep\MusicLibraryBundle\Entity\Songs;
+use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -11,7 +11,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 abstract class AbstractStreamer implements AudioStreamInterface
 {
     /**
-     * @var Songs|string
+     * @var SongInterface|string
      */
     protected $song;
 
@@ -23,9 +23,9 @@ abstract class AbstractStreamer implements AudioStreamInterface
     /**
      * BaseStreamer constructor.
      *
-     * @param $song Songs
+     * @param SongInterface $song
      */
-    public function __construct(Songs $song)
+    public function __construct(SongInterface $song)
     {
         $this->song = $song;
 
@@ -36,6 +36,7 @@ abstract class AbstractStreamer implements AudioStreamInterface
         $this->contentType = 'audio/' . pathinfo($this->song->getPath(), PATHINFO_EXTENSION);
 
         // Turn off error reporting to make sure our stream isn't interfered.
+        /** @noinspection PhpUsageOfSilenceOperatorInspection */
         @error_reporting(0);
     }
 

@@ -2,7 +2,7 @@
 
 namespace BlackSheep\MusicLibraryBundle\Controller;
 
-use BlackSheep\MusicLibraryBundle\Entity\Songs;
+use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,11 +15,11 @@ class SongController extends Controller
 {
     /**
      * @Route("/play/{song}", name="song_play")
-     * @param Songs   $song
+     * @param SongEntity  $song
      * @param Request $request
      * @return Response
      */
-    public function playAction(Songs $song, Request $request)
+    public function playAction(SongEntity $song, Request $request)
     {
         $streamer = $this->get('black_sheep_music_library.services.streamer_service');
 

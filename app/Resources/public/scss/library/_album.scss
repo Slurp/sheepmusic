@@ -1,40 +1,21 @@
-@mixin make-col-span($size, $columns: $grid-columns) {
-  @if $enable-flex {
-    flex: 1 0 percentage($size / $columns);
-    min-width: percentage($size / $columns);
-    max-width: percentage(($size + 1) / $columns);
-  } @else {
-    width: percentage($size / $columns);
-  }
-}
 
 .album-list {
   @extend .card-deck;
   color: $primary-color-text;
-  .album-card {
-
-      @include make-col(0rem);
-      @include make-col-span(6);
-      @include media-breakpoint-up(md) {
-        @include make-col-span(4)
-      }
-      @include media-breakpoint-up(lg) {
-        @include make-col-span(2.5)
-      }
-      @include media-breakpoint-up(xl) {
-        @include make-col-span(2)
-      }
-
-
-    flex-direction: row;
-    flex-shrink: 1 !important;
-    flex-grow: 1 !important;
-
-
+  display: flex;
+  justify-content: flex-start;
+  flex-flow: row wrap;
+  align-items: stretch;
+  .card {
+    @include make-col(3);
+    display: block;
+    flex-basis: 20%; /* change this value for each breakpoint*/
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
   }
 }
 
-.album-card {
+.card.album-card {
   position: relative;
   .card-img-overlay {
     position: static;
@@ -46,15 +27,22 @@
       background-color: $rgba-stylish-strong;
     }
   }
-  .card-img-top {
-    @include img-fluid();
-    width: 100%;
-  }
   .card-text,
   .card-title {
-    @include media-breakpoint-up(md) {
-      padding: 1.25rem;
-    }
+      font-size: 0.8rem;
+      line-height: 0.9rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+      width: 100%;
+      height: 2rem;
+      padding: 0.25rem;
+      margin:0;
+  }
+  .card-title {
+    font-size: 1rem;
+    line-height: 1rem;
+    height: 2.1rem;
   }
   .card-footer {
     background-color: $rgba-stylish-strong;
@@ -86,13 +74,13 @@
   .info-bar-image {
     margin-left: -2.0rem;
     margin-top: -10px;
-    @include make-col-span(3);
+    @include make-col(3);
     img {
       width: 100%;
     }
   }
   .info-bar-content {
-    @include make-col-span(9);
+    @include make-col(9);
     color: $primary-color-text;
     &.album-name {
       display: block;

@@ -77,17 +77,7 @@
                 function removeMenu(restoreNav) {
                     panning = false;
                     menuOut = false;
-                    // Reenable scrolling
-                    $('body').css({
-                        overflow: '',
-                        width: ''
-                    });
-
-                    $('#sidenav-overlay').velocity({opacity: 0}, {duration: 200,
-                        queue: false, easing: 'easeOutQuad',
-                        complete: function() {
-                            $(this).remove();
-                        } });
+                    $('body').removeClass('slide-nav-out');
                     if (options.edge === 'left') {
                         // Reset phantom div
                         dragTarget.css({width: '', right: '', left: '0'});
@@ -148,20 +138,6 @@
                         var y = e.gesture.center.y;
                         var velocityX = e.gesture.velocityX;
 
-                        // Disable Scrolling
-                        var $body = $('body');
-                        var oldWidth = $body.innerWidth();
-                        $body.css('overflow', 'hidden');
-                        $body.width(oldWidth);
-
-                        // If overlay does not exist, create one and if it is clicked, close menu
-                        if ($('#sidenav-overlay').length === 0) {
-                            var overlay = $('<div id="sidenav-overlay"></div>');
-                            overlay.css('opacity', 0).click( function(){
-                                removeMenu();
-                            });
-                            $('body').append(overlay);
-                        }
 
                         // Keep within boundaries
                         if (options.edge === 'left') {
@@ -191,18 +167,6 @@
                             }
 
                             menu_id.css('transform', 'translateX(' + rightPos + 'px)');
-                        }
-
-
-                        // Percentage overlay
-                        var overlayPerc;
-                        if (options.edge === 'left') {
-                            overlayPerc = x / options.menuWidth;
-                            $('#sidenav-overlay').velocity({opacity: overlayPerc }, {duration: 10, queue: false, easing: 'easeOutQuad'});
-                        }
-                        else {
-                            overlayPerc = Math.abs((x - window.innerWidth) / options.menuWidth);
-                            $('#sidenav-overlay').velocity({opacity: overlayPerc }, {duration: 10, queue: false, easing: 'easeOutQuad'});
                         }
                     }
 
@@ -286,15 +250,13 @@
                         removeMenu();
                     }
                     else {
-
+                        menuOut = true;
                         // Disable Scrolling
                         var $body = $('body');
-                        var oldWidth = $body.innerWidth();
-                        $body.css('overflow', 'hidden');
-                        $body.width(oldWidth);
+                        $body.addClass('slide-nav-out');
 
                         // Push current drag target on top of DOM tree
-                        $('body').append(dragTarget);
+                        $body.append(dragTarget);
 
                         if (options.edge === 'left') {
                             dragTarget.css({width: '50%', right: 0, left: ''});
@@ -304,26 +266,6 @@
                             dragTarget.css({width: '50%', right: '', left: 0});
                             menu_id.velocity({'translateX': [0, options.menuWidth]}, {duration: 300, queue: false, easing: 'easeOutQuad'});
                         }
-
-                        var overlay = $('<div id="sidenav-overlay"></div>');
-                        overlay.css('opacity', 0)
-                            .click(function(){
-                                menuOut = false;
-                                panning = false;
-                                removeMenu();
-                                overlay.velocity({opacity: 0}, {duration: 300, queue: false, easing: 'easeOutQuad',
-                                    complete: function() {
-                                        $(this).remove();
-                                    } });
-
-                            });
-                        $('body').append(overlay);
-                        overlay.velocity({opacity: 1}, {duration: 300, queue: false, easing: 'easeOutQuad',
-                            complete: function () {
-                                menuOut = true;
-                                panning = false;
-                            }
-                        });
                     }
 
                     return false;

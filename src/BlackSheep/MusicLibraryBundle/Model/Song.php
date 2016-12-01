@@ -1,85 +1,62 @@
 <?php
-namespace BlackSheep\MusicLibraryBundle\Entity;
-
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
+namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * @ORM\Entity
- * @ORM\Entity(repositoryClass="BlackSheep\MusicLibraryBundle\Repository\SongsRepository")
+ *
  */
-class Songs extends BaseEntity
+class Song implements SongInterface
 {
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
      */
     protected $track;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
      */
     protected $title;
 
     /**
-     * @ORM\Column(type="bigint", nullable=true)
+     * @var int
      */
     protected $length;
 
     /**
-     * @ORM\Column(type="bigint")
+     * @var int
      */
     protected $mTime;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true, unique=true)
+     * @var string
      */
     protected $path;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Albums", inversedBy="songs")
+     * @var AlbumInterface[]
      */
     protected $album;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @var int
      */
     protected $playCount;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Playlist", inversedBy="songs" , fetch="EXTRA_LAZY")
-     * @ORM\JoinTable(
-     *     name="PlaylistSongs",
-     *     joinColumns={@ORM\JoinColumn(name="songs_id", referencedColumnName="id", nullable=true)},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id", nullable=true)}
-     * )
+     * @var array;
      */
     protected $playlist;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Artists", inversedBy="songs", fetch="EXTRA_LAZY")
-     * @ORM\JoinTable(
-     *     name="ArtistSongs",
-     *     joinColumns={@ORM\JoinColumn(name="songs_id", referencedColumnName="id", nullable=true)},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="artists_id", referencedColumnName="id", nullable=true)}
-     * )
+     * @var ArtistInterface[]
      */
     protected $artists;
 
     /**
-     *
-     */
-    public function __construct()
-    {
-        $this->artists = new ArrayCollection();
-    }
-
-    /**
-     * @param $songInfo
-     * @return Songs
+     * @inheritdoc
      */
     public static function createFromArray($songInfo)
     {
-        $song = new self();
+        $song = new static();
         $song->setTrack($songInfo['track']);
         $song->setTitle($songInfo['title']);
         $song->setLength($songInfo['length']);
@@ -90,7 +67,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getTrack()
     {
@@ -98,8 +75,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @param mixed $track
-     * @return Songs
+     * @inheritdoc
      */
     public function setTrack($track)
     {
@@ -109,7 +85,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getTitle()
     {
@@ -117,8 +93,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @param mixed $title
-     * @return Songs
+     * @inheritdoc
      */
     public function setTitle($title)
     {
@@ -128,7 +103,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getLength()
     {
@@ -136,8 +111,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @param mixed $length
-     * @return Songs
+     * @inheritdoc
      */
     public function setLength($length)
     {
@@ -147,7 +121,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getMTime()
     {
@@ -155,8 +129,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @param mixed $mTime
-     * @return Songs
+     * @inheritdoc
      */
     public function setMTime($mTime)
     {
@@ -166,7 +139,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getPath()
     {
@@ -174,8 +147,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @param mixed $path
-     * @return Songs
+     * @inheritdoc
      */
     public function setPath($path)
     {
@@ -185,7 +157,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getAlbum()
     {
@@ -193,10 +165,9 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @param mixed $album
-     * @return Songs
+     * @inheritdoc
      */
-    public function setAlbum($album)
+    public function setAlbum(AlbumInterface $album = null)
     {
         $this->album = $album;
 
@@ -204,7 +175,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getPlayCount()
     {
@@ -212,8 +183,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @param mixed $playCount
-     * @return Songs
+     * @inheritdoc
      */
     public function setPlayCount($playCount)
     {
@@ -223,7 +193,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
      */
     public function getPlaylist()
     {
@@ -231,8 +201,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @param mixed $playlist
-     * @return Songs
+     * @inheritdoc
      */
     public function setPlaylist($playlist)
     {
@@ -242,7 +211,15 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @return mixed
+     * @inheritdoc
+     */
+    public function getArtist()
+    {
+        return $this->getArtists()[0];
+    }
+
+    /**
+     * @inheritdoc
      */
     public function getArtists()
     {
@@ -250,8 +227,7 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @param mixed $artists
-     * @return Songs
+     * @inheritdoc
      */
     public function setArtists($artists)
     {
@@ -261,15 +237,32 @@ class Songs extends BaseEntity
     }
 
     /**
-     * @param Artists $artist
-     * @return $this
+     * @inheritdoc
      */
-    public function addArtist(Artists $artist)
+    public function addArtist(ArtistInterface $artist)
     {
-        if ($this->artists->contains($artist) === false) {
-            $this->artists->add($artist);
+        if (in_array($artist, $this->artists) === false) {
+            $this->artists[] = $artist;
         }
 
         return $this;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getApiData()
+    {
+        $apiData = [
+            'track' => $this->getTrack(),
+            'title' => $this->getTitle(),
+        ];
+        if ($this->getArtist() instanceof ApiInterface) {
+            $apiData['artist'] = $this->getArtist()->getApiData();
+        }
+        if ($this->getAlbum() instanceof ApiInterface) {
+            $apiData['album'] = $this->getAlbum()->getApiData();
+        }
+        return $apiData;
     }
 }

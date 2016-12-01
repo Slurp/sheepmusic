@@ -94,4 +94,3 @@ class Settings
         return $this->lastImport;
     }
 }
-

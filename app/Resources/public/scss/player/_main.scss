@@ -8,8 +8,8 @@
     color: $player-button-color;
   }
   .player-controls {
-   @include make-col();
-   @include make-col-span(3);
+   @include make-col-ready();
+   @include make-col(3);
     .player-button {
       height: 70px;
       width: 33%;
@@ -17,18 +17,20 @@
     }
   }
   .player-info {
-    @include make-col();
-    @include make-col-span(6);
+    @include make-col-ready();
+    @include make-col(6);
     position: relative;
     .song-image {
       width: auto;
       height: 70px;
       float: left;
-      margin-right:1rem;
+      margin-right:0.625rem;
+      margin-left: -0.625rem;
     }
     .progress-wrapper {
       padding-top:1px;
       margin-bottom: -1px;
+      margin-left: calc(71px - 0.625rem);
     }
 
     #time {
@@ -42,8 +44,8 @@
     }
   }
   .player-extra {
-    @include make-col();
-    @include make-col-span(3);
+    @include make-col-ready();
+    @include make-col(3);
     .player-button {
       height: $footer-fixed-height - 30px;
       padding-left: 1.5rem;
@@ -73,6 +75,17 @@
   .volume-wrapper {
     height: 20px;
     text-align: center;
+  }
+
+  .progress-wrapper {
+    margin-left: 70px;
+    transition: all 0.5s linear;
+    .progress {
+      transition: all 0.5s linear;
+    }
+    .plyr {
+      display:none;
+    }
   }
 
 }

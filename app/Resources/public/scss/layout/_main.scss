@@ -2,18 +2,19 @@ html {
   -webkit-font-smoothing: antialiased;
 }
 @include media-breakpoint-up(sm) {
-  header ~ main.container-fluid {
+  .slide-nav-out  main.container-fluid {
     margin-left: 200px;
   }
 }
 .main-content {
   @include make-row();
-  padding-top: ($grid-gutter-width / 2);
-  margin-top: 70px;
+  @include transition('all 2s');
+  padding-top: ($grid-gutter-width-base / 2);
   padding-bottom: ($footer-fixed-height * 2);
+  margin-top: 60px;
   .barba-container {
-    @include make-col();
-    @include make-col-span(12);
+    @include make-col-ready();
+    @include make-col(12);
   }
 }
 

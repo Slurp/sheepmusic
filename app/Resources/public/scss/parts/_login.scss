@@ -1,8 +1,8 @@
 .login {
-  @include make-col();
-  @include make-col-span(6);
+  @include make-col-ready();
+  @include make-col(6);
   @include make-col-push(3);
-  @include gradient-vertical();
+  @include gradient-y();
 
   .form-group {
     position: relative;

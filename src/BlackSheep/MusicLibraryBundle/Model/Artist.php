@@ -1,99 +1,74 @@
 <?php
-namespace BlackSheep\MusicLibraryBundle\Entity;
-
-use BlackSheep\MusicLibraryBundle\Services\LastFmService;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
+namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * @ORM\Entity
- * @ORM\Entity(repositoryClass="BlackSheep\MusicLibraryBundle\Repository\ArtistRepository")
+ *
  */
-class Artists extends BaseEntity
+class Artist implements ArtistInterface
 {
     /**
-     * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(type="string" , unique=true)
+     * @var string
      */
     protected $slug;
 
     /**
-     * @Gedmo\Slug(handlers={
-     *      @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\InversedRelativeSlugHandler", options={
-     *          @Gedmo\SlugHandlerOption(name="relationClass", value="Albums"),
-     *          @Gedmo\SlugHandlerOption(name="mappedBy", value="albums"),
-     *          @Gedmo\SlugHandlerOption(name="inverseSlugField", value="slug")
-     *      })
-     * }, fields={"name"})
-     * @ORM\Column(type="string" , unique=true)
+     * @var string
      */
     protected $alias;
 
     /**
-     * @ORM\Column(type="string", nullable=false)
+     * @var string
      */
     protected $name;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
      */
     protected $musicBrainzId;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
      */
     protected $image;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
      */
     protected $biography;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @var string
      */
     protected $playCount;
 
     /**
-     * @ORM\OneToMany(targetEntity="Albums", mappedBy="artist",cascade={"all"} , fetch="EXTRA_LAZY")
+     * @var AlbumInterface[]
      */
     protected $albums;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Songs", mappedBy="artists" , fetch="EXTRA_LAZY")
+     * @var SongInterface[]
      */
     protected $songs;
 
     /**
-     */
-    public function __construct()
-    {
-        $this->albums = new ArrayCollection();
-        $this->songs  = new ArrayCollection();
-    }
-
-    /**
      * @param      $name
      * @param null $musicBrainzId
-     * @return Artists
+     *
+     * @return ArtistInterface
      */
     public static function createNew($name, $musicBrainzId = null)
     {
         $artist = new self();
         $artist->setName($name);
         $artist->setMusicBrainzId($musicBrainzId);
-        $lastFmService = new LastFmService();
-        $lastFmInfo    = $lastFmService->getArtistInfo($artist->name);
-        if ($artist->musicBrainzId !== null) {
-            $artist->setMusicBrainzId($lastFmInfo['mbid']);
-        }
-        $artist->setImage($lastFmInfo['image']['large']);
         $artist->setPlayCount(0);
-        $artist->setBiography($lastFmInfo['bio']['summary']);
+        $artist->updateLastFmInfo();
 
         return $artist;
     }
+
+
 
     /**
      * @return mixed
@@ -121,7 +96,8 @@ class Artists extends BaseEntity
 
     /**
      * @param mixed $name
-     * @return Artists
+     *
+     * @return ArtistInterface
      */
     public function setName($name)
     {
@@ -140,7 +116,8 @@ class Artists extends BaseEntity
 
     /**
      * @param mixed $musicBrainzId
-     * @return Artists
+     *
+     * @return ArtistInterface
      */
     public function setMusicBrainzId($musicBrainzId)
     {
@@ -159,7 +136,8 @@ class Artists extends BaseEntity
 
     /**
      * @param mixed $image
-     * @return Artists
+     *
+     * @return ArtistInterface
      */
     public function setImage($image)
     {
@@ -178,7 +156,8 @@ class Artists extends BaseEntity
 
     /**
      * @param mixed $biography
-     * @return Artists
+     *
+     * @return ArtistInterface
      */
     public function setBiography($biography)
     {
@@ -197,7 +176,8 @@ class Artists extends BaseEntity
 
     /**
      * @param mixed $albums
-     * @return Artists
+     *
+     * @return ArtistInterface
      */
     public function setAlbums($albums)
     {
@@ -216,7 +196,8 @@ class Artists extends BaseEntity
 
     /**
      * @param mixed $songs
-     * @return Artists
+     *
+     * @return ArtistInterface
      */
     public function setSongs($songs)
     {
@@ -226,13 +207,12 @@ class Artists extends BaseEntity
     }
 
     /**
-     * @param Songs $song
-     * @return Albums
+     * @inheritdoc
      */
-    public function addSong(Songs $song)
+    public function addSong(SongInterface $song)
     {
-        if ($this->songs->contains($song) === false) {
-            $this->songs->add($song);
+        if (in_array($song, $this->songs) === false) {
+            $this->songs[] = $song;
         }
 
         return $this;
@@ -248,7 +228,8 @@ class Artists extends BaseEntity
 
     /**
      * @param mixed $playCount
-     * @return Artists
+     *
+     * @return ArtistInterface
      */
     public function setPlayCount($playCount)
     {
@@ -257,26 +238,32 @@ class Artists extends BaseEntity
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLastFmInfo()
-    {
-        $lastFmService = new LastFmService();
 
-        return $lastFmService->getArtistInfo($this->getName());
-    }
 
     /**
      * @return mixed
      */
     public function getAlbumArt()
     {
-        /** @var Albums $album */
+        /** @var Album $album */
         foreach ($this->getAlbums() as $album) {
             if ($album->getCover() !== null) {
                 return $album->getCover();
             }
         }
+
+        return null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getApiData()
+    {
+        return [
+            'name' => $this->getName(),
+            'image' => $this->getImage(),
+            'albumArt' => $this->getAlbumArt()
+        ];
     }
 }

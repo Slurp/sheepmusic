@@ -5,7 +5,7 @@ $(function () {
         $('.row-offcanvas').toggleClass('active')
     });
     $('[data-toggle="popover"]').popover();
-    $('.button-collapse').sideNav({
+    $('.brand-logo').sideNav({
             menuWidth: 200, // Default is 240
         }
     );

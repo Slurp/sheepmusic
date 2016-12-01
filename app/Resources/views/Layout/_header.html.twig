@@ -1,17 +1,12 @@
 <nav class="sheepnav">
     <ul class="nav navbar-nav">
-        {#<h1 class="navbar-brand page-title">SheepMusic</h1>#}
+        <li class="navbar-brand">
+            <a id="logo-container" href="#" class="brand-logo" data-activates="side-nav">
+                <img class="logo" src="{{ asset('frontend/img/zwartschaap.png') }}">
+                SheepMusic
+            </a>
+        </li>
     </ul>
-    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
-        <i class="material-icons">search</i>
-    </button>
-    <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
-        <form class="form-inline pull-xs-right">
-            <input class="form-control" type="text" placeholder="Search">
-            <button class="btn btn-secondary-outline" type="submit">Search</button>
-        </form>
-    </div>
-
     <!-- Bottom row, not visible on scroll -->
     {% block header_submenu %}
     {% endblock %}
