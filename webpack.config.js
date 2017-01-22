@@ -2,7 +2,7 @@ var webpack = require('webpack');
 
 module.exports =  {
   entry: [
-    './app/Resources/public/js/es6/player.js'
+    './app/Resources/public/js/BSAudioSuite/player.js'
   ],
   output: {
     path: "/web/frontend/js/",
