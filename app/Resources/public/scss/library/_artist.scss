@@ -1,14 +1,30 @@
 .artist-list {
-  @extend .card-deck;
+
   color: $primary-color-text;
-  display: flex;
-  justify-content: flex-start;
-  flex-flow: row wrap;
-  align-items: stretch;
-  .card {
-    display: block;
-    flex-basis: 20%; /* change this value for each breakpoint*/
+  //@extend .card-deck;
+  //display: flex;
+  //justify-content: flex-start;
+  //flex-flow: row wrap;
+  //align-items: stretch;
+  @include make-row($grid-gutter-widths);
+  .card-col {
+    //display: block;
+    //flex-basis: 20%; /* change this value for each breakpoint*/
     margin-bottom: 1rem;
+    @include make-col-ready($grid-gutter-widths);
+    @include make-col(6);
+    @include media-breakpoint-up(md) {
+      @include make-col(4);
+    }
+    @include media-breakpoint-up(lg) {
+      @include make-col(3);
+    }
+    @include media-breakpoint-up(xl) {
+      @include make-col(2);
+    }
+    .card {
+      height: 100%;
+    }
   }
 }
 .artist-card {
@@ -50,18 +66,11 @@
   padding-bottom: 0.5rem;
   border-bottom: 2px solid rgba($accent-color, 0.8);
   .artist-image {
-    @extend .media-left;
     img {
-      @extend .media-object;
+      display: block;
       width: 40px;
       height: 40px;
       border-radius: 50%;
-    }
-  }
-  .artist-content{
-    @extend .media-body;
-    .artist-name{
-      @extend .media-heading;
     }
   }
 }

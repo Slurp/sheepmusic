@@ -1,5 +1,6 @@
 .card {
   border-color: $divider-color;
+  @extend .z-depth-1;
   .card-title {
     .card-block & {
       padding: 0.25rem 0;
@@ -27,7 +28,7 @@
       display: flex;
       flex-direction: column;
       padding: 0;
-      background-color: $rgba-stylish-strong;
+      background-color: $card-cap-bg;
     }
 
     .card-title {
@@ -37,7 +38,7 @@
       width: 100%;
     }
     .card-footer {
-      background-color: $rgba-stylish-strong;
+      background-color: $card-cap-bg;
     }
     .actions {
       margin-top: auto;
@@ -52,16 +53,16 @@
   .card-block {
     background-color:#ffffff;
     padding: 0.5rem;
-    color:$stylish-color-dark;
+    color:$primary-color-dark;
     a {
-      color:$stylish-color-dark;
+      color:$primary-color-dark;
     }
     .card-title {
       padding: 0.5rem;
     }
     .card-footer {
       padding: 0;
-      background-color:$rgba-white-light;
+      background-color:$card-cap-bg;
     }
   }
   .card-img-top {

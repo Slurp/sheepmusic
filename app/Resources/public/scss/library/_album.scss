@@ -1,17 +1,31 @@
 
 .album-list {
-  @extend .card-deck;
+
   color: $primary-color-text;
-  display: flex;
-  justify-content: flex-start;
-  flex-flow: row wrap;
-  align-items: stretch;
-  .card {
-    @include make-col(3);
-    display: block;
-    flex-basis: 20%; /* change this value for each breakpoint*/
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+  //@extend .card-deck;
+  //display: flex;
+  //justify-content: flex-start;
+  //flex-flow: row wrap;
+  //align-items: stretch;
+  @include make-row($grid-gutter-widths);
+  .card-col {
+    //display: block;
+    //flex-basis: 20%; /* change this value for each breakpoint*/
+    margin-bottom: 1rem;
+    @include make-col-ready($grid-gutter-widths);
+    @include make-col(6);
+    @include media-breakpoint-up(md) {
+      @include make-col(4);
+    }
+    @include media-breakpoint-up(lg) {
+      @include make-col(3);
+    }
+    @include media-breakpoint-up(xl) {
+      @include make-col(2);
+    }
+    .card {
+      height: 100%;
+    }
   }
 }
 
@@ -24,7 +38,7 @@
       display: flex;
       flex-direction: column;
       padding: 0;
-      background-color: $rgba-stylish-strong;
+      background-color: rgba($primary-color-dark, 0.95);
     }
   }
   .card-text,
@@ -45,7 +59,7 @@
     height: 2.1rem;
   }
   .card-footer {
-    background-color: $rgba-stylish-strong;
+    background-color: rgba($primary-color-dark, 0.95);
   }
   .text {
 
@@ -60,7 +74,7 @@
   }
   .song-list {
     li {
-      background: $rgba-stylish-strong;
+      background: rgba($primary-color-dark, 0.95);
     }
   }
 }

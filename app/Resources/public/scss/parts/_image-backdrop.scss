@@ -3,10 +3,10 @@
   background-size: cover;
   height:300px;
   position: absolute;
-  left: 15px;
-  right: 15px;
-  background-position: 50% 50%;
   top: -15px;
+  left: 0;
+  right: 0;
+  background-position: 50% 50%;
   z-index: 1;
   &:after {
     content: "";
@@ -16,6 +16,8 @@
     background-color: $backdrop-overlay-color;
     position: absolute;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 2;
   }
   ~ .info-bar {

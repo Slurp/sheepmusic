@@ -1,91 +1,121 @@
 .player {
-  @include make-row();
+  .plyr {
+    display: flex;
+    background-color: $player-bg-color;
+    border-top: 1px solid $player-border-color;
+    border-bottom: 1px solid $player-border-color;
 
-  background-color: $player-bg-color;
-  border-top: 1px solid $player-border-color;
-  border-bottom: 1px solid $player-border-color;
-  .player-button {
-    color: $player-button-color;
-  }
-  .player-controls {
-   @include make-col-ready();
-   @include make-col(3);
-    .player-button {
-      height: 70px;
-      width: 33%;
-      float: left;
-    }
-  }
-  .player-info {
-    @include make-col-ready();
-    @include make-col(6);
-    position: relative;
-    .song-image {
-      width: auto;
-      height: 70px;
-      float: left;
-      margin-right:0.625rem;
-      margin-left: -0.625rem;
-    }
-    .progress-wrapper {
-      padding-top:1px;
-      margin-bottom: -1px;
-      margin-left: calc(71px - 0.625rem);
-    }
-
-    #time {
-      float: right;
-      width: 50%;
-      text-align: right;
-      > div {
-        float: left;
-        width: 50%;
-      }
-    }
-  }
-  .player-extra {
-    @include make-col-ready();
-    @include make-col(3);
-    .player-button {
-      height: $footer-fixed-height - 30px;
-      padding-left: 1.5rem;
+    button {
+      height: $footer-fixed-height;
+      width: 25%;
+      background-color: transparent;
+      color: $accent-color;
+      border: none;
+      text-align: center;
+      padding: 0.2rem;
       i {
-        font-size: $footer-fixed-height - 30px;
-        &.hide {
-          display: none;
-        }
+        display: block;
+        font-size: 2rem;
+      }
+      &.tab-focus:focus,
+      &:hover {
+        background: $accent-color;
+        color: $player-bg-color;
       }
     }
-    .actions-wrapper {
-      float: right;
-      padding-right: 20px;
-      .mdl-button--icon {
-        height: $footer-fixed-height - 30px;
-        width: $footer-fixed-height - 30px;
+    .player-controls {
+      @include make-col-ready();
+      @include make-col(3);
+
+      button {
+        width: 20%;
+      }
+      .icon--muted {
+        display: none;
+      }
+    }
+    .player-info {
+      @include make-col-ready();
+      @include make-col(6);
+      position: relative;
+      button {
+        margin-top: -30px;
+        height: 50px;
+        float: right;
         i {
-          font-size: $footer-fixed-height - 40px;
-          line-height: $footer-fixed-height - 40px;
-          width: $footer-fixed-height - 40px;
-          transform: translate(-($footer-fixed-height - 40px) /2, -($footer-fixed-height - 40px) /2);
+          font-size: 20px;
+        }
+      }
+      .song-image {
+        width: auto;
+        height: 70px;
+        float: left;
+        margin-right: 15px;
+        margin-left: -15px;
+      }
+      .progress-wrapper {
+        position: absolute;
+        top: 0;
+        left: 15px;
+        right: 15px;
+        padding-top: 1px;
+        margin-bottom: -1px;
+        margin-left: calc(71px - 15px);
+        .plyr__progress--buffer,
+        .plyr__progress--played,
+        .plyr__volume--display {
+          border-radius: 0;
+        }
+      }
+
+      #time {
+        float: right;
+        width: 50%;
+        text-align: right;
+        > div {
+          float: left;
+          width: 50%;
         }
       }
     }
-  }
-  .progress-wrapper,
-  .volume-wrapper {
-    height: 20px;
-    text-align: center;
-  }
-
-  .progress-wrapper {
-    margin-left: 70px;
-    transition: all 0.5s linear;
-    .progress {
-      transition: all 0.5s linear;
+    .player-extra {
+      @include make-col-ready();
+      @include make-col(3);
+      button {
+        margin-top: 20px;
+        height: 50px;
+        i {
+          font-size: 20px;
+        }
+      }
+      .dropup {
+        margin-top: -3px;
+        height: 50px;
+        button {
+          border: none;
+          width: 100%;
+          margin-top: -5px;
+        }
+      }
     }
-    .plyr {
-      display:none;
+    .plyr__volume {
+      position: absolute;
+      top: 0;
+      right: 15px;
+      left: 15px;
+      /* width: 100%; */
+      max-width: 100%;
+      .plyr__volume__display {
+        border-radius: 0;
+      }
+    }
+    // Change icons on state change
+    &.plyr--muted .plyr__controls .icon--muted {
+      display: block;
+      & + i {
+        display: none;
+      }
     }
   }
-
 }
+

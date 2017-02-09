@@ -1,13 +1,14 @@
-
+.slide-nav-out {
+  #loading-overlay {
+    left: 200px;
+  }
+}
 #loading-overlay {
-
+  @include transition('all 1s ease');
   position: fixed;
   top:0;
   left: 0;
   bottom: $footer-fixed-height;
-  @include media-breakpoint-up(sm) {
-    left: 200px;
-  }
   right: 0;
   z-index: 9999;
   background-color: rgba(0, 0, 0, 0.8);

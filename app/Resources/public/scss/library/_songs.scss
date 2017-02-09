@@ -1,6 +1,5 @@
 .song-list{
   background-color: $songlist-bg-color;
-  @extend .z-depth-1-half;
   .song-list-header,
   .song-list-item {
     display: flex;

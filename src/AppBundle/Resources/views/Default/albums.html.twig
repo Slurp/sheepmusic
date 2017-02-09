@@ -7,7 +7,9 @@
     {% if albums is defined and albums is not null %}
         <div class="album-list">
             {% for album in albums %}
+            <div class="card-col">
                 {% include '@App/Partials/album-card.html.twig' with {'album': album} only %}
+            </div>
             {% endfor %}
         </div>
     {% else %}

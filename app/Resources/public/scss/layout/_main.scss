@@ -8,10 +8,10 @@ html {
 }
 .main-content {
   @include make-row();
-  @include transition('all 2s');
+  @include transition('all 1s ease');
   padding-top: ($grid-gutter-width-base / 2);
   padding-bottom: ($footer-fixed-height * 2);
-  margin-top: 60px;
+  margin-top: 57px;
   .barba-container {
     @include make-col-ready();
     @include make-col(12);

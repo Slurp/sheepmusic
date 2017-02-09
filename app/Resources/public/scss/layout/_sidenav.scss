@@ -1,14 +1,15 @@
 .side-nav {
   position: fixed;
-  width: 200px;
+  width: 150px;
   left: 0;
-  top: 60px;
+  top: 57px;
   margin: 0;
   transform: translateX(-100%);
   height: 100%;
-  height: calc(100% + 60px);
+  height: calc(100% + 57px);
   height: -moz-calc(100%); //Temporary Firefox Fix
-  padding-bottom: 60px;
+  padding-bottom: 57px;
+  padding-left: 0;
   background-color: $sidenav-bg-color;
   z-index: 999;
   backface-visibility: hidden;
@@ -17,7 +18,7 @@
   backface-visibility: hidden;
   transform: translateX(-105%);
 
-  @extend .z-depth-1;
+  //@extend .z-depth-1;
 
   // Right Align
   &.right-aligned {

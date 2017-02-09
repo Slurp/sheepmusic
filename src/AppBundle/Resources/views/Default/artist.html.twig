@@ -1,16 +1,19 @@
 {% extends app.request.xmlHttpRequest
 ? 'Layout/ajaxLayout.html.twig'
-: 'Layout/layout.html.twig'%}
+: 'Layout/layout.html.twig' %}
 
 {% block content %}
-    <div class="artist-backdrop" style="background-image: url('{% if artist.albumArt is not null %}{{ artist.albumArt }}{% endif %}')">
+    <div class="artist-backdrop"
+         style="background-image: url('{% if artist.albumArt is not null %}{{ artist.albumArt }}{% endif %}')">
     </div>
     {% include '@App/Artist/info-bar.html.twig' with {'artist': artist} only %}
 
     <div class="album-list">
-    {% for album in artist.albums %}
-        {% include '@App/Partials/album-card.html.twig' with {'album': album} only %}
-    {% endfor %}
+        {% for album in artist.albums %}
+            <div class="card-col">
+                {% include '@App/Partials/album-card.html.twig' with {'album': album} only %}
+            </div>
+        {% endfor %}
     </div>
 
 {% endblock %}

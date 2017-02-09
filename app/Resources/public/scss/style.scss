@@ -7,37 +7,13 @@
 // Variables and mixins
 // Variables
 // Variables
-@import "vendor/mdb4/data/colors";
-@import "vendor/mdb4/data/variables";
 @import "../vendor/bootstrap/scss/variables";
 @import "variables";
 @import "vendor/bootstrap";
-@import "../vendor/plyr/src/scss/plyr";
-@import "vendor/plyr";
-@import "vendor/mdb4/data/prefixer";
-@import "vendor/mdb4/data/mixins";
-
-
-// Variables
-@import "vendor/mdb4/data/colors";
-@import "vendor/mdb4/data/variables";
-
-//Global
-@import "vendor/mdb4/global";
-
-// MDB Free
-@import "vendor/mdb4/roboto";
-@import "vendor/mdb4/typography";
+@import "player/plyr";
+@import "vendor/materialize/global";
+@import "vendor/materialize/buttons";
 @import "vendor/mdb4/animations";
-@import "vendor/mdb4/waves";
-@import "vendor/mdb4/helpers";
-@import "vendor/mdb4/buttons";
-@import "vendor/mdb4/forms-basic";
-@import "vendor/mdb4/navbars";
-@import "vendor/mdb4/hover-effects";
-
-@import "vendor/materialize/_buttons.scss";
-
 //own files
 
 //forms 

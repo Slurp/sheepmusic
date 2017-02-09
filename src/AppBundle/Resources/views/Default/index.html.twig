@@ -21,7 +21,9 @@
 {% block content %}
     <div class="artist-list">
         {% for artist in artists %}
+            <div class="card-col">
             {% include '@App/Partials/artist-card.html.twig' with {'artist': artist} only %}
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

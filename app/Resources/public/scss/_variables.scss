@@ -18,8 +18,8 @@ $enable-grid-classes:       true;
 $image_path: 'frontend/img';
 
 /* ==========  Custom colors  ========== */
-$primary-color-dark:   $stylish-color-dark;
-$primary-color:        $stylish-color;
+$primary-color-dark:   #37474F; //#424242;
+$primary-color:        #212121;
 $primary-color-light:  #CFD8DC;
 $primary-color-text:   #FFFFFF;
 $accent-color:         #FF4081;
@@ -30,9 +30,12 @@ $divider-color:        #B6B6B6;
 
 /* ==========  Player  ========== */
 $player-bg-color : $primary-color;
-$player-border-color:  $stylish-color-dark;
+$player-border-color:  #263238;
 $player-txt-color : $primary-color-text;
 $player-button-color: $accent-color;
+$plyr-range-selected-bg:$accent-color;
+$plyr-audio-range-track-bg:$divider-color;
+$plyr-audio-control-bg-hover:$accent-color;
 
 /* ==========  Footer  ========== */
 $footer-fixed-height: 70px;
@@ -93,6 +96,8 @@ $button-floating-size: 37px !default;
 $button-floating-large-size: $button-floating-size * 1.5 !default;
 $button-floating-radius: 50% !default;
 
+// forms
+$input-bg-color: $divider-color;
 // Links
 //
 // Style anchor elements.
@@ -105,17 +110,21 @@ $link-hover-decoration:      none;
 
 // card
 $card-bg: #ffffff;
+$card-bg-color: $card-bg;
 $card-action-color: $accent-color;
 $card-border-color: $primary-color-dark;
+$card-link-color: $accent-color;
+$card-link-color-light: lighten($accent-color,10%);
 $card-link-hover-color: $accent-color;
 $card-footer-color:  $primary-color-text;
-$card-cap-bg:  $rgba-stylish-strong;
+$card-cap-bg:  rgba($primary-color-dark, 0.95);
+$card-padding: 5px 5px;
 
 // info-bar
 $infobar-bg-color: rgba($primary-color-dark, 0.95);
 $infobar-border-color: rgba($primary-color-dark, 0.8);
 
 
-$backdrop-overlay-color: $rgba-stylish-light;
+$backdrop-overlay-color: rgba($primary-color-dark, 0.7);
 
 $songlist-bg-color: $primary-color-text;

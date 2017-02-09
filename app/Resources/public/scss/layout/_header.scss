@@ -1,8 +1,8 @@
 .sheepnav {
   @extend .navbar;
-  @extend .navbar-fixed-top;
+  @extend .fixed-top;
+  @extend .z-depth-1;
   background-color: $sidenav-bg-color;
-
   .navbar-brand {
 
     .logo {
