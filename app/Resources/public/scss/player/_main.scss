@@ -71,14 +71,11 @@
       .progress-wrapper {
         position: absolute;
         top: 0;
-        left: 15px;
+        left: 70px;
         right: 15px;
         padding-top: 1px;
         margin-bottom: -1px;
-        margin-left: calc(71px - 15px);
-        .plyr__progress--buffer,
-        .plyr__progress--played,
-        .plyr__volume--display {
+        * {
           border-radius: 0;
         }
       }

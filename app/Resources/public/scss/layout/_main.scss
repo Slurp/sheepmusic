@@ -1,23 +1,31 @@
 html {
   -webkit-font-smoothing: antialiased;
 }
-@include media-breakpoint-up(sm) {
+@include media-breakpoint-down(xs) {
   .slide-nav-out  main.container-fluid {
-    margin-left: 200px;
+    margin-left: 0px!important;
   }
+}
+
+
+main.container-fluid {
+  transition: all 0.5s ease-in-out;
+  margin-left:0;
 }
 .main-content {
   @include make-row();
-  @include transition('all 1s ease');
+  @include transition(all 1s ease);
   padding-top: ($grid-gutter-width-base / 2);
   padding-bottom: ($footer-fixed-height * 2);
   margin-top: 57px;
   .barba-container {
-    @include transition('all 1s ease');
+
     @include make-col-ready();
     @include make-col(12);
   }
 }
+
+
 
 
 
