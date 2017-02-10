@@ -11,10 +11,6 @@
     <div class="info-bar-content">
 
         <div class="artist-info">
-
-            <div class="artist-image">
-                <img src="{% if artist.image is not null %}{{ artist.image }}{% else %}{{ artist.lastFmInfo.image.large }}{% endif %}"/>
-            </div>
             <div class="artist-content">
                 <h3 class="artist-name">{{ artist.name }}</h3>
                 <h1 class="album-name">{{ album.name }}</h1>

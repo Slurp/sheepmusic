@@ -20,9 +20,13 @@
     right: 0;
     z-index: 2;
   }
-  ~ .info-bar {
-    height: 205px;
+  .info-bar {
     z-index: 3;
+    position: absolute;
+    bottom: 0;
+  }
+  ~ * {
+    margin-top: 300px;
   }
 }
 

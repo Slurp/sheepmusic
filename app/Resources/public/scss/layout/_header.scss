@@ -2,9 +2,10 @@
   @extend .navbar;
   @extend .fixed-top;
   @extend .z-depth-1;
-  background-color: $sidenav-bg-color;
+  background-color: $navbar-bg-color;
+  color: $navbar-font-color;
   .navbar-brand {
-
+    color: $navbar-font-color;
     .logo {
       width: 2rem;
       height: 2rem;

@@ -13,6 +13,7 @@ html {
   padding-bottom: ($footer-fixed-height * 2);
   margin-top: 57px;
   .barba-container {
+    @include transition('all 1s ease');
     @include make-col-ready();
     @include make-col(12);
   }

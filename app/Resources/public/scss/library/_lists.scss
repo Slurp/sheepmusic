@@ -1,0 +1,29 @@
+.artist-list,
+.album-list {
+  color: $primary-color-text;
+  //@extend .card-deck;
+  //display: flex;
+  //justify-content: flex-start;
+  //flex-flow: row wrap;
+  //align-items: stretch;
+  @include make-row($grid-gutter-widths);
+  .card-col {
+    //display: block;
+    //flex-basis: 20%; /* change this value for each breakpoint*/
+    margin-bottom: 1rem;
+    @include make-col-ready($grid-gutter-widths);
+    @include make-col(6);
+    @include media-breakpoint-up(md) {
+      @include make-col(4);
+    }
+    @include media-breakpoint-up(lg) {
+      @include make-col(3);
+    }
+    @include media-breakpoint-up(xl) {
+      @include make-col(2);
+    }
+    .card {
+      height: 100%;
+    }
+  }
+}

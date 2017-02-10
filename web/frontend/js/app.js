@@ -53,222 +53,252 @@
 
 	'use strict';
 
-	var _jquery = __webpack_require__(2);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _classCallCheck2 = __webpack_require__(2);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(3);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _jquery = __webpack_require__(7);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _plyr = __webpack_require__(3);
+	var _plyr = __webpack_require__(8);
 
 	var _plyr2 = _interopRequireDefault(_plyr);
 
-	var _push = __webpack_require__(4);
+	var _notifications = __webpack_require__(9);
 
-	var Push = _interopRequireWildcard(_push);
+	var _notifications2 = _interopRequireDefault(_notifications);
 
-	var _playlist = __webpack_require__(5);
+	var _playlist = __webpack_require__(11);
 
 	var _playlist2 = _interopRequireDefault(_playlist);
 
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	var _library = __webpack_require__(13);
+
+	var _library2 = _interopRequireDefault(_library);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var BlackSheepPlayer = BlackSheepPlayer || {};
+	var BlackSheepPlayer = function () {
+	  function BlackSheepPlayer() {
+	    (0, _classCallCheck3.default)(this, BlackSheepPlayer);
 
-	BlackSheepPlayer = function ($, window, plyr, Push) {
-	  /**
-	   * Functions
-	   */
-	  var init = void 0;
+	    this.initialized = false;
+	    this.player = null;
+	    this.repeatModes = ['NO_REPEAT', 'REPEAT_ALL', 'REPEAT_ONE'];
 
-	  var watchSongs = void 0;
-	  var watchButtons = void 0;
-	  var watchEvents = void 0;
-	  var notifySong = void 0;
-	  var restart = void 0;
-	  var setVolume = void 0;
-	  var mute = void 0;
-	  var unmute = void 0;
-	  var stop = void 0;
-	  var pause = void 0;
-	  var resume = void 0;
-	  var updateAudioElement = void 0;
-	  var addToQueue = void 0;
-	  var autoStart = void 0;
-	  var playNext = void 0;
+	    this.currentSong = null;
+	    this.playlist = null;
+	    this.init();
+	    this.$volumeInput = null;
+	  }
 
-	  /**
-	   * Objects
-	   * @type {null}
-	   */
-	  var player = null;
-
-	  var $volumeInput = null;
-	  var repeatModes = ['NO_REPEAT', 'REPEAT_ALL', 'REPEAT_ONE'];
-	  var initialized = false;
-	  var currentSong = null;
-	  var playlist = null;
 	  /**
 	   * Init the module
 	   */
-	  init = function init() {
-	    // We don't need to init this service twice, or the media events will be duplicated.
-	    if (initialized) {
-	      return;
-	    }
 
-	    var controls = ["<div class='plyr__controls player-controls' id='playerControls'>", "<div class='row'>", "<button type='button' data-plyr='previous'>", "<i class='material-icons'>skip_previous</i>", "<span class='plyr__sr-only'>previous</span>", "</button>", "<button type='button' data-plyr='rewind'>", "<i class='material-icons'>fast_rewind</i>", "<span class='plyr__sr-only'>Rewind {seektime} secs</span>", "</button>", "<button type='button' data-plyr='play'>", "<i class='material-icons'>play_circle_outline</i>", "<span class='plyr__sr-only'>Play</span>", "</button>", "<button type='button' data-plyr='pause'>", "<i class='material-icons'>pause_circle_outline</i>", "<span class='plyr__sr-only'>Pause</span>", "</button>", "<button type='button' data-plyr='fast-forward'>", "<i class='material-icons'>fast_forward</i>", "<span class='plyr__sr-only'>Forward {seektime} secs</span>", "</button>", "<button type='button' data-plyr='next'>", "<i class='material-icons'>skip_next</i>", "<span class='plyr__sr-only'>next</span>", "</button>", "</div>", "</div>", "<div class='player-info'>", "<img src='/frontend/img/default.png' class='song-image'/>", "<span class='plyr__progress progress-wrapper'>", "<label for='seek{id}' class='plyr__sr-only'>Seek</label>", "<input id='seek{id}' class='plyr__progress--seek' type='range' min='0' max='100' step='0.1' value='0' data-plyr='seek'>", "<progress class='plyr__progress--played' max='100' value='0' role='presentation'></progress>", "<progress class='plyr__progress--buffer' max='100' value='0'>", "<span>0</span>% buffered", "</progress>", "<span class='plyr__tooltip'>00:00</span>", "</span>", "<span class='plyr__time'>", "<span class='plyr__sr-only'>Current time</span>", "<span class='plyr__time--current'>00:00</span>", "</span>", "<span class='plyr__time'>", "<span class='plyr__sr-only'>Duration</span>", "<span class='plyr__time--duration'>00:00</span>", "</span>", "<div id='now-playing' href='#albums'>", "<a href='#' class='playing-song-title'>", "Nothing Playing", "</a>", "<span class='playing-song-meta'></span>", "</div>", "<button type='button' data-plyr='restart'>", "<i class='material-icons'>replay</i>", "<span class='plyr__sr-only'>Restart</span>", "</button>", "</div>", "<div class='player-extra player-controls plyr__controls'>", "<button type='button' data-plyr='mute'>", "<i class='material-icons icon--muted'>volume_off</i>", "<i class='material-icons'>volume_mute</i>", "<span class='plyr__sr-only'>Toggle Mute</span>", "</button>", "<span class='plyr__volume'>", "<label for='volume{id}' class='plyr__sr-only'>Volume</label>", "<input id='volume{id}' class='plyr__volume--input' type='range' min='0' max='10' value='5' data-plyr='volume'>", "<progress class='plyr__volume--display' max='10' value='0' role='presentation'></progress>", "</span>", "<button class='player-repeat player-button' title='Repeat is off'>", "<i class='material-icons'>repeat</i>", "</button>", "<button class='player-random player-button' title='Random is On'>", "<i class='material-icons'>shuffle</i>", "</button>", "<!-- Right aligned menu on top of button  -->", "<div class='actions-wrapper actions-secondary btn-group dropup'>", "<button type='button'", "class='btn-playlist'", "data-toggle='dropdown'", "aria-haspopup='true'", "aria-expanded='false'>", "<i class='material-icons'>queue_music</i>", "</button>", "<div class='dropdown-menu dropdown-menu-right playlist'>", "<h3 class='playlist-header'>Current Playlist</h3>", "<ul>", "<li> no songs</li>", "</ul>", "<div class='playlist-actions'>actions</div>", "</div>", "</div>", "</div>"].join("");
-	    $volumeInput = $('#volumeRange');
 
-	    player = plyr.setup({
-	      html: controls,
-	      loadSprite: false
-	    })[0];
-
-	    playlist = new _playlist2.default();
-
-	    watchSongs();
-	    watchButtons();
-	    watchEvents();
-	  };
-
-	  updateAudioElement = function updateAudioElement(src) {
-	    player.source({
-	      type: 'audio',
-	      title: '-',
-	      sources: [{
-	        src: src,
-	        type: 'audio/mp3'
-	      }]
-	    });
-	  };
-
-	  var playSong = function playSong(song) {
-	    console.log(song);
-	    self.currentSong = song;
-	    updateAudioElement(self.currentSong.getSrc());
-	    $('title').text(self.currentSong.getTitle() + ' \u266B sheepMusic');
-	    $('.plyr audio').attr('title', self.currentSong.getArtistName() + ' - ' + self.currentSong.getTitle());
-	    notifySong();
-	    restart();
-	  };
-
-	  addToQueue = function addToQueue($element) {
-	    playlist.addSong($element.data('song'), $element.data('song_info'));
-	  };
-
-	  autoStart = function autoStart() {
-	    if (player.getMedia().paused !== false) {
-	      playNext();
-	    }
-	  };
-
-	  playNext = function playNext() {
-	    $.when(playlist.getNextSong()).then(function (song) {
-	      console.log(song);
-	      playSong(song);
-	    });
-	  };
-
-	  watchSongs = function watchSongs() {
-	    $("main").on('click', '[data-song]', function () {
-	      addToQueue($(this));
-	      autoStart();
-	    });
-
-	    $("main").on('click', '.btn-play-album', function () {
-	      $('[data-song]').each(function () {
-	        addToQueue($(this));
-	      });
-	      autoStart();
-	    });
-	  };
-
-	  watchButtons = function watchButtons() {
-
-	    $(".player-play").on('click', function () {
-	      if (player.getMedia().paused === false) {
-	        pause();
-	      } else {
-	        resume();
+	  (0, _createClass3.default)(BlackSheepPlayer, [{
+	    key: 'init',
+	    value: function init() {
+	      // We don't need to init this service twice, or the media events will be duplicated.
+	      if (this.initialized) {
+	        return;
 	      }
-	    });
 
-	    $("[data-plyr='next']").on('click', function () {
-	      $.when(playlist.getNextSong()).then(function (song) {
-	        console.log(song);
-	        playSong(song);
+	      var controls = ["<div class='plyr__controls player-controls' id='playerControls'>", "<div class='row'>", "<button type='button' data-plyr='previous'>", "<i class='material-icons'>skip_previous</i>", "<span class='plyr__sr-only'>previous</span>", "</button>", "<button type='button' data-plyr='rewind'>", "<i class='material-icons'>fast_rewind</i>", "<span class='plyr__sr-only'>Rewind {seektime} secs</span>", "</button>", "<button type='button' data-plyr='play'>", "<i class='material-icons'>play_circle_outline</i>", "<span class='plyr__sr-only'>Play</span>", "</button>", "<button type='button' data-plyr='pause'>", "<i class='material-icons'>pause_circle_outline</i>", "<span class='plyr__sr-only'>Pause</span>", "</button>", "<button type='button' data-plyr='fast-forward'>", "<i class='material-icons'>fast_forward</i>", "<span class='plyr__sr-only'>Forward {seektime} secs</span>", "</button>", "<button type='button' data-plyr='next'>", "<i class='material-icons'>skip_next</i>", "<span class='plyr__sr-only'>next</span>", "</button>", "</div>", "</div>", "<div class='player-info'>", "<img src='/frontend/img/default.png' class='song-image'/>", "<span class='plyr__progress progress-wrapper'>", "<label for='seek{id}' class='plyr__sr-only'>Seek</label>", "<input id='seek{id}' class='plyr__progress--seek' type='range' min='0' max='100' step='0.1' value='0' data-plyr='seek'>", "<progress class='plyr__progress--played' max='100' value='0' role='presentation'></progress>", "<progress class='plyr__progress--buffer' max='100' value='0'>", "<span>0</span>% buffered", "</progress>", "<span class='plyr__tooltip'>00:00</span>", "</span>", "<span class='plyr__time'>", "<span class='plyr__sr-only'>Current time</span>", "<span class='plyr__time--current'>00:00</span>", "</span>", "<span class='plyr__time'>", "<span class='plyr__sr-only'>Duration</span>", "<span class='plyr__time--duration'>00:00</span>", "</span>", "<div id='now-playing' href='#albums'>", "<a href='#' class='playing-song-title'>", "Nothing Playing", "</a>", "<span class='playing-song-meta'></span>", "</div>", "<button type='button' data-plyr='restart'>", "<i class='material-icons'>replay</i>", "<span class='plyr__sr-only'>Restart</span>", "</button>", "</div>", "<div class='player-extra player-controls plyr__controls'>", "<button type='button' data-plyr='mute'>", "<i class='material-icons icon--muted'>volume_off</i>", "<i class='material-icons'>volume_mute</i>", "<span class='plyr__sr-only'>Toggle Mute</span>", "</button>", "<span class='plyr__volume'>", "<label for='volume{id}' class='plyr__sr-only'>Volume</label>", "<input id='volume{id}' class='plyr__volume--input' type='range' min='0' max='10' value='5' data-plyr='volume'>", "<progress class='plyr__volume--display' max='10' value='0' role='presentation'></progress>", "</span>", "<button class='player-repeat player-button' title='Repeat is off'>", "<i class='material-icons'>repeat</i>", "</button>", "<button class='player-random player-button' title='Random is On'>", "<i class='material-icons'>shuffle</i>", "</button>", "<div class='actions-wrapper actions-secondary btn-group dropup'>", "<a href='#'", "class='btn btn-floating btn-playlist'", "data-toggle='dropdown'", "aria-haspopup='true'", "aria-expanded='false'>", "<i class='material-icons'>queue_music</i>", "</a>", "<div class='dropdown-menu dropdown-menu-right playlist'>", "<h3 class='playlist-header'>Current Playlist</h3>", "<ul>", "<li> no songs</li>", "</ul>", "<div class='playlist-actions'>actions</div>", "</div>", "</div>", "</div>"].join("");
+
+	      this.player = _plyr2.default.setup({
+	        html: controls,
+	        loadSprite: false
+	      })[0];
+
+	      this.playlist = new _playlist2.default();
+	      this.watchButtons();
+	      this.watchEvents();
+	      var self = this;
+	      console.log(self);
+	      _library2.default.watchSongs(self);
+	    }
+	  }, {
+	    key: 'updateAudioElement',
+	    value: function updateAudioElement(src) {
+	      this.player.source({
+	        type: 'audio',
+	        title: '-',
+	        sources: [{
+	          src: src,
+	          type: 'audio/mp3'
+	        }]
 	      });
-	    });
+	    }
+	  }, {
+	    key: 'playSong',
+	    value: function playSong(song) {
+	      self.currentSong = song;
+	      this.updateAudioElement(self.currentSong.getSrc());
+	      $('title').text(self.currentSong.getTitle() + ' \u266B sheepMusic');
+	      $('.plyr audio').attr('title', self.currentSong.getArtistName() + ' - ' + self.currentSong.getTitle());
+	      $('.player .playing-song-title').text(self.currentSong.getArtistName() + ' : ' + self.currentSong.getTitle());
+	      $('.player .song-image').attr('src', self.currentSong.getAlbum().cover);
+	      _notifications2.default.notifySong(song);
+	      this.restart();
+	    }
+	  }, {
+	    key: 'addToQueue',
+	    value: function addToQueue($element) {
+	      this.playlist.addSong($element.data('song'), $element.data('song_info'));
+	    }
+	  }, {
+	    key: 'autoStart',
+	    value: function autoStart() {
+	      if (this.player.getMedia().paused !== false) {
+	        this.playNext();
+	      }
+	    }
+	  }, {
+	    key: 'playNext',
+	    value: function playNext() {
+	      var _this = this;
 
-	    $("[data-plyr='previous']").on('click', function () {
-	      $.when(playlist.getPrevSong()).then(function (song) {
+	      _jquery2.default.when(this.playlist.getNextSong()).then(function (song) {
 	        console.log(song);
-	        playSong(song);
+	        _this.playSong(song);
 	      });
-	    });
-	  };
+	    }
+	  }, {
+	    key: 'restart',
+	    value: function restart() {
+	      this.player.restart(0);
+	      this.player.play();
+	    }
+	  }, {
+	    key: 'watchButtons',
+	    value: function watchButtons() {
+	      var _this2 = this;
 
-	  watchEvents = function watchEvents() {
-	    /**
-	     * Listen to 'ended' event on the audio player and play the next song in the queue.
-	     */
-	    document.querySelector('.plyr').addEventListener('ended', function (e) {
-	      playNext();
-	    });
-	  };
+	      (0, _jquery2.default)("[data-plyr='next']").on('click', function () {
+	        _this2.playNext();
+	      });
 
-	  notifySong = function notifySong() {
-	    Push.close('songNotification');
-	    var promise = Push.create('\u266B ' + self.currentSong.getTitle(), {
-	      body: self.currentSong.getAlbum().name + ' \u2013 ' + self.currentSong.getArtistName(),
-	      icon: '' + self.currentSong.getAlbum().cover,
-	      timeout: 3000,
-	      tag: 'songNotification'
-	    });
-	    $('.player .playing-song-title').text(self.currentSong.getArtistName() + ' : ' + self.currentSong.getTitle());
-	    $('.player .song-image').attr('src', self.currentSong.getAlbum().cover);
-	    // Somewhere later in your code...
+	      (0, _jquery2.default)("[data-plyr='previous']").on('click', function () {
+	        _jquery2.default.when(_this2.playlist.getPrevSong()).then(function (song) {
+	          _this2.playSong(song);
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'watchEvents',
+	    value: function watchEvents() {
+	      var _this3 = this;
 
-	    promise.then(function (notification) {
-	      notification.close();
-	    });
-	  };
+	      /**
+	       * Listen to 'ended' event on the audio player and play the next song in the queue.
+	       */
+	      document.querySelector('.plyr').addEventListener('ended', function () {
+	        _this3.playNext();
+	      });
+	    }
+	  }]);
+	  return BlackSheepPlayer;
+	}();
 
-	  restart = function restart() {
-	    player.restart(0);
-	    player.play();
-	  };
+	exports.default = BlackSheepPlayer;
 
-	  /**
-	   * Set the volume level.
-	   *
-	   * @param {Number}         volume   0-10
-	   * @param {Boolean=true}   persist  Whether the volume should be saved into local storage
-	   */
-	  setVolume = function setVolume(volume) {
-	    player.setVolume(volume);
-	  };
-
-	  /**
-	   * Completely stop playback.
-	   */
-	  stop = function stop() {
-	    player.pause();
-	    player.seek(0);
-	  };
-
-	  return {
-	    init: init
-	  };
-	}(_jquery2.default, window, _plyr2.default, Push);
 
 	(0, _jquery2.default)(function () {
-	  BlackSheepPlayer.init();
+	  new BlackSheepPlayer();
 	});
 
 /***/ },
 /* 2 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	exports.__esModule = true;
+
+	exports.default = function (instance, Constructor) {
+	  if (!(instance instanceof Constructor)) {
+	    throw new TypeError("Cannot call a class as a function");
+	  }
+	};
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	exports.__esModule = true;
+
+	var _defineProperty = __webpack_require__(4);
+
+	var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function () {
+	  function defineProperties(target, props) {
+	    for (var i = 0; i < props.length; i++) {
+	      var descriptor = props[i];
+	      descriptor.enumerable = descriptor.enumerable || false;
+	      descriptor.configurable = true;
+	      if ("value" in descriptor) descriptor.writable = true;
+	      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
+	    }
+	  }
+
+	  return function (Constructor, protoProps, staticProps) {
+	    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+	    if (staticProps) defineProperties(Constructor, staticProps);
+	    return Constructor;
+	  };
+	}();
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(5), __esModule: true };
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var $ = __webpack_require__(6);
+	module.exports = function defineProperty(it, key, desc){
+	  return $.setDesc(it, key, desc);
+	};
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	var $Object = Object;
+	module.exports = {
+	  create:     $Object.create,
+	  getProto:   $Object.getPrototypeOf,
+	  isEnum:     {}.propertyIsEnumerable,
+	  getDesc:    $Object.getOwnPropertyDescriptor,
+	  setDesc:    $Object.defineProperty,
+	  setDescs:   $Object.defineProperties,
+	  getKeys:    $Object.keys,
+	  getNames:   $Object.getOwnPropertyNames,
+	  getSymbols: $Object.getOwnPropertySymbols,
+	  each:       [].forEach
+	};
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10088,7 +10118,7 @@
 
 
 /***/ },
-/* 3 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;// ==========================================================================
@@ -13821,7 +13851,59 @@
 
 
 /***/ },
-/* 4 */
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _classCallCheck2 = __webpack_require__(2);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(3);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _push = __webpack_require__(10);
+
+	var Push = _interopRequireWildcard(_push);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Notification = function () {
+	  function Notification() {
+	    (0, _classCallCheck3.default)(this, Notification);
+	  }
+
+	  (0, _createClass3.default)(Notification, null, [{
+	    key: 'notifySong',
+	    value: function notifySong(song) {
+	      Push.close('songNotification');
+	      var promise = Push.create('\u266B ' + self.currentSong.getTitle(), {
+	        body: self.currentSong.getAlbum().name + ' \u2013 ' + self.currentSong.getArtistName(),
+	        icon: '' + self.currentSong.getAlbum().cover,
+	        timeout: 3000,
+	        tag: 'songNotification'
+	      });
+
+	      promise.then(function (notification) {
+	        notification.close();
+	      });
+	    }
+	  }]);
+	  return Notification;
+	}();
+
+	exports.default = Notification;
+
+/***/ },
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -14357,7 +14439,7 @@
 
 
 /***/ },
-/* 5 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14366,19 +14448,19 @@
 	  value: true
 	});
 
-	var _classCallCheck2 = __webpack_require__(6);
+	var _classCallCheck2 = __webpack_require__(2);
 
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-	var _createClass2 = __webpack_require__(7);
+	var _createClass2 = __webpack_require__(3);
 
 	var _createClass3 = _interopRequireDefault(_createClass2);
 
-	var _song = __webpack_require__(11);
+	var _song = __webpack_require__(12);
 
 	var _song2 = _interopRequireDefault(_song);
 
-	var _jquery = __webpack_require__(2);
+	var _jquery = __webpack_require__(7);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -14442,86 +14524,7 @@
 	exports.default = playlist;
 
 /***/ },
-/* 6 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	exports.__esModule = true;
-
-	exports.default = function (instance, Constructor) {
-	  if (!(instance instanceof Constructor)) {
-	    throw new TypeError("Cannot call a class as a function");
-	  }
-	};
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	exports.__esModule = true;
-
-	var _defineProperty = __webpack_require__(8);
-
-	var _defineProperty2 = _interopRequireDefault(_defineProperty);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.default = function () {
-	  function defineProperties(target, props) {
-	    for (var i = 0; i < props.length; i++) {
-	      var descriptor = props[i];
-	      descriptor.enumerable = descriptor.enumerable || false;
-	      descriptor.configurable = true;
-	      if ("value" in descriptor) descriptor.writable = true;
-	      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
-	    }
-	  }
-
-	  return function (Constructor, protoProps, staticProps) {
-	    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-	    if (staticProps) defineProperties(Constructor, staticProps);
-	    return Constructor;
-	  };
-	}();
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(9), __esModule: true };
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var $ = __webpack_require__(10);
-	module.exports = function defineProperty(it, key, desc){
-	  return $.setDesc(it, key, desc);
-	};
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	var $Object = Object;
-	module.exports = {
-	  create:     $Object.create,
-	  getProto:   $Object.getPrototypeOf,
-	  isEnum:     {}.propertyIsEnumerable,
-	  getDesc:    $Object.getOwnPropertyDescriptor,
-	  setDesc:    $Object.defineProperty,
-	  setDescs:   $Object.defineProperties,
-	  getKeys:    $Object.keys,
-	  getNames:   $Object.getOwnPropertyNames,
-	  getSymbols: $Object.getOwnPropertySymbols,
-	  each:       [].forEach
-	};
-
-/***/ },
-/* 11 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -14530,15 +14533,15 @@
 	  value: true
 	});
 
-	var _classCallCheck2 = __webpack_require__(6);
+	var _classCallCheck2 = __webpack_require__(2);
 
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-	var _createClass2 = __webpack_require__(7);
+	var _createClass2 = __webpack_require__(3);
 
 	var _createClass3 = _interopRequireDefault(_createClass2);
 
-	var _jquery = __webpack_require__(2);
+	var _jquery = __webpack_require__(7);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
@@ -14595,6 +14598,58 @@
 	}();
 
 	exports.default = Song;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _classCallCheck2 = __webpack_require__(2);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(3);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _jquery = __webpack_require__(7);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Library = function () {
+	  function Library() {
+	    (0, _classCallCheck3.default)(this, Library);
+	  }
+
+	  (0, _createClass3.default)(Library, null, [{
+	    key: 'watchSongs',
+	    value: function watchSongs(player) {
+	      var _this = this;
+
+	      (0, _jquery2.default)("main").on('click', '[data-song]', function (e) {
+	        player.addToQueue((0, _jquery2.default)(_this));
+	        player.autoStart();
+	      });
+
+	      (0, _jquery2.default)("main").on('click', '.btn-play-album', function () {
+	        (0, _jquery2.default)('[data-song]').each(function () {
+	          player.addToQueue((0, _jquery2.default)(this));
+	        });
+	        player.autoStart();
+	      });
+	    }
+	  }]);
+	  return Library;
+	}();
+
+	exports.default = Library;
 
 /***/ }
 /******/ ]);

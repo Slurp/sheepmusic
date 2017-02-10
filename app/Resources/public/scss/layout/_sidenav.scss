@@ -11,6 +11,7 @@
   padding-bottom: 57px;
   padding-left: 0;
   background-color: $sidenav-bg-color;
+  border-right: 1px solid darken($sidenav-bg-color,10%);
   z-index: 999;
   backface-visibility: hidden;
   overflow-y: auto;
@@ -18,7 +19,7 @@
   backface-visibility: hidden;
   transform: translateX(-105%);
 
-  //@extend .z-depth-1;
+  @extend .z-depth-1;
 
   // Right Align
   &.right-aligned {
@@ -34,10 +35,7 @@
 
 
   li {
-    float: none;
-    line-height: $sidenav-item-height;
-
-    &.active { background-color: rgba(0,0,0,.05); }
+    &:hover { background-color: $accent-color;}
     &.logo {
       padding: 16px 0;
       .logo {
@@ -50,13 +48,8 @@
 
   a {
     color: $sidenav-font-color;
-    display: block;
-    font-size: 1rem;
-    height: $sidenav-item-height;
-    line-height: $sidenav-item-height;
-    padding: 0 $sidenav-padding-right;
 
-    &:hover { background-color: rgba(0,0,0,.05);}
+    &:hover { background-color: $accent-color;}
 
     &.btn, &.btn-large, &.btn-flat, &.btn-floating {
       margin: 10px 15px;

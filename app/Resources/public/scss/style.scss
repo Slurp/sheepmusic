@@ -13,6 +13,7 @@
 @import "player/plyr";
 @import "vendor/materialize/global";
 @import "vendor/materialize/buttons";
+@import "vendor/materialize/waves";
 @import "vendor/mdb4/animations";
 //own files
 
@@ -39,6 +40,7 @@
 @import "parts/image-backdrop";
 
 // Library
+@import "library/lists";
 @import "library/artist";
 @import "library/album";
 @import "library/songs";

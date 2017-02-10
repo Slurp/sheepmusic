@@ -58,7 +58,14 @@ $brand-warning:             #f0ad4e;
 $brand-danger:              #d9534f;
 
 // navbar
+/* 13. Navigation Bar
+   ========================================================================== */
 
+$navbar-height: 64px !default;
+$navbar-height-mobile: 56px !default;
+$navbar-font-size: 1rem !default;
+$navbar-font-color: #fff !default;
+$navbar-brand-font-size: 2.1rem !default;
 $navbar-dark-color: $primary-color-text;
 $navbar-bg-color: $primary-color;
 $navbar-border-color: lighten($primary-color-dark,15%);
@@ -66,8 +73,8 @@ $navbar-border-color: lighten($primary-color-dark,15%);
 /* 14. Side Navigation
    ========================================================================== */
 
-$sidenav-font-color: $primary-color-text !default;
-$sidenav-bg-color: $primary-color !default;
+$sidenav-font-color: $primary-text-color   !default;
+$sidenav-bg-color: rgba(255,255,255,0.9) !default;
 $sidenav-padding-right: 15px !default;
 $sidenav-item-height: 32px !default;
 

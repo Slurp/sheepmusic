@@ -4,16 +4,23 @@
   width: 100%;
   margin-top: 80px;
   display: flex;
-  flex-wrap: wrap;
-
-  background-color: $infobar-bg-color;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  background-color: $primary-color;
   border: 1px solid $infobar-border-color;
+  color: $primary-color-text;
 
   .info-bar-image {
     @include make-col-ready();
     @include make-col(2);
     img {
+      position: absolute;
       @include img-fluid();
+      border-radius: 100%;
+      border: 10px solid $white;
+      @extend .z-depth-2;
+      bottom:50%;
+      min-width: 150px;
     }
   }
   .info-bar-content {

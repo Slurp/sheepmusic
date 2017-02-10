@@ -1,6 +1,6 @@
 'use strict';
 
-import BlackSheepSong from './stores/song';
+import BlackSheepSong from './song';
 import jQuery from 'jquery';
 
 export default class playlist {
