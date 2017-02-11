@@ -1,37 +1,53 @@
 .btn-playlist {
   @extend .btn-primary;
   margin-top: 0;
-  padding:6px 8px 0;
+  padding: 6px 8px 0;
+  z-index: 3;
   i {
     font-size: 24px;
     position: absolute;
     left: 1px;
     top: 0px;
   }
-  &:after{
+  &:after {
     display: none;
   }
 }
-.playlist {
-  top: auto;
-  left: auto;
-  right: 32px;
-  margin-right: 0;
-  margin-bottom: 0;
-  padding: 0 1rem;
-  width: 300px;
-  height: calc(100vh - 110px - 64px - 24px);
-  z-index: 1!important;
-  transition: width 0.3s ease;
-  .playlist-header {
-    padding-top: 30px;
-  }
-  color: $player-txt-color;
-  background-color: $player-bg-color;
 
-  ul {
-    li {
-      background-color: $primary-color-light;
+.player {
+
+  .playlist {
+    opacity: 0;
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 17.5px;
+    margin-right: 0;
+    margin-bottom: 0;
+    padding: 0 1rem;
+    height:0px;
+    z-index: 1 !important;
+    transition: all 1s ease 0.1s;
+    @extend .z-depth-1;
+    .playlist-header {
+      padding-top: 30px;
     }
+    color: $player-txt-color;
+    background-color: $player-bg-color;
+
+    ul {
+      @extend .nav;
+      @extend .flex-column;
+      li {
+        &:hover { background-color: $accent-color;}
+      }
+    }
+  }
+  .show > .playlist {
+    left: -90vw;
+    right: 1vw;
+    height: calc(100vh - 110px - 64px);
+    transition: all 1s ease 0.1s;
+    opacity: 1;
   }
 }

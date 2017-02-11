@@ -1,9 +1,9 @@
 html {
   -webkit-font-smoothing: antialiased;
 }
-@include media-breakpoint-down(xs) {
+@include media-breakpoint-up(sm) {
   .slide-nav-out  main.container-fluid {
-    margin-left: 0px!important;
+    margin-left: 200px;
   }
 }
 

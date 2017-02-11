@@ -81,6 +81,7 @@
                     if (options.edge === 'left') {
                         // Reset phantom div
                         dragTarget.css({width: '', right: '', left: '0'});
+                        //$('main').velocity({'margin-left': '0px'}, {duration: 100, queue: false, easing: 'easeOutQuad'});
                         menu_id.velocity(
                             {'translateX': '-100%'},
                             { duration: 200,
@@ -95,7 +96,7 @@
                                 }
 
                             });
-                      $('main').velocity({'margin-left': '0px'}, {duration: 300, queue: false, easing: 'easeOutQuad'});
+
                     }
                     else {
                         // Reset phantom div
@@ -261,8 +262,8 @@
                         var content = $('main.container-fluid');
                         if (options.edge === 'left') {
                             dragTarget.css({width: '50%', right: 0, left: ''});
-                            menu_id.velocity({'translateX': [0, -1 * options.menuWidth]}, {duration: 300, queue: false, easing: 'easeOutQuad'});
-                            content.velocity({'margin-left': options.menuWidth+'px'}, {duration: 300, queue: false, easing: 'easeOutQuad'});
+                          //content.velocity({'margin-left': options.menuWidth+'px'}, [ 250, 15 ]);
+                          menu_id.velocity({'translateX': [0, -1 * options.menuWidth]}, {duration: 300, queue: false, easing: 'easeOutQuad'});
                         }
                         else {
                             dragTarget.css({width: '50%', right: '', left: 0});

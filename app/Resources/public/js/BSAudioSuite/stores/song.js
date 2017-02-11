@@ -12,21 +12,19 @@ export default class Song {
 
   getInfo()
   {
-    let $this = this;
     if (typeof this.apiData === "undefined" || this.apiData === null) {
-      return jQuery.when(jQuery.get({url: this.songInfoUrl})).done(function (data)
+      return jQuery.when(jQuery.get({url: this.songInfoUrl})).done((data) =>
       {
-        $this.apiData = data;
-        console.log('getInfo', $this);
-        return $this;
+        this.apiData = data;
+        return this;
       });
     }
-    return jQuery.when().done(
-      function ()
+    return jQuery.when().done(() =>
       {
-        return $this;
+        return this;
+
       }
-    )
+    );
   }
 
   getSrc()

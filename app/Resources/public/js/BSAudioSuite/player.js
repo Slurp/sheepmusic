@@ -117,7 +117,7 @@ export default class BlackSheepPlayer {
       "</a>",
       "<div class='dropdown-menu dropdown-menu-right playlist'>",
       "<h3 class='playlist-header'>Current Playlist</h3>",
-      "<ul>",
+      "<ul data-playlist='current'>",
       "<li> no songs</li>",
       "</ul>",
       "<div class='playlist-actions'>actions</div>",
@@ -133,11 +133,10 @@ export default class BlackSheepPlayer {
     )[0];
 
     this.playlist = new BlackSheepPlaylist();
+    this.playlist.watchSongs(this);
+    BlackSheepLibrary.watchSongs(this,this.playlist);
     this.watchButtons();
     this.watchEvents();
-    let self = this;
-    console.log(self);
-    BlackSheepLibrary.watchSongs(self)
   };
 
   updateAudioElement(src)
@@ -155,12 +154,12 @@ export default class BlackSheepPlayer {
 
   playSong(song)
   {
-    self.currentSong = song;
-    this.updateAudioElement(self.currentSong.getSrc());
-    $('title').text(`${self.currentSong.getTitle()} ♫ sheepMusic`);
-    $('.plyr audio').attr('title', `${self.currentSong.getArtistName()} - ${self.currentSong.getTitle()}`);
-    $('.player .playing-song-title').text(`${self.currentSong.getArtistName()} : ${self.currentSong.getTitle()}`);
-    $('.player .song-image').attr('src', self.currentSong.getAlbum().cover);
+    this.currentSong = song;
+    this.updateAudioElement(this.currentSong.getSrc());
+    $('title').text(`${this.currentSong.getTitle()} ♫ sheepMusic`);
+    $('.plyr audio').attr('title', `${this.currentSong.getArtistName()} - ${this.currentSong.getTitle()}`);
+    $('.player .playing-song-title').text(`${this.currentSong.getArtistName()} : ${this.currentSong.getTitle()}`);
+    $('.player .song-image').attr('src', this.currentSong.getAlbum().cover);
     Notifications.notifySong(song);
     this.restart();
   };
@@ -181,7 +180,6 @@ export default class BlackSheepPlayer {
   {
     jQuery.when(this.playlist.getNextSong()).then((song) =>
       {
-        console.log(song);
         this.playSong(song);
       }
     );
