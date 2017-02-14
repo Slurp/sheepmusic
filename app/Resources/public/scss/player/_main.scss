@@ -103,11 +103,6 @@
           font-size: 20px;
         }
       }
-      .dropup {
-        position: absolute;
-        right: 15px;
-        top:-16.5px;
-      }
     }
     .plyr__volume {
       position: absolute;
@@ -126,6 +121,16 @@
       & + i {
         display: none;
       }
+    }
+  }
+  .dropup {
+    position: absolute;
+    left: 0;
+    right: 0;
+    .btn {
+      position: absolute;
+      right: 15px;
+      top: -16.5px;
     }
   }
 }

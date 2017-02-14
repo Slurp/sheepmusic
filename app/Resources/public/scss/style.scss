@@ -12,8 +12,8 @@
 @import "vendor/bootstrap";
 @import "player/plyr";
 @import "vendor/materialize/global";
-@import "vendor/materialize/buttons";
 @import "vendor/materialize/waves";
+@import "vendor/materialize/buttons";
 @import "vendor/mdb4/animations";
 @import "vendor/animate_css/slideInLeft.scss";
 //own files
@@ -39,6 +39,7 @@
 @import "parts/loading";
 @import "parts/info-bar";
 @import "parts/image-backdrop";
+@import "parts/card_action_sheet";
 
 // Library
 @import "library/lists";

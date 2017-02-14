@@ -11,6 +11,16 @@ export default class Library {
       playlist.renderPlaylist();
     });
 
+    jQuery("main").on('click', '[data-queue_album]', function ()
+    {
+      jQuery('[data-song]').each(function ()
+      {
+        player.addToQueue(jQuery(this));
+      });
+      player.autoStart();
+      playlist.renderPlaylist();
+    });
+
     jQuery("main").on('click', '.btn-play-album', function ()
     {
         jQuery('[data-song]').each(function ()

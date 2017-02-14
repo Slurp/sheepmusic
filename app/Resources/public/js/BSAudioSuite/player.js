@@ -3,7 +3,7 @@ import plyr from 'plyr';
 import Notifications from './services/notifications';
 import BlackSheepPlaylist from './stores/playlist';
 import BlackSheepLibrary from './library';
-
+import Waveform from '../vendor/waveform';
 
 export default class BlackSheepPlayer {
 
@@ -83,7 +83,7 @@ export default class BlackSheepPlayer {
       "Nothing Playing",
       "</a>",
       "<span class='playing-song-meta'></span>",
-
+      "<canvas width='453' height='66' id='showcase'></canvas>",
       "</div>",
       "<button type='button' data-plyr='restart'>",
       "<i class='material-icons'>replay</i>",
@@ -107,6 +107,7 @@ export default class BlackSheepPlayer {
       "<button class='player-random player-button' title='Random is On'>",
       "<i class='material-icons'>shuffle</i>",
       "</button>",
+      "</div>",
       "<div class='actions-wrapper actions-secondary btn-group dropup'>",
       "<a href='#'",
       "class='btn btn-floating btn-playlist'",
@@ -121,7 +122,6 @@ export default class BlackSheepPlayer {
       "<li> no songs</li>",
       "</ul>",
       "<div class='playlist-actions'>actions</div>",
-      "</div>",
       "</div>",
       "</div>"].join("");
 

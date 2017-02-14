@@ -85,6 +85,10 @@
 
 	var _library2 = _interopRequireDefault(_library);
 
+	var _waveform = __webpack_require__(68);
+
+	var _waveform2 = _interopRequireDefault(_waveform);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var BlackSheepPlayer = function () {
@@ -114,7 +118,7 @@
 	        return;
 	      }
 
-	      var controls = ["<div class='plyr__controls player-controls' id='playerControls'>", "<div class='row'>", "<button type='button' data-plyr='previous'>", "<i class='material-icons'>skip_previous</i>", "<span class='plyr__sr-only'>previous</span>", "</button>", "<button type='button' data-plyr='rewind'>", "<i class='material-icons'>fast_rewind</i>", "<span class='plyr__sr-only'>Rewind {seektime} secs</span>", "</button>", "<button type='button' data-plyr='play'>", "<i class='material-icons'>play_circle_outline</i>", "<span class='plyr__sr-only'>Play</span>", "</button>", "<button type='button' data-plyr='pause'>", "<i class='material-icons'>pause_circle_outline</i>", "<span class='plyr__sr-only'>Pause</span>", "</button>", "<button type='button' data-plyr='fast-forward'>", "<i class='material-icons'>fast_forward</i>", "<span class='plyr__sr-only'>Forward {seektime} secs</span>", "</button>", "<button type='button' data-plyr='next'>", "<i class='material-icons'>skip_next</i>", "<span class='plyr__sr-only'>next</span>", "</button>", "</div>", "</div>", "<div class='player-info'>", "<img src='/frontend/img/default.png' class='song-image'/>", "<span class='plyr__progress progress-wrapper'>", "<label for='seek{id}' class='plyr__sr-only'>Seek</label>", "<input id='seek{id}' class='plyr__progress--seek' type='range' min='0' max='100' step='0.1' value='0' data-plyr='seek'>", "<progress class='plyr__progress--played' max='100' value='0' role='presentation'></progress>", "<progress class='plyr__progress--buffer' max='100' value='0'>", "<span>0</span>% buffered", "</progress>", "<span class='plyr__tooltip'>00:00</span>", "</span>", "<span class='plyr__time'>", "<span class='plyr__sr-only'>Current time</span>", "<span class='plyr__time--current'>00:00</span>", "</span>", "<span class='plyr__time'>", "<span class='plyr__sr-only'>Duration</span>", "<span class='plyr__time--duration'>00:00</span>", "</span>", "<div id='now-playing' href='#albums'>", "<a href='#' class='playing-song-title'>", "Nothing Playing", "</a>", "<span class='playing-song-meta'></span>", "</div>", "<button type='button' data-plyr='restart'>", "<i class='material-icons'>replay</i>", "<span class='plyr__sr-only'>Restart</span>", "</button>", "</div>", "<div class='player-extra player-controls plyr__controls'>", "<button type='button' data-plyr='mute'>", "<i class='material-icons icon--muted'>volume_off</i>", "<i class='material-icons'>volume_mute</i>", "<span class='plyr__sr-only'>Toggle Mute</span>", "</button>", "<span class='plyr__volume'>", "<label for='volume{id}' class='plyr__sr-only'>Volume</label>", "<input id='volume{id}' class='plyr__volume--input' type='range' min='0' max='10' value='5' data-plyr='volume'>", "<progress class='plyr__volume--display' max='10' value='0' role='presentation'></progress>", "</span>", "<button class='player-repeat player-button' title='Repeat is off'>", "<i class='material-icons'>repeat</i>", "</button>", "<button class='player-random player-button' title='Random is On'>", "<i class='material-icons'>shuffle</i>", "</button>", "<div class='actions-wrapper actions-secondary btn-group dropup'>", "<a href='#'", "class='btn btn-floating btn-playlist'", "data-toggle='dropdown'", "aria-haspopup='true'", "aria-expanded='false'>", "<i class='material-icons'>queue_music</i>", "</a>", "<div class='dropdown-menu dropdown-menu-right playlist'>", "<h3 class='playlist-header'>Current Playlist</h3>", "<ul data-playlist='current'>", "<li> no songs</li>", "</ul>", "<div class='playlist-actions'>actions</div>", "</div>", "</div>", "</div>"].join("");
+	      var controls = ["<div class='plyr__controls player-controls' id='playerControls'>", "<div class='row'>", "<button type='button' data-plyr='previous'>", "<i class='material-icons'>skip_previous</i>", "<span class='plyr__sr-only'>previous</span>", "</button>", "<button type='button' data-plyr='rewind'>", "<i class='material-icons'>fast_rewind</i>", "<span class='plyr__sr-only'>Rewind {seektime} secs</span>", "</button>", "<button type='button' data-plyr='play'>", "<i class='material-icons'>play_circle_outline</i>", "<span class='plyr__sr-only'>Play</span>", "</button>", "<button type='button' data-plyr='pause'>", "<i class='material-icons'>pause_circle_outline</i>", "<span class='plyr__sr-only'>Pause</span>", "</button>", "<button type='button' data-plyr='fast-forward'>", "<i class='material-icons'>fast_forward</i>", "<span class='plyr__sr-only'>Forward {seektime} secs</span>", "</button>", "<button type='button' data-plyr='next'>", "<i class='material-icons'>skip_next</i>", "<span class='plyr__sr-only'>next</span>", "</button>", "</div>", "</div>", "<div class='player-info'>", "<img src='/frontend/img/default.png' class='song-image'/>", "<span class='plyr__progress progress-wrapper'>", "<label for='seek{id}' class='plyr__sr-only'>Seek</label>", "<input id='seek{id}' class='plyr__progress--seek' type='range' min='0' max='100' step='0.1' value='0' data-plyr='seek'>", "<progress class='plyr__progress--played' max='100' value='0' role='presentation'></progress>", "<progress class='plyr__progress--buffer' max='100' value='0'>", "<span>0</span>% buffered", "</progress>", "<span class='plyr__tooltip'>00:00</span>", "</span>", "<span class='plyr__time'>", "<span class='plyr__sr-only'>Current time</span>", "<span class='plyr__time--current'>00:00</span>", "</span>", "<span class='plyr__time'>", "<span class='plyr__sr-only'>Duration</span>", "<span class='plyr__time--duration'>00:00</span>", "</span>", "<div id='now-playing' href='#albums'>", "<a href='#' class='playing-song-title'>", "Nothing Playing", "</a>", "<span class='playing-song-meta'></span>", "<canvas width='453' height='66' id='showcase'></canvas>", "</div>", "<button type='button' data-plyr='restart'>", "<i class='material-icons'>replay</i>", "<span class='plyr__sr-only'>Restart</span>", "</button>", "</div>", "<div class='player-extra player-controls plyr__controls'>", "<button type='button' data-plyr='mute'>", "<i class='material-icons icon--muted'>volume_off</i>", "<i class='material-icons'>volume_mute</i>", "<span class='plyr__sr-only'>Toggle Mute</span>", "</button>", "<span class='plyr__volume'>", "<label for='volume{id}' class='plyr__sr-only'>Volume</label>", "<input id='volume{id}' class='plyr__volume--input' type='range' min='0' max='10' value='5' data-plyr='volume'>", "<progress class='plyr__volume--display' max='10' value='0' role='presentation'></progress>", "</span>", "<button class='player-repeat player-button' title='Repeat is off'>", "<i class='material-icons'>repeat</i>", "</button>", "<button class='player-random player-button' title='Random is On'>", "<i class='material-icons'>shuffle</i>", "</button>", "</div>", "<div class='actions-wrapper actions-secondary btn-group dropup'>", "<a href='#'", "class='btn btn-floating btn-playlist'", "data-toggle='dropdown'", "aria-haspopup='true'", "aria-expanded='false'>", "<i class='material-icons'>queue_music</i>", "</a>", "<div class='dropdown-menu dropdown-menu-right playlist'>", "<h3 class='playlist-header'>Current Playlist</h3>", "<ul data-playlist='current'>", "<li> no songs</li>", "</ul>", "<div class='playlist-actions'>actions</div>", "</div>", "</div>"].join("");
 
 	      this.player = _plyr2.default.setup({
 	        html: controls,
@@ -15870,6 +15874,14 @@
 	        playlist.renderPlaylist();
 	      });
 
+	      (0, _jquery2.default)("main").on('click', '[data-queue_album]', function () {
+	        (0, _jquery2.default)('[data-song]').each(function () {
+	          player.addToQueue((0, _jquery2.default)(this));
+	        });
+	        player.autoStart();
+	        playlist.renderPlaylist();
+	      });
+
 	      (0, _jquery2.default)("main").on('click', '.btn-play-album', function () {
 	        (0, _jquery2.default)('[data-song]').each(function () {
 	          player.addToQueue((0, _jquery2.default)(this));
@@ -15883,6 +15895,113 @@
 	}();
 
 	exports.default = Library;
+
+/***/ },
+/* 68 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var analyser;
+	var xpos = 0;
+	var interval;
+	var c;
+	var ctx;
+	var analyser;
+	var frequencyData;
+	var visualisation;
+	var params;
+
+	function shore(paramobj) {
+	  // defaults
+	  paramobj.view = paramobj.view || 'view';
+	  paramobj.source = paramobj.source || 'source';
+	  paramobj.color = paramobj.color || 'screen';
+
+	  // load params into global var
+	  params = paramobj;
+
+	  c = document.getElementById(params.view);
+	  ctx = c.getContext("2d");
+	  ctx.fillStyle = params.color;
+	  if (typeof AudioContext !== "undefined") {
+	    context = new AudioContext();
+	  } else if (typeof webkitAudioContext !== "undefined") {
+	    context = new webkitAudioContext();
+	  } else {
+	    console.log("No Api");
+	    $(".hideIfNoApi").hide();
+	    $(".showIfNoApi").show();
+	    return;
+	  }
+
+	  var lastTime = 0;
+	  var vendors = ['ms', 'moz', 'webkit', 'o'];
+	  for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+	    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+	    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+	  }
+
+	  if (!window.requestAnimationFrame) {
+	    window.requestAnimationFrame = function (callback, element) {
+	      var currTime = new Date().getTime();
+	      var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+	      var id = window.setTimeout(function () {
+	        callback(currTime + timeToCall);
+	      }, timeToCall);
+	      lastTime = currTime + timeToCall;
+	      return id;
+	    };
+	  }
+
+	  if (!window.cancelAnimationFrame) {
+	    window.cancelAnimationFrame = function (id) {
+	      clearTimeout(id);
+	    };
+	  }
+
+	  // create analyser
+	  analyser = context.createAnalyser();
+	  analyser.fftSize = 64;
+	  frequencyData = new Uint8Array(analyser.frequencyBinCount);
+
+	  // set up the visualisation
+	  visualisation = $("#" + params.view);
+
+	  // bind to audio source
+	  $(params.source).bind('canplay', function () {
+	    var source = context.createMediaElementSource(this);
+	    source.connect(analyser);
+	    analyser.connect(context.destination);
+	  });
+
+	  // start the loop
+	  update();
+	}
+
+	function update() {
+	  requestAnimationFrame(update);
+	  analyser.getByteFrequencyData(frequencyData);
+
+	  if (frequencyData[0] === 0) {
+	    // don't log
+	  } else {
+	    // the frequencyData multiplier controls the graph scale
+	    var gradient = ctx.createLinearGradient(0, 0, 0, c.height);
+	    gradient.addColorStop(0, 'white');
+	    gradient.addColorStop(1, params.color);
+	    ctx.fillStyle = gradient;
+	    xpos = xpos + 1;
+	    if (xpos >= c.width - 2) {
+	      xpos = c.width - 3;
+	      var img = document.createElement('img');
+	      img.src = c.toDataURL("image/jpg");
+	      ctx.clearRect(0, 0, c.width, c.height);
+	      ctx.drawImage(img, -1, 0);
+	    }
+	    ctx.fillRect(xpos, c.height - frequencyData[0] * params.scale, 1, c.height);
+	  }
+	}
 
 /***/ }
 /******/ ]);

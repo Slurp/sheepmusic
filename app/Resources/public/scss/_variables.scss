@@ -37,6 +37,10 @@ $plyr-range-selected-bg:$accent-color;
 $plyr-audio-range-track-bg:$divider-color;
 $plyr-audio-control-bg-hover:$accent-color;
 
+/* ==========  Playlist  ========== */
+$playlist-bg-color: $primary-color-light;
+$playlist-txt-color: $primary-text-color;
+
 /* ==========  Footer  ========== */
 $footer-fixed-height: 70px;
 $footer-bg-color: $gray-dark;
@@ -92,16 +96,29 @@ $btn-primary-bg: $accent-color;
 $btn-primary-border: $accent-color;
 
 // Flat buttons
-$button-flat-color: #343434 !default;
-$button-flat-disabled-color: lighten(#999, 10%) !default;
+$button-height: 36px !default;
+
+// Shared styles
+$button-border: none !default;
+$button-background-focus: lighten($accent-color, 4%) !default;
+$button-font-size: 1.3rem !default;
+$button-height: 36px !default;
+$button-padding: 0 2rem !default;
+$button-radius: 2px !default;
+
+$button-flat-color: #343434;
+$button-flat-disabled-color: lighten(#999, 10%);
 
 // Floating buttons
-$button-floating-background: $btn-primary-bg !default;
-$button-floating-background-hover: $button-floating-background !default;
-$button-floating-color: $btn-primary-color !default;
-$button-floating-size: 37px !default;
-$button-floating-large-size: $button-floating-size * 1.5 !default;
-$button-floating-radius: 50% !default;
+$button-floating-background: $btn-primary-bg;
+$button-floating-background-hover: $button-floating-background;
+$button-floating-color: $btn-primary-color;
+$button-floating-size: 36px;
+$button-floating-large-size: $button-floating-size * 1.5;
+$button-floating-radius: 50%;
+// Large buttons
+$button-large-icon-font-size: 1.6rem !default;
+$button-large-height: $button-height * 1.5 !default;
 
 // forms
 $input-bg-color: $divider-color;

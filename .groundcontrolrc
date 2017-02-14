@@ -53,6 +53,7 @@
       "<=bowerComponentsPath>/lodash/dist/lodash.js",
       "<=bowerComponentsPath>/push.js/push.js",
       "<=bowerComponentsPath>/Materialize/js/cards.js",
+      "<=bowerComponentsPath>/Materialize/js/buttons.js",
       "<=npmPath>/barba.js/dist/barba.js",
       "<=resourcesPath>public/js/vendor/*.js",
       "<=resourcesPath>public/js/*.js"

@@ -7,25 +7,20 @@
     <a href="{{ url('library_album',{'album':album.slug }) }}" >
         <img class="card-img-top" src='{{ backgroundImage }}'/>
     </a>
-    <div class="card-block">
-        <h4 class="card-title activator">
-            {{ album.artist.name }}<i class="material-icons right">more_vert</i>
+    <div class="card-block has-sheet">
+        <div class="fixed-action-btn click-to-toggle">
+            <a class="btn btn-floating">
+                <i class="material-icons">more_horiz</i>
+            </a>
+            <ul class="action-sheet">
+                <li><a class="btn-floating"><i class="material-icons">playlist_add</i></a></li>
+            </ul>
+        </div>
+        <h4 class="card-title">
+            {{ album.artist.name }}
         </h4>
         <p class="card-text">
             {{ album.name }}
         </p>
-    </div>
-    <div class="card-reveal">
-        <h4 class="card-title grey-text text-darken-4">
-            {{ album.artist.name }} <br />
-            {{ album.name }}
-            <i class="material-icons close right">close</i>
-        </h4>
-
-        <a href="#"
-           class="btn btn-primary-outline"
-        >
-            Play all
-        </a>
     </div>
 </div>
