@@ -16,7 +16,7 @@
         {% if album.cover is not null %}
             {% set backgroundImage = "background-image: url('" ~ asset(album.cover) ~"')" %}
         {% endif %}
-        <div class="album-backdrop" {% if album.cover is not null %} style="{{ backgroundImage }}" {% endif %}>
+        <div class="album-backdrop backdrop" {% if album.cover is not null %} style="{{ backgroundImage }}" {% endif %}>
             {% include '@App/Album/info-bar.html.twig' with {'album': album} only %}
         </div>
         {% include '@App/Partials/album-list.html.twig' with {'album': album} only %}

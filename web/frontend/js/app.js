@@ -122,7 +122,8 @@
 
 	      this.player = _plyr2.default.setup({
 	        html: controls,
-	        loadSprite: false
+	        loadSprite: false,
+	        debug: false
 	      })[0];
 
 	      this.playlist = new _playlist2.default();

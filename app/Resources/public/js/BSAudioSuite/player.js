@@ -128,7 +128,8 @@ export default class BlackSheepPlayer {
     this.player = plyr.setup(
       {
         html:       controls,
-        loadSprite: false
+        loadSprite: false,
+        debug: false
       }
     )[0];
 

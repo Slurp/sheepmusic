@@ -2,6 +2,9 @@
 namespace BlackSheep\MusicLibraryBundle\Streamers;
 
 use BlackSheep\MusicLibraryBundle\Model\SongInterface;
+use BlackSheep\MusicLibraryBundle\Streamers\Transcoder\FfmpegArgumentBuilder;
+use BlackSheep\MusicLibraryBundle\Streamers\Transcoder\Inspector;
+use BlackSheep\MusicLibraryBundle\Streamers\Transcoder\TranscodedSizeEstimator;
 use Exception;
 
 /**
@@ -50,25 +53,13 @@ class TranscodingStreamer extends AbstractStreamer implements AudioStreamInterfa
         if (is_executable($this->ffmpeg) === false) {
             throw new Exception('Transcoding requires valid ffmpeg settings.');
         }
-
         $bitRate = filter_var($this->bitrate, FILTER_SANITIZE_NUMBER_INT);
-
-        header('Content-Type: audio/mpeg');
-        header('Content-Disposition: attachment; filename="' . basename($this->song->getPath()) . '"');
-
-        $args = [
-            '-i ' . escapeshellarg($this->song->getPath()),
-            '-map 0:0',
-            '-v 0',
-            "-ab {$bitRate}k",
-            '-f mp3',
-            '-',
-        ];
-
-        if ($this->startTime) {
-            array_unshift($args, "-ss {$this->startTime}");
-        }
-
-        passthru("$this->ffmpeg " . implode($args, ' '));
+        $end = Inspector::getLength($this->song->getPath());
+        $length =  $end - $this->startTime;
+        $guessedSize = TranscodedSizeEstimator::estimatedBytes($length, $this->bitrate);
+        HeaderBuilder::putHeader($this->song->getPath(), $guessedSize);
+        passthru(
+            "$this->ffmpeg " . FfmpegArgumentBuilder::getArguments($this->song->getPath(), $this->startTime, $bitRate)
+        );
     }
 }

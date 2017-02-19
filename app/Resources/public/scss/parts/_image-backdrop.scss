@@ -23,10 +23,41 @@
   .info-bar {
     z-index: 3;
     position: absolute;
+    top:auto;
     bottom: 0;
+    left: 15px;
+    right: 15px;
+    width: auto;
+    transition: all 0.9s ease;
+    &.pin-top {
+      top:auto!important;
+    }
+    &.pinned,
+    &.pin-bottom {
+        @extend .z-depth-1;
+        position: fixed;
+        left: 0;
+        right:0;
+        top: 0;
+        bottom: initial;
+        z-index: 10;
+        margin-top: 57px;
+        .btn-play-album {
+          top: 50%;
+          margin-top: -26px;
+        }
+        .info-bar-image img {
+          position: static;
+          object-fit: contain;
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
   }
+
   ~ * {
-    margin-top: 300px;
+    margin-top: 320px;
   }
 }
 

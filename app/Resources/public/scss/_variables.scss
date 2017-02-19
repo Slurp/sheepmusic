@@ -65,11 +65,11 @@ $brand-danger:              #d9534f;
 /* 13. Navigation Bar
    ========================================================================== */
 
-$navbar-height: 64px !default;
-$navbar-height-mobile: 56px !default;
-$navbar-font-size: 1rem !default;
-$navbar-font-color: #fff !default;
-$navbar-brand-font-size: 2.1rem !default;
+$navbar-height: 64px;
+$navbar-height-mobile: 56px;
+$navbar-font-size: 1rem;
+$navbar-font-color: #fff;
+$navbar-brand-font-size: 2.1rem;
 $navbar-dark-color: $primary-color-text;
 $navbar-bg-color: $primary-color;
 $navbar-border-color: lighten($primary-color-dark,15%);
@@ -77,10 +77,10 @@ $navbar-border-color: lighten($primary-color-dark,15%);
 /* 14. Side Navigation
    ========================================================================== */
 
-$sidenav-font-color: $primary-text-color   !default;
-$sidenav-bg-color: rgba(255,255,255,0.9) !default;
-$sidenav-padding-right: 15px !default;
-$sidenav-item-height: 32px !default;
+$sidenav-font-color: $primary-text-color  ;
+$sidenav-bg-color: rgba(255,255,255,0.9);
+$sidenav-padding-right: 15px;
+$sidenav-item-height: 32px;
 
 // Body
 //
@@ -96,15 +96,15 @@ $btn-primary-bg: $accent-color;
 $btn-primary-border: $accent-color;
 
 // Flat buttons
-$button-height: 36px !default;
+$button-height: 36px;
 
 // Shared styles
-$button-border: none !default;
-$button-background-focus: lighten($accent-color, 4%) !default;
-$button-font-size: 1.3rem !default;
-$button-height: 36px !default;
-$button-padding: 0 2rem !default;
-$button-radius: 2px !default;
+$button-border: none;
+$button-background-focus: lighten($accent-color, 4%);
+$button-font-size: 1.3rem;
+$button-height: 36px;
+$button-padding: 0 2rem;
+$button-radius: 2px;
 
 $button-flat-color: #343434;
 $button-flat-disabled-color: lighten(#999, 10%);
@@ -117,8 +117,8 @@ $button-floating-size: 36px;
 $button-floating-large-size: $button-floating-size * 1.5;
 $button-floating-radius: 50%;
 // Large buttons
-$button-large-icon-font-size: 1.6rem !default;
-$button-large-height: $button-height * 1.5 !default;
+$button-large-icon-font-size: 1.6rem;
+$button-large-height: $button-height * 1.5;
 
 // forms
 $input-bg-color: $divider-color;

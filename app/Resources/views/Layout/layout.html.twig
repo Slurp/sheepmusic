@@ -32,32 +32,33 @@
 
 {# Outdated browser message #}
 {% include 'Layout/_outdatedbrowser.html.twig' %}
-{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
     <header>
 
         {# Header #}
         {% block header %}
             {% include 'Layout/_header.html.twig' %}
         {% endblock %}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted('ROLE_USER') %}
         {% block submenu %}
             {% include 'Layout/_submenu.html.twig' %}
         {% endblock %}
-
+        {% endif %}
     </header>
 <main role="main" class="container-fluid  {% block extra_layout_classes %}{% endblock %}">
     {# Content #}
     {% include 'Components/loading-overlay.html.twig' %}
     <div id="barba-wrapper" class="main-content">
         <div class="barba-container">
-            {% endif %}
+
             {% block content %}
             {% endblock %}
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
         </div>
 
     </div>
 </main>
-
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 {# Footer #}
 {% block footer %}
     {% include 'Layout/_footer.html.twig' %}
@@ -70,11 +71,13 @@
 
 {# Google Tagmanager #}
 {% include 'Layout/_googletagmanager.html.twig' %}
+
 {# JS Footer #}
     <script src="{{ asset('frontend/js/app.js') }}"></script>
+{% endif %}
 {% include 'Layout/_js_footer.html.twig' %}
 {% block modals %}{% endblock %}
-{% endif %}
+
 
 {% block pageJavascript %}{% endblock %}
 </body>

@@ -613,8 +613,8 @@
 });
 
 //Initialization
-Waves.attach('.btn, .btn-floating', ['waves-dark']);
-Waves.attach('.view .mask', ['waves-light']);
-Waves.attach('.waves-light', ['waves-light']);
-Waves.attach('.navbar > li, .navbar a, .navbar form', ['waves-light']);
+Waves.attach('.btn, .btn-floating', ['waves-light']);
+//Waves.attach('.view .mask', ['waves-light']);
+//Waves.attach('.waves-light', ['waves-light']);
+//Waves.attach('.navbar > li, .navbar a, .navbar form', ['waves-light']);
 Waves.init();
