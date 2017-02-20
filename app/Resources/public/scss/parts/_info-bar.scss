@@ -1,32 +1,32 @@
 .info-bar {
-  @extend .nav;
-  @extend .navbar;
-  width: 100%;
+  @extend .media;
   margin-top: 80px;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
   background-color: $primary-color;
   border: 1px solid $infobar-border-color;
   color: $primary-color-text;
 
   .info-bar-image {
-    @include make-col-ready();
-    @include make-col(3);
-    img {
+    @include img-fluid();
+    @extend .d-flex;
+    @extend .z-depth-2;
+    margin: 5px 15px;
+    width: 50px;
+    max-width: 50px;
+    @include media-breakpoint-up(sm) {
+      width: 150px;
+      max-width: 150px;
       position: absolute;
-      @include img-fluid();
-      border-radius: 100%;
-      border: 10px solid $white;
-      @extend .z-depth-2;
-      bottom:50%;
-      margin-bottom: -65px;
-      min-width: 150px;
+      top: -50px;
     }
+    border-radius: 100%;
+    border: 4px solid $white;
   }
   .info-bar-content {
-    @include make-col-ready();
-    @include make-col(9);
+    @extend .media-body;
+    padding: 5px 0;
+    @include media-breakpoint-up(sm) {
+      margin-left: 175px;
+    }
   }
   ~ .song-list {
     padding-top: 20px;

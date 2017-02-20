@@ -66,7 +66,7 @@ export default class playlist {
       return promise.then(function() {
         return song.getInfo().then(() => {
           playlistHtml.append(
-            '<li><a href="#" data-playlist-index="'+i+'">'+
+            '<li><a href="#" data-playlist-index="'+i+'"><span>'+i+'</span>'+
             song.getArtistName()+' - ' + song.getTitle()+
             '</a> </li>'
           );

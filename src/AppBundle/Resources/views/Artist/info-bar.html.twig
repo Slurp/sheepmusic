@@ -3,9 +3,8 @@
     <a class="btn btn-floating btn-play-album">
         <i class="material-icons">play_arrow</i>
     </a>
-    <div class="info-bar-image">
-        <img src="{% if artist.image is not null %}{{ artist.image }}{% else %}{{ artist.lastFmInfo.image.large }}{% endif %}" />
-    </div>
+    <img class="info-bar-image"
+         src="{% if artist.image is not null %}{{ artist.image }}{% else %}{{ artist.lastFmInfo.image.large }}{% endif %}"/>
     <div class="info-bar-content">
         <h1 class="artist-name">{{ artist.name }}</h1>
         <span class="label label-info">{{ artist.playCount }}</span>

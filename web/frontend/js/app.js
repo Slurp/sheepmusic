@@ -14530,7 +14530,7 @@
 	      return this.songs.reduce(function (promise, song) {
 	        return promise.then(function () {
 	          return song.getInfo().then(function () {
-	            playlistHtml.append('<li><a href="#" data-playlist-index="' + i + '">' + song.getArtistName() + ' - ' + song.getTitle() + '</a> </li>');
+	            playlistHtml.append('<li><a href="#" data-playlist-index="' + i + '"><span>' + i + '</span>' + song.getArtistName() + ' - ' + song.getTitle() + '</a> </li>');
 	            i++;
 	          });
 	        });

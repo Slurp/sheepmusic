@@ -54,10 +54,11 @@ class TranscodingStreamer extends AbstractStreamer implements AudioStreamInterfa
             throw new Exception('Transcoding requires valid ffmpeg settings.');
         }
         $bitRate = filter_var($this->bitrate, FILTER_SANITIZE_NUMBER_INT);
-        $end = Inspector::getLength($this->song->getPath());
-        $length =  $end - $this->startTime;
-        $guessedSize = TranscodedSizeEstimator::estimatedBytes($length, $this->bitrate);
-        HeaderBuilder::putHeader($this->song->getPath(), $guessedSize);
+        $length = Inspector::getLength($this->song->getPath()) - $this->startTime;
+        HeaderBuilder::putHeader(
+            $this->song->getPath(),
+            TranscodedSizeEstimator::estimatedBytes($length, $this->bitrate)
+        );
         passthru(
             "$this->ffmpeg " . FfmpegArgumentBuilder::getArguments($this->song->getPath(), $this->startTime, $bitRate)
         );

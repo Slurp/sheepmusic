@@ -5,6 +5,7 @@ use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use BlackSheep\MusicLibraryBundle\Streamers\DefaultStreamer;
 use BlackSheep\MusicLibraryBundle\Streamers\TranscodingStreamer;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Streamer service
@@ -36,7 +37,7 @@ class StreamerService
      *
      * @param SongInterface $song
      * @param int   $startTime
-     * @return \Symfony\Component\HttpFoundation\Response|void
+     * @return Response
      * @throws \Exception
      */
     public function getStreamerForSong(SongInterface $song, $startTime = 0)

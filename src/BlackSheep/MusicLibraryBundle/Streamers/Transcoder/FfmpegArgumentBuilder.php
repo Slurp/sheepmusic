@@ -11,6 +11,8 @@ class FfmpegArgumentBuilder
     /**
      * @param $path
      * @param $startTime
+     *
+     * @return string
      */
     public static function getArguments($path, $startTime, $bitRate)
     {
