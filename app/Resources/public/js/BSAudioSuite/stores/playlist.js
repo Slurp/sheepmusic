@@ -16,7 +16,7 @@ export default class playlist {
   {
     this.currentSong = this.songs[this.currentIndex];
     let $song = this.currentSong;
-    if(typeof $song !== "undefined") {
+    if (typeof $song !== "undefined") {
       return jQuery.when(this.currentSong.getInfo()).then(
         function returnSong()
         {
@@ -28,7 +28,7 @@ export default class playlist {
 
   getPrevSong()
   {
-    if(this.currentIndex == 0) {
+    if (this.currentIndex == 0) {
       this.currentIndex = this.songs.length;
     }
     this.currentIndex--;
@@ -42,7 +42,7 @@ export default class playlist {
   getNextSong()
   {
     this.currentIndex++;
-    if(this.currentIndex >= this.songs.length) {
+    if (this.currentIndex >= this.songs.length) {
       this.currentIndex = 0;
     }
     return jQuery.when(this.getCurrentSong()).then(function (song)
@@ -58,20 +58,30 @@ export default class playlist {
     this.songs.push(song);
   };
 
-  renderPlaylist() {
+  renderPlaylist()
+  {
     let playlistHtml = jQuery('[data-playlist]');
     playlistHtml.find('li').remove();
     let i = 0;
-    return this.songs.reduce(function(promise, song) {
-      return promise.then(function() {
-        return song.getInfo().then(() => {
-          playlistHtml.append(
-            '<li><a href="#" data-playlist-index="'+i+'"><span>'+i+'</span>'+
-            song.getArtistName()+' - ' + song.getTitle()+
-            '</a> </li>'
-          );
-          i++;
-        }
+    return this.songs.reduce(function (promise, song)
+    {
+      return promise.then(function ()
+      {
+        return song.getInfo().then(() =>
+          {
+            playlistHtml.append(
+              '<li><span>' + i + '</span>' +
+              song.getArtistName() + ' - ' + song.getTitle() +
+              '<a href="#" data-playlist-play="' + i + '">' +
+              '<i class="material-icons">play_arrow</i>' +
+              '</a>' +
+              '<a href="#" data-playlist-delete="' + i + '">' +
+              '<i class="material-icons">remove_from_queue</i>' +
+              '</a>' +
+              '</li>'
+            );
+            i++;
+          }
         );
       });
     }, Promise.resolve());
@@ -79,13 +89,27 @@ export default class playlist {
 
   watchSongs(player)
   {
-    jQuery('[data-playlist]').on('click', '[data-playlist-index]', (e) => {
-      this.currentIndex = jQuery(e.currentTarget).data('playlist-index');
+    let $playlist = jQuery('.playlist');
+    $playlist.on('click', '[data-playlist-play]', (e) =>
+    {
+      this.currentIndex = jQuery(e.currentTarget).data('playlist-play');
       return jQuery.when(this.getCurrentSong()).then(() =>
       {
         player.playSong(this.currentSong);
       });
     });
+
+    $playlist.on('click', '[data-playlist-delete]', (e) =>
+    {
+      delete this.songs[jQuery(e.currentTarget).data('playlist-index')];
+      this.songs.filter(function (a)
+      {
+        return typeof a !== 'undefined';
+      });
+      jQuery(e.currentTarget).parent().remove();
+      this.renderPlaylist();
+    });
+
   };
 
 }

@@ -39,14 +39,14 @@ $plyr-audio-control-bg-hover:$accent-color;
 // Progress
 $plyr-progress-loading-size:            25px !default;
 $plyr-progress-loading-bg:              transparentize(#000, .85) !default;
-$plyr-video-progress-bg:                transparentize(#fff, .75) !default;
+$plyr-video-progress-bg:                transparentize(#fafafa, .75) !default;
 $plyr-video-progress-buffered-bg:       $plyr-video-progress-bg !default;
 $plyr-audio-progress-bg:                transparentize($primary-color-dark, .33) !default;
 $plyr-audio-progress-buffered-bg:       $plyr-audio-progress-bg !default;
 
 /* ==========  Playlist  ========== */
-$playlist-bg-color: $primary-color-dark;
-$playlist-txt-color: $primary-color-text;
+$playlist-bg-color: $gray-light;
+$playlist-txt-color: $primary-text-color;
 
 /* ==========  Footer  ========== */
 $footer-fixed-height: 70px;

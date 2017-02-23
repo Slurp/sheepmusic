@@ -15,42 +15,46 @@
 }
 
 .player {
-  .playlist {
+  .playlist-dropup {
+    overflow: hidden;
     opacity: 0;
-    top: auto;
-    left: 0;
-    right: 0;
-    bottom: 17.5px;
+    background-color: $playlist-bg-color;
+    color: $playlist-txt-color;
+  }
+  .playlist {
+    z-index: 3;
     margin-right: 0;
     margin-bottom: 0;
-    padding: 0 1rem;
-    height: 0;
-    z-index: 1;
+    padding: 0 15px;
     transition: all 1s ease 0.1s;
     color: $playlist-txt-color;
-    background-color: $playlist-bg-color;
-    overflow: scroll;
+
+
     * {
 
     }
     .playlist-header {
-      padding-top: 30px;
-      border-bottom: 1px solid $divider-color;
+      padding-top: 15px;
+      margin-bottom: 15px;
     }
 
     ul {
       @extend .nav;
       @extend .flex-column;
+      overflow-y: scroll;
+      position: relative;
+      height: calc(100vh - 300px);
       li {
         @extend .nav-item;
-        margin: 0 10px;
-        padding: 10px 0;
+        margin: 0;
+        padding: 0;
         border-bottom: 1px solid $divider-color;
+        display: block;
         color: $playlist-txt-color;
-        a {
+        line-height: 48px;
+        a, span
+        {
           color: $playlist-txt-color;
-        }
-        span {
           margin-right: 5px;
           font-size: 1.1rem;
           border-radius: 100%;
@@ -60,20 +64,35 @@
           display: inline-block;
           text-align: center;
         }
+        a {
+          margin-top: 5px;
+          display: none;
+          background: $white;
+          height: 36px;
+          width: 36px;
+          line-height: 48px;
+        }
         &:hover {
           background-color: $accent-color;
           a,span {
             color: $primary-text-color;
           }
+          a {
+            display: inline-block;
+            float: right;
+          }
         }
       }
     }
+    .playlist-actions {
+      height: 100px;
+    }
   }
-  .show > .playlist {
-    left: -1px;
-    right: 0;
-    height: calc(100vh - 125px);
+  .show > .playlist-dropup {
+    top: auto;
+    left: 0;
     bottom: 0;
+    height: calc(100vh - 190px);
     opacity: 1;
   }
 }
