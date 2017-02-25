@@ -1,7 +1,6 @@
 .sheepnav {
   @extend .navbar;
   @extend .fixed-top;
-  @extend .z-depth-1;
   background-color: $navbar-bg-color;
   color: $navbar-font-color;
   .navbar-brand {

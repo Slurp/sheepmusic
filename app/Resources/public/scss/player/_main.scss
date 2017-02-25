@@ -80,6 +80,12 @@
           border-radius: 0;
         }
       }
+      #now-playing {
+        margin-top: 10px;
+        .playing-song-title {
+          margin-left: -10px;
+        }
+      }
 
       #time {
         float: right;
@@ -123,6 +129,18 @@
         display: none;
       }
     }
+    .plyr__time--current,
+    .plyr__time--duration {
+      position: absolute;
+      top: 15px;
+      left: 75px;
+      color:$player-txt-color;
+    }
+    .plyr__time--duration {
+      left:auto;
+      right:15px;
+    }
+
   }
   .dropup {
     position: absolute;

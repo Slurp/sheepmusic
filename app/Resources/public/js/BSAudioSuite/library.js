@@ -7,8 +7,9 @@ export default class Library {
   {
     jQuery("main").on('click', '[data-song]', function () {
       player.addToQueue(jQuery(this));
-      player.autoStart();
       playlist.renderPlaylist();
+      player.autoStart();
+
     });
 
     jQuery("main").on('click', '[data-queue_album]', function ()
@@ -17,8 +18,9 @@ export default class Library {
       {
         player.addToQueue(jQuery(this));
       });
-      player.autoStart();
       playlist.renderPlaylist();
+      player.autoStart();
+
     });
 
     jQuery("main").on('click', '.btn-play-album', function ()
@@ -27,8 +29,9 @@ export default class Library {
         {
           player.addToQueue(jQuery(this));
         });
-        player.autoStart();
         playlist.renderPlaylist();
+        player.autoStart();
+
     });
   };
 }

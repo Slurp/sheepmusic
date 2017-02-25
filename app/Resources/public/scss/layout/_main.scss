@@ -1,17 +1,17 @@
 html {
   -webkit-font-smoothing: antialiased;
 }
-@include media-breakpoint-up(sm) {
-  .slide-nav-out  main.container-fluid {
-    margin-left: 200px;
-  }
-}
-
-
-main.container-fluid {
-  transition: all 0.5s ease-in-out;
-  margin-left:0;
-}
+//@include media-breakpoint-up(sm) {
+//  .slide-nav-out  main.container-fluid {
+//    margin-left: 200px;
+//  }
+//}
+//
+//
+//main.container-fluid {
+//  transition: all 0.5s ease-in-out;
+//  margin-left:0;
+//}
 .main-content {
   @include make-row();
   @include transition(all 1s ease);

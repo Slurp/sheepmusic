@@ -8,10 +8,10 @@
     <img class="info-bar-image"
          src="{% if album.cover is not null %}{{ album.cover }}{% else %}{{ album.lastFmInfo.image.large }}{% endif %}"/>
     <div class="info-bar-content media-body">
-        <h3 class="artist-name">{{ artist.name }}</h3>
         <h1 class="album-name">{{ album.name }}</h1>
-        <span class="label label-info">{{ artist.playCount }}</span>
-        <span class="label label-info">{{ album.createdAt | localdatetime('d-M-Y') }}</span>
-        <span class="label label-info">{{ album.updatedAt | localdatetime('d-M-Y') }}</span>
+        <h3 class="artist-name">{{ artist.name }}</h3>
+        <span class="badge badge-default">{{ artist.playCount }}</span>
+        <span class="badge badge-default">{{ album.createdAt | localdatetime('d-M-Y') }}</span>
+        <span class="badge badge-default">{{ album.updatedAt | localdatetime('d-M-Y') }}</span>
     </div>
 </div>

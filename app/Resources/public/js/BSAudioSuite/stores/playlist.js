@@ -70,21 +70,29 @@ export default class playlist {
         return song.getInfo().then(() =>
           {
             playlistHtml.append(
-              '<li><span>' + i + '</span>' +
-              song.getArtistName() + ' - ' + song.getTitle() +
-              '<a href="#" data-playlist-play="' + i + '">' +
-              '<i class="material-icons">play_arrow</i>' +
-              '</a>' +
-              '<a href="#" data-playlist-delete="' + i + '">' +
-              '<i class="material-icons">remove_from_queue</i>' +
-              '</a>' +
-              '</li>'
+              `<li class="playlist-item" data-playlist-index="${i}">
+                <img src="${song.getAlbum().cover}">
+                <div class="playlist-item-info">
+                  <h5 class="mt-0">${song.getTitle()}</h5>
+                  <h6>${song.getArtistName()} - ${song.getAlbum().name}</h6>
+                  
+                </div>
+                <div class="playlist-item-actions">
+                <a href="#" data-playlist-play="${ i }">
+                       <i class="material-icons">play_arrow</i>
+                   </a>
+                   <a href="#" data-playlist-delete="${ i }">
+                    <i class="material-icons">remove_from_queue</i>
+                   </a>
+                </div>
+              </li>`
             );
             i++;
           }
         );
       });
     }, Promise.resolve());
+
   }
 
   watchSongs(player)
@@ -101,7 +109,7 @@ export default class playlist {
 
     $playlist.on('click', '[data-playlist-delete]', (e) =>
     {
-      delete this.songs[jQuery(e.currentTarget).data('playlist-index')];
+      delete this.songs[jQuery(e.currentTarget).data('playlist-delete')];
       this.songs.filter(function (a)
       {
         return typeof a !== 'undefined';
@@ -112,4 +120,13 @@ export default class playlist {
 
   };
 
+  updatePlaying()
+  {
+    if(document.body.querySelectorAll('[data-playlist-index]').length > 0) {
+      for(let element of document.body.querySelectorAll('[data-playlist-index]')) {
+        element.classList.remove('playing');
+      }
+      document.body.querySelector('[data-playlist-index="' + this.currentIndex + '"]').classList.add('playing');
+    }
+  }
 }

@@ -18,11 +18,11 @@ $enable-grid-classes:       true;
 $image_path: 'frontend/img';
 
 /* ==========  Custom colors  ========== */
-$primary-color-dark:   #37474F; //#424242;
-$primary-color:        #212121;
+$primary-color-dark:   #263238; //#424242;
+$primary-color:        #263238;
 $primary-color-light:  #CFD8DC;
 $primary-color-text:   #FFFFFF;
-$accent-color:         #FF4081;
+$accent-color:         #F50057;
 $primary-text-color:   #212121;
 $secondary-text-color: #727272;
 $divider-color:        #B6B6B6;
@@ -38,14 +38,14 @@ $plyr-audio-range-track-bg:$divider-color;
 $plyr-audio-control-bg-hover:$accent-color;
 // Progress
 $plyr-progress-loading-size:            25px !default;
-$plyr-progress-loading-bg:              transparentize(#000, .85) !default;
-$plyr-video-progress-bg:                transparentize(#fafafa, .75) !default;
+$plyr-progress-loading-bg:              rgba(#000, .85) !default;
+$plyr-video-progress-bg:                rgba(#fafafa, .75) !default;
 $plyr-video-progress-buffered-bg:       $plyr-video-progress-bg !default;
-$plyr-audio-progress-bg:                transparentize($primary-color-dark, .33) !default;
+$plyr-audio-progress-bg:                rgba($primary-color-dark, .33) !default;
 $plyr-audio-progress-buffered-bg:       $plyr-audio-progress-bg !default;
 
 /* ==========  Playlist  ========== */
-$playlist-bg-color: $gray-light;
+$playlist-bg-color: $primary-color-text;
 $playlist-txt-color: $primary-text-color;
 
 /* ==========  Footer  ========== */
@@ -79,7 +79,7 @@ $navbar-font-color: #fff;
 $navbar-brand-font-size: 2.1rem;
 $navbar-dark-color: $primary-color-text;
 $navbar-bg-color: $primary-color;
-$navbar-border-color: lighten($primary-color-dark,15%);
+$navbar-border-color: $primary-color;
 
 /* 14. Side Navigation
    ========================================================================== */

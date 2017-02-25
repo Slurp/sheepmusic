@@ -1,6 +1,24 @@
 .card {
   border-color: $divider-color;
-  @extend .z-depth-1;
+  transition: all 0.4s ease;
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    top:5px;
+    bottom:0;
+    opacity: 0;
+    border-radius: 5px;
+    @extend .z-depth-1-half;
+    transition: opacity 0.5s ease;
+  }
+  &:hover {
+    transform: scale(1.01, 1.01);
+    &::after {
+      opacity: 0.9;
+    }
+  }
   .card-title {
     .card-block & {
       padding: 0.25rem 0;

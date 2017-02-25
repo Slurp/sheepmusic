@@ -35,14 +35,14 @@
     }
     &.pinned,
     &.pin-bottom {
-      @extend .z-depth-3;
-      background-color:rgba($primary-color,0.9);
+      background-color:rgba($primary-color,1.0);
+      @extend .z-depth-1;
       position: fixed;
       left: 0;
       right:0;
       top: 0;
       bottom: initial;
-      z-index: 10;
+      z-index: 1050;
 
       margin-top: 57px;
       .btn-play-album {

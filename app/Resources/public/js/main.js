@@ -20,5 +20,5 @@ $(function ()
     });
   });
 
-  // $('body').bootstrapMaterialDesign();
+  $('body').bootstrapMaterialDesign();
 });

@@ -41,47 +41,47 @@
     ul {
       @extend .nav;
       @extend .flex-column;
-      overflow-y: scroll;
+      overflow-y: auto;
       position: relative;
       height: calc(100vh - 300px);
-      li {
-        @extend .nav-item;
-        margin: 0;
-        padding: 0;
-        border-bottom: 1px solid $divider-color;
-        display: block;
-        color: $playlist-txt-color;
-        line-height: 48px;
-        a, span
-        {
-          color: $playlist-txt-color;
-          margin-right: 5px;
-          font-size: 1.1rem;
-          border-radius: 100%;
-          line-height: 24px;
-          width: 24px;
-          height: 24px;
-          display: inline-block;
-          text-align: center;
+    }
+    .playlist-item {
+      @extend .media;
+      padding: 5px;
+      height: 40px;
+      line-height: 40px;
+      max-height: 40px;
+      min-height: 40px;
+      font-size: 14px;
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      img {
+        width: 32px;
+        height: auto;
+      }
+      &.playing {
+        img {
+          &:after {
+            content: "";
+            @extend #bars;
+          }
         }
-        a {
+      }
+      .playlist-item-info {
+        margin-left: 5px;
+        h5 {
+          font-size: 13px;
+          margin: 0;
+        }
+        h6 {
+          font-size: 12px;
+          margin: 0;
           margin-top: 5px;
-          display: none;
-          background: $white;
-          height: 36px;
-          width: 36px;
-          line-height: 48px;
+          color: lighten($playlist-txt-color,30%);
         }
-        &:hover {
-          background-color: $accent-color;
-          a,span {
-            color: $primary-text-color;
-          }
-          a {
-            display: inline-block;
-            float: right;
-          }
-        }
+      }
+      .playlist-item-actions {
+        position: absolute;
+        right: 15px;
       }
     }
     .playlist-actions {
@@ -90,9 +90,10 @@
   }
   .show > .playlist-dropup {
     top: auto;
-    left: 0;
+    left: 50vw;
     bottom: 0;
     height: calc(100vh - 190px);
     opacity: 1;
+    z-index: 1;
   }
 }
