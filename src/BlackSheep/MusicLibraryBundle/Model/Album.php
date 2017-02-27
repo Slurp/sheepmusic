@@ -178,7 +178,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @return mixed
+     * @return Song[]
      */
     public function getSongs()
     {

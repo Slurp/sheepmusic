@@ -1,5 +1,6 @@
 'use strict';
 import jQuery from 'jquery';
+import Album from './stores/album';
 
 export default class Library {
 
@@ -9,29 +10,16 @@ export default class Library {
       player.addToQueue(jQuery(this));
       playlist.renderPlaylist();
       player.autoStart();
-
     });
 
     jQuery("main").on('click', '[data-queue_album]', function ()
     {
-      jQuery('[data-song]').each(function ()
+      let album = new Album($(this).data('queue_album'));
+      playlist.addAlbum(album).then(() =>
       {
-        player.addToQueue(jQuery(this));
-      });
-      playlist.renderPlaylist();
-      player.autoStart();
-
-    });
-
-    jQuery("main").on('click', '.btn-play-album', function ()
-    {
-        jQuery('[data-song]').each(function ()
-        {
-          player.addToQueue(jQuery(this));
-        });
         playlist.renderPlaylist();
         player.autoStart();
-
+      });
     });
   };
 }

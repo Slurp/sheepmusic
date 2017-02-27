@@ -5,3 +5,12 @@ services:
     black_sheep_music_library.services.streamer_service:
         class: BlackSheep\MusicLibraryBundle\Services\StreamerService
         arguments: ["%black_sheep_music_library.ffmpeg_path%", "%black_sheep_music_library.bitrate%"]
+    black_sheep.music_library.api_model.api_artist_data:
+        class: BlackSheep\MusicLibraryBundle\ApiModel\ApiArtistData
+        arguments: ['@router']
+    black_sheep.music_library.api_model.api_song_data:
+        class: BlackSheep\MusicLibraryBundle\ApiModel\ApiSongData
+        arguments: ['@router']
+    black_sheep.music_library.api_model.api_album_data:
+        class: BlackSheep\MusicLibraryBundle\ApiModel\ApiAlbumData
+        arguments: ['@router']

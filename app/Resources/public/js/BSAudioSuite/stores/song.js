@@ -3,11 +3,14 @@ import jQuery from 'jquery';
 
 export default class Song {
 
-  constructor($src, $songInfoUrl)
+  constructor($src, $songInfoUrl, $apiData)
   {
     this.src = $src;
     this.songInfoUrl = $songInfoUrl;
-    this.apiData = null;
+    if (typeof $apiData !== "undefined") {
+      this.apiData = $apiData;
+      this.src = $apiData.src;
+    }
   };
 
   getInfo()
@@ -15,6 +18,7 @@ export default class Song {
     if (typeof this.apiData === "undefined" || this.apiData === null) {
       return jQuery.when(jQuery.get({url: this.songInfoUrl})).done((data) =>
       {
+        this.src = data.src;
         this.apiData = data;
         return this;
       });

@@ -263,6 +263,7 @@ class Song implements SongInterface
         if ($this->getAlbum() instanceof ApiInterface) {
             $apiData['album'] = $this->getAlbum()->getApiData();
         }
+
         return $apiData;
     }
 }

@@ -2,7 +2,7 @@
 {# @var artist \BlackSheep\MusicLibraryBundle\Entity\Artists#}
 {% set artist = album.artist %}
 <div class="info-bar album media">
-    <a class="btn btn-floating btn-play-album">
+    <a class="btn btn-floating btn-play-album" data-queue_album={{ path('get_album', {'album' : album.id}) }}>
         <i class="material-icons">play_arrow</i>
     </a>
     <img class="info-bar-image"

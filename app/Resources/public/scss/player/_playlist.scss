@@ -57,17 +57,36 @@
       img {
         width: 32px;
         height: auto;
+        position: relative;
+        z-index: 1;
       }
       &.playing {
-        img {
+        .playlist-item-info {
           &:after {
+            position: absolute;
+            top:0;
+            left: -39px;
+            z-index: 2;
             content: "";
-            @extend #bars;
+            width: 32px;
+            height: 32px;
+            display: block;
+            background: url(../img/now-playing.gif) rgba($player-txt-color,0.5);
           }
         }
       }
       .playlist-item-info {
+        position: relative;
         margin-left: 5px;
+        margin-right: 45px;
+
+        width: 100%;
+        h5,h6 {
+          width: 250px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
         h5 {
           font-size: 13px;
           margin: 0;

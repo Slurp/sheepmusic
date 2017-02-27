@@ -1,6 +1,7 @@
 'use strict';
 
-import BlackSheepSong from './song';
+import Song from './song';
+import Album from './album';
 import jQuery from 'jquery';
 
 export default class playlist {
@@ -10,6 +11,7 @@ export default class playlist {
     this.songs = [];
     this.currentIndex = -1;
     this.currentSong = null;
+    this.addEventListeners();
   }
 
   getCurrentSong()
@@ -54,9 +56,25 @@ export default class playlist {
 
   addSong($src, $apiUrl)
   {
-    let song = new BlackSheepSong($src, $apiUrl);
+    let song = new Song($src, $apiUrl);
     this.songs.push(song);
   };
+
+  addAlbum(album)
+  {
+    if (album instanceof Album) {
+      return jQuery.when(album.getSongs().then((songs) =>
+        {
+          console.log("addAlbum",songs);
+          for (let data of songs) {
+            let song = new Song('','',data);
+            this.songs.push(song);
+
+          }
+        }
+      ));
+    }
+  }
 
   renderPlaylist()
   {
@@ -95,6 +113,15 @@ export default class playlist {
 
   }
 
+  addEventListeners()
+  {
+    jQuery('.player').on('click', '[data-toggle="playlist"]', (e) =>
+      {
+        jQuery(e.currentTarget).parent().toggleClass('show');
+      }
+    );
+  }
+
   watchSongs(player)
   {
     let $playlist = jQuery('.playlist');
@@ -122,8 +149,8 @@ export default class playlist {
 
   updatePlaying()
   {
-    if(document.body.querySelectorAll('[data-playlist-index]').length > 0) {
-      for(let element of document.body.querySelectorAll('[data-playlist-index]')) {
+    if (document.body.querySelectorAll('[data-playlist-index]').length > 0) {
+      for (let element of document.body.querySelectorAll('[data-playlist-index]')) {
         element.classList.remove('playing');
       }
       document.body.querySelector('[data-playlist-index="' + this.currentIndex + '"]').classList.add('playing');

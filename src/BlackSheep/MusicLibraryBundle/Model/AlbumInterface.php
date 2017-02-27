@@ -79,7 +79,7 @@ interface AlbumInterface extends ApiInterface
     public function getUploadDirectory();
 
     /**
-     * @return mixed
+     * @return SongInterface[]
      */
     public function getSongs();
 

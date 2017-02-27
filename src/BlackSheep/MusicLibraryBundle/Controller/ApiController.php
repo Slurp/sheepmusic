@@ -1,8 +1,10 @@
 <?php
 namespace BlackSheep\MusicLibraryBundle\Controller;
 
+use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
+use BlackSheep\MusicLibraryBundle\Model\Artist;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use Pagerfanta\Adapter\ArrayAdapter;
@@ -27,9 +29,9 @@ class ApiController extends FOSRestController
     }
 
     /**
-     * @Route("/artist", options={"expose"=true})
+     * @Route("/artists", options={"expose"=true})
      */
-    public function getArtistAction()
+    public function getArtistsAction()
     {
         $adapter = new ArrayAdapter($this->getDoctrine()->getRepository(ArtistsEntity::class)->findAll());
         $pager = new Pagerfanta($adapter);
@@ -43,9 +45,33 @@ class ApiController extends FOSRestController
     public function albumsAction()
     {
         $view = $this->view([
-            'albums' => $this->getDoctrine()->getRepository(ArtistsEntity::class)->findAll(),
+            'albums' => $this->getDoctrine()->getRepository(AlbumEntity::class)->findAll(),
         ]);
 
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Route("/artist/{artist}", options={"expose"=true})
+     * @param ArtistsEntity $artist
+     *
+     * @return Response
+     */
+    public function getArtistAction(ArtistsEntity $artist)
+    {
+        $view = $this->view($this->get('black_sheep.music_library.api_model.api_artist_data')->getApiData($artist));
+        return $this->handleView($view);
+    }
+
+    /**
+     * @Route("/album/{album}", options={"expose"=true})
+     * @param AlbumEntity $album
+     *
+     * @return Response
+     */
+    public function getAlbumAction(AlbumEntity $album)
+    {
+        $view = $this->view($this->get('black_sheep.music_library.api_model.api_album_data')->getApiData($album));
         return $this->handleView($view);
     }
 
@@ -57,8 +83,7 @@ class ApiController extends FOSRestController
      */
     public function getSongInfoAction(SongEntity $song)
     {
-        $view = $this->view($song->getApiData());
-
+        $view = $this->view($this->get('black_sheep.music_library.api_model.api_song_data')->getApiData($song));
         return $this->handleView($view);
     }
 }
