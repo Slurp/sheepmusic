@@ -81,11 +81,11 @@
 
 	var _playlist2 = _interopRequireDefault(_playlist);
 
-	var _library = __webpack_require__(92);
+	var _library = __webpack_require__(93);
 
 	var _library2 = _interopRequireDefault(_library);
 
-	var _waveform = __webpack_require__(93);
+	var _waveform = __webpack_require__(94);
 
 	var _waveform2 = _interopRequireDefault(_waveform);
 
@@ -14476,6 +14476,10 @@
 
 	var _album2 = _interopRequireDefault(_album);
 
+	var _artist = __webpack_require__(92);
+
+	var _artist2 = _interopRequireDefault(_artist);
+
 	var _jquery = __webpack_require__(7);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
@@ -14568,6 +14572,63 @@
 	      }
 	    }
 	  }, {
+	    key: 'addArtist',
+	    value: function addArtist(artist) {
+	      var _this2 = this;
+
+	      if (artist instanceof _artist2.default) {
+	        return _jquery2.default.when(artist.getAlbums().then(function (albums) {
+	          console.log("addAlbum", albums);
+	          var _iteratorNormalCompletion2 = true;
+	          var _didIteratorError2 = false;
+	          var _iteratorError2 = undefined;
+
+	          try {
+	            for (var _iterator2 = (0, _getIterator3.default)(albums), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+	              var album = _step2.value;
+	              var _iteratorNormalCompletion3 = true;
+	              var _didIteratorError3 = false;
+	              var _iteratorError3 = undefined;
+
+	              try {
+	                for (var _iterator3 = (0, _getIterator3.default)(album.songs), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+	                  var song = _step3.value;
+
+	                  _this2.songs.push(new _song2.default('', '', song));
+	                }
+	              } catch (err) {
+	                _didIteratorError3 = true;
+	                _iteratorError3 = err;
+	              } finally {
+	                try {
+	                  if (!_iteratorNormalCompletion3 && _iterator3.return) {
+	                    _iterator3.return();
+	                  }
+	                } finally {
+	                  if (_didIteratorError3) {
+	                    throw _iteratorError3;
+	                  }
+	                }
+	              }
+	            }
+	          } catch (err) {
+	            _didIteratorError2 = true;
+	            _iteratorError2 = err;
+	          } finally {
+	            try {
+	              if (!_iteratorNormalCompletion2 && _iterator2.return) {
+	                _iterator2.return();
+	              }
+	            } finally {
+	              if (_didIteratorError2) {
+	                throw _iteratorError2;
+	              }
+	            }
+	          }
+	        }));
+	      }
+	    }
+	  }, {
 	    key: 'renderPlaylist',
 	    value: function renderPlaylist() {
 	      var playlistHtml = (0, _jquery2.default)('[data-playlist]');
@@ -14592,50 +14653,50 @@
 	  }, {
 	    key: 'watchSongs',
 	    value: function watchSongs(player) {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      var $playlist = (0, _jquery2.default)('.playlist');
 	      $playlist.on('click', '[data-playlist-play]', function (e) {
-	        _this2.currentIndex = (0, _jquery2.default)(e.currentTarget).data('playlist-play');
-	        return _jquery2.default.when(_this2.getCurrentSong()).then(function () {
-	          player.playSong(_this2.currentSong);
+	        _this3.currentIndex = (0, _jquery2.default)(e.currentTarget).data('playlist-play');
+	        return _jquery2.default.when(_this3.getCurrentSong()).then(function () {
+	          player.playSong(_this3.currentSong);
 	        });
 	      });
 
 	      $playlist.on('click', '[data-playlist-delete]', function (e) {
-	        delete _this2.songs[(0, _jquery2.default)(e.currentTarget).data('playlist-delete')];
-	        _this2.songs.filter(function (a) {
+	        delete _this3.songs[(0, _jquery2.default)(e.currentTarget).data('playlist-delete')];
+	        _this3.songs.filter(function (a) {
 	          return typeof a !== 'undefined';
 	        });
 	        (0, _jquery2.default)(e.currentTarget).parent().remove();
-	        _this2.renderPlaylist();
+	        _this3.renderPlaylist();
 	      });
 	    }
 	  }, {
 	    key: 'updatePlaying',
 	    value: function updatePlaying() {
 	      if (document.body.querySelectorAll('[data-playlist-index]').length > 0) {
-	        var _iteratorNormalCompletion2 = true;
-	        var _didIteratorError2 = false;
-	        var _iteratorError2 = undefined;
+	        var _iteratorNormalCompletion4 = true;
+	        var _didIteratorError4 = false;
+	        var _iteratorError4 = undefined;
 
 	        try {
-	          for (var _iterator2 = (0, _getIterator3.default)(document.body.querySelectorAll('[data-playlist-index]')), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	            var element = _step2.value;
+	          for (var _iterator4 = (0, _getIterator3.default)(document.body.querySelectorAll('[data-playlist-index]')), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+	            var element = _step4.value;
 
 	            element.classList.remove('playing');
 	          }
 	        } catch (err) {
-	          _didIteratorError2 = true;
-	          _iteratorError2 = err;
+	          _didIteratorError4 = true;
+	          _iteratorError4 = err;
 	        } finally {
 	          try {
-	            if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	              _iterator2.return();
+	            if (!_iteratorNormalCompletion4 && _iterator4.return) {
+	              _iterator4.return();
 	            }
 	          } finally {
-	            if (_didIteratorError2) {
-	              throw _iteratorError2;
+	            if (_didIteratorError4) {
+	              throw _iteratorError4;
 	            }
 	          }
 	        }
@@ -16554,6 +16615,69 @@
 	  value: true
 	});
 
+	var _getPrototypeOf = __webpack_require__(71);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(2);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(3);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(76);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(85);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _httpClient2 = __webpack_require__(91);
+
+	var _httpClient3 = _interopRequireDefault(_httpClient2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Artist = function (_httpClient) {
+	  (0, _inherits3.default)(Artist, _httpClient);
+
+	  function Artist($url) {
+	    (0, _classCallCheck3.default)(this, Artist);
+	    return (0, _possibleConstructorReturn3.default)(this, (Artist.__proto__ || (0, _getPrototypeOf2.default)(Artist)).call(this, $url));
+	  }
+
+	  (0, _createClass3.default)(Artist, [{
+	    key: 'getAlbums',
+	    value: function getAlbums() {
+	      var _this2 = this;
+
+	      return this.getInfo(this.url).then(function (e) {
+	        console.log("getSongs", e);
+	        _this2.apiData = e;
+	        return _this2.apiData.albums;
+	      }).catch(function (e) {
+	        console.log(e);
+	      });
+	    }
+	  }]);
+	  return Artist;
+	}(_httpClient3.default);
+
+	exports.default = Artist;
+
+/***/ },
+/* 93 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _classCallCheck2 = __webpack_require__(2);
 
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -16569,6 +16693,10 @@
 	var _album = __webpack_require__(70);
 
 	var _album2 = _interopRequireDefault(_album);
+
+	var _artist = __webpack_require__(92);
+
+	var _artist2 = _interopRequireDefault(_artist);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16593,6 +16721,13 @@
 	          player.autoStart();
 	        });
 	      });
+	      (0, _jquery2.default)("main").on('click', '[data-queue_artist_albums]', function () {
+	        var artist = new _artist2.default($(this).data('queue_artist_albums'));
+	        playlist.addArtist(artist).then(function () {
+	          playlist.renderPlaylist();
+	          player.autoStart();
+	        });
+	      });
 	    }
 	  }]);
 	  return Library;
@@ -16601,7 +16736,7 @@
 	exports.default = Library;
 
 /***/ },
-/* 93 */
+/* 94 */
 /***/ function(module, exports) {
 
 	'use strict';

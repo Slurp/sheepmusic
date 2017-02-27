@@ -2,6 +2,7 @@
 
 import Song from './song';
 import Album from './album';
+import Artist from './artist';
 import jQuery from 'jquery';
 
 export default class playlist {
@@ -65,11 +66,27 @@ export default class playlist {
     if (album instanceof Album) {
       return jQuery.when(album.getSongs().then((songs) =>
         {
-          console.log("addAlbum",songs);
+          console.log("addAlbum", songs);
           for (let data of songs) {
-            let song = new Song('','',data);
+            let song = new Song('', '', data);
             this.songs.push(song);
 
+          }
+        }
+      ));
+    }
+  }
+
+  addArtist(artist)
+  {
+    if (artist instanceof Artist) {
+      return jQuery.when(artist.getAlbums().then((albums) =>
+        {
+          console.log("addAlbum", albums);
+          for (let album of albums) {
+            for (let song of album.songs) {
+              this.songs.push(new Song('', '', song));
+            }
           }
         }
       ));
