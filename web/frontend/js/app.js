@@ -127,8 +127,8 @@
 	      })[0];
 
 	      this.playlist = new _playlist2.default();
-	      this.playlist.watchSongs(this);
-	      _library2.default.watchSongs(this, this.playlist);
+	      this.playlist.watchPlaylistEvents(this);
+	      _library2.default.watchEvents(this, this.playlist);
 	      this.watchButtons();
 	      this.watchEvents();
 	    }
@@ -158,14 +158,10 @@
 	      this.restart();
 	    }
 	  }, {
-	    key: 'addToQueue',
-	    value: function addToQueue($element) {
-	      this.playlist.addSong($element.data('song'), $element.data('song_info'));
-	    }
-	  }, {
 	    key: 'autoStart',
 	    value: function autoStart() {
 	      if (this.player.getMedia().paused !== false) {
+	        console.log('auto start');
 	        this.playNext();
 	      }
 	    }
@@ -174,7 +170,8 @@
 	    value: function playNext() {
 	      var _this = this;
 
-	      _jquery2.default.when(this.playlist.getNextSong()).then(function (song) {
+	      this.playlist.getNextSong().then(function (song) {
+	        console.log('auto start');
 	        _this.playSong(song);
 	      });
 	    }
@@ -14472,7 +14469,7 @@
 
 	var _song2 = _interopRequireDefault(_song);
 
-	var _album = __webpack_require__(70);
+	var _album = __webpack_require__(91);
 
 	var _album2 = _interopRequireDefault(_album);
 
@@ -14502,7 +14499,7 @@
 	      this.currentSong = this.songs[this.currentIndex];
 	      var $song = this.currentSong;
 	      if (typeof $song !== "undefined") {
-	        return _jquery2.default.when(this.currentSong.getInfo()).then(function returnSong() {
+	        return this.currentSong.getInfo().then(function returnSong() {
 	          return $song;
 	        });
 	      }
@@ -14531,14 +14528,19 @@
 	    }
 	  }, {
 	    key: 'addSong',
-	    value: function addSong($src, $apiUrl) {
-	      var song = new _song2.default($src, $apiUrl);
-	      this.songs.push(song);
+	    value: function addSong($url) {
+	      var _this = this;
+
+	      var song = new _song2.default('', $url);
+	      return _jquery2.default.when(song.getInfo()).then(function () {
+	        console.log('add song');
+	        _this.songs.push(song);
+	      });
 	    }
 	  }, {
 	    key: 'addAlbum',
 	    value: function addAlbum(album) {
-	      var _this = this;
+	      var _this2 = this;
 
 	      if (album instanceof _album2.default) {
 	        return _jquery2.default.when(album.getSongs().then(function (songs) {
@@ -14552,7 +14554,7 @@
 	              var data = _step.value;
 
 	              var song = new _song2.default('', '', data);
-	              _this.songs.push(song);
+	              _this2.songs.push(song);
 	            }
 	          } catch (err) {
 	            _didIteratorError = true;
@@ -14574,7 +14576,7 @@
 	  }, {
 	    key: 'addArtist',
 	    value: function addArtist(artist) {
-	      var _this2 = this;
+	      var _this3 = this;
 
 	      if (artist instanceof _artist2.default) {
 	        return _jquery2.default.when(artist.getAlbums().then(function (albums) {
@@ -14594,7 +14596,7 @@
 	                for (var _iterator3 = (0, _getIterator3.default)(album.songs), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
 	                  var song = _step3.value;
 
-	                  _this2.songs.push(new _song2.default('', '', song));
+	                  _this3.songs.push(new _song2.default('', '', song));
 	                }
 	              } catch (err) {
 	                _didIteratorError3 = true;
@@ -14651,25 +14653,25 @@
 	      });
 	    }
 	  }, {
-	    key: 'watchSongs',
-	    value: function watchSongs(player) {
-	      var _this3 = this;
+	    key: 'watchPlaylistEvents',
+	    value: function watchPlaylistEvents(player) {
+	      var _this4 = this;
 
 	      var $playlist = (0, _jquery2.default)('.playlist');
 	      $playlist.on('click', '[data-playlist-play]', function (e) {
-	        _this3.currentIndex = (0, _jquery2.default)(e.currentTarget).data('playlist-play');
-	        return _jquery2.default.when(_this3.getCurrentSong()).then(function () {
-	          player.playSong(_this3.currentSong);
+	        _this4.currentIndex = (0, _jquery2.default)(e.currentTarget).data('playlist-play');
+	        return _jquery2.default.when(_this4.getCurrentSong()).then(function () {
+	          player.playSong(_this4.currentSong);
 	        });
 	      });
 
 	      $playlist.on('click', '[data-playlist-delete]', function (e) {
-	        delete _this3.songs[(0, _jquery2.default)(e.currentTarget).data('playlist-delete')];
-	        _this3.songs.filter(function (a) {
+	        delete _this4.songs[(0, _jquery2.default)(e.currentTarget).data('playlist-delete')];
+	        _this4.songs.filter(function (a) {
 	          return typeof a !== 'undefined';
 	        });
 	        (0, _jquery2.default)(e.currentTarget).parent().remove();
-	        _this3.renderPlaylist();
+	        _this4.renderPlaylist();
 	      });
 	    }
 	  }, {
@@ -15953,6 +15955,10 @@
 	  value: true
 	});
 
+	var _getPrototypeOf = __webpack_require__(70);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
 	var _classCallCheck2 = __webpack_require__(2);
 
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -15961,38 +15967,55 @@
 
 	var _createClass3 = _interopRequireDefault(_createClass2);
 
+	var _possibleConstructorReturn2 = __webpack_require__(75);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(84);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
 	var _jquery = __webpack_require__(7);
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
+	var _httpClient = __webpack_require__(90);
+
+	var _httpClient2 = _interopRequireDefault(_httpClient);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var Song = function () {
-	  function Song($src, $songInfoUrl, $apiData) {
+	var Song = function (_HttpClient) {
+	  (0, _inherits3.default)(Song, _HttpClient);
+
+	  function Song($src, $url, $apiData) {
 	    (0, _classCallCheck3.default)(this, Song);
 
-	    this.src = $src;
-	    this.songInfoUrl = $songInfoUrl;
+	    var _this = (0, _possibleConstructorReturn3.default)(this, (Song.__proto__ || (0, _getPrototypeOf2.default)(Song)).call(this, $url));
+
+	    _this.src = $src;
 	    if (typeof $apiData !== "undefined") {
-	      this.apiData = $apiData;
-	      this.src = $apiData.src;
+	      _this.apiData = $apiData;
+	      _this.src = $apiData.src;
 	    }
+
+	    return _this;
 	  }
 
 	  (0, _createClass3.default)(Song, [{
 	    key: 'getInfo',
 	    value: function getInfo() {
-	      var _this = this;
+	      var _this2 = this;
 
 	      if (typeof this.apiData === "undefined" || this.apiData === null) {
-	        return _jquery2.default.when(_jquery2.default.get({ url: this.songInfoUrl })).done(function (data) {
-	          _this.src = data.src;
-	          _this.apiData = data;
-	          return _this;
+	        return _jquery2.default.when(_jquery2.default.get({ url: this.url })).done(function (data) {
+	          _this2.src = data.src;
+	          _this2.apiData = data;
+	          return _this2;
 	        });
 	      }
 	      return _jquery2.default.when().done(function () {
-	        return _this;
+	        return _this2;
 	      });
 	    }
 	  }, {
@@ -16019,7 +16042,7 @@
 	    }
 	  }]);
 	  return Song;
-	}();
+	}(_httpClient2.default);
 
 	exports.default = Song;
 
@@ -16027,93 +16050,30 @@
 /* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _getPrototypeOf = __webpack_require__(71);
-
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-	var _classCallCheck2 = __webpack_require__(2);
-
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-	var _createClass2 = __webpack_require__(3);
-
-	var _createClass3 = _interopRequireDefault(_createClass2);
-
-	var _possibleConstructorReturn2 = __webpack_require__(76);
-
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-	var _inherits2 = __webpack_require__(85);
-
-	var _inherits3 = _interopRequireDefault(_inherits2);
-
-	var _httpClient2 = __webpack_require__(91);
-
-	var _httpClient3 = _interopRequireDefault(_httpClient2);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var Album = function (_httpClient) {
-	  (0, _inherits3.default)(Album, _httpClient);
-
-	  function Album($url) {
-	    (0, _classCallCheck3.default)(this, Album);
-	    return (0, _possibleConstructorReturn3.default)(this, (Album.__proto__ || (0, _getPrototypeOf2.default)(Album)).call(this, $url));
-	  }
-
-	  (0, _createClass3.default)(Album, [{
-	    key: 'getSongs',
-	    value: function getSongs() {
-	      var _this2 = this;
-
-	      return this.getInfo(this.url).then(function (e) {
-	        console.log("getSongs", e);
-	        _this2.apiData = e;
-	        return _this2.apiData.songs;
-	      }).catch(function (e) {
-	        console.log(e);
-	      });
-	    }
-	  }]);
-	  return Album;
-	}(_httpClient3.default);
-
-	exports.default = Album;
+	module.exports = { "default": __webpack_require__(71), __esModule: true };
 
 /***/ },
 /* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(72), __esModule: true };
+	__webpack_require__(72);
+	module.exports = __webpack_require__(23).Object.getPrototypeOf;
 
 /***/ },
 /* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(73);
-	module.exports = __webpack_require__(23).Object.getPrototypeOf;
-
-/***/ },
-/* 73 */
-/***/ function(module, exports, __webpack_require__) {
-
 	// 19.1.2.9 Object.getPrototypeOf(O)
-	var toObject = __webpack_require__(74);
+	var toObject = __webpack_require__(73);
 
-	__webpack_require__(75)('getPrototypeOf', function($getPrototypeOf){
+	__webpack_require__(74)('getPrototypeOf', function($getPrototypeOf){
 	  return function getPrototypeOf(it){
 	    return $getPrototypeOf(toObject(it));
 	  };
 	});
 
 /***/ },
-/* 74 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.1.13 ToObject(argument)
@@ -16123,7 +16083,7 @@
 	};
 
 /***/ },
-/* 75 */
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// most Object methods by ES6 should accept primitives
@@ -16138,14 +16098,14 @@
 	};
 
 /***/ },
-/* 76 */
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
 	exports.__esModule = true;
 
-	var _typeof2 = __webpack_require__(77);
+	var _typeof2 = __webpack_require__(76);
 
 	var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -16160,12 +16120,12 @@
 	};
 
 /***/ },
-/* 77 */
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _Symbol = __webpack_require__(78)["default"];
+	var _Symbol = __webpack_require__(77)["default"];
 
 	exports["default"] = function (obj) {
 	  return obj && obj.constructor === _Symbol ? "symbol" : typeof obj;
@@ -16174,21 +16134,21 @@
 	exports.__esModule = true;
 
 /***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(78), __esModule: true };
+
+/***/ },
 /* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(79), __esModule: true };
-
-/***/ },
-/* 79 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(80);
+	__webpack_require__(79);
 	__webpack_require__(14);
 	module.exports = __webpack_require__(23).Symbol;
 
 /***/ },
-/* 80 */
+/* 79 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16204,10 +16164,10 @@
 	  , setToStringTag = __webpack_require__(34)
 	  , uid            = __webpack_require__(37)
 	  , wks            = __webpack_require__(35)
-	  , keyOf          = __webpack_require__(81)
-	  , $names         = __webpack_require__(82)
-	  , enumKeys       = __webpack_require__(83)
-	  , isArray        = __webpack_require__(84)
+	  , keyOf          = __webpack_require__(80)
+	  , $names         = __webpack_require__(81)
+	  , enumKeys       = __webpack_require__(82)
+	  , isArray        = __webpack_require__(83)
 	  , anObject       = __webpack_require__(48)
 	  , toIObject      = __webpack_require__(42)
 	  , createDesc     = __webpack_require__(28)
@@ -16420,7 +16380,7 @@
 	setToStringTag(global.JSON, 'JSON', true);
 
 /***/ },
-/* 81 */
+/* 80 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var $         = __webpack_require__(6)
@@ -16435,7 +16395,7 @@
 	};
 
 /***/ },
-/* 82 */
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
@@ -16460,7 +16420,7 @@
 	};
 
 /***/ },
-/* 83 */
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// all enumerable object keys, includes symbols
@@ -16479,7 +16439,7 @@
 	};
 
 /***/ },
-/* 84 */
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.2.2 IsArray(argument)
@@ -16489,14 +16449,14 @@
 	};
 
 /***/ },
-/* 85 */
+/* 84 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 
-	var _Object$create = __webpack_require__(86)["default"];
+	var _Object$create = __webpack_require__(85)["default"];
 
-	var _Object$setPrototypeOf = __webpack_require__(88)["default"];
+	var _Object$setPrototypeOf = __webpack_require__(87)["default"];
 
 	exports["default"] = function (subClass, superClass) {
 	  if (typeof superClass !== "function" && superClass !== null) {
@@ -16517,13 +16477,13 @@
 	exports.__esModule = true;
 
 /***/ },
-/* 86 */
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(87), __esModule: true };
+	module.exports = { "default": __webpack_require__(86), __esModule: true };
 
 /***/ },
-/* 87 */
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var $ = __webpack_require__(6);
@@ -16532,20 +16492,20 @@
 	};
 
 /***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(88), __esModule: true };
+
+/***/ },
 /* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(89), __esModule: true };
-
-/***/ },
-/* 89 */
-/***/ function(module, exports, __webpack_require__) {
-
-	__webpack_require__(90);
+	__webpack_require__(89);
 	module.exports = __webpack_require__(23).Object.setPrototypeOf;
 
 /***/ },
-/* 90 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.3.19 Object.setPrototypeOf(O, proto)
@@ -16553,7 +16513,7 @@
 	$export($export.S, 'Object', {setPrototypeOf: __webpack_require__(55).set});
 
 /***/ },
-/* 91 */
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16606,7 +16566,7 @@
 	exports.default = httpClient;
 
 /***/ },
-/* 92 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -16615,7 +16575,7 @@
 	  value: true
 	});
 
-	var _getPrototypeOf = __webpack_require__(71);
+	var _getPrototypeOf = __webpack_require__(70);
 
 	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
@@ -16627,15 +16587,78 @@
 
 	var _createClass3 = _interopRequireDefault(_createClass2);
 
-	var _possibleConstructorReturn2 = __webpack_require__(76);
+	var _possibleConstructorReturn2 = __webpack_require__(75);
 
 	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-	var _inherits2 = __webpack_require__(85);
+	var _inherits2 = __webpack_require__(84);
 
 	var _inherits3 = _interopRequireDefault(_inherits2);
 
-	var _httpClient2 = __webpack_require__(91);
+	var _httpClient2 = __webpack_require__(90);
+
+	var _httpClient3 = _interopRequireDefault(_httpClient2);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Album = function (_httpClient) {
+	  (0, _inherits3.default)(Album, _httpClient);
+
+	  function Album($url) {
+	    (0, _classCallCheck3.default)(this, Album);
+	    return (0, _possibleConstructorReturn3.default)(this, (Album.__proto__ || (0, _getPrototypeOf2.default)(Album)).call(this, $url));
+	  }
+
+	  (0, _createClass3.default)(Album, [{
+	    key: 'getSongs',
+	    value: function getSongs() {
+	      var _this2 = this;
+
+	      return this.getInfo(this.url).then(function (e) {
+	        console.log("getSongs", e);
+	        _this2.apiData = e;
+	        return _this2.apiData.songs;
+	      }).catch(function (e) {
+	        console.log(e);
+	      });
+	    }
+	  }]);
+	  return Album;
+	}(_httpClient3.default);
+
+	exports.default = Album;
+
+/***/ },
+/* 92 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _getPrototypeOf = __webpack_require__(70);
+
+	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+	var _classCallCheck2 = __webpack_require__(2);
+
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+	var _createClass2 = __webpack_require__(3);
+
+	var _createClass3 = _interopRequireDefault(_createClass2);
+
+	var _possibleConstructorReturn2 = __webpack_require__(75);
+
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+	var _inherits2 = __webpack_require__(84);
+
+	var _inherits3 = _interopRequireDefault(_inherits2);
+
+	var _httpClient2 = __webpack_require__(90);
 
 	var _httpClient3 = _interopRequireDefault(_httpClient2);
 
@@ -16690,7 +16713,7 @@
 
 	var _jquery2 = _interopRequireDefault(_jquery);
 
-	var _album = __webpack_require__(70);
+	var _album = __webpack_require__(91);
 
 	var _album2 = _interopRequireDefault(_album);
 
@@ -16706,12 +16729,13 @@
 	  }
 
 	  (0, _createClass3.default)(Library, null, [{
-	    key: 'watchSongs',
-	    value: function watchSongs(player, playlist) {
-	      (0, _jquery2.default)("main").on('click', '[data-song]', function () {
-	        player.addToQueue((0, _jquery2.default)(this));
-	        playlist.renderPlaylist();
-	        player.autoStart();
+	    key: 'watchEvents',
+	    value: function watchEvents(player, playlist) {
+	      (0, _jquery2.default)("main").on('click', '[data-queue_song]', function () {
+	        playlist.addSong($(this).data('queue_song')).then(function () {
+	          playlist.renderPlaylist();
+	          player.autoStart();
+	        });
 	      });
 
 	      (0, _jquery2.default)("main").on('click', '[data-queue_album]', function () {
@@ -16721,6 +16745,7 @@
 	          player.autoStart();
 	        });
 	      });
+
 	      (0, _jquery2.default)("main").on('click', '[data-queue_artist_albums]', function () {
 	        var artist = new _artist2.default($(this).data('queue_artist_albums'));
 	        playlist.addArtist(artist).then(function () {

@@ -140,8 +140,8 @@ export default class BlackSheepPlayer {
     )[0];
 
     this.playlist = new BlackSheepPlaylist();
-    this.playlist.watchSongs(this);
-    BlackSheepLibrary.watchSongs(this,this.playlist);
+    this.playlist.watchPlaylistEvents(this);
+    BlackSheepLibrary.watchEvents(this,this.playlist);
     this.watchButtons();
     this.watchEvents();
   };
@@ -172,22 +172,19 @@ export default class BlackSheepPlayer {
     this.restart();
   };
 
-  addToQueue($element)
-  {
-    this.playlist.addSong($element.data('song'), $element.data('song_info'));
-  };
-
   autoStart()
   {
     if (this.player.getMedia().paused !== false) {
+      console.log('auto start');
       this.playNext();
     }
   };
 
   playNext()
   {
-    jQuery.when(this.playlist.getNextSong()).then((song) =>
+    this.playlist.getNextSong().then((song) =>
       {
+        console.log('auto start');
         this.playSong(song);
       }
     );

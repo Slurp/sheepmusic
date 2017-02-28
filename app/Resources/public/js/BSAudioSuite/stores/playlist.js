@@ -20,7 +20,7 @@ export default class playlist {
     this.currentSong = this.songs[this.currentIndex];
     let $song = this.currentSong;
     if (typeof $song !== "undefined") {
-      return jQuery.when(this.currentSong.getInfo()).then(
+      return this.currentSong.getInfo().then(
         function returnSong()
         {
           return $song;
@@ -55,10 +55,14 @@ export default class playlist {
     );
   };
 
-  addSong($src, $apiUrl)
+  addSong($url)
   {
-    let song = new Song($src, $apiUrl);
-    this.songs.push(song);
+    let song = new Song('', $url);
+    return jQuery.when(song.getInfo()).then(() =>
+    {
+      console.log('add song');
+      this.songs.push(song);
+    });
   };
 
   addAlbum(album)
@@ -139,7 +143,7 @@ export default class playlist {
     );
   }
 
-  watchSongs(player)
+  watchPlaylistEvents(player)
   {
     let $playlist = jQuery('.playlist');
     $playlist.on('click', '[data-playlist-play]', (e) =>

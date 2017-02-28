@@ -5,12 +5,14 @@ import Artist from './stores/artist';
 
 export default class Library {
 
-  static watchSongs(player,playlist)
+  static watchEvents(player,playlist)
   {
-    jQuery("main").on('click', '[data-song]', function () {
-      player.addToQueue(jQuery(this));
-      playlist.renderPlaylist();
-      player.autoStart();
+    jQuery("main").on('click', '[data-queue_song]', function () {
+      playlist.addSong($(this).data('queue_song')).then(() =>
+      {
+        playlist.renderPlaylist();
+        player.autoStart();
+      });
     });
 
     jQuery("main").on('click', '[data-queue_album]', function ()
@@ -22,6 +24,7 @@ export default class Library {
         player.autoStart();
       });
     });
+
     jQuery("main").on('click', '[data-queue_artist_albums]', function ()
     {
       let artist = new Artist($(this).data('queue_artist_albums'));

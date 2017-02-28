@@ -1,22 +1,24 @@
 'use strict';
 import jQuery from 'jquery';
+import HttpClient from '../services/httpClient'
 
-export default class Song {
+export default class Song extends HttpClient {
 
-  constructor($src, $songInfoUrl, $apiData)
+  constructor($src, $url, $apiData)
   {
+    super($url);
     this.src = $src;
-    this.songInfoUrl = $songInfoUrl;
     if (typeof $apiData !== "undefined") {
       this.apiData = $apiData;
       this.src = $apiData.src;
     }
+
   };
 
   getInfo()
   {
     if (typeof this.apiData === "undefined" || this.apiData === null) {
-      return jQuery.when(jQuery.get({url: this.songInfoUrl})).done((data) =>
+      return jQuery.when(jQuery.get({url: this.url})).done((data) =>
       {
         this.src = data.src;
         this.apiData = data;

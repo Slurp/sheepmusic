@@ -5,7 +5,6 @@ export default class Artist extends httpClient {
 
   constructor($url)
   {
-
     super($url);
   };
 
