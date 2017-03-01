@@ -85,7 +85,6 @@ class AlbumEntity extends Album implements AlbumInterface
         $album->setArtist($artist);
         $album->setCover($extraInfo['cover']);
         $album->setMusicBrainzId($extraInfo['album_mbid']);
-        $album->updateLastFmInfo();
         return $album;
     }
 

@@ -170,7 +170,8 @@
 	    value: function playNext() {
 	      var _this = this;
 
-	      this.playlist.getNextSong().then(function (song) {
+	      _jquery2.default.when(this.playlist.getNextSong()).then(function (song) {
+	        console.log(song);
 	        console.log('auto start');
 	        _this.playSong(song);
 	      });
@@ -14580,7 +14581,7 @@
 
 	      if (artist instanceof _artist2.default) {
 	        return _jquery2.default.when(artist.getAlbums().then(function (albums) {
-	          console.log("addAlbum", albums);
+	          console.log("addArtist", albums);
 	          var _iteratorNormalCompletion2 = true;
 	          var _didIteratorError2 = false;
 	          var _iteratorError2 = undefined;
@@ -14596,7 +14597,9 @@
 	                for (var _iterator3 = (0, _getIterator3.default)(album.songs), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
 	                  var song = _step3.value;
 
-	                  _this3.songs.push(new _song2.default('', '', song));
+	                  console.log('songs', song);
+	                  var newSong = new _song2.default('', '', song);
+	                  _this3.songs.push(newSong);
 	                }
 	              } catch (err) {
 	                _didIteratorError3 = true;
@@ -16007,6 +16010,7 @@
 	    value: function getInfo() {
 	      var _this2 = this;
 
+	      console.log(this.apiData);
 	      if (typeof this.apiData === "undefined" || this.apiData === null) {
 	        return _jquery2.default.when(_jquery2.default.get({ url: this.url })).done(function (data) {
 	          _this2.src = data.src;
@@ -16540,13 +16544,16 @@
 	  function httpClient($url) {
 	    (0, _classCallCheck3.default)(this, httpClient);
 
-	    this.apiData = null;
-	    this.url = $url;
-	    this.getInfo(this.url);
+	    console.log($url);
+	    if ($url != '') {
+	      this.apiData = null;
+	      this.url = $url;
+	      this.getInfo(this.url);
+	    }
 	  }
 
 	  (0, _createClass3.default)(httpClient, [{
-	    key: "getInfo",
+	    key: 'getInfo',
 	    value: function getInfo($url) {
 	      var _this = this;
 
@@ -16615,7 +16622,6 @@
 	      var _this2 = this;
 
 	      return this.getInfo(this.url).then(function (e) {
-	        console.log("getSongs", e);
 	        _this2.apiData = e;
 	        return _this2.apiData.songs;
 	      }).catch(function (e) {
@@ -16678,7 +16684,6 @@
 	      var _this2 = this;
 
 	      return this.getInfo(this.url).then(function (e) {
-	        console.log("getSongs", e);
 	        _this2.apiData = e;
 	        return _this2.apiData.albums;
 	      }).catch(function (e) {

@@ -4,23 +4,14 @@
 
 {% block content %}
 
-    {% if albums is defined and albums is not null %}
-        <div class="album-list">
-            {% for album in albums %}
+    <div class="album-list">
+        {% for album in albums %}
             <div class="card-col">
                 {% include '@App/Partials/album-card.html.twig' with {'album': album} only %}
             </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        {% if album.cover is not null %}
-            {% set backgroundImage = "background-image: url('" ~ asset(album.cover) ~"')" %}
-        {% endif %}
-        <div class="album-backdrop backdrop" {% if album.cover is not null %} style="{{ backgroundImage }}" {% endif %}>
-            {% include '@App/Album/info-bar.html.twig' with {'album': album} only %}
-        </div>
-        {% include '@App/Partials/album-list.html.twig' with {'album': album} only %}
-    {% endif %}
+        {% endfor %}
+    </div>
+
 
 {% endblock %}
 

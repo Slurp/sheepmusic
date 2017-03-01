@@ -86,10 +86,12 @@ export default class playlist {
     if (artist instanceof Artist) {
       return jQuery.when(artist.getAlbums().then((albums) =>
         {
-          console.log("addAlbum", albums);
+          console.log("addArtist", albums);
           for (let album of albums) {
             for (let song of album.songs) {
-              this.songs.push(new Song('', '', song));
+              console.log('songs',song);
+              let newSong = new Song('', '', song);
+              this.songs.push(newSong);
             }
           }
         }

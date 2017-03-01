@@ -95,6 +95,9 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: AppBundle\Entity\SheepUser
+    from_email:
+        address: 'slurpie@gmail.com'
+        sender_name: BlackSheepMusic
 
 fos_rest:
     routing_loader:

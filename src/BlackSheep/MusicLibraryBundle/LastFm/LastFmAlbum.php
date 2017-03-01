@@ -2,7 +2,7 @@
 namespace BlackSheep\MusicLibraryBundle\LastFm;
 
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
-use Symfony\Component\Validator\Constraints\DateTime;
+use \DateTime;
 
 /**
  *

@@ -12,7 +12,6 @@ export default class Artist extends httpClient {
   {
     return this.getInfo(this.url).then((e) =>
       {
-        console.log("getSongs",e);
         this.apiData = e;
         return this.apiData.albums;
       }

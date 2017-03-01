@@ -13,7 +13,6 @@ export default class Album extends httpClient {
   {
     return this.getInfo(this.url).then((e) =>
       {
-        console.log("getSongs",e);
         this.apiData = e;
         return this.apiData.songs;
       }

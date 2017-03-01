@@ -60,7 +60,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     protected $playCount;
 
     /**
-     * @ORM\OneToMany(targetEntity="AlbumEntity", mappedBy="artist",cascade={"all"} , fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="AlbumEntity", mappedBy="artist" , fetch="EXTRA_LAZY")
      */
     protected $albums;
 
@@ -85,7 +85,6 @@ class ArtistsEntity extends Artist implements ArtistInterface
         $artist = new self();
         $artist->setName($name);
         $artist->setMusicBrainzId($musicBrainzId);
-        $artist->updateLastFmInfo();
 
         return $artist;
     }

@@ -17,6 +17,7 @@ export default class Song extends HttpClient {
 
   getInfo()
   {
+    console.log(this.apiData);
     if (typeof this.apiData === "undefined" || this.apiData === null) {
       return jQuery.when(jQuery.get({url: this.url})).done((data) =>
       {

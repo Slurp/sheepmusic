@@ -50,7 +50,7 @@ class AlbumsRepository extends EntityRepository implements AlbumsRepositoryInter
      * @param int $limit
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getRecentAlbums($offset = 0, $limit = 12)
+    public function getRecentAlbums($offset = 0, $limit = 50)
     {
         $queryBuilder = $this->createQueryBuilder('a')
             ->addOrderBy('a.createdAt', "DESC")

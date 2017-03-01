@@ -63,7 +63,6 @@ class Artist implements ArtistInterface
         $artist->setName($name);
         $artist->setMusicBrainzId($musicBrainzId);
         $artist->setPlayCount(0);
-        $artist->updateLastFmInfo();
 
         return $artist;
     }
@@ -121,6 +120,9 @@ class Artist implements ArtistInterface
      */
     public function setMusicBrainzId($musicBrainzId)
     {
+        if (is_array($musicBrainzId)) {
+            $musicBrainzId = $musicBrainzId[0];
+        }
         $this->musicBrainzId = $musicBrainzId;
 
         return $this;

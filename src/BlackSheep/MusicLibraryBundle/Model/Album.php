@@ -67,7 +67,6 @@ class Album implements AlbumInterface
         $album->setArtist($artist);
         $album->setCover($extraInfo['cover']);
         $album->setMusicBrainzId($extraInfo['album_mbid']);
-        $album->updateLastFmInfo();
 
         return $album;
     }
@@ -256,6 +255,9 @@ class Album implements AlbumInterface
      */
     public function setMusicBrainzId($musicBrainzId)
     {
+        if (is_array($musicBrainzId)) {
+            $musicBrainzId = $musicBrainzId[0];
+        }
         $this->musicBrainzId = $musicBrainzId;
 
         return $this;

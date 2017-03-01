@@ -182,8 +182,9 @@ export default class BlackSheepPlayer {
 
   playNext()
   {
-    this.playlist.getNextSong().then((song) =>
+    jQuery.when(this.playlist.getNextSong()).then((song) =>
       {
+        console.log(song);
         console.log('auto start');
         this.playSong(song);
       }

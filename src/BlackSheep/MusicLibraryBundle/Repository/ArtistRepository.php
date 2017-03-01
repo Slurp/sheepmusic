@@ -3,6 +3,9 @@ namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\PersistentCollection;
+use ReflectionClass;
+use ReflectionProperty;
 
 /**
  * SongsRepository
@@ -61,6 +64,7 @@ class ArtistRepository extends EntityRepository implements ArtistRepositoryInter
                 ['musicBrainzId' => $musicBrainzId]
             );
         }
+
         return null;
     }
 
@@ -74,6 +78,7 @@ class ArtistRepository extends EntityRepository implements ArtistRepositoryInter
                 ['id' => $artist->getId(), 'albums.name' => $albumName]
             );
         }
+
         return null;
     }
 }
