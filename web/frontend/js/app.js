@@ -16544,10 +16544,11 @@
 	  function httpClient($url) {
 	    (0, _classCallCheck3.default)(this, httpClient);
 
+	    this.apiData;
 	    console.log($url);
+	    this.url = $url;
 	    if ($url != '') {
-	      this.apiData = null;
-	      this.url = $url;
+
 	      this.getInfo(this.url);
 	    }
 	  }

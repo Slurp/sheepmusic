@@ -5,10 +5,11 @@ export default class httpClient {
 
   constructor($url)
   {
+    this.apiData;
     console.log($url);
+    this.url = $url;
     if($url != '') {
-      this.apiData = null;
-      this.url = $url;
+
       this.getInfo(this.url);
     }
   }
