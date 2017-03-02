@@ -9,14 +9,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * A controller to stream a song to someone
+ * A controller to stream a song to someone.
  */
 class SongController extends Controller
 {
     /**
      * @Route("/play/{song}", name="song_play")
+     *
      * @param SongEntity $song
-     * @param Request $request
+     * @param Request    $request
      *
      * @return Response
      */

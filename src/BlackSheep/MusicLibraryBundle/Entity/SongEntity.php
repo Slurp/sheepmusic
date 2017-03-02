@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
@@ -70,7 +71,7 @@ class SongEntity extends Song implements SongInterface
     protected $artists;
 
     /**
-     * Compose a song (pun intented)
+     * Compose a song (pun intented).
      */
     public function __construct()
     {
@@ -78,18 +79,19 @@ class SongEntity extends Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addArtist(ArtistInterface $artist)
     {
         if ($this->artists->contains($artist) === false) {
             $this->artists->add($artist);
         }
+
         return $this;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function createFromArray($songInfo)
     {
@@ -102,5 +104,4 @@ class SongEntity extends Song implements SongInterface
 
         return $song;
     }
-
 }

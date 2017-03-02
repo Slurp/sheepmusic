@@ -7,7 +7,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
  * This is the class that validates and merges configuration from your app/config files.
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/configuration.html}
+ * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/configuration.html}.
  */
 class Configuration implements ConfigurationInterface
 {
@@ -17,7 +17,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode    = $treeBuilder->root('black_sheep_music_library');
+        $rootNode = $treeBuilder->root('black_sheep_music_library');
 
         $rootNode
             ->children()
@@ -29,6 +29,7 @@ class Configuration implements ConfigurationInterface
             ->end()
         ->end();
         $treeBuilder->buildTree();
+
         return $treeBuilder;
     }
 }

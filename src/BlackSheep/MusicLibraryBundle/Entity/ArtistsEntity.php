@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
 use BlackSheep\MusicLibraryBundle\Model\Artist;
@@ -69,16 +70,14 @@ class ArtistsEntity extends Artist implements ArtistInterface
      */
     protected $songs;
 
-    /**
-     */
     public function __construct()
     {
         $this->albums = new ArrayCollection();
-        $this->songs  = new ArrayCollection();
+        $this->songs = new ArrayCollection();
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function createNew($name, $musicBrainzId = null)
     {
@@ -90,7 +89,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addSong(SongInterface $song)
     {

@@ -3,15 +3,15 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * Interface AlbumInterface
+ * Interface AlbumInterface.
  */
 interface AlbumInterface extends ApiInterface
 {
-
     /**
      * @param $name
      * @param $artist
      * @param $extraInfo
+     *
      * @return AlbumInterface
      */
     public static function createArtistAlbum($name, $artist, $extraInfo);
@@ -28,6 +28,7 @@ interface AlbumInterface extends ApiInterface
 
     /**
      * @param mixed $name
+     *
      * @return AlbumInterface
      */
     public function setName($name);
@@ -39,6 +40,7 @@ interface AlbumInterface extends ApiInterface
 
     /**
      * @param mixed $cover
+     *
      * @return AlbumInterface
      */
     public function setCover($cover);
@@ -58,10 +60,10 @@ interface AlbumInterface extends ApiInterface
      *                     'description' => '',
      *                     'datalength' => 7627,
      *                     ]
+     *
      * @return string
      */
     public function generateCover(array $cover);
-
 
     /**
      * @return string
@@ -85,12 +87,14 @@ interface AlbumInterface extends ApiInterface
 
     /**
      * @param mixed $songs
+     *
      * @return AlbumInterface
      */
     public function setSongs($songs);
 
     /**
      * @param SongInterface $song
+     *
      * @return SongInterface
      */
     public function addSong(SongInterface $song);
@@ -102,6 +106,7 @@ interface AlbumInterface extends ApiInterface
 
     /**
      * @param mixed $artists
+     *
      * @return AlbumInterface
      */
     public function setArtist($artists);
@@ -113,6 +118,7 @@ interface AlbumInterface extends ApiInterface
 
     /**
      * @param mixed $releaseDate
+     *
      * @return AlbumInterface
      */
     public function setReleaseDate($releaseDate);
@@ -124,6 +130,7 @@ interface AlbumInterface extends ApiInterface
 
     /**
      * @param mixed $musicBrainzId
+     *
      * @return AlbumInterface
      */
     public function setMusicBrainzId($musicBrainzId);
@@ -135,6 +142,7 @@ interface AlbumInterface extends ApiInterface
 
     /**
      * @param mixed $lastFmId
+     *
      * @return AlbumInterface
      */
     public function setLastFmId($lastFmId);
@@ -146,6 +154,7 @@ interface AlbumInterface extends ApiInterface
 
     /**
      * @param mixed $lastFmUrl
+     *
      * @return AlbumInterface
      */
     public function setLastFmUrl($lastFmUrl);

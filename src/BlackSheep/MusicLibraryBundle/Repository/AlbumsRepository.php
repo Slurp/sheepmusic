@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
@@ -15,14 +16,15 @@ class AlbumsRepository extends EntityRepository implements AlbumsRepositoryInter
 {
     /**
      * @param ArtistsEntity $artists
-     * @param         $albumName
-     * @param         $extraInfo
+     * @param               $albumName
+     * @param               $extraInfo
+     *
      * @return AlbumInterface|null
      */
     public function addOrUpdateByArtistAndName(ArtistsEntity $artists, $albumName, $extraInfo)
     {
         $entityManager = $this->getEntityManager();
-        $album         = $this->getArtistAlbumByName($artists, $albumName);
+        $album = $this->getArtistAlbumByName($artists, $albumName);
         if ($album == null) {
             $album = AlbumEntity::createArtistAlbum($albumName, $artists, $extraInfo);
             $entityManager->persist($album);
@@ -48,12 +50,13 @@ class AlbumsRepository extends EntityRepository implements AlbumsRepositoryInter
     /**
      * @param int $offset
      * @param int $limit
+     *
      * @return \Doctrine\ORM\QueryBuilder
      */
     public function getRecentAlbums($offset = 0, $limit = 50)
     {
         $queryBuilder = $this->createQueryBuilder('a')
-            ->addOrderBy('a.createdAt', "DESC")
+            ->addOrderBy('a.createdAt', 'DESC')
             ->setFirstResult($offset)
             ->setMaxResults($limit);
 

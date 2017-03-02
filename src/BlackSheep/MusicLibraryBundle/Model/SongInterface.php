@@ -1,14 +1,15 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * SongInterface = SING
+ * SongInterface = SING.
  */
 interface SongInterface extends ApiInterface
 {
-    
     /**
      * @param $songInfo
+     *
      * @return SongInterface
      */
     public static function createFromArray($songInfo);
@@ -20,6 +21,7 @@ interface SongInterface extends ApiInterface
 
     /**
      * @param mixed $track
+     *
      * @return SongInterface
      */
     public function setTrack($track);
@@ -28,8 +30,10 @@ interface SongInterface extends ApiInterface
      * @return mixed
      */
     public function getTitle();
+
     /**
      * @param mixed $title
+     *
      * @return SongInterface
      */
     public function setTitle($title);
@@ -41,6 +45,7 @@ interface SongInterface extends ApiInterface
 
     /**
      * @param mixed $length
+     *
      * @return SongInterface
      */
     public function setLength($length);
@@ -52,6 +57,7 @@ interface SongInterface extends ApiInterface
 
     /**
      * @param mixed $mTime
+     *
      * @return SongInterface
      */
     public function setMTime($mTime);
@@ -63,6 +69,7 @@ interface SongInterface extends ApiInterface
 
     /**
      * @param mixed $path
+     *
      * @return SongInterface
      */
     public function setPath($path);
@@ -74,6 +81,7 @@ interface SongInterface extends ApiInterface
 
     /**
      * @param AlbumInterface $album
+     *
      * @return SongInterface
      */
     public function setAlbum(AlbumInterface $album = null);
@@ -85,6 +93,7 @@ interface SongInterface extends ApiInterface
 
     /**
      * @param mixed $playCount
+     *
      * @return SongInterface
      */
     public function setPlayCount($playCount);
@@ -96,6 +105,7 @@ interface SongInterface extends ApiInterface
 
     /**
      * @param mixed $playlist
+     *
      * @return SongInterface
      */
     public function setPlaylist($playlist);
@@ -112,12 +122,14 @@ interface SongInterface extends ApiInterface
 
     /**
      * @param mixed $artists
+     *
      * @return SongInterface
      */
     public function setArtists($artists);
 
     /**
      * @param ArtistInterface $artist
+     *
      * @return SongInterface
      */
     public function addArtist(ArtistInterface $artist);

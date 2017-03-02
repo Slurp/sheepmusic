@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -10,7 +11,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  */
 trait BaseEntity
 {
-    /**
+    /*
      * Hook timestampable behavior
      * updates createdAt, updatedAt fields
      */

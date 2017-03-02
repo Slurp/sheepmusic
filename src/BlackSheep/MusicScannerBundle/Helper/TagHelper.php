@@ -4,8 +4,10 @@
  * Date: 17/02/16
  * Time: 00:09
  * @copyright 2016 Bureau Blauwgeel
+ *
  * @version   1.0
  */
+
 namespace BlackSheep\MusicScannerBundle\Helper;
 
 use getID3;
@@ -13,7 +15,7 @@ use getid3_lib;
 use SplFileInfo;
 
 /**
- * Help the ID3 tag along
+ * Help the ID3 tag along.
  */
 class TagHelper
 {
@@ -22,8 +24,6 @@ class TagHelper
      */
     protected $getID3;
 
-    /**
-     */
     public function __construct()
     {
         $this->getGetID3();
@@ -33,6 +33,7 @@ class TagHelper
      * Get ID3 info from a file.
      *
      * @param SplFileInfo $file
+     *
      * @return array|null
      */
     public function getInfo(SplFileInfo $file)
@@ -59,17 +60,17 @@ class TagHelper
             unset($info['comments']['picture']);
         }
         $props = [
-            'artist'      => '',
-            'album'       => '',
-            'title'       => '',
-            'length'      => $info['playtime_seconds'],
-            'lyrics'      => '',
-            'cover'       => $cover,
-            'path'        => $file->getPathname(),
-            'mTime'       => $file->getMTime(),
-            'track'       => '',
+            'artist' => '',
+            'album' => '',
+            'title' => '',
+            'length' => $info['playtime_seconds'],
+            'lyrics' => '',
+            'cover' => $cover,
+            'path' => $file->getPathname(),
+            'mTime' => $file->getMTime(),
+            'track' => '',
             'artist_mbid' => '',
-            'album_mbid'  => '',
+            'album_mbid' => '',
         ];
         if (!isset($info['comments_html']) || !$comments = $info['comments_html']) {
             return $props;
@@ -83,8 +84,9 @@ class TagHelper
             $this->getPropsForTags($info, $props, $tagName);
         }
         $this->getPropsForTags($info, $props);
-        
+
         unset($info);
+
         return $props;
     }
 
@@ -109,17 +111,17 @@ class TagHelper
             if (isset($id3v2Tags['unsynchronised_lyric'][0])) {
                 $props['lyrics'] = ($id3v2Tags['unsynchronised_lyric'][0]);
             }
-            if (isset($id3v2Tags['text']["MusicBrainz Album Artist Id"])) {
-                $props['artist_mbid'] = $id3v2Tags['text']["MusicBrainz Album Artist Id"];
+            if (isset($id3v2Tags['text']['MusicBrainz Album Artist Id'])) {
+                $props['artist_mbid'] = $id3v2Tags['text']['MusicBrainz Album Artist Id'];
             }
-            if (isset($id3v2Tags['text']["MusicBrainz Album Id"])) {
-                $props['album_mbid'] = $id3v2Tags['text']["MusicBrainz Album Id"];
+            if (isset($id3v2Tags['text']['MusicBrainz Album Id'])) {
+                $props['album_mbid'] = $id3v2Tags['text']['MusicBrainz Album Id'];
             }
             if (isset($id3v2Tags['musicbrainz_artistid'])) {
                 $props['artist_mbid'] = $id3v2Tags['musicbrainz_artistid'];
             }
-            if (isset($id3v2Tags["musicbrainz_albumid"])) {
-                $props['album_mbid'] = $id3v2Tags["musicbrainz_albumid"];
+            if (isset($id3v2Tags['musicbrainz_albumid'])) {
+                $props['album_mbid'] = $id3v2Tags['musicbrainz_albumid'];
             }
         }
     }
@@ -128,6 +130,7 @@ class TagHelper
      * Generate a unique hash for a file path.
      *
      * @param $path
+     *
      * @return string
      */
     public function getHash($path)
@@ -163,10 +166,10 @@ class TagHelper
             // waste of time and memory
             $this->getID3->setOption(
                 [
-                    'option_tag_lyrics3'  => false,
-                    'option_tag_apetag'   => false,
+                    'option_tag_lyrics3' => false,
+                    'option_tag_apetag' => false,
                     'option_tags_process' => true,
-                    'option_tags_html'    => false,
+                    'option_tags_html' => false,
                 ]
             );
         }

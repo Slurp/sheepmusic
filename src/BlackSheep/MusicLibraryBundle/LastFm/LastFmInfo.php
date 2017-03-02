@@ -1,10 +1,9 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\LastFm;
 
 /**
- * Interface LastFmInfo
- *
- * @package BlackSheep\MusicLibraryBundle\LastFm
+ * Interface LastFmInfo.
  */
 interface LastFmInfo
 {

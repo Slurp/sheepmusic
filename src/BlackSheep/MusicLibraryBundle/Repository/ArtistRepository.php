@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
@@ -12,11 +13,10 @@ use Doctrine\ORM\EntityRepository;
 class ArtistRepository extends EntityRepository implements ArtistRepositoryInterface
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addOrUpdate($artistName, $musicBrainzId = null)
     {
-
         $artistEntity = $this->getArtistByMusicBrainzId($musicBrainzId);
 
         if ($artistEntity === null) {
@@ -32,7 +32,7 @@ class ArtistRepository extends EntityRepository implements ArtistRepositoryInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function save(ArtistsEntity $artistEntity)
     {
@@ -42,7 +42,7 @@ class ArtistRepository extends EntityRepository implements ArtistRepositoryInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getArtistByName($artistName)
     {
@@ -52,7 +52,7 @@ class ArtistRepository extends EntityRepository implements ArtistRepositoryInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getArtistByMusicBrainzId($musicBrainzId = null)
     {
@@ -66,7 +66,7 @@ class ArtistRepository extends EntityRepository implements ArtistRepositoryInter
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getArtistAlbumByName($artist, $albumName)
     {

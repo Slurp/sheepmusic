@@ -1,10 +1,11 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\LastFm;
 
 use BlackSheep\MusicLibraryBundle\MusicBrainz\MusicBrainzModelInterface;
 
 /**
- * Solid FM
+ * Solid FM.
  */
 interface LastFmInterface extends MusicBrainzModelInterface
 {

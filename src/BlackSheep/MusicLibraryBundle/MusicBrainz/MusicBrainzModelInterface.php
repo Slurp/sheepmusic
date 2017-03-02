@@ -1,10 +1,9 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\MusicBrainz;
 
 /**
- * Interface MusicBrainzModelInterface
- *
- * @package BlackSheep\MusicLibraryBundle\MusicBrainz
+ * Interface MusicBrainzModelInterface.
  */
 interface MusicBrainzModelInterface
 {

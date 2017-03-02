@@ -1,8 +1,9 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * Model for a Song
+ * Model for a Song.
  */
 class Song implements SongInterface
 {
@@ -52,7 +53,7 @@ class Song implements SongInterface
     protected $artists;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function createFromArray($songInfo)
     {
@@ -67,7 +68,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTrack()
     {
@@ -75,7 +76,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setTrack($track)
     {
@@ -85,7 +86,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getTitle()
     {
@@ -93,7 +94,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setTitle($title)
     {
@@ -103,7 +104,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getLength()
     {
@@ -111,7 +112,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setLength($length)
     {
@@ -121,7 +122,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMTime()
     {
@@ -129,7 +130,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setMTime($mTime)
     {
@@ -139,7 +140,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPath()
     {
@@ -147,7 +148,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setPath($path)
     {
@@ -157,7 +158,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAlbum()
     {
@@ -165,7 +166,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setAlbum(AlbumInterface $album = null)
     {
@@ -175,7 +176,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPlayCount()
     {
@@ -183,7 +184,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setPlayCount($playCount)
     {
@@ -193,7 +194,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPlaylist()
     {
@@ -201,7 +202,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setPlaylist($playlist)
     {
@@ -211,7 +212,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getArtist()
     {
@@ -219,7 +220,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getArtists()
     {
@@ -227,7 +228,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setArtists($artists)
     {
@@ -237,7 +238,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addArtist(ArtistInterface $artist)
     {
@@ -249,7 +250,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApiData()
     {

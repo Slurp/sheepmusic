@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\LastFm;
 
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
@@ -10,8 +11,6 @@ interface LastFmArtistInterface extends LastFmInterface
 {
     /**
      * @param ArtistInterface $artist
-     *
-     * @return void
      */
     public function updateLastFmInfo(ArtistInterface $artist);
 }

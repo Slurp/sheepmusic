@@ -41,7 +41,9 @@ class DefaultController extends Controller
      *     class="BlackSheepMusicLibraryBundle:ArtistsEntity",
      *     options={"mapping": {"artist": "slug"}}
      * )
+     *
      * @param ArtistsEntity $artist
+     *
      * @return Response
      */
     public function artistDetailAction(ArtistsEntity $artist)
@@ -51,6 +53,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/albums", name="library_albums")
+     *
      * @return Response
      */
     public function albumsAction()
@@ -62,6 +65,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/albums/recent", name="library_recent_albums")
+     *
      * @return Response
      */
     public function recentAlbumsAction()
@@ -78,7 +82,9 @@ class DefaultController extends Controller
      *     class="BlackSheepMusicLibraryBundle:AlbumEntity",
      *     options={"mapping": {"album": "slug"}}
      * )
+     *
      * @param AlbumEntity $album
+     *
      * @return Response
      */
     public function albumDetailAction(AlbumEntity $album)

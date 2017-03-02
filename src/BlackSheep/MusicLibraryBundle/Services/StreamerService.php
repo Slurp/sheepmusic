@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Services;
 
 use BlackSheep\MusicLibraryBundle\Model\SongInterface;
@@ -8,7 +9,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Streamer service
+ * Streamer service.
  */
 class StreamerService
 {
@@ -29,22 +30,24 @@ class StreamerService
     public function __construct($ffmpegPath, $bitrate)
     {
         $this->ffmpegPath = $ffmpegPath;
-        $this->bitrate    = $bitrate;
+        $this->bitrate = $bitrate;
     }
 
     /**
      * Play a song.
      *
      * @param SongInterface $song
-     * @param int   $startTime
+     * @param int           $startTime
+     *
      * @return Response
+     *
      * @throws \Exception
      */
     public function getStreamerForSong(SongInterface $song, $startTime = 0)
     {
-        $songFile  = new File($song->getPath());
+        $songFile = new File($song->getPath());
         // If transcode parameter isn't passed, the default is to only transcode flac
-        if ($songFile->getExtension() === "flac") {
+        if ($songFile->getExtension() === 'flac') {
             $streamer = new TranscodingStreamer($song, $this->bitrate, $this->ffmpegPath, $startTime);
         } else {
             $streamer = new DefaultStreamer($song);

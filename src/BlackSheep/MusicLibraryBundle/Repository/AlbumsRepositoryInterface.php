@@ -1,20 +1,19 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
 
 /**
- * Interface AlbumsRepositoryInterface
- *
- * @package BlackSheep\MusicLibraryBundle\Repository
+ * Interface AlbumsRepositoryInterface.
  */
 interface AlbumsRepositoryInterface
 {
     /**
      * @param ArtistsEntity $artists
-     * @param         $albumName
-     * @param         $extraInfo
+     * @param               $albumName
+     * @param               $extraInfo
      *
      * @return AlbumInterface|null
      */
@@ -22,7 +21,7 @@ interface AlbumsRepositoryInterface
 
     /**
      * @param ArtistsEntity $artist
-     * @param         $albumName
+     * @param               $albumName
      *
      * @return null|AlbumInterface
      */

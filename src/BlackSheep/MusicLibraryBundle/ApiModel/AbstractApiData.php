@@ -1,10 +1,11 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\ApiModel;
 
 use Symfony\Component\Routing\RouterInterface;
 
 /**
- * A Abstract Class to define the router
+ * A Abstract Class to define the router.
  */
 abstract class AbstractApiData implements ApiData
 {

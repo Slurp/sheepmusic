@@ -1,12 +1,11 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\ApiModel;
 
 use Symfony\Component\Routing\RouterInterface;
 
 /**
- * Interface ApiData
- *
- * @package BlackSheep\MusicLibrary\ApiModel
+ * Interface ApiData.
  */
 interface ApiData
 {
@@ -17,6 +16,7 @@ interface ApiData
 
     /**
      * @param mixed
+     *
      * @return array
      */
     public function getApiData($object);
