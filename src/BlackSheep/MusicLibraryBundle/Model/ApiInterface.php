@@ -2,7 +2,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- *
+ * If a model has a API ?
  */
 interface ApiInterface
 {

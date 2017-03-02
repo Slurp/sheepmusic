@@ -2,7 +2,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- *
+ * Model for a Song
  */
 class Song implements SongInterface
 {

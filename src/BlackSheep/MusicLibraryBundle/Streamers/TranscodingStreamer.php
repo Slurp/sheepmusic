@@ -8,7 +8,7 @@ use BlackSheep\MusicLibraryBundle\Streamers\Transcoder\TranscodedSizeEstimator;
 use Exception;
 
 /**
- *
+ * Row, Row your code.
  */
 class TranscodingStreamer extends AbstractStreamer implements AudioStreamInterface
 {

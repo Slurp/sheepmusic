@@ -8,7 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- *
+ * Commando: music import.
  */
 class ImportMusicCommand extends ContainerAwareCommand
 {

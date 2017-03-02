@@ -3,9 +3,6 @@ namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\PersistentCollection;
-use ReflectionClass;
-use ReflectionProperty;
 
 /**
  * SongsRepository

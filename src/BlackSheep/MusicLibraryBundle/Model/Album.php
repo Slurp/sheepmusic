@@ -4,7 +4,7 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
- *
+ * Define a Album
  */
 class Album implements AlbumInterface
 {

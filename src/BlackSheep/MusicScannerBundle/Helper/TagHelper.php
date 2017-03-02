@@ -13,7 +13,7 @@ use getid3_lib;
 use SplFileInfo;
 
 /**
- *
+ * Help the ID3 tag along
  */
 class TagHelper
 {

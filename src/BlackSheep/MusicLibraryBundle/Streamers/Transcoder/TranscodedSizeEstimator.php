@@ -2,7 +2,7 @@
 namespace BlackSheep\MusicLibraryBundle\Streamers\Transcoder;
 
 /**
- *
+ * How big is your transcode?
  */
 class TranscodedSizeEstimator
 {

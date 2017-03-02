@@ -2,7 +2,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- *
+ * SongInterface = SING
  */
 interface SongInterface extends ApiInterface
 {

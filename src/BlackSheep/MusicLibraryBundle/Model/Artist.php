@@ -2,7 +2,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- *
+ * Artist Model Class
  */
 class Artist implements ArtistInterface
 {

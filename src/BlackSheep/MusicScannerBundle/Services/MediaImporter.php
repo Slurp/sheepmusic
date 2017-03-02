@@ -12,9 +12,7 @@ use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
 use BlackSheep\MusicLibraryBundle\LastFm\LastFmAlbum;
-use BlackSheep\MusicLibraryBundle\LastFm\LastFmAlbumInfo;
 use BlackSheep\MusicLibraryBundle\LastFm\LastFmArtist;
-use BlackSheep\MusicLibraryBundle\LastFm\LastFmArtistInfo;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use BlackSheep\MusicLibraryBundle\Repository\AlbumsRepository;
@@ -29,7 +27,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
- *
+ * Import some media
  */
 class MediaImporter
 {
@@ -94,7 +92,7 @@ class MediaImporter
      */
     public function __construct($path)
     {
-        $this->path      = $path;
+        $this->path = $path;
         $this->tagHelper = new TagHelper();
         $this->stopwatch = new Stopwatch();
     }
@@ -114,7 +112,7 @@ class MediaImporter
      */
     public function setEntityManager(EntityManager $entityManager)
     {
-        $this->entityManager   = $entityManager;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -149,7 +147,7 @@ class MediaImporter
         $this->stopwatch->start('import_music');
         // Make service calls out of these
         $this->artistRepository = $this->entityManager->getRepository(ArtistsEntity::class);
-        $this->albumRepository  = $this->entityManager->getRepository(AlbumEntity::class);
+        $this->albumRepository = $this->entityManager->getRepository(AlbumEntity::class);
         $this->songsRepository = $this->entityManager->getRepository(SongEntity::class);
 
         $importingFiles = $this->gatherFiles($this->path);
@@ -160,11 +158,11 @@ class MediaImporter
         foreach ($importingFiles as $file) {
 
             $this->stopwatch->lap('import_music');
-            $songInfo   = $this->tagHelper->getInfo($file);
+            $songInfo = $this->tagHelper->getInfo($file);
             $songEntity = $this->songsRepository->needsImporting($songInfo);
             if ($songEntity === null || $songInfo['artist'] === "") {
                 $this->importSong($songInfo);
-                $this->debugStep("ADDING", $songInfo['artist'] . " " . $songInfo['album']. $file->getGroup());
+                $this->debugStep("ADDING", $songInfo['artist'] . " " . $songInfo['album'] . $file->getGroup());
             } else {
                 $this->debugStep("SKIPPING", $songInfo['artist'] . " " . $songInfo['album']);
             }
@@ -258,6 +256,7 @@ class MediaImporter
      * Gather all applicable files in a given directory.
      *
      * @param string $path The directory's full path
+     *
      * @return array An array of SplFileInfo objects
      */
     public function gatherFiles($path)
