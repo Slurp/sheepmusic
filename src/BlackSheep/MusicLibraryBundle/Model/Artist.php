@@ -228,7 +228,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @param integer $playCount
+     * @param int $playCount
      *
      * @return ArtistInterface
      */
