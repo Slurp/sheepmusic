@@ -11,6 +11,7 @@ interface LastFmArtistInterface extends LastFmInterface
 {
     /**
      * @param ArtistInterface $artist
+     * @return void
      */
     public function updateLastFmInfo(ArtistInterface $artist);
 }

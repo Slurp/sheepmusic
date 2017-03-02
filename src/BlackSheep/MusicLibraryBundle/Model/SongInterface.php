@@ -15,7 +15,7 @@ interface SongInterface extends ApiInterface
     public static function createFromArray($songInfo);
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTrack();
 
@@ -27,7 +27,7 @@ interface SongInterface extends ApiInterface
     public function setTrack($track);
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getTitle();
 
@@ -39,7 +39,7 @@ interface SongInterface extends ApiInterface
     public function setTitle($title);
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getLength();
 
@@ -51,7 +51,7 @@ interface SongInterface extends ApiInterface
     public function setLength($length);
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getMTime();
 
@@ -63,7 +63,7 @@ interface SongInterface extends ApiInterface
     public function setMTime($mTime);
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPath();
 
@@ -87,7 +87,7 @@ interface SongInterface extends ApiInterface
     public function setAlbum(AlbumInterface $album = null);
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getPlayCount();
 

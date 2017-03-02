@@ -69,7 +69,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSlug()
     {
@@ -77,7 +77,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAlias()
     {
@@ -85,7 +85,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -105,7 +105,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getMusicBrainzId()
     {
@@ -128,7 +128,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getImage()
     {
@@ -148,7 +148,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getBiography()
     {
@@ -168,7 +168,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @return mixed
+     * @return AlbumInterface[]
      */
     public function getAlbums()
     {
@@ -188,7 +188,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @return mixed
+     * @return SongInterface[]
      */
     public function getSongs()
     {
@@ -220,7 +220,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getPlayCount()
     {
@@ -228,7 +228,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @param mixed $playCount
+     * @param integer $playCount
      *
      * @return ArtistInterface
      */

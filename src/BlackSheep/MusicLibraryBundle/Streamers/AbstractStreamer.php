@@ -34,7 +34,7 @@ abstract class AbstractStreamer implements AudioStreamInterface
             throw new NotFoundHttpException();
         }
 
-        $this->contentType = 'audio/'.pathinfo($this->song->getPath(), PATHINFO_EXTENSION);
+        $this->contentType = 'audio/' . pathinfo($this->song->getPath(), PATHINFO_EXTENSION);
 
         // Turn off error reporting to make sure our stream isn't interfered.
         /* @noinspection PhpUsageOfSilenceOperatorInspection */
