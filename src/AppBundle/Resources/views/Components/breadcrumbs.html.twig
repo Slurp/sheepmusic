@@ -1,0 +1,23 @@
+{# @var album \BlackSheep\MusicLibraryBundle\Entity\Albums#}
+{# @var artist \BlackSheep\MusicLibraryBundle\Entity\Artist#}
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href="{{ path('homepage') }}"><i class="material-icons">home</i></a>
+    </li>
+    {% if artist is defined and album is not defined %}
+        <li class="breadcrumb-item active">
+            {{ artist.name }}
+        </li>
+    {% endif %}
+    {% if album is defined %}
+        <li class="breadcrumb-item">
+            <a href="{{ path('library_artist',{'artist': album.artist.id}) }}">
+                {{ album.artist.name }}
+            </a>
+        </li>
+        <li class="breadcrumb-item active">
+            {{ album.name }}
+        </li>
+    {% endif %}
+
+</ol>

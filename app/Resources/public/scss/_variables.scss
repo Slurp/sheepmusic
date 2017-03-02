@@ -37,12 +37,12 @@ $plyr-range-selected-bg:$accent-color;
 $plyr-audio-range-track-bg:$divider-color;
 $plyr-audio-control-bg-hover:$accent-color;
 // Progress
-$plyr-progress-loading-size:            25px !default;
-$plyr-progress-loading-bg:              rgba(#000, .85) !default;
-$plyr-video-progress-bg:                rgba(#fafafa, .75) !default;
-$plyr-video-progress-buffered-bg:       $plyr-video-progress-bg !default;
-$plyr-audio-progress-bg:                rgba($primary-color-dark, .33) !default;
-$plyr-audio-progress-buffered-bg:       $plyr-audio-progress-bg !default;
+$plyr-progress-loading-size:            25px ;
+$plyr-progress-loading-bg:              rgba(#000, .85) ;
+$plyr-video-progress-bg:                rgba(#fafafa, .75) ;
+$plyr-video-progress-buffered-bg:       $plyr-video-progress-bg ;
+$plyr-audio-progress-bg:                rgba($primary-color-dark, .33) ;
+$plyr-audio-progress-buffered-bg:       $plyr-audio-progress-bg ;
 
 /* ==========  Playlist  ========== */
 $playlist-bg-color: $primary-color-text;
@@ -159,3 +159,30 @@ $infobar-border-color: rgba($primary-color-dark, 0.8);
 $backdrop-overlay-color: rgba($primary-color-dark, 0.7);
 
 $songlist-bg-color: $primary-color-text;
+
+// Navs https://www.google.com/design/spec/components/tabs.html#tabs-specs
+
+$nav-disabled-link-color:                   $gray-light ;
+$nav-disabled-link-hover-color:             $gray-light ;
+
+$bmd-navbar-link-font-weight:               $font-weight-base ; //
+$bmd-navbar-link-font-size:                 .875rem ; // 14
+$bmd-navbar-link-padding:                   .5321rem; // 7
+
+
+// tabs & pills
+$bmd-nav-tabs-pills-font-weight:            500 ; //
+$bmd-nav-tabs-pills-font-size:              .875rem ; // 14
+$bmd-nav-tabs-pills-link-padding:           1rem .8575rem ; // spec // was .5em 1em   // relative em based on 14
+
+// tabs only
+$bmd-nav-tabs-border-size:                  .214rem ; // 3px
+
+$bmd-nav-tabs-color:                        $accent-color ;
+$bmd-nav-tabs-active-color:                 $gray-dark ;
+$bmd-nav-tabs-active-border-color:          $brand-primary ;
+$bmd-nav-tabs-disabled-link-color:          $nav-disabled-link-color ;
+$bmd-nav-tabs-disabled-link-color-hover:    $nav-disabled-link-hover-color ;
+
+$nav-tabs-active-link-hover-bg:             transparent ; // $body-bg
+

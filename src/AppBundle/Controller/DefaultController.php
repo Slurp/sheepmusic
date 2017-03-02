@@ -84,7 +84,7 @@ class DefaultController extends Controller
     public function albumDetailAction(AlbumEntity $album)
     {
         return $this->render(
-            'AppBundle:Default:albums.html.twig',
+            'AppBundle:Default:album.html.twig',
             ['artist' => $album->getArtist(), 'album' => $album]
         );
     }

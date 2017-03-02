@@ -7,8 +7,6 @@
          style="background-image: url('{% if artist.albumArt is not null %}{{ artist.albumArt }}{% endif %}')">
         {% include '@App/Artist/info-bar.html.twig' with {'artist': artist} only %}
     </div>
-
-
     <div class="album-list">
         {% for album in artist.albums %}
             <div class="card-col">

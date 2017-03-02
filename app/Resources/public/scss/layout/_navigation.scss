@@ -11,3 +11,25 @@
 
   }
 }
+
+// pills and tabs
+.nav-tabs,
+.nav-pills {
+  border: 0;
+
+  .nav-link {
+    padding: $bmd-nav-tabs-pills-link-padding;
+    font-size: $bmd-nav-tabs-pills-font-size;
+    font-weight: $bmd-nav-tabs-pills-font-weight;
+    border: 0;
+  }
+}
+
+// tabs only
+.nav-tabs {
+  .nav-link {
+    border-bottom: $bmd-nav-tabs-border-size solid transparent;
+  }
+  // colors
+  @include bmd-tabs-color($bmd-nav-tabs-color, $bmd-nav-tabs-active-color, $bmd-nav-tabs-active-border-color, $bmd-nav-tabs-disabled-link-color, $bmd-nav-tabs-disabled-link-color-hover);
+}

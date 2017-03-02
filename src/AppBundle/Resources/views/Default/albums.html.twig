@@ -3,7 +3,7 @@
 : 'Layout/layout.html.twig' %}
 
 {% block content %}
-
+    {% include '@App/Components/navigation.html.twig' %}
     <div class="album-list">
         {% for album in albums %}
             <div class="card-col">

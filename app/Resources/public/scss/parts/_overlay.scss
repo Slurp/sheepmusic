@@ -4,9 +4,9 @@
   }
 }
 #loading-overlay {
-  @include transition('all 1s ease');
+  @include transition(all 0.1s ease);
   position: fixed;
-  top:0;
+  top:57px;
   left: 0;
   bottom: $footer-fixed-height;
   right: 0;
