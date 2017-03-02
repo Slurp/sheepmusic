@@ -1,10 +1,11 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
- * Define a Album
+ * Define a Album.
  */
 class Album implements AlbumInterface
 {
@@ -88,7 +89,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setName($name)
     {
@@ -98,19 +99,19 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCover()
     {
         if (strpos($this->cover, 'http') !== 0) {
-            return $this->getUploadDirectory() . $this->cover;
+            return $this->getUploadDirectory().$this->cover;
         }
 
         return $this->cover;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setCover($cover)
     {
@@ -123,7 +124,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function generateCover(array $cover)
     {
@@ -137,15 +138,15 @@ class Album implements AlbumInterface
      * Write a cover image file with binary data and update the Album with the new cover file.
      *
      * @param string $binaryData
-     * @param string $extension The file extension
+     * @param string $extension  The file extension
      *
      * @return string
      */
     private function writeCoverFile($binaryData, $extension)
     {
         $extension = trim(strtolower($extension), '. ');
-        $fileName = uniqid() . ".$extension";
-        $coverPath = $this->getUploadRootDirectory() . $fileName;
+        $fileName = uniqid().".$extension";
+        $coverPath = $this->getUploadRootDirectory().$fileName;
         $fs = new Filesystem();
         $fs->dumpFile($coverPath, $binaryData);
 
@@ -153,11 +154,11 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUploadRootDirectory()
     {
-        return $this->getWebDirectory() . $this->getUploadDirectory();
+        return $this->getWebDirectory().$this->getUploadDirectory();
     }
 
     /**
@@ -165,7 +166,7 @@ class Album implements AlbumInterface
      */
     public function getWebDirectory()
     {
-        return __DIR__ . "/../../../../web";
+        return __DIR__.'/../../../../web';
     }
 
     /**
@@ -173,7 +174,7 @@ class Album implements AlbumInterface
      */
     public function getUploadDirectory()
     {
-        return "/uploads/" . $this->getArtist()->getSlug() . "/";
+        return '/uploads/'.$this->getArtist()->getSlug().'/';
     }
 
     /**
@@ -185,7 +186,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSongs($songs)
     {
@@ -195,7 +196,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addSong(SongInterface $song)
     {
@@ -207,7 +208,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getArtist()
     {
@@ -215,7 +216,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setArtist($artists)
     {
@@ -225,7 +226,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getReleaseDate()
     {
@@ -233,7 +234,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setReleaseDate($releaseDate)
     {
@@ -243,7 +244,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMusicBrainzId()
     {
@@ -251,7 +252,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setMusicBrainzId($musicBrainzId)
     {

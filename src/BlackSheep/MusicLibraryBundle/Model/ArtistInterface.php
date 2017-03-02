@@ -5,14 +5,14 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 use BlackSheep\MusicLibraryBundle\MusicBrainz\MusicBrainzModelInterface;
 
 /**
- * Interface AlbumInterface
+ * Interface AlbumInterface.
  */
 interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface
 {
-
     /**
      * @param      $name
      * @param null $musicBrainzId
+     *
      * @return ArtistInterface
      */
     public static function createNew($name, $musicBrainzId = null);
@@ -34,6 +34,7 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface
 
     /**
      * @param mixed $name
+     *
      * @return ArtistInterface
      */
     public function setName($name);
@@ -45,6 +46,7 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface
 
     /**
      * @param mixed $image
+     *
      * @return ArtistInterface
      */
     public function setImage($image);
@@ -56,6 +58,7 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface
 
     /**
      * @param mixed $biography
+     *
      * @return ArtistInterface
      */
     public function setBiography($biography);
@@ -67,6 +70,7 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface
 
     /**
      * @param mixed $albums
+     *
      * @return ArtistInterface
      */
     public function setAlbums($albums);
@@ -78,12 +82,14 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface
 
     /**
      * @param mixed $songs
+     *
      * @return ArtistInterface
      */
     public function setSongs($songs);
 
     /**
      * @param SongInterface $song
+     *
      * @return AlbumInterface
      */
     public function addSong(SongInterface $song);
@@ -95,6 +101,7 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface
 
     /**
      * @param mixed $playCount
+     *
      * @return ArtistInterface
      */
     public function setPlayCount($playCount);

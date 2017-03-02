@@ -1,10 +1,9 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Streamers\Transcoder;
 
 /**
- * Interface ArgumentBuilder
- *
- * @package BlackSheep\MusicLibraryBundle\Streamers\Transcoder
+ * Interface ArgumentBuilder.
  */
 interface ArgumentBuilder
 {

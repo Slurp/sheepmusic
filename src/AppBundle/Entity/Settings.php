@@ -5,7 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Settings
+ * Settings.
  *
  * @ORM\Table(name="settings")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SettingsRepository")
@@ -35,9 +35,8 @@ class Settings
      */
     private $lastImport;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return int
      */
@@ -47,7 +46,7 @@ class Settings
     }
 
     /**
-     * Set path
+     * Set path.
      *
      * @param string $path
      *
@@ -61,7 +60,7 @@ class Settings
     }
 
     /**
-     * Get path
+     * Get path.
      *
      * @return string
      */
@@ -71,7 +70,7 @@ class Settings
     }
 
     /**
-     * Set lastImport
+     * Set lastImport.
      *
      * @param \DateTime $lastImport
      *
@@ -85,7 +84,7 @@ class Settings
     }
 
     /**
-     * Get lastImport
+     * Get lastImport.
      *
      * @return \DateTime
      */

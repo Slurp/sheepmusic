@@ -1,13 +1,12 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 
 /**
- * Interface ArtistRepositoryInterface
- *
- * @package BlackSheep\MusicLibraryBundle\Repository
+ * Interface ArtistRepositoryInterface.
  */
 interface ArtistRepositoryInterface
 {

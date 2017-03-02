@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
 use BlackSheep\MusicLibraryBundle\Model\Album;
@@ -69,7 +70,7 @@ class AlbumEntity extends Album implements AlbumInterface
     protected $lastFmUrl;
 
     /**
-     * Constructs this object with a array collection
+     * Constructs this object with a array collection.
      */
     public function __construct()
     {
@@ -77,7 +78,7 @@ class AlbumEntity extends Album implements AlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static function createArtistAlbum($name, $artist, $extraInfo)
     {
@@ -86,11 +87,12 @@ class AlbumEntity extends Album implements AlbumInterface
         $album->setArtist($artist);
         $album->setCover($extraInfo['cover']);
         $album->setMusicBrainzId($extraInfo['album_mbid']);
+
         return $album;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addSong(SongInterface $song)
     {

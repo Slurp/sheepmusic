@@ -1,16 +1,16 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\ApiModel;
 
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 
 /**
- * Generates a array for the API
- * @package BlackSheep\MusicLibraryBundle
+ * Generates a array for the API.
  */
 class ApiArtistData extends ApiAlbumData
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApiData($object)
     {
@@ -20,9 +20,10 @@ class ApiArtistData extends ApiAlbumData
             foreach ($object->getAlbums() as $album) {
                 $albums[] = parent::getApiData($album);
             }
+
             return [
                 'artist' => $artistData,
-                'albums' => $albums
+                'albums' => $albums,
             ];
         }
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\LastFm;
 
 use LastFmApi\Api\AuthApi;
@@ -7,7 +8,7 @@ use LastFmApi\Exception\ApiFailedException;
 use LastFmApi\Exception\ConnectionException;
 
 /**
- * LastFm API wrapper for the music
+ * LastFm API wrapper for the music.
  */
 abstract class AbstractLastFmInfo
 {
@@ -38,7 +39,7 @@ abstract class AbstractLastFmInfo
     abstract protected function getApi();
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getInfo(LastFmInterface $lastFmInterface)
     {
@@ -47,10 +48,12 @@ abstract class AbstractLastFmInfo
             if ($lastFmInterface->getMusicBrainzId() !== null) {
                 $lastFmInterface->setMusicBrainzId($lastFmInfo['mbid']);
             }
+
             return $lastFmInfo;
         } catch (ConnectionException $connectionException) {
         } catch (ApiFailedException $apiFailedException) {
         }
+
         return null;
     }
 }

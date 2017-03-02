@@ -1,17 +1,17 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\ApiModel;
 
 use BlackSheep\MusicLibraryBundle\Model\ApiInterface;
 use BlackSheep\MusicLibraryBundle\Model\Song;
 
 /**
- * Generates a array for the API
- * @package BlackSheep\MusicLibraryBundle
+ * Generates a array for the API.
  */
 class ApiSongData extends AbstractApiData
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getApiData($object)
     {
@@ -19,7 +19,7 @@ class ApiSongData extends AbstractApiData
             $apiData = [
                 'track' => $object->getTrack(),
                 'title' => $object->getTitle(),
-                'src' => $this->router->generate('song_play', ['song' => $object->getId()])
+                'src' => $this->router->generate('song_play', ['song' => $object->getId()]),
             ];
             if ($object->getArtist() instanceof ApiInterface) {
                 $apiData['artist'] = $object->getArtist()->getApiData();

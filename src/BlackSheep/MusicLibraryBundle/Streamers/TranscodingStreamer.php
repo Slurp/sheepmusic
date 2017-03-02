@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Streamers;
 
 use BlackSheep\MusicLibraryBundle\Model\SongInterface;
@@ -45,9 +46,6 @@ class TranscodingStreamer extends AbstractStreamer implements AudioStreamInterfa
         $this->ffmpeg = $ffmpeg;
     }
 
-    /**
-     *
-     */
     public function getStreamedResponse()
     {
         if (is_executable($this->ffmpeg) === false) {
@@ -60,7 +58,7 @@ class TranscodingStreamer extends AbstractStreamer implements AudioStreamInterfa
             TranscodedSizeEstimator::estimatedBytes($length, $this->bitrate)
         );
         passthru(
-            "$this->ffmpeg " . FfmpegArgumentBuilder::getArguments($this->song->getPath(), $this->startTime, $bitRate)
+            "$this->ffmpeg ".FfmpegArgumentBuilder::getArguments($this->song->getPath(), $this->startTime, $bitRate)
         );
     }
 }

@@ -4,8 +4,10 @@
  * Date: 15/02/16
  * Time: 23:11
  * @copyright 2016 Zwartschaap
+ *
  * @version   1.0
  */
+
 namespace BlackSheep\MusicScannerBundle\Services;
 
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
@@ -27,7 +29,7 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
- * Import some media
+ * Import some media.
  */
 class MediaImporter
 {
@@ -37,54 +39,54 @@ class MediaImporter
     protected $path;
 
     /**
-     * @var OutputInterface $output
+     * @var OutputInterface
      */
     protected $output;
 
     /**
-     * @var Stopwatch $stopwatch
+     * @var Stopwatch
      */
     protected $stopwatch;
 
     /**
-     * @var ProgressBar $progress
+     * @var ProgressBar
      */
     protected $progress;
 
     /**
-     * @var EntityManager $entityManager
+     * @var EntityManager
      */
     protected $entityManager;
 
     /**
-     * @var SongsRepository $songsRepository
+     * @var SongsRepository
      */
     protected $songsRepository;
 
     /**
-     * @var ArtistInterface $artistCache
+     * @var ArtistInterface
      */
     protected $artistCache;
 
     /**
-     * @var AlbumInterface $albumCache
+     * @var AlbumInterface
      */
     protected $albumCache;
 
     /**
-     * @var ArtistRepository $artistRepository
+     * @var ArtistRepository
      */
     protected $artistRepository;
 
     /**
-     * @var AlbumsRepository $albumRepository
+     * @var AlbumsRepository
      */
     protected $albumRepository;
 
-    /** @var  LastFmArtist */
+    /** @var LastFmArtist */
     protected $lastFmArtist;
 
-    /** @var  LastFmAlbum */
+    /** @var LastFmAlbum */
     protected $lastFmAlbum;
 
     /**
@@ -99,7 +101,7 @@ class MediaImporter
 
     /**
      * @param LastFmArtist $lastFmArtist
-     * @param LastFmAlbum $lastFmAlbum
+     * @param LastFmAlbum  $lastFmAlbum
      */
     public function setLastFmObjects(LastFmArtist $lastFmArtist, LastFmAlbum $lastFmAlbum)
     {
@@ -139,9 +141,6 @@ class MediaImporter
         }
     }
 
-    /**
-     *
-     */
     public function import()
     {
         $this->stopwatch->start('import_music');
@@ -156,15 +155,14 @@ class MediaImporter
 
         /** @var SplFileInfo $file */
         foreach ($importingFiles as $file) {
-
             $this->stopwatch->lap('import_music');
             $songInfo = $this->tagHelper->getInfo($file);
             $songEntity = $this->songsRepository->needsImporting($songInfo);
-            if ($songEntity === null || $songInfo['artist'] === "") {
+            if ($songEntity === null || $songInfo['artist'] === '') {
                 $this->importSong($songInfo);
-                $this->debugStep("ADDING", $songInfo['artist'] . " " . $songInfo['album'] . $file->getGroup());
+                $this->debugStep('ADDING', $songInfo['artist'].' '.$songInfo['album'].$file->getGroup());
             } else {
-                $this->debugStep("SKIPPING", $songInfo['artist'] . " " . $songInfo['album']);
+                $this->debugStep('SKIPPING', $songInfo['artist'].' '.$songInfo['album']);
             }
         }
         $this->entityManager->flush();
@@ -232,15 +230,12 @@ class MediaImporter
     protected function debugStep($operation, $info)
     {
         if ($this->progress !== null) {
-            $this->progress->setMessage("\n" . $operation);
+            $this->progress->setMessage("\n".$operation);
             $this->progress->setMessage($info, 'filename');
             $this->progress->advance();
         }
     }
 
-    /**
-     *
-     */
     protected function debugEnd()
     {
         if ($this->progress !== null) {
@@ -248,7 +243,7 @@ class MediaImporter
         }
         if ($this->output !== null) {
             $event = $this->stopwatch->stop('import_music');
-            $this->output->writeln($event->getDuration() / 100 . 'S');
+            $this->output->writeln($event->getDuration() / 100 .'S');
         }
     }
 

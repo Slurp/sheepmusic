@@ -1,8 +1,9 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * Artist Model Class
+ * Artist Model Class.
  */
 class Artist implements ArtistInterface
 {
@@ -66,8 +67,6 @@ class Artist implements ArtistInterface
 
         return $artist;
     }
-
-
 
     /**
      * @return mixed
@@ -209,7 +208,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addSong(SongInterface $song)
     {
@@ -240,8 +239,6 @@ class Artist implements ArtistInterface
         return $this;
     }
 
-
-
     /**
      * @return mixed
      */
@@ -265,7 +262,7 @@ class Artist implements ArtistInterface
         return [
             'name' => $this->getName(),
             'image' => $this->getImage(),
-            'albumArt' => $this->getAlbumArt()
+            'albumArt' => $this->getAlbumArt(),
         ];
     }
 }

@@ -1,10 +1,11 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\LastFm;
 
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 
 /**
- * Enrich the artist with his lastFm info
+ * Enrich the artist with his lastFm info.
  */
 class LastFmArtist implements LastFmArtistInterface
 {
@@ -27,7 +28,7 @@ class LastFmArtist implements LastFmArtistInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getLastFmInfoQuery()
     {
@@ -35,7 +36,7 @@ class LastFmArtist implements LastFmArtistInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getMusicBrainzId()
     {
@@ -43,7 +44,7 @@ class LastFmArtist implements LastFmArtistInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setMusicBrainzId($musicBrainzId)
     {
@@ -51,7 +52,7 @@ class LastFmArtist implements LastFmArtistInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function updateLastFmInfo(ArtistInterface $artist)
     {

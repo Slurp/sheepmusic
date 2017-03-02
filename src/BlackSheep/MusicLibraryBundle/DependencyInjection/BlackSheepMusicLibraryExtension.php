@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Loader;
 /**
  * This is the class that loads and manages your bundle configuration.
  *
- * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
+ * @see http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
 class BlackSheepMusicLibraryExtension extends Extension
 {
@@ -25,7 +25,7 @@ class BlackSheepMusicLibraryExtension extends Extension
         $loader->load('services.yml');
         $loader->load('services_lastfm.yml');
 
-        foreach (array('ffmpeg_path','bitrate', 'binary_timeout', 'threads_count','last_fm_api_key') as $attribute) {
+        foreach (array('ffmpeg_path', 'bitrate', 'binary_timeout', 'threads_count', 'last_fm_api_key') as $attribute) {
             $container->setParameter('black_sheep_music_library.'.$attribute, $config[$attribute]);
         }
     }

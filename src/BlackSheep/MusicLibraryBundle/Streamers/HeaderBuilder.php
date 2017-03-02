@@ -1,9 +1,7 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Streamers;
 
-/**
- *
- */
 class HeaderBuilder
 {
     /**
@@ -19,7 +17,7 @@ class HeaderBuilder
         header("Content-Length: {$size}");
         header('Content-type: audio/mpeg');
         header("Content-Disposition: inline; filename=\"{$filename}\"");
-        header("Content-Transfer-Encoding: binary");
+        header('Content-Transfer-Encoding: binary');
         //header("Last-Modified: $time");
     }
 }

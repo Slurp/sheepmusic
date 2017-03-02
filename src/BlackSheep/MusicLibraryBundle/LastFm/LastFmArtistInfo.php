@@ -1,11 +1,9 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\LastFm;
 
 use LastFmApi\Api\ArtistApi;
 
-/**
- *
- */
 class LastFmArtistInfo extends AbstractLastFmInfo implements LastFmInfo
 {
     /**

@@ -1,9 +1,7 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Streamers\Transcoder;
 
-/**
- *
- */
 class Inspector
 {
     /**

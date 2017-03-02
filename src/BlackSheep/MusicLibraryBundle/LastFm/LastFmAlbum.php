@@ -1,12 +1,10 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\LastFm;
 
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
 use DateTime;
 
-/**
- *
- */
 class LastFmAlbum implements LastFmAlbumInterface
 {
     /**
@@ -28,7 +26,7 @@ class LastFmAlbum implements LastFmAlbumInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getLastFmInfoQuery()
     {
@@ -36,7 +34,7 @@ class LastFmAlbum implements LastFmAlbumInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getMusicBrainzId()
     {
@@ -44,7 +42,7 @@ class LastFmAlbum implements LastFmAlbumInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setMusicBrainzId($musicBrainzId)
     {
@@ -52,7 +50,7 @@ class LastFmAlbum implements LastFmAlbumInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function updateLastFmInfo(AlbumInterface $album)
     {
