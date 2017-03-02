@@ -4,7 +4,6 @@ namespace BlackSheep\MusicLibraryBundle\Controller;
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
-use BlackSheep\MusicLibraryBundle\Model\Artist;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\FOSRestController;
 use Pagerfanta\Adapter\ArrayAdapter;
@@ -12,7 +11,8 @@ use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- *
+ * Controller Build upon the FOSRestController
+ * @todo Refactor the repo's to services
  */
 class ApiController extends FOSRestController
 {

@@ -25,7 +25,7 @@ class BlackSheepMusicLibraryExtension extends Extension
         $loader->load('services.yml');
         $loader->load('services_lastfm.yml');
 
-        foreach (array('ffmpeg_path','bitrate', 'binary_timeout', 'threads_count') as $attribute) {
+        foreach (array('ffmpeg_path','bitrate', 'binary_timeout', 'threads_count','last_fm_api_key') as $attribute) {
             $container->setParameter('black_sheep_music_library.'.$attribute, $config[$attribute]);
         }
     }

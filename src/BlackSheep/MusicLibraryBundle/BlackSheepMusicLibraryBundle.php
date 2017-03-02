@@ -7,7 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- *
+ * A Bundle for a Music Library
  */
 class BlackSheepMusicLibraryBundle extends Bundle
 {

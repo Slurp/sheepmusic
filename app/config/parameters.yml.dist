@@ -19,3 +19,7 @@ parameters:
     secret:            ThisTokenIsNotSoSecretChangeIt
 
     ffmpeg_path : /usr/local/bin/ffmpeg
+    last_fm_key: foo
+    last_fm_secret: bar
+    last_fm_app_name: sheepmusic
+    last_fm_app_user: you

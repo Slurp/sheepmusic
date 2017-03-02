@@ -69,6 +69,7 @@ class AlbumEntity extends Album implements AlbumInterface
     protected $lastFmUrl;
 
     /**
+     * Constructs this object with a array collection
      */
     public function __construct()
     {

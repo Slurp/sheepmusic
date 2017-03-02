@@ -104,5 +104,7 @@ fos_rest:
         default_format: json                            # All responses should be JSON formated
         include_format: false                           # We do not include format in request, so that all responses
                                                         # will eventually be JSON formated
+
 black_sheep_music_library:
     ffmpeg_path: "%ffmpeg_path%"
+    last_fm_api_key: "%last_fm_key%"

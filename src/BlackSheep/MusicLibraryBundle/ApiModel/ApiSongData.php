@@ -5,7 +5,8 @@ use BlackSheep\MusicLibraryBundle\Model\ApiInterface;
 use BlackSheep\MusicLibraryBundle\Model\Song;
 
 /**
- *
+ * Generates a array for the API
+ * @package BlackSheep\MusicLibraryBundle
  */
 class ApiSongData extends AbstractApiData
 {

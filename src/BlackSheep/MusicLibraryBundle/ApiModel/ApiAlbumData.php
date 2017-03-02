@@ -4,7 +4,8 @@ namespace BlackSheep\MusicLibraryBundle\ApiModel;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
 
 /**
- *
+ * Generates a array for the API
+ * @package BlackSheep\MusicLibraryBundle
  */
 class ApiAlbumData extends ApiSongData
 {

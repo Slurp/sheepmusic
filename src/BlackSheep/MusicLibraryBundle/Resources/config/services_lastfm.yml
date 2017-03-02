@@ -1,4 +1,16 @@
 services:
+    black_sheep_music_library.last_fm.last_fm_album_info:
+        class: BlackSheep\MusicLibraryBundle\LastFm\LastFmAlbumInfo
+        arguments: ['%black_sheep_music_library.last_fm_api_key%']
+    black_sheep_music_library.last_fm.last_fm_artist_info:
+        class: BlackSheep\MusicLibraryBundle\LastFm\LastFmArtistInfo
+        arguments: ['%black_sheep_music_library.last_fm_api_key%']
+
     black_sheep_music_library.last_fm.last_fm_artist:
         class: BlackSheep\MusicLibraryBundle\LastFm\LastFmArtist
-        arguments: [BlackSheep\MusicLibraryBundle\LastFm\LastFmArtistInfo]
+        arguments:
+            - '@black_sheep_music_library.last_fm.last_fm_artist_info'
+    black_sheep_music_library.last_fm.last_fm_album:
+        class: BlackSheep\MusicLibraryBundle\LastFm\LastFmAlbum
+        arguments:
+            - '@black_sheep_music_library.last_fm.last_fm_album_info'

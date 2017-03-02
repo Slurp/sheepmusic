@@ -2,7 +2,7 @@
 namespace BlackSheep\MusicLibraryBundle\LastFm;
 
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
-use \DateTime;
+use DateTime;
 
 /**
  *

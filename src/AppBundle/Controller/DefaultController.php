@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- *
+ * A DefaultController, why change something that works.
  */
 class DefaultController extends Controller
 {

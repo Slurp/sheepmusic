@@ -4,7 +4,7 @@ namespace BlackSheep\MusicLibraryBundle\LastFm;
 use LastFmApi\Api\AlbumApi;
 
 /**
- *
+ * Get the Correct API
  */
 class LastFmAlbumInfo extends AbstractLastFmInfo implements LastFmInfo
 {

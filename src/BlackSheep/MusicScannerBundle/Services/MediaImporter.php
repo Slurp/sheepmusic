@@ -100,6 +100,16 @@ class MediaImporter
     }
 
     /**
+     * @param LastFmArtist $lastFmArtist
+     * @param LastFmAlbum $lastFmAlbum
+     */
+    public function setLastFmObjects(LastFmArtist $lastFmArtist, LastFmAlbum $lastFmAlbum)
+    {
+        $this->lastFmArtist = $lastFmArtist;
+        $this->lastFmAlbum = $lastFmAlbum;
+    }
+
+    /**
      * @param EntityManager $entityManager
      */
     public function setEntityManager(EntityManager $entityManager)
@@ -141,8 +151,7 @@ class MediaImporter
         $this->artistRepository = $this->entityManager->getRepository(ArtistsEntity::class);
         $this->albumRepository  = $this->entityManager->getRepository(AlbumEntity::class);
         $this->songsRepository = $this->entityManager->getRepository(SongEntity::class);
-        $this->lastFmArtist = new LastFmArtist(new LastFmArtistInfo());
-        $this->lastFmAlbum = new LastFmAlbum(new LastFmAlbumInfo());
+
         $importingFiles = $this->gatherFiles($this->path);
 
         $this->setupProgressBar(count($importingFiles));

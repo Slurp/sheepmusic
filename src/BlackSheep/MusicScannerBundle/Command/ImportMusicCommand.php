@@ -30,6 +30,10 @@ class ImportMusicCommand extends ContainerAwareCommand
         $importer = new MediaImporter('/Users/slangeweg/Music');
         $importer->setOutputInterface($output);
         $importer->setEntityManager($this->getContainer()->get('doctrine.orm.default_entity_manager'));
+        $importer->setLastFmObjects(
+            $this->getContainer()->get('black_sheep_music_library.last_fm.last_fm_artist'),
+            $this->getContainer()->get('black_sheep_music_library.last_fm.last_fm_album')
+        );
         $importer->import();
     }
 }

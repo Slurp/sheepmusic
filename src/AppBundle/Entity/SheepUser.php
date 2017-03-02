@@ -1,11 +1,4 @@
 <?php
-/**
- * @author: @{USER} <stephan@bureaublauwgeel.nl>
- * Date: 29/02/16
- * Time: 22:06
- * @copyright 2016 Bureau Blauwgeel
- * @version 1.0
- */
 namespace AppBundle\Entity;
 
 use FOS\UserBundle\Model\User as BaseUser;

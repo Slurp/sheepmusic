@@ -4,7 +4,7 @@ namespace BlackSheep\MusicLibraryBundle\LastFm;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 
 /**
- *
+ * Enrich the artist with his lastFm info
  */
 class LastFmArtist implements LastFmArtistInterface
 {

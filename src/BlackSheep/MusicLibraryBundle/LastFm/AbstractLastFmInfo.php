@@ -7,10 +7,7 @@ use LastFmApi\Exception\ApiFailedException;
 use LastFmApi\Exception\ConnectionException;
 
 /**
- * Application name    sheepmusic
- * API key    749866a28418ccba11aa11b4ee11f857
- * Shared secret    ec5e8e5280699d3e5a8356f364a0bcc0
- * Registered to    Slurp
+ * LastFm API wrapper for the music
  */
 abstract class AbstractLastFmInfo
 {
@@ -22,7 +19,7 @@ abstract class AbstractLastFmInfo
     /**
      * @param string $apiKey
      */
-    public function __construct($apiKey = '749866a28418ccba11aa11b4ee11f857')
+    public function __construct($apiKey)
     {
         $this->auth = new AuthApi('setsession', ['apiKey' => $apiKey]);
     }

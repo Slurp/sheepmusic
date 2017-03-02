@@ -9,20 +9,22 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- *
+ * A controller to stream a song to someone
  */
 class SongController extends Controller
 {
     /**
      * @Route("/play/{song}", name="song_play")
-     * @param SongEntity  $song
+     * @param SongEntity $song
      * @param Request $request
+     *
      * @return Response
      */
     public function playAction(SongEntity $song, Request $request)
     {
-        $streamer = $this->get('black_sheep_music_library.services.streamer_service');
-
-        return $streamer->getStreamerForSong($song, $request->get('time', 0));
+        return $this->get('black_sheep_music_library.services.streamer_service')->getStreamerForSong(
+            $song,
+            $request->get('time', 0)
+        );
     }
 }

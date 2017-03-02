@@ -70,7 +70,7 @@ class SongEntity extends Song implements SongInterface
     protected $artists;
 
     /**
-     *
+     * Compose a song (pun intented)
      */
     public function __construct()
     {
