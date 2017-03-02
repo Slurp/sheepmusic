@@ -10,7 +10,7 @@ class DefaultStreamer extends AbstractStreamer implements AudioStreamInterface
     {
         $response = new Response();
 
-        $contentType = 'audio/'.pathinfo($this->song->getPath(), PATHINFO_EXTENSION);
+        $contentType = 'audio/' . pathinfo($this->song->getPath(), PATHINFO_EXTENSION);
 
         $response->headers->set('X-Sendfile', $this->song->getPath());
         $response->headers->set(

@@ -12,6 +12,7 @@ class ApiSongData extends AbstractApiData
 {
     /**
      * {@inheritdoc}
+     * @param \BlackSheep\MusicLibraryBundle\Model\SongInterface $object
      */
     public function getApiData($object)
     {

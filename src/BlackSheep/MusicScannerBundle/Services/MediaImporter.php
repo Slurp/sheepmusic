@@ -160,9 +160,9 @@ class MediaImporter
             $songEntity = $this->songsRepository->needsImporting($songInfo);
             if ($songEntity === null || $songInfo['artist'] === '') {
                 $this->importSong($songInfo);
-                $this->debugStep('ADDING', $songInfo['artist'].' '.$songInfo['album'].$file->getGroup());
+                $this->debugStep('ADDING', $songInfo['artist'] . ' ' . $songInfo['album'] . $file->getGroup());
             } else {
-                $this->debugStep('SKIPPING', $songInfo['artist'].' '.$songInfo['album']);
+                $this->debugStep('SKIPPING', $songInfo['artist'] . ' ' . $songInfo['album']);
             }
         }
         $this->entityManager->flush();
@@ -230,7 +230,7 @@ class MediaImporter
     protected function debugStep($operation, $info)
     {
         if ($this->progress !== null) {
-            $this->progress->setMessage("\n".$operation);
+            $this->progress->setMessage("\n" . $operation);
             $this->progress->setMessage($info, 'filename');
             $this->progress->advance();
         }
@@ -243,7 +243,7 @@ class MediaImporter
         }
         if ($this->output !== null) {
             $event = $this->stopwatch->stop('import_music');
-            $this->output->writeln($event->getDuration() / 100 .'S');
+            $this->output->writeln($event->getDuration() / 100 . 'S');
         }
     }
 

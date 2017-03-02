@@ -21,12 +21,12 @@ class BlackSheepMusicLibraryExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
+        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
         $loader->load('services_lastfm.yml');
 
         foreach (array('ffmpeg_path', 'bitrate', 'binary_timeout', 'threads_count', 'last_fm_api_key') as $attribute) {
-            $container->setParameter('black_sheep_music_library.'.$attribute, $config[$attribute]);
+            $container->setParameter('black_sheep_music_library.' . $attribute, $config[$attribute]);
         }
     }
 }
