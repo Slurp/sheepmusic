@@ -90,7 +90,7 @@ class MediaImporter
     protected $lastFmAlbum;
 
     /**
-     * @param $path
+     * @param string $path
      */
     public function __construct($path)
     {
@@ -126,7 +126,7 @@ class MediaImporter
     }
 
     /**
-     * @param $max
+     * @param integer $max
      */
     protected function setupProgressBar($max)
     {
@@ -224,8 +224,8 @@ class MediaImporter
     }
 
     /**
-     * @param $operation
-     * @param $info
+     * @param string $operation
+     * @param string $info
      */
     protected function debugStep($operation, $info)
     {
@@ -252,7 +252,7 @@ class MediaImporter
      *
      * @param string $path The directory's full path
      *
-     * @return array An array of SplFileInfo objects
+     * @return Finder An array of SplFileInfo objects
      */
     public function gatherFiles($path)
     {

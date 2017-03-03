@@ -92,7 +92,7 @@ interface SongInterface extends ApiInterface
     public function getPlayCount();
 
     /**
-     * @param mixed $playCount
+     * @param integer $playCount
      *
      * @return SongInterface
      */

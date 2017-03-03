@@ -6,7 +6,7 @@ class HeaderBuilder
 {
     /**
      * @param $filename
-     * @param $size
+     * @param double $size
      */
     public static function putHeader($filename, $size)
     {
