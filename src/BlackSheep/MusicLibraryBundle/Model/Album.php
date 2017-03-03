@@ -73,7 +73,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSlug()
     {
@@ -81,7 +81,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
