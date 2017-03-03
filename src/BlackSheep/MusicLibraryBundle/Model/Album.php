@@ -104,7 +104,7 @@ class Album implements AlbumInterface
     public function getCover()
     {
         if (strpos($this->cover, 'http') !== 0) {
-            return $this->getUploadDirectory() . $this->cover;
+            return $this->getUploadDirectory().$this->cover;
         }
 
         return $this->cover;
@@ -145,8 +145,8 @@ class Album implements AlbumInterface
     private function writeCoverFile($binaryData, $extension)
     {
         $extension = trim(strtolower($extension), '. ');
-        $fileName = uniqid() . ".$extension";
-        $coverPath = $this->getUploadRootDirectory() . $fileName;
+        $fileName = uniqid().".$extension";
+        $coverPath = $this->getUploadRootDirectory().$fileName;
         $fs = new Filesystem();
         $fs->dumpFile($coverPath, $binaryData);
 
@@ -158,7 +158,7 @@ class Album implements AlbumInterface
      */
     public function getUploadRootDirectory()
     {
-        return $this->getWebDirectory() . $this->getUploadDirectory();
+        return $this->getWebDirectory().$this->getUploadDirectory();
     }
 
     /**
@@ -166,7 +166,7 @@ class Album implements AlbumInterface
      */
     public function getWebDirectory()
     {
-        return __DIR__ . '/../../../../web';
+        return __DIR__.'/../../../../web';
     }
 
     /**
@@ -174,7 +174,7 @@ class Album implements AlbumInterface
      */
     public function getUploadDirectory()
     {
-        return '/uploads/' . $this->getArtist()->getSlug() . '/';
+        return '/uploads/'.$this->getArtist()->getSlug().'/';
     }
 
     /**

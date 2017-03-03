@@ -16,7 +16,7 @@ class FfmpegArgumentBuilder
     public static function getArguments($path, $startTime, $bitRate)
     {
         $args = [
-            '-i ' . escapeshellarg($path),
+            '-i '.escapeshellarg($path),
             '-map 0:0',
             '-v 0',
             "-b:a {$bitRate}k",

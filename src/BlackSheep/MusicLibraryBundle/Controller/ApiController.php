@@ -5,7 +5,6 @@ namespace BlackSheep\MusicLibraryBundle\Controller;
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
-use BlackSheep\MusicLibraryBundle\EventListener\SongEventListener;
 use BlackSheep\MusicLibraryBundle\Events\SongEvent;
 use BlackSheep\MusicLibraryBundle\Events\SongEventInterface;
 use FOS\RestBundle\Controller\Annotations\Route;
@@ -85,6 +84,7 @@ class ApiController extends FOSRestController
 
         return $this->handleView($view);
     }
+
     /**
      * @Route("/played/{song}", options={"expose"=true})
      *
@@ -96,6 +96,7 @@ class ApiController extends FOSRestController
     {
         $event = new SongEvent($song);
         $this->get('event_dispatcher')->dispatch(SongEventInterface::SONG_EVENT_PLAYED, $event);
+
         return $this->handleView($this->view(['played' => $song->getPlayCount()]));
     }
 
