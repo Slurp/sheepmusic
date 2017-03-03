@@ -109,6 +109,12 @@ class TagHelper
         }
     }
 
+    /**
+     * @param $props
+     * @param $tags
+     * @param $propertyName
+     * @param $tagName
+     */
     private function getPropertyForTag(&$props, $tags, $propertyName, $tagName)
     {
         if (isset($tags[$tagName]) && empty($tags[$tagName]) === false) {
