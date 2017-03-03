@@ -7,7 +7,7 @@ use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
 /**
  * Interface SongsRepositoryInterface.
  */
-interface SongsRepositoryInterface
+interface SongsRepositoryInterface extends AbstractRepositoryInterface
 {
     /**
      * @param $songInfo

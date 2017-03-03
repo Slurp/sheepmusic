@@ -8,7 +8,7 @@ use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 /**
  * Interface ArtistRepositoryInterface.
  */
-interface ArtistRepositoryInterface
+interface ArtistRepositoryInterface extends AbstractRepositoryInterface
 {
     /**
      * @param      $artistName
@@ -17,13 +17,6 @@ interface ArtistRepositoryInterface
      * @return ArtistsEntity|null
      */
     public function addOrUpdate($artistName, $musicBrainzId = null);
-
-    /**
-     * @param ArtistsEntity $artistEntity
-     *
-     * @return ArtistsEntity
-     */
-    public function save(ArtistsEntity $artistEntity);
 
     /**
      * @param $artistName

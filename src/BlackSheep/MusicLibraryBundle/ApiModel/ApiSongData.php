@@ -12,7 +12,6 @@ class ApiSongData extends AbstractApiData
 {
     /**
      * {@inheritdoc}
-     * @param \BlackSheep\MusicLibraryBundle\Model\SongInterface $object
      */
     public function getApiData($object)
     {
@@ -21,6 +20,10 @@ class ApiSongData extends AbstractApiData
                 'track' => $object->getTrack(),
                 'title' => $object->getTitle(),
                 'src' => $this->router->generate('song_play', ['song' => $object->getId()]),
+                'events' =>
+                    [
+                        'played' => $this->router->generate('post_played_song', ['song' => $object->getId()])
+                    ]
             ];
             if ($object->getArtist() instanceof ApiInterface) {
                 $apiData['artist'] = $object->getArtist()->getApiData();

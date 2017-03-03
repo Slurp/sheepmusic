@@ -12,8 +12,12 @@ export default class Song extends HttpClient {
       this.apiData = $apiData;
       this.src = $apiData.src;
     }
-
   };
+
+  played()
+  {
+    jQuery.post(this.apiData.events.played);
+  }
 
   getInfo()
   {

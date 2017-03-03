@@ -8,7 +8,7 @@ use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
 /**
  * Interface AlbumsRepositoryInterface.
  */
-interface AlbumsRepositoryInterface
+interface AlbumsRepositoryInterface extends AbstractRepositoryInterface
 {
     /**
      * @param ArtistsEntity $artists

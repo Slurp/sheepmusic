@@ -1,7 +1,9 @@
 services:
-#    black_sheep_music_library.example:
-#        class: BlackSheep\MusicLibraryBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    black_sheep_music_library.song_event_subscriber:
+        class: BlackSheep\MusicLibraryBundle\EventListener\SongEventSubscriber
+        arguments: ['@black_sheep_music_library.repository.songs_repository']
+        tags:
+            - { name: kernel.event_subscriber }
     black_sheep_music_library.services.streamer_service:
         class: BlackSheep\MusicLibraryBundle\Services\StreamerService
         arguments: ["%black_sheep_music_library.ffmpeg_path%", "%black_sheep_music_library.bitrate%"]

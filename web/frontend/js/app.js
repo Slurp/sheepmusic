@@ -203,9 +203,22 @@
 	      var _this3 = this;
 
 	      /**
+	       * Listen to 'error' event on the audio player and play the next song if any.
+	       */
+	      document.querySelector('.plyr').addEventListener('error', function () {
+	        return _this3.playNext();
+	      }, true);
+
+	      /**
 	       * Listen to 'ended' event on the audio player and play the next song in the queue.
 	       */
-	      document.querySelector('.plyr').addEventListener('ended', function () {
+	      document.querySelector('.plyr').addEventListener('ended', function (e) {
+	        _this3.currentSong.played();
+	        //if (preferences.repeatMode === 'REPEAT_ONE') {
+	        //  this.restart()
+	        //  return
+	        //}
+
 	        _this3.playNext();
 	      });
 	    }
@@ -16001,11 +16014,15 @@
 	      _this.apiData = $apiData;
 	      _this.src = $apiData.src;
 	    }
-
 	    return _this;
 	  }
 
 	  (0, _createClass3.default)(Song, [{
+	    key: 'played',
+	    value: function played() {
+	      _jquery2.default.post(this.apiData.events.played);
+	    }
+	  }, {
 	    key: 'getInfo',
 	    value: function getInfo() {
 	      var _this2 = this;
