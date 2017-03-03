@@ -7,7 +7,7 @@ use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 /**
  * Generates a array for the API.
  */
-class ApiArtistData extends ApiAlbumData
+class ApiArtistData extends ApiAlbumData implements ApiData
 {
     /**
      * {@inheritdoc}

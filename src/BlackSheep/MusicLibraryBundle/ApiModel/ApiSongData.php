@@ -3,19 +3,19 @@
 namespace BlackSheep\MusicLibraryBundle\ApiModel;
 
 use BlackSheep\MusicLibraryBundle\Model\ApiInterface;
-use BlackSheep\MusicLibraryBundle\Model\Song;
+use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 
 /**
  * Generates a array for the API.
  */
-class ApiSongData extends AbstractApiData
+class ApiSongData extends AbstractApiData implements ApiData
 {
     /**
      * {@inheritdoc}
      */
     public function getApiData($object)
     {
-        if ($object instanceof Song) {
+        if ($object instanceof SongInterface) {
             $apiData = [
                 'track' => $object->getTrack(),
                 'title' => $object->getTitle(),

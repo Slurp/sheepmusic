@@ -7,7 +7,7 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * A Abstract Class to define the router.
  */
-abstract class AbstractApiData implements ApiData
+abstract class AbstractApiData
 {
     /**
      * @var RouterInterface
