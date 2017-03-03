@@ -13,8 +13,8 @@ class TranscodedSizeEstimator
     const BITS_PER_BYTE = 8;
 
     /**
-     * @param $length
-     * @param $kbps
+     * @param float $length
+     * @param integer $kbps
      *
      * @return float
      */
@@ -24,10 +24,10 @@ class TranscodedSizeEstimator
     }
 
     /**
-     * @param $length
-     * @param $kbps
+     * @param float $length
+     * @param integer $kbps
      *
-     * @return mixed
+     * @return float
      */
     private static function estimatedBits($length, $kbps)
     {

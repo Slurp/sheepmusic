@@ -77,12 +77,6 @@ services:
     tags:
       - { name: twig.extension }
 
-stof_doctrine_extensions:
-    default_locale: en
-    translation_fallback: true
-    orm:
-        default:
-            timestampable: true
 # Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"

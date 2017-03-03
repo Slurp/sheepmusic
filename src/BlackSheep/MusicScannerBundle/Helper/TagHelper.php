@@ -38,13 +38,11 @@ class TagHelper
      */
     public function getInfo(SplFileInfo $file)
     {
-        $info = null;
         $info = $this->getID3->analyze($file->getPathname());
 
         if (isset($info['error'])) {
             return null;
         }
-
         // Copy the available tags over to comment.
         // This is a helper from getID3, though it doesn't really work well.
         // We'll still prefer getting ID3v2 tags directly later.

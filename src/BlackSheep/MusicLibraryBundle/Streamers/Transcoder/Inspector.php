@@ -7,7 +7,7 @@ class Inspector
     /**
      * @param $file
      *
-     * @return null|float
+     * @return float
      */
     public static function getLength($file)
     {
@@ -16,7 +16,7 @@ class Inspector
             return $json->streams[0]->duration;
         }
 
-        return null;
+        return 0.0;
     }
 
     /**
