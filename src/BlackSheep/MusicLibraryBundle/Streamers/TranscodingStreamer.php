@@ -58,7 +58,7 @@ class TranscodingStreamer extends AbstractStreamer implements AudioStreamInterfa
             TranscodedSizeEstimator::estimatedBytes($length, $this->bitrate)
         );
         passthru(
-            "$this->ffmpeg " . FfmpegArgumentBuilder::getArguments($this->song->getPath(), $this->startTime, $bitRate)
+            "$this->ffmpeg ".FfmpegArgumentBuilder::getArguments($this->song->getPath(), $this->startTime, $bitRate)
         );
     }
 }

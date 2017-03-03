@@ -14,7 +14,7 @@ class TranscodedSizeEstimator
 
     /**
      * @param $length
-     * @param integer $kbps
+     * @param int $kbps
      *
      * @return float
      */

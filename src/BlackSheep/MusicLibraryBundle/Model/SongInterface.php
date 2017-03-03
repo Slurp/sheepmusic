@@ -39,7 +39,7 @@ interface SongInterface extends ApiInterface
     public function setTitle($title);
 
     /**
-     * @return integer
+     * @return int
      */
     public function getLength();
 
@@ -51,7 +51,7 @@ interface SongInterface extends ApiInterface
     public function setLength($length);
 
     /**
-     * @return integer
+     * @return int
      */
     public function getMTime();
 
@@ -87,12 +87,12 @@ interface SongInterface extends ApiInterface
     public function setAlbum(AlbumInterface $album = null);
 
     /**
-     * @return integer
+     * @return int
      */
     public function getPlayCount();
 
     /**
-     * @param integer $playCount
+     * @param int $playCount
      *
      * @return SongInterface
      */

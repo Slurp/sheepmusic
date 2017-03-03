@@ -85,6 +85,7 @@ class TagHelper
         }
         $this->getPropsForTags($info, $props);
         unset($info);
+
         return $props;
     }
 
