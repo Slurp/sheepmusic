@@ -79,6 +79,7 @@ class AlbumEntity extends Album implements AlbumInterface
 
     /**
      * {@inheritdoc}
+     *
      * @param ArtistsEntity $artist
      */
     public static function createArtistAlbum($name, $artist, $extraInfo)

@@ -7,7 +7,7 @@ use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
 
 /**
- * SongsRepository
+ * SongsRepository.
  */
 class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInterface
 {

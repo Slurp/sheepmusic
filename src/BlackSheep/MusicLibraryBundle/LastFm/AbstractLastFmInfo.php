@@ -48,6 +48,7 @@ abstract class AbstractLastFmInfo implements LastFmInfo
             if ($lastFmInterface->getMusicBrainzId() !== null) {
                 $lastFmInterface->setMusicBrainzId($lastFmInfo['mbid']);
             }
+
             return $lastFmInfo;
         } catch (ConnectionException $connectionException) {
         } catch (ApiFailedException $apiFailedException) {

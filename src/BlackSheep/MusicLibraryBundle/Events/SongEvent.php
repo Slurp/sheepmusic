@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Events;
 
 use BlackSheep\MusicLibraryBundle\Model\SongInterface;
@@ -18,7 +19,7 @@ class SongEvent extends Event implements SongEventInterface
 
     /**
      * @param SongInterface $song
-     * @param null $value
+     * @param null          $value
      */
     public function __construct(SongInterface $song, $value = null)
     {
