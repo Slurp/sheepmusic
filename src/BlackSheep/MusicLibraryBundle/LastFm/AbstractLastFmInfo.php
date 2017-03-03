@@ -10,7 +10,7 @@ use LastFmApi\Exception\ConnectionException;
 /**
  * LastFm API wrapper for the music.
  */
-abstract class AbstractLastFmInfo
+abstract class AbstractLastFmInfo implements LastFmInfo
 {
     /**
      * @var AuthApi
@@ -50,9 +50,7 @@ abstract class AbstractLastFmInfo
             }
             return $lastFmInfo;
         } catch (ConnectionException $connectionException) {
-            var_dump($connectionException->getMessage());
         } catch (ApiFailedException $apiFailedException) {
-            var_dump($apiFailedException->getMessage());
         }
 
         return null;
