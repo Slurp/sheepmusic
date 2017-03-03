@@ -84,9 +84,7 @@ class TagHelper
             $this->getPropsForTags($info, $props, $tagName);
         }
         $this->getPropsForTags($info, $props);
-
         unset($info);
-
         return $props;
     }
 
@@ -98,31 +96,23 @@ class TagHelper
     private function getPropsForTags(&$info, &$props, $tagName = 'id3v2')
     {
         if (isset($info['tags'][$tagName])) {
-            $id3v2Tags = $info['tags'][$tagName];
-            if (isset($id3v2Tags['artist'][0])) {
-                $props['artist'] = trim($id3v2Tags['artist'][0]);
-            }
-            if (isset($id3v2Tags['album'][0])) {
-                $props['album'] = trim($id3v2Tags['album'][0]);
-            }
-            if (isset($id3v2Tags['title'][0])) {
-                $props['title'] = trim($title = $id3v2Tags['title'][0]);
-            }
-            if (isset($id3v2Tags['unsynchronised_lyric'][0])) {
-                $props['lyrics'] = ($id3v2Tags['unsynchronised_lyric'][0]);
-            }
-            if (isset($id3v2Tags['text']['MusicBrainz Album Artist Id'])) {
-                $props['artist_mbid'] = $id3v2Tags['text']['MusicBrainz Album Artist Id'];
-            }
-            if (isset($id3v2Tags['text']['MusicBrainz Album Id'])) {
-                $props['album_mbid'] = $id3v2Tags['text']['MusicBrainz Album Id'];
-            }
-            if (isset($id3v2Tags['musicbrainz_artistid'])) {
-                $props['artist_mbid'] = $id3v2Tags['musicbrainz_artistid'];
-            }
-            if (isset($id3v2Tags['musicbrainz_albumid'])) {
-                $props['album_mbid'] = $id3v2Tags['musicbrainz_albumid'];
-            }
+            $tags = $info['tags'][$tagName];
+            $this->getPropertyForTag($props, $tags['artist'], 'artist', 0);
+            $this->getPropertyForTag($props, $tags['album'], 'album', 0);
+            $this->getPropertyForTag($props, $tags['title'], 'title', 0);
+            $this->getPropertyForTag($props, $tags['title'], 'title', 0);
+            $this->getPropertyForTag($props, $tags['unsynchronised_lyric'], 'unsynchronised_lyric', 0);
+            $this->getPropertyForTag($props, $tags['text'], 'artist_mbid', 'MusicBrainz Album Artist Id');
+            $this->getPropertyForTag($props, $tags['text'], 'album_mbid', 'MusicBrainz Album Id');
+            $this->getPropertyForTag($props, $tags, 'artist_mbid', 'musicbrainz_artistid');
+            $this->getPropertyForTag($props, $tags, 'album_mbid', 'musicbrainz_albumid');
+        }
+    }
+
+    private function getPropertyForTag(&$props, $tags, $propertyName, $tagName)
+    {
+        if (isset($tags[$tagName]) && empty($tags[$tagName]) === false) {
+            $props[$propertyName] = trim($tags[$tagName]);
         }
     }
 
