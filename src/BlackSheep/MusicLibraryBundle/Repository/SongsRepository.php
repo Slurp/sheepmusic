@@ -3,7 +3,6 @@
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
-use Doctrine\ORM\EntityRepository;
 
 /**
  * SongsRepository.
