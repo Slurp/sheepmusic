@@ -75,7 +75,7 @@ class SheepUser extends BaseUser
     }
 
     /**
-     * @param mixed $lastFmUserName
+     * @param string $lastFmUserName
      *
      * @return SheepUser
      */
@@ -95,7 +95,7 @@ class SheepUser extends BaseUser
     }
 
     /**
-     * @param mixed $lastFmKey
+     * @param string $lastFmKey
      *
      * @return SheepUser
      */
@@ -115,7 +115,7 @@ class SheepUser extends BaseUser
     }
 
     /**
-     * @param mixed $lastFmSubscriber
+     * @param boolean $lastFmSubscriber
      *
      * @return SheepUser
      */
