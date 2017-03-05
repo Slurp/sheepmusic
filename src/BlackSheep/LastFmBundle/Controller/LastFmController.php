@@ -42,7 +42,7 @@ class LastFmController extends Controller
             $request->getSession()
                 ->getFlashBag()
                 ->add('error', $e->getMessage());
-           return $this->redirectToRoute('black_sheep_last_fm_homepage');
+            return $this->redirectToRoute('black_sheep_last_fm_homepage');
         }
     }
 }
