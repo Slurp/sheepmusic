@@ -1,10 +1,16 @@
 services:
     black_sheep.last_fm.last_fm_album_info:
         class: BlackSheep\LastFmBundle\Info\LastFmAlbumInfo
-        arguments: ['%black_sheep_music_library.last_fm_api_key%','%black_sheep_music_library.last_fm_api_secret%',"@security.token_storage"]
+        arguments:
+            - '%black_sheep_music_library.last_fm_api_key%'
+            - '%black_sheep_music_library.last_fm_api_secret%'
+            - "@security.token_storage"
     black_sheep.last_fm.last_fm_artist_info:
         class: BlackSheep\LastFmBundle\Info\LastFmArtistInfo
         arguments: ['%black_sheep_music_library.last_fm_api_key%','%black_sheep_music_library.last_fm_api_secret%']
     black_sheep.last_fm.auth:
         class: BlackSheep\LastFmBundle\Auth\LastFmAuth
-        arguments: ['%black_sheep_music_library.last_fm_api_key%','%black_sheep_music_library.last_fm_api_secret%']
+        arguments:
+            - '%black_sheep_music_library.last_fm_api_key%'
+            - '%black_sheep_music_library.last_fm_api_secret%'
+            - "@doctrine.orm.default_entity_manager"

@@ -3,7 +3,9 @@
 namespace BlackSheep\LastFmBundle\Auth;
 
 use BlackSheep\UserBundle\Entity\SheepUser;
+use Doctrine\ORM\EntityManager;
 use LastFmApi\Api\AuthApi;
+use LastFmApi\Exception\ApiFailedException;
 
 /**
  * LastFm auth
@@ -18,21 +20,28 @@ class LastFmAuth
     /**
      * @var string
      */
-    private $apiKey;
+    protected $apiKey;
 
     /**
      * @var string
      */
-    private $apiSecret;
+    protected $apiSecret;
+
+    /**
+     * @var EntityManager
+     */
+    private $entityManager;
 
     /**
      * @param string $apiKey
      * @param string $apiSecret
+     * @param EntityManager $entityManager
      */
-    public function __construct($apiKey, $apiSecret)
+    public function __construct($apiKey, $apiSecret, EntityManager $entityManager)
     {
         $this->apiKey = $apiKey;
         $this->apiSecret = $apiSecret;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -43,28 +52,61 @@ class LastFmAuth
         return $this->apiKey;
     }
 
-    public function getToken()
+    /**
+     * @param SheepUser $user
+     *
+     * @return array
+     */
+    public function tokenForUser(SheepUser $user)
     {
-        $authArray = ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret];
-        $auth = new AuthApi('gettoken', $authArray);
-        return $auth->token->__toString();
-    }
+        $auth = new AuthApi(
+            'gettoken',
+            ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret]
+        );
+        $user->setLastFmToken($auth->token->__toString());
+        $this->entityManager->flush($user);
 
-    public function getSession(SheepUser $user)
-    {
-        $authArray = ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret];
-        $authArray['token'] = $user->getLastFmToken();
-        $auth = new AuthApi('getsession', $authArray);
-        $user->setLastFmKey($auth->sessionKey);
-        $user->setLastFmUserName($auth->username);
-        $user->setLastFmSubscriber($auth->subscriber);
+        return [
+            'token' => $user->getLastFmToken(),
+            'key' => $this->getApiKey()
+        ];
     }
 
     /**
-     * @return AuthApi
+     * @param SheepUser $user
+     *
+     * @throws ApiFailedException
+     * @throws \Exception
      */
-    protected function getAuth()
+    public function sessionForUser(SheepUser $user)
     {
-        return $this->auth;
+        $authArray = ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret];
+        $authArray['token'] = $user->getLastFmToken();
+        try {
+            $auth = new AuthApi('getsession', $authArray);
+            if ($auth === false) {
+                $this->resetLastFmUser($user);
+                throw new \Exception('NOOOOO!!! Something has failed us');
+            }
+            $user->setLastFmKey($auth->sessionKey);
+            $user->setLastFmUserName($auth->username);
+            $user->setLastFmSubscriber($auth->subscriber);
+            $this->entityManager->flush($user);
+        } catch (ApiFailedException $exception) {
+            $this->resetLastFmUser($user);
+            throw $exception;
+        }
+    }
+
+    /**
+     * @param SheepUser $user
+     */
+    private function resetLastFmUser(SheepUser $user)
+    {
+        $user->setLastFmKey('');
+        $user->setLastFmUserName('');
+        $user->setLastFmSubscriber('');
+        $user->setLastFmToken('');
+        $this->entityManager->flush($user);
     }
 }
