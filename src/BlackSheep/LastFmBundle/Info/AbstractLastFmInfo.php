@@ -1,11 +1,14 @@
 <?php
 
-namespace BlackSheep\MusicLibraryBundle\LastFm;
+namespace BlackSheep\LastFmBundle\Info;
 
+use BlackSheep\MusicLibraryBundle\LastFm\LastFmInterface;
+use BlackSheep\UserBundle\Entity\SheepUser;
 use LastFmApi\Api\AuthApi;
 use LastFmApi\Api\BaseApi;
 use LastFmApi\Exception\ApiFailedException;
 use LastFmApi\Exception\ConnectionException;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * LastFm API wrapper for the music.
@@ -19,10 +22,19 @@ abstract class AbstractLastFmInfo implements LastFmInfo
 
     /**
      * @param string $apiKey
+     * @param string $apiSecret
+     * @param TokenStorageInterface $tokenStorage
      */
-    public function __construct($apiKey)
+    public function __construct($apiKey, $apiSecret, TokenStorageInterface $tokenStorage)
     {
-        $this->auth = new AuthApi('setsession', ['apiKey' => $apiKey]);
+        /** @var SheepUser $user */
+        $user = $tokenStorage->getToken()->getUser();
+        $authArray = ['apiKey' => $apiKey, 'apiSecret' => $apiSecret];
+        $authArray['token'] = $user->getLastFmToken();
+        $authArray['username'] = $user->getLastFmUserName();
+        $authArray['sessionKey'] = $user->getLastFmKey();
+        $authArray['subscriber'] = $user->getLastFmSubscriber();
+        $this->auth = new AuthApi('setsession', $authArray);
     }
 
     /**
@@ -48,6 +60,7 @@ abstract class AbstractLastFmInfo implements LastFmInfo
             if ($lastFmInterface->getMusicBrainzId() !== null) {
                 $lastFmInterface->setMusicBrainzId($lastFmInfo['mbid']);
             }
+
             return $lastFmInfo;
         } catch (ConnectionException $connectionException) {
         } catch (ApiFailedException $apiFailedException) {

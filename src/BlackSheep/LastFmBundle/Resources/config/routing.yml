@@ -1,0 +1,3 @@
+black_sheep_last_fm_homepage:
+    path:     /
+    defaults: { _controller: BlackSheepLastFmBundle:LastFm:index }

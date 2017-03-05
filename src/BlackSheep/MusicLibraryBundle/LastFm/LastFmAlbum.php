@@ -2,6 +2,7 @@
 
 namespace BlackSheep\MusicLibraryBundle\LastFm;
 
+use BlackSheep\LastFmBundle\Info\LastFmAlbumInfo;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
 use DateTime;
 
@@ -58,6 +59,7 @@ class LastFmAlbum implements LastFmAlbumInterface
             $this->album = $album;
             $lastFmInfo = $this->lastFmAlbumInfo->getInfo($this);
             if ($lastFmInfo !== null) {
+                $album->setCover($lastFmInfo['image']['large']);
                 $album->setLastFmId($lastFmInfo['lastfmid']);
                 $album->setLastFmUrl($lastFmInfo['url']);
                 $album->setReleaseDate(new DateTime($lastFmInfo['releasedate']));

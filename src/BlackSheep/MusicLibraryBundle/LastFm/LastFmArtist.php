@@ -2,6 +2,7 @@
 
 namespace BlackSheep\MusicLibraryBundle\LastFm;
 
+use BlackSheep\LastFmBundle\Info\LastFmArtistInfo;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 
 /**

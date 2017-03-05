@@ -2,10 +2,10 @@
 
 namespace BlackSheep\MusicLibraryBundle\DependencyInjection;
 
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
+use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -25,8 +25,15 @@ class BlackSheepMusicLibraryExtension extends Extension
         $loader->load('services.yml');
         $loader->load('services_repositories.yml');
         $loader->load('services_lastfm.yml');
-
-        foreach (array('ffmpeg_path', 'bitrate', 'binary_timeout', 'threads_count', 'last_fm_api_key') as $attribute) {
+        $parameters = [
+            'ffmpeg_path',
+            'bitrate',
+            'binary_timeout',
+            'threads_count',
+            'last_fm_api_key',
+            'last_fm_api_secret'
+        ];
+        foreach ($parameters as $attribute) {
             $container->setParameter('black_sheep_music_library.' . $attribute, $config[$attribute]);
         }
     }

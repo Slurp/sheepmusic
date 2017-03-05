@@ -1,6 +1,8 @@
 <?php
 
-namespace BlackSheep\MusicLibraryBundle\LastFm;
+namespace BlackSheep\LastFmBundle\Info;
+
+use BlackSheep\MusicLibraryBundle\LastFm\LastFmInterface;
 
 /**
  * Interface LastFmInfo.

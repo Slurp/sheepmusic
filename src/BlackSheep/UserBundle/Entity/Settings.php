@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace BlackSheep\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

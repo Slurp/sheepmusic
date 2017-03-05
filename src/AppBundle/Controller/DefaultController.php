@@ -48,6 +48,8 @@ class DefaultController extends Controller
      */
     public function artistDetailAction(ArtistsEntity $artist)
     {
+        $this->get('black_sheep_music_library.last_fm.last_fm_artist')->updateLastFmInfo($artist);
+
         return $this->render('AppBundle:Default:artist.html.twig', ['artist' => $artist]);
     }
 
@@ -89,6 +91,8 @@ class DefaultController extends Controller
      */
     public function albumDetailAction(AlbumEntity $album)
     {
+        $this->get('black_sheep_music_library.last_fm.last_fm_album')->updateLastFmInfo($album);
+        $this->get('doctrine.orm.default_entity_manager')->flush($album);
         return $this->render(
             'AppBundle:Default:album.html.twig',
             ['artist' => $album->getArtist(), 'album' => $album]

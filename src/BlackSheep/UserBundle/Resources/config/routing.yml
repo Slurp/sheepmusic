@@ -1,0 +1,3 @@
+black_sheep_user_homepage:
+    path:     /
+    defaults: { _controller: BlackSheepUserBundle:Default:index }

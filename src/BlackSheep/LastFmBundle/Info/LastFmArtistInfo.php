@@ -1,6 +1,6 @@
 <?php
 
-namespace BlackSheep\MusicLibraryBundle\LastFm;
+namespace BlackSheep\LastFmBundle\Info;
 
 use LastFmApi\Api\ArtistApi;
 

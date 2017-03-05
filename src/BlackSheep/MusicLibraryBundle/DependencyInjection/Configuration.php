@@ -21,6 +21,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->scalarNode('last_fm_api_secret')->defaultValue('')->end()
                 ->scalarNode('last_fm_api_key')->defaultValue('')->end()
                 ->scalarNode('ffmpeg_path')->defaultValue('/usr/local/bin/ffmpeg')->end()
                 ->scalarNode('bitrate')->defaultValue(320)->end()
