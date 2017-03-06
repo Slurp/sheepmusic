@@ -2,6 +2,8 @@
 
 namespace BlackSheep\UserBundle\Entity;
 
+use BlackSheep\LastFmBundle\Entity\Embeddable\LastFmUser;
+use BlackSheep\LastFmBundle\Entity\LastFmUserEmbed;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 
@@ -9,7 +11,7 @@ use FOS\UserBundle\Model\User as BaseUser;
  * @ORM\Entity
  * @ORM\Table(name="sheep_users")
  */
-class SheepUser extends BaseUser
+class SheepUser extends BaseUser implements LastFmUserEmbed
 {
     /**
      * @ORM\Id
@@ -19,24 +21,10 @@ class SheepUser extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @var LastFmUser $lastFm
+     * @ORM\Embedded(class = "BlackSheep\LastFmBundle\Entity\Embeddable\LastFmUserEmbeddable",columnPrefix = false)
      */
-    protected $lastFmToken;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $lastFmUserName;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $lastFmKey;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $lastFmSubscriber;
+    protected $lastFm;
 
     /**
      */
@@ -47,94 +35,22 @@ class SheepUser extends BaseUser
     }
 
     /**
-     * @return mixed
+     * @return LastFmUser
      */
-    public function getLastFmToken()
+    public function getLastFm()
     {
-        return $this->lastFmToken;
+        return $this->lastFm;
     }
 
     /**
-     * @param mixed $lastFmToken
+     * @param LastFmUser $lastFm
      *
      * @return SheepUser
      */
-    public function setLastFmToken($lastFmToken)
+    public function setLastFm(LastFmUser $lastFm)
     {
-        $this->lastFmToken = $lastFmToken;
+        $this->lastFm = $lastFm;
 
         return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastFmUserName()
-    {
-        return $this->lastFmUserName;
-    }
-
-    /**
-     * @param string $lastFmUserName
-     *
-     * @return SheepUser
-     */
-    public function setLastFmUserName($lastFmUserName)
-    {
-        $this->lastFmUserName = $lastFmUserName;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastFmKey()
-    {
-        return $this->lastFmKey;
-    }
-
-    /**
-     * @param string $lastFmKey
-     *
-     * @return SheepUser
-     */
-    public function setLastFmKey($lastFmKey)
-    {
-        $this->lastFmKey = $lastFmKey;
-
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLastFmSubscriber()
-    {
-        return $this->lastFmSubscriber;
-    }
-
-    /**
-     * @param boolean $lastFmSubscriber
-     *
-     * @return SheepUser
-     */
-    public function setLastFmSubscriber($lastFmSubscriber)
-    {
-        $this->lastFmSubscriber = $lastFmSubscriber;
-
-        return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasLastFm()
-    {
-        if ($this->getLastFmUserName() !== '') {
-            return true;
-        }
-
-        return false;
     }
 }

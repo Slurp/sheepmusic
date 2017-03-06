@@ -2,7 +2,7 @@
 
 namespace BlackSheep\LastFmBundle\Auth;
 
-use BlackSheep\UserBundle\Entity\SheepUser;
+use BlackSheep\LastFmBundle\Entity\LastFmUserEmbed;
 use Doctrine\ORM\EntityManager;
 use LastFmApi\Api\AuthApi;
 use LastFmApi\Exception\ApiFailedException;
@@ -53,44 +53,44 @@ class LastFmAuth
     }
 
     /**
-     * @param SheepUser $user
+     * @param LastFmUserEmbed $user
      *
      * @return array
      */
-    public function tokenForUser(SheepUser $user)
+    public function tokenForUser(LastFmUserEmbed $user)
     {
         $auth = new AuthApi(
             'gettoken',
             ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret]
         );
-        $user->setLastFmToken($auth->token->__toString());
+        $user->getLastFm()->setLastFmToken($auth->token->__toString());
         $this->entityManager->flush($user);
-
+        dump($user->getLastFm());
         return [
-            'token' => $user->getLastFmToken(),
+            'token' => $user->getLastFm()->getLastFmToken(),
             'key' => $this->getApiKey()
         ];
     }
 
     /**
-     * @param SheepUser $user
+     * @param LastFmUserEmbed $user
      *
      * @throws ApiFailedException
      * @throws \Exception
      */
-    public function sessionForUser(SheepUser $user)
+    public function sessionForUser(LastFmUserEmbed $user)
     {
         $authArray = ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret];
-        $authArray['token'] = $user->getLastFmToken();
+        $authArray['token'] = $user->getLastFm()->getLastFmToken();
         try {
             $auth = new AuthApi('getsession', $authArray);
             if ($auth === false) {
                 $this->resetLastFmUser($user);
                 throw new \Exception('NOOOOO!!! Something has failed us');
             }
-            $user->setLastFmKey($auth->sessionKey);
-            $user->setLastFmUserName($auth->username);
-            $user->setLastFmSubscriber($auth->subscriber);
+            $user->getLastFm()->setLastFmKey($auth->sessionKey);
+            $user->getLastFm()->setLastFmUserName($auth->username);
+            $user->getLastFm()->setLastFmSubscriber($auth->subscriber);
             $this->entityManager->flush($user);
         } catch (ApiFailedException $exception) {
             $this->resetLastFmUser($user);
@@ -99,14 +99,15 @@ class LastFmAuth
     }
 
     /**
-     * @param SheepUser $user
+     * @param LastFmUserEmbed $user
      */
-    private function resetLastFmUser(SheepUser $user)
+    private function resetLastFmUser(LastFmUserEmbed $user)
     {
-        $user->setLastFmKey('');
-        $user->setLastFmUserName('');
-        $user->setLastFmSubscriber('');
-        $user->setLastFmToken('');
+        dump($user->getLastFm());
+        $user->getLastFm()->setLastFmKey('');
+        $user->getLastFm()->setLastFmUserName('');
+        $user->getLastFm()->setLastFmSubscriber('');
+        $user->getLastFm()->setLastFmToken('');
         $this->entityManager->flush($user);
     }
 }

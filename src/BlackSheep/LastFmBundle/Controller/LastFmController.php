@@ -2,7 +2,9 @@
 
 namespace BlackSheep\LastFmBundle\Controller;
 
+use BlackSheep\LastFmBundle\Entity\LastFmUserEmbed;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -13,32 +15,44 @@ class LastFmController extends Controller
     /**
      * @param Request $request
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function indexAction(Request $request)
     {
-        $auth = $this->get('black_sheep.last_fm.auth');
-        if ($this->getUser()->getLastFmToken() !== "") {
+        $theUser = $this->getUser();
+        if ($theUser instanceof LastFmUserEmbed) {
+            $auth = $this->get('black_sheep.last_fm.auth');
+            if ($theUser->getLastFm()->getLastFmToken() === "") {
+                return $this->render(
+                    'BlackSheepLastFmBundle:LastFm:index.html.twig',
+                    $auth->tokenForUser($theUser)
+                );
+            }
+            if ($theUser->getLastFm()->hasLastFmConnected() === false) {
+
+                try {
+                    $auth->sessionForUser($theUser);
+                    $request->getSession()
+                        ->getFlashBag()
+                        ->add(
+                            'success',
+                            $this->get('translator')->trans('lastfm.session.success')
+                        );
+
+                    return $this->redirectToRoute('homepage');
+                } catch (\Exception $e) {
+                    $request->getSession()
+                        ->getFlashBag()
+                        ->add('error', $e->getMessage());
+
+                    return $this->redirectToRoute('black_sheep_last_fm_homepage');
+                }
+            }
             return $this->render(
                 'BlackSheepLastFmBundle:LastFm:index.html.twig',
-                $auth->tokenForUser($this->getUser())
+                ['user' => $theUser]
             );
         }
-
-        try {
-            $auth->sessionForUser($this->getUser());
-            $request->getSession()
-                ->getFlashBag()
-                ->add(
-                    'success',
-                    $this->get('translator')->trans('lastfm.session.success')
-                );
-            return $this->redirectToRoute('homepage');
-        } catch (\Exception $e) {
-            $request->getSession()
-                ->getFlashBag()
-                ->add('error', $e->getMessage());
-            return $this->redirectToRoute('black_sheep_last_fm_homepage');
-        }
+        // return $this->redirect('/');
     }
 }

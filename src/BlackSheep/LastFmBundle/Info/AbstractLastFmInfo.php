@@ -2,8 +2,8 @@
 
 namespace BlackSheep\LastFmBundle\Info;
 
+use BlackSheep\LastFmBundle\Entity\LastFmUserEmbed;
 use BlackSheep\MusicLibraryBundle\LastFm\LastFmInterface;
-use BlackSheep\UserBundle\Entity\SheepUser;
 use LastFmApi\Api\AuthApi;
 use LastFmApi\Api\BaseApi;
 use LastFmApi\Exception\ApiFailedException;
@@ -27,13 +27,17 @@ abstract class AbstractLastFmInfo implements LastFmInfo
      */
     public function __construct($apiKey, $apiSecret, TokenStorageInterface $tokenStorage)
     {
-        /** @var SheepUser $user */
+
         $user = $tokenStorage->getToken()->getUser();
-        $authArray = ['apiKey' => $apiKey, 'apiSecret' => $apiSecret];
-        $authArray['token'] = $user->getLastFmToken();
-        $authArray['username'] = $user->getLastFmUserName();
-        $authArray['sessionKey'] = $user->getLastFmKey();
-        $authArray['subscriber'] = $user->getLastFmSubscriber();
+        $authArray = ['apiKey' => $apiKey];
+        if ($user !== null && $user instanceof LastFmUserEmbed &&
+            $user->getLastFm()->hasLastFmConnected()) {
+            $authArray['apiSecret'] = $apiSecret;
+            $authArray['token'] = $user->getLastFm()->getLastFmToken();
+            $authArray['username'] = $user->getLastFm()->getLastFmUserName();
+            $authArray['sessionKey'] = $user->getLastFm()->getLastFmKey();
+            $authArray['subscriber'] = $user->getLastFm()->getLastFmSubscriber();
+        }
         $this->auth = new AuthApi('setsession', $authArray);
     }
 
@@ -62,6 +66,7 @@ abstract class AbstractLastFmInfo implements LastFmInfo
             }
 
             return $lastFmInfo;
+            // If something fails go quitely in to the night
         } catch (ConnectionException $connectionException) {
         } catch (ApiFailedException $apiFailedException) {
         }

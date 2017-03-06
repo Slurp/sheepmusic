@@ -1,42 +1,41 @@
-.card {
-  .has-sheet {
-    position: relative;
-    border-top: 1px solid $divider-color;
-    z-index: 0;
-    .btn-floating {
-      z-index: 2;
-    }
-    .fixed-action-btn {
-      position: absolute;
-      right: 0;
-      left: 0;
-      top:-20px;
-      text-align: right;
-      padding: 0 0 0 15px;
-      z-index: 0;
 
-      .action-sheet {
-        z-index: 1;
-        text-align: right;
-        right: -2px;
-        left:0;
-        top: -8px;
-        transform: translateY(-50%);
-        height: $button-floating-size + 20px;
+.card .has-sheet {
+  position: relative;
+  border-top: 1px solid $divider-color;
+  z-index: 0;
+  .btn-floating {
+    z-index: 2;
+  }
+  .fixed-action-btn {
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom:100%;
+    top: -20px;
+    text-align: right;
+    padding: 0 0 0 15px;
+    z-index: 0;
+
+    .action-sheet {
+      z-index: 1;
+      text-align: right;
+      right: -2px;
+      left: 0;
+      top: -8px;
+      transform: translateY(-50%);
+      height: $button-floating-size + 20px;
+      margin: 0;
+      padding: 10px;
+      background: rgba($card-bg, 0.5);
+      padding-right: $button-floating-size + 15px;
+      border-bottom: 1px solid $divider-color;
+      li {
+        display: inline-block;
         margin: 0;
-        padding: 10px;
-        background: rgba($card-bg,0.5);
-        padding-right: $button-floating-size + 15px ;
-        border-bottom: 1px solid $divider-color;
-        li {
-          display: inline-block;
-          margin: 0;
-        }
       }
-      .btn-floating {
-        background-color: $accent-color;
-      }
+    }
+    .btn-floating {
+      background-color: $accent-color;
     }
   }
-
 }

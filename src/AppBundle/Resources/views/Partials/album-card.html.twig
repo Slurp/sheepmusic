@@ -4,7 +4,7 @@
     {% set backgroundImage = asset('frontend/img/default.png') %}
 {% endif %}
 <div class="card album-card">
-    <a href="{{ url('library_album',{'album':album.slug }) }}" >
+    <a href="{{ url('library_album',{'album':album.slug }) }}">
         <img class="card-img-top" src='{{ backgroundImage }}'/>
     </a>
     <div class="card-block has-sheet">
@@ -13,14 +13,18 @@
                 <i class="material-icons">more_horiz</i>
             </a>
             <ul class="action-sheet">
-                <li><a class="btn-floating"><i class="material-icons">playlist_add</i></a></li>
+                <li>
+                    <a class="btn-floating"><i class="material-icons">playlist_add</i></a>
+                </li>
             </ul>
         </div>
-        <h4 class="card-title">
-            {{ album.artist.name }}
-        </h4>
-        <p class="card-text">
-            {{ album.name }}
-        </p>
+        <a href="{{ url('library_album',{'album':album.slug }) }}">
+            <h4 class="card-title">
+                {{ album.artist.name }}
+            </h4>
+            <p class="card-text">
+                {{ album.name }}
+            </p>
+        </a>
     </div>
 </div>
