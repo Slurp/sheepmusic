@@ -36,9 +36,9 @@ class LastFmUserEmbeddable implements LastFmUser
         return $this->lastFmToken;
     }
 
-     /**
-     * {@inheritdoc}
-     */
+        /**
+         * {@inheritdoc}
+         */
     public function setLastFmToken($lastFmToken)
     {
         $this->lastFmToken = $lastFmToken;
@@ -46,17 +46,17 @@ class LastFmUserEmbeddable implements LastFmUser
         return $this;
     }
 
-     /**
-     * {@inheritdoc}
-     */
+        /**
+         * {@inheritdoc}
+         */
     public function getLastFmUserName()
     {
         return $this->lastFmUserName;
     }
 
-     /**
-     * {@inheritdoc}
-     */
+        /**
+         * {@inheritdoc}
+         */
     public function setLastFmUserName($lastFmUserName)
     {
         $this->lastFmUserName = $lastFmUserName;
@@ -64,17 +64,17 @@ class LastFmUserEmbeddable implements LastFmUser
         return $this;
     }
 
-     /**
-     * {@inheritdoc}
-     */
+        /**
+         * {@inheritdoc}
+         */
     public function getLastFmKey()
     {
         return $this->lastFmKey;
     }
 
-     /**
-     * {@inheritdoc}
-     */
+        /**
+         * {@inheritdoc}
+         */
     public function setLastFmKey($lastFmKey)
     {
         $this->lastFmKey = $lastFmKey;
@@ -82,17 +82,17 @@ class LastFmUserEmbeddable implements LastFmUser
         return $this;
     }
 
-     /**
-     * {@inheritdoc}
-     */
+        /**
+         * {@inheritdoc}
+         */
     public function getLastFmSubscriber()
     {
         return $this->lastFmSubscriber;
     }
 
-     /**
-     * {@inheritdoc}
-     */
+        /**
+         * {@inheritdoc}
+         */
     public function setLastFmSubscriber($lastFmSubscriber)
     {
         $this->lastFmSubscriber = $lastFmSubscriber;
@@ -100,9 +100,9 @@ class LastFmUserEmbeddable implements LastFmUser
         return $this;
     }
 
-     /**
-     * {@inheritdoc}
-     */
+        /**
+         * {@inheritdoc}
+         */
     public function hasLastFmConnected()
     {
         if ($this->getLastFmUserName() !== '') {

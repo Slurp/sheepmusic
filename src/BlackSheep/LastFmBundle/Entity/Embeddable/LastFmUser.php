@@ -14,7 +14,7 @@ interface LastFmUser
     /**
      * @param string $lastFmToken
      *
-     * @return SheepUser
+     * @return LastFmUserEmbeddable
      */
     public function setLastFmToken($lastFmToken);
 
@@ -26,7 +26,7 @@ interface LastFmUser
     /**
      * @param string $lastFmUserName
      *
-     * @return SheepUser
+     * @return LastFmUserEmbeddable
      */
     public function setLastFmUserName($lastFmUserName);
 
@@ -38,7 +38,7 @@ interface LastFmUser
     /**
      * @param string $lastFmKey
      *
-     * @return SheepUser
+     * @return LastFmUserEmbeddable
      */
     public function setLastFmKey($lastFmKey);
 
@@ -50,7 +50,7 @@ interface LastFmUser
     /**
      * @param boolean $lastFmSubscriber
      *
-     * @return SheepUser
+     * @return LastFmUserEmbeddable
      */
     public function setLastFmSubscriber($lastFmSubscriber);
 
