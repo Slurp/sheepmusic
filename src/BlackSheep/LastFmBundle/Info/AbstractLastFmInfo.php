@@ -16,6 +16,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 abstract class AbstractLastFmInfo implements LastFmInfo
 {
     /**
+     * @var BaseApi
+     */
+    protected $api;
+
+    /**
      * @var AuthApi
      */
     protected $auth;

@@ -1,4 +1,15 @@
 services:
+    black_sheep.last_fm.last_fm_track_info:
+        class: BlackSheep\LastFmBundle\Info\LastFmTrackInfo
+        arguments:
+            - '%black_sheep_music_library.last_fm_api_key%'
+            - '%black_sheep_music_library.last_fm_api_secret%'
+            - "@security.token_storage"
+    black_sheep.last_fm.song_event_subscriber:
+        class: BlackSheep\LastFmBundle\EventListener\SongEventSubscriber
+        arguments: ['@black_sheep.last_fm.last_fm_track_info']
+        tags:
+            - { name: kernel.event_subscriber }
     black_sheep.last_fm.last_fm_album_info:
         class: BlackSheep\LastFmBundle\Info\LastFmAlbumInfo
         arguments:
@@ -7,7 +18,10 @@ services:
             - "@security.token_storage"
     black_sheep.last_fm.last_fm_artist_info:
         class: BlackSheep\LastFmBundle\Info\LastFmArtistInfo
-        arguments: ['%black_sheep_music_library.last_fm_api_key%','%black_sheep_music_library.last_fm_api_secret%']
+        arguments:
+            - '%black_sheep_music_library.last_fm_api_key%'
+            - '%black_sheep_music_library.last_fm_api_secret%'
+            - "@security.token_storage"
     black_sheep.last_fm.auth:
         class: BlackSheep\LastFmBundle\Auth\LastFmAuth
         arguments:

@@ -10,6 +10,12 @@ interface SongEventListener extends EventSubscriberInterface
      * @param SongEventInterface $songEvent;
      * @return void
      */
+    public function playingSong(SongEventInterface $songEvent);
+
+    /**
+     * @param SongEventInterface $songEvent;
+     * @return void
+     */
     public function playedSong(SongEventInterface $songEvent);
 
     /**

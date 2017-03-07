@@ -48,8 +48,6 @@ class DefaultController extends Controller
      */
     public function artistDetailAction(ArtistsEntity $artist)
     {
-        $this->get('black_sheep_music_library.last_fm.last_fm_artist')->updateLastFmInfo($artist);
-
         return $this->render('AppBundle:Default:artist.html.twig', ['artist' => $artist]);
     }
 

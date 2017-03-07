@@ -1,19 +1,21 @@
 <?php
-namespace BlackSheep\MusicLibraryBundle\EventListener;
+namespace BlackSheep\LastFmBundle\EventListener;
 
+use BlackSheep\LastFmBundle\Info\LastFmTrackInfo;
+use BlackSheep\MusicLibraryBundle\EventListener\SongEventListener;
 use BlackSheep\MusicLibraryBundle\Events\SongEventInterface;
-use BlackSheep\MusicLibraryBundle\Repository\SongsRepositoryInterface;
 
 class SongEventSubscriber implements SongEventListener
 {
     /**
-     * @var SongsRepositoryInterface
+     * @var LastFmTrackInfo
      */
-    protected $songsRepository;
+    protected $lastFmTrackInfo;
 
-    public function __construct(SongsRepositoryInterface $songsRepository)
+    public function __construct(LastFmTrackInfo $lastFmTrackInfo)
     {
-        $this->songsRepository = $songsRepository;
+
+        $this->lastFmTrackInfo = $lastFmTrackInfo;
     }
 
     /**
@@ -27,7 +29,7 @@ class SongEventSubscriber implements SongEventListener
             SongEventInterface::SONG_EVENT_PLAYED => "playedSong",
             SongEventInterface::SONG_EVENT_LOVED => "lovedSong",
             SongEventInterface::SONG_EVENT_RATED => "ratedSong"
-            ];
+        ];
     }
 
     /**
@@ -35,7 +37,7 @@ class SongEventSubscriber implements SongEventListener
      */
     public function playingSong(SongEventInterface $songEvent)
     {
-
+        $this->lastFmTrackInfo->nowPlayingTrack($songEvent->getSong());
     }
 
     /**
@@ -43,10 +45,7 @@ class SongEventSubscriber implements SongEventListener
      */
     public function playedSong(SongEventInterface $songEvent)
     {
-        $song = $songEvent->getSong();
-        $playCount = $song->getPlayCount() + 1;
-        $song->setPlayCount($playCount);
-        $this->songsRepository->save($song);
+        $this->lastFmTrackInfo->scrobbleTrack($songEvent->getSong());
     }
 
     /**

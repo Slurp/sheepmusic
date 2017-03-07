@@ -15,6 +15,7 @@ use BlackSheep\MusicLibraryBundle\Model\SongInterface;
  */
 interface SongEventInterface
 {
+    const SONG_EVENT_PLAYING = 'song_event_playing';
     const SONG_EVENT_PLAYED = 'song_event_played';
     const SONG_EVENT_LOVED  = 'song_event_loved';
     const SONG_EVENT_RATED  = 'song_event_rated';
