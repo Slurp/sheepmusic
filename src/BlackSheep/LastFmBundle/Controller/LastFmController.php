@@ -15,7 +15,7 @@ class LastFmController extends Controller
     /**
      * @param Request $request
      *
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response|null
      */
     public function indexAction(Request $request)
     {
