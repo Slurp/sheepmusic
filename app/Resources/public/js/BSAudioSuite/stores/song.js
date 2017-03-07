@@ -14,6 +14,12 @@ export default class Song extends HttpClient {
     }
   };
 
+  //Do some thing when this song is playing
+  playing()
+  {
+    jQuery.post(this.apiData.events.now_playing);
+  };
+
   played()
   {
     jQuery.post(this.apiData.events.played);
@@ -21,7 +27,6 @@ export default class Song extends HttpClient {
 
   getInfo()
   {
-    console.log(this.apiData);
     if (typeof this.apiData === "undefined" || this.apiData === null) {
       return jQuery.when(jQuery.get({url: this.url})).done((data) =>
       {

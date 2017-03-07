@@ -4,6 +4,12 @@ services:
         arguments: ['@black_sheep_music_library.repository.songs_repository']
         tags:
             - { name: kernel.event_subscriber }
+    delayed_event_dispatcher:
+        class: BlackSheep\MusicLibraryBundle\Dispatcher\DelayedEventDispatcher
+        arguments:
+            - '@event_dispatcher'
+        tags:
+            - { name: "kernel.event_subscriber" }
     black_sheep_music_library.services.streamer_service:
         class: BlackSheep\MusicLibraryBundle\Services\StreamerService
         arguments: ["%black_sheep_music_library.ffmpeg_path%", "%black_sheep_music_library.bitrate%"]

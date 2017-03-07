@@ -220,20 +220,25 @@ export default class BlackSheepPlayer {
     /**
      * Listen to 'error' event on the audio player and play the next song if any.
      */
-    document.querySelector('.plyr').addEventListener('error', () => this.playNext(), true)
-
+    this.player.on('error', () => this.playNext(), true);
     /**
      * Listen to 'ended' event on the audio player and play the next song in the queue.
      */
-    document.querySelector('.plyr').addEventListener('ended', e => {
+    this.player.on('ended', e => {
       this.currentSong.played();
       //if (preferences.repeatMode === 'REPEAT_ONE') {
       //  this.restart()
       //  return
       //}
-
       this.playNext()
-    })
+    });
+
+    this.player.on('play', e => {
+      console.log('play event');
+      this.currentSong.playing();
+    });
+
+
   };
 }
 

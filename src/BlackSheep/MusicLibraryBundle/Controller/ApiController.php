@@ -85,6 +85,20 @@ class ApiController extends FOSRestController
 
         return $this->handleView($view);
     }
+
+    /**
+     * @Route("/announce/{song}", options={"expose"=true})
+     *
+     * @param SongEntity $song
+     *
+     * @return Response
+     */
+    public function postAnnounceSongAction(SongEntity $song)
+    {
+        $this->get('delayed_event_dispatcher')->dispatch(SongEventInterface::SONG_EVENT_PLAYING, new SongEvent($song));
+        return $this->handleView($this->view(['played' => $song->getPlayCount()]));
+    }
+
     /**
      * @Route("/played/{song}", options={"expose"=true})
      *

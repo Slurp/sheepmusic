@@ -22,6 +22,7 @@ class ApiSongData extends AbstractApiData implements ApiData
                 'src' => $this->router->generate('song_play', ['song' => $object->getId()]),
                 'events' =>
                     [
+                        'now_playing' => $this->router->generate('post_announce_song', ['song' => $object->getId()]),
                         'played' => $this->router->generate('post_played_song', ['song' => $object->getId()])
                     ]
             ];
