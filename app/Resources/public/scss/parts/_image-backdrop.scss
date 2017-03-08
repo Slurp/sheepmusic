@@ -7,7 +7,6 @@
   left: 0;
   right: 0;
   background-position: 50% 50%;
-  z-index: 1;
   &:after {
     content: "";
     display: block;
@@ -22,7 +21,7 @@
 
   }
   .info-bar {
-    z-index: 3;
+    z-index: 1050;
     position: absolute;
     top: auto;
     bottom: 0;
@@ -36,15 +35,13 @@
     &.pinned,
     &.pin-bottom {
       background-color:rgba($primary-color,1.0);
-      @extend .z-depth-1;
       position: fixed;
-      left: 0;
+      left: 50%;
       right:0;
       top: 0;
       bottom: initial;
-      z-index: 1050;
-
-      margin-top: 57px;
+      margin-left: -20px;
+      margin-top: 0px;
       .btn-play-album {
         top: 50%;
         margin-top: -26px;
@@ -52,14 +49,14 @@
 
       .info-bar-image {
         position: static;
-        width: 50px;
-        min-width: 50px;
+        width: 40px;
+        min-width: 40px;
         border-width: 2px;
         margin-top: 5px;
         margin-bottom: 5px;
       }
       .info-bar-content {
-        margin-left: 0px;
+        display: none;
       }
       .artist-name,
       .album-name {

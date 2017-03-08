@@ -1,0 +1,12 @@
+.breadcrumb-fixed {
+  background: transparent;
+  position: fixed;
+  left: 140px;
+  right: 0px;
+  text-align: center;
+  top: 0px;
+  z-index: $zindex-fixed + 1;
+  display: inline-block;
+  margin: 0;
+  padding: 15px;
+}

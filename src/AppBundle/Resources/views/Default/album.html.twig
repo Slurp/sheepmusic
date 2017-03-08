@@ -3,7 +3,7 @@
 : 'Layout/layout.html.twig' %}
 
 {% block content %}
-
+    {% include '@App/Components/breadcrumbs.html.twig' %}
     {% if album.cover is not null %}
         {% set backgroundImage = "background-image: url('" ~ asset(album.cover) ~"')" %}
     {% endif %}

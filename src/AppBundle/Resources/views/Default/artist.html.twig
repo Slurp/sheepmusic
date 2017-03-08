@@ -3,6 +3,7 @@
 : 'Layout/layout.html.twig' %}
 
 {% block content %}
+    {% include '@App/Components/breadcrumbs.html.twig' %}
     <div class="artist-backdrop backdrop"
          style="background-image: url('{% if artist.albumArt is not null %}{{ artist.albumArt }}{% endif %}')">
         {% include '@App/Artist/info-bar.html.twig' with {'artist': artist} only %}
