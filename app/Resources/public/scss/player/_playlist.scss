@@ -109,9 +109,9 @@
   }
   .show > .playlist-dropup {
     top: auto;
-    left: 50vw;
+    left: 0;
     bottom: 0;
-    height: calc(100vh - 190px);
+    height: calc(100vh - 126px);
     opacity: 1;
     z-index: 1;
   }

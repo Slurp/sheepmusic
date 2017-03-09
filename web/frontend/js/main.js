@@ -3,7 +3,6 @@
 
 $(function ()
 {
-  $('[data-toggle="popover"]').popover();
   $('[data-activates="side-nav"]').sideNav({
       menuWidth: 200, // Default is 240
     }
@@ -19,6 +18,4 @@ $(function ()
       offset: 0
     });
   });
-
-  //$('body').bootstrapMaterialDesign();
 });

@@ -44,6 +44,11 @@ $plyr-video-progress-buffered-bg:       $plyr-video-progress-bg ;
 $plyr-audio-progress-bg:                rgba($primary-color-dark, .33) ;
 $plyr-audio-progress-buffered-bg:       $plyr-audio-progress-bg ;
 
+$plyr-range-thumb-bg: $accent-color;
+$plyr-range-thumb-active-bg: $primary-color;
+$plyr-range-thumb-border: none;
+$plyr-range-thumb-shadow: 0 1px 1px rgba($accent-color, 0.85);
+
 /* ==========  Playlist  ========== */
 $playlist-bg-color: $primary-color-text;
 $playlist-txt-color: $primary-text-color;
@@ -165,24 +170,19 @@ $songlist-bg-color: $primary-color-text;
 $nav-disabled-link-color:                   $gray-light ;
 $nav-disabled-link-hover-color:             $gray-light ;
 
-$bmd-navbar-link-font-weight:               $font-weight-base ; //
-$bmd-navbar-link-font-size:                 .875rem ; // 14
-$bmd-navbar-link-padding:                   .5321rem; // 7
-
 
 // tabs & pills
-$bmd-nav-tabs-pills-font-weight:            500 ; //
-$bmd-nav-tabs-pills-font-size:              .875rem ; // 14
-$bmd-nav-tabs-pills-link-padding:           1rem .8575rem ; // spec // was .5em 1em   // relative em based on 14
+$nav-tabs-pills-font-weight:            400 ; //
+$nav-tabs-pills-font-size:              .875rem ; // 14
+$nav-tabs-pills-link-padding:           1rem .8575rem ; // spec // was .5em 1em   // relative em based on 14
 
 // tabs only
-$bmd-nav-tabs-border-size:                  .214rem ; // 3px
+$nav-tabs-border-size:                  .214rem ; // 3px
 
-$bmd-nav-tabs-color:                        $accent-color ;
-$bmd-nav-tabs-active-color:                 $gray-dark ;
-$bmd-nav-tabs-active-border-color:          $brand-primary ;
-$bmd-nav-tabs-disabled-link-color:          $nav-disabled-link-color ;
-$bmd-nav-tabs-disabled-link-color-hover:    $nav-disabled-link-hover-color ;
-
+$nav-tabs-color:                        $primary-text-color ;
+$nav-tabs-active-color:                 $gray-light ;
+$nav-tabs-active-border-color:          $accent-color ;
+$nav-tabs-disabled-link-color:          $nav-disabled-link-color ;
+$nav-tabs-disabled-link-color-hover:    $nav-disabled-link-hover-color ;
 $nav-tabs-active-link-hover-bg:             transparent ; // $body-bg
 

@@ -4,7 +4,30 @@
 // ==========================================================================
 
 @import "../../../public/vendor/plyr/src/scss/variables";
-@import "../../../public/vendor/plyr/src/scss/mixins";
+@mixin plyr-range-track() {
+  height: $plyr-range-track-height;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  user-select: none;
+}
+@mixin plyr-range-thumb() {
+  position: relative;
+  height: $plyr-range-thumb-height;
+  width: $plyr-range-thumb-width;
+  background: $plyr-range-thumb-bg;
+  border: $plyr-range-thumb-border;
+  border-radius: 100%;
+  transition: background .2s ease, border .2s ease, transform .2s ease;
+  box-shadow: $plyr-range-thumb-shadow;
+  box-sizing: border-box;
+  margin-top: 4px;
+}
+@mixin plyr-range-thumb-active() {
+  background: $plyr-range-thumb-active-bg;
+  border-color: $plyr-range-thumb-active-border-color;
+  transform: scale($plyr-range-thumb-active-scale);
+}
 
 // Animation
 // ---------------------------------------
@@ -55,11 +78,12 @@
 
   // Range inputs
   // Specificity is for bootstrap compatibility
+
   input[type='range'] {
     display: block;
     height: ($plyr-range-thumb-height * $plyr-range-thumb-active-scale);
     width: 100%;
-    margin: 0;
+    margin: -15px 0 0;
     padding: 0;
     vertical-align: middle;
 
@@ -352,23 +376,23 @@
   vertical-align: top;
   appearance: none;
   border: none;
-  border-radius: 100px;
+  border-radius: 0;
 
   &::-webkit-progress-bar {
     background: transparent;
   }
   &::-webkit-progress-value {
     background: currentColor;
-    border-radius: 100px;
+    border-radius: 0;
     min-width: $plyr-range-track-height;
   }
   &::-moz-progress-bar {
     background: currentColor;
-    border-radius: 100px;
+    border-radius: 0;
     min-width: $plyr-range-track-height;
   }
   &::-ms-fill {
-    border-radius: 100px;
+    border-radius: 0;
   }
 }
 .plyr__progress--played,

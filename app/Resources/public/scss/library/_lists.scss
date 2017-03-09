@@ -1,16 +1,16 @@
+$grid-gutter-widths: (
+        xs: $grid-gutter-width-base,
+        sm: $grid-gutter-width-base,
+        md: $grid-gutter-width-base * 1.25,
+        lg: $grid-gutter-width-base * 1.5,
+        xl: $grid-gutter-width-base * 1.75
+);
 .artist-list,
 .album-list {
   padding-top: 15px;
   color: $primary-color-text;
-  //@extend .card-deck;
-  //display: flex;
-  //justify-content: flex-start;
-  //flex-flow: row wrap;
-  //align-items: stretch;
   @include make-row($grid-gutter-widths);
   .card-col {
-    //display: block;
-    //flex-basis: 20%; /* change this value for each breakpoint*/
     margin-bottom: 1rem;
     @include make-col-ready($grid-gutter-widths);
     @include make-col(6);

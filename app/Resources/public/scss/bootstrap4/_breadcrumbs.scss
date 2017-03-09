@@ -1,12 +1,17 @@
 .breadcrumb-fixed {
-  background: transparent;
   position: fixed;
-  left: 140px;
-  right: 0px;
+  left:0;
+  right: 0;
+  top:58px;
+  @include media-breakpoint-up(md) {
+    left: 140px;
+    top: 0px;
+    background: transparent;
+    display: inline-block;
+    margin: 0;
+    padding: 15px;
+    z-index: $zindex-fixed + 1;
+  }
   text-align: center;
-  top: 0px;
-  z-index: $zindex-fixed + 1;
-  display: inline-block;
-  margin: 0;
-  padding: 15px;
+  z-index: $zindex-fixed;
 }

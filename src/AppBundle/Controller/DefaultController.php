@@ -19,18 +19,15 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $artists = $this->getDoctrine()->getRepository(ArtistsEntity::class)->findAll();
-
-        return $this->render('AppBundle:Default:index.html.twig', ['artists' => $artists]);
+        return $this->forward('AppBundle:Default:artist');
     }
 
     /**
-     * @Route("/artists", name="library")
+     * @Route("/artists", name="library_artists")
      */
     public function artistAction()
     {
         $artists = $this->getDoctrine()->getRepository(ArtistsEntity::class)->findAll();
-
         return $this->render('AppBundle:Default:index.html.twig', ['artists' => $artists]);
     }
 

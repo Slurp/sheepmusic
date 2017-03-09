@@ -14,7 +14,9 @@
             </a>
             <ul class="action-sheet">
                 <li>
-                    <a class="btn-floating"><i class="material-icons">playlist_add</i></a>
+                    <a class="btn-floating" data-queue_album="{{ path('get_album', {'album' : album.id}) }}">
+                        <i class="material-icons">playlist_add</i>
+                    </a>
                 </li>
             </ul>
         </div>
