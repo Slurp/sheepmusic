@@ -1,13 +1,6 @@
-<main role="main" class="container-fluid  {% block extra_layout_classes %}{% endblock %}">
-    {# Content #}
-    {% include 'Components/loading-overlay.html.twig' %}
-    <div id="barba-wrapper" class="main-content">
-        <div class="barba-container">
-
-            {% block content %}
-            {% endblock %}
-
-        </div>
-
+<div id="barba-wrapper" class="main-content">
+    <div class="barba-container">
+        {% block content %}
+        {% endblock %}
     </div>
-</main>
+</div>

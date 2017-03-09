@@ -10,7 +10,7 @@
     <div class="album-backdrop backdrop" {% if album.cover is not null %} style="{{ backgroundImage }}" {% endif %}>
         {% include '@App/Album/info-bar.html.twig' with {'album': album} only %}
     </div>
-    {% include '@App/Partials/album-list.html.twig' with {'album': album} only %}
+    {% include '@App/Songs/album-list.html.twig' with {'album': album} only %}
 
 {% endblock %}
 

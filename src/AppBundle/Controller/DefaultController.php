@@ -28,7 +28,7 @@ class DefaultController extends Controller
     public function artistAction()
     {
         $artists = $this->getDoctrine()->getRepository(ArtistsEntity::class)->findAll();
-        return $this->render('AppBundle:Default:index.html.twig', ['artists' => $artists]);
+        return $this->render('AppBundle:Artist:overview.html.twig', ['artists' => $artists]);
     }
 
     /**
@@ -45,7 +45,7 @@ class DefaultController extends Controller
      */
     public function artistDetailAction(ArtistsEntity $artist)
     {
-        return $this->render('AppBundle:Default:artist.html.twig', ['artist' => $artist]);
+        return $this->render('AppBundle:Artist:detail.html.twig', ['artist' => $artist]);
     }
 
     /**
@@ -57,7 +57,7 @@ class DefaultController extends Controller
     {
         $albums = $this->getDoctrine()->getRepository(AlbumEntity::class)->findAll();
 
-        return $this->render('AppBundle:Default:albums.html.twig', ['albums' => $albums]);
+        return $this->render('AppBundle:Album:overview.html.twig', ['albums' => $albums]);
     }
 
     /**
@@ -69,7 +69,7 @@ class DefaultController extends Controller
     {
         $albums = $this->getDoctrine()->getRepository(AlbumEntity::class)->getRecentAlbums();
 
-        return $this->render('AppBundle:Default:albums.html.twig', ['albums' => $albums]);
+        return $this->render('AppBundle:Album:overview.html.twig', ['albums' => $albums]);
     }
 
     /**
@@ -87,7 +87,7 @@ class DefaultController extends Controller
     public function albumDetailAction(AlbumEntity $album)
     {
         return $this->render(
-            'AppBundle:Default:album.html.twig',
+            'AppBundle:Album:detail.html.twig',
             ['artist' => $album->getArtist(), 'album' => $album]
         );
     }

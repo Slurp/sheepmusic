@@ -29,10 +29,6 @@
     transition: all 1s ease 0.1s;
     color: $playlist-txt-color;
 
-
-    * {
-
-    }
     .playlist-header {
       padding-top: 15px;
       margin-bottom: 15px;
@@ -43,7 +39,7 @@
       @extend .flex-column;
       overflow-y: auto;
       position: relative;
-      height: calc(100vh - 300px);
+      height: calc(100vh - 230px);
     }
     .playlist-item {
       @extend .media;
