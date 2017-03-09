@@ -65,11 +65,11 @@
           &:after {
             position: absolute;
             top:0;
-            left: -39px;
+            left: -40px;
             z-index: 2;
             content: "";
-            width: 32px;
-            height: 32px;
+            width: 40px;
+            height: 40px;
             display: block;
             background: url(../img/now-playing.gif) rgba($player-txt-color,0.5);
           }
