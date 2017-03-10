@@ -3,18 +3,6 @@
   @extend .fixed-top;
   background-color: $navbar-bg-color;
   color: $navbar-font-color;
-  .navbar-brand {
-    color: $navbar-font-color;
-    .logo {
-      width: 2rem;
-      height: 2rem;
-    }
-    &:hover {
-      color: $accent-color;
-    }
-
-  }
-
   .navbar-right {
     width:100%;
     justify-content: flex-end;

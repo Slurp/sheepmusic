@@ -15,19 +15,19 @@
     </title>
 
     {# Favicons #}
-    {% include 'Layout/_favicons.html.twig' %}
+    {% include '@App/Layout/_favicons.html.twig' %}
     {# CSS #}
-    {% include 'Layout/_css.html.twig' %}
+    {% include '@App/Layout/_css.html.twig' %}
     {# JS #}
-    {% include 'Layout/_js_header.html.twig' %}
+    {% include '@App/Layout/_js_header.html.twig' %}
 </head>
 <body>
 <header>
     {# Header #}
 
-    {% include 'Layout/_header.html.twig' %}
+    {% include '@App/Layout/_header.html.twig' %}
     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted('ROLE_USER') %}
-        {% include 'Layout/_submenu.html.twig' %}
+        {% include '@App/Layout/_submenu.html.twig' %}
     {% endif %}
 </header>
 <main role="main" class="container-fluid  {% block extra_layout_classes %}{% endblock %}">
@@ -43,10 +43,10 @@
 </main>
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     {# Footer #}
-    {% include 'Layout/_footer.html.twig' %}
+    {% include '@App/Layout/_footer.html.twig' %}
     {# JS Footer #}
     <script src="{{ asset('frontend/js/app.js') }}"></script>
 {% endif %}
-{% include 'Layout/_js_footer.html.twig' %}
+{% include '@App/Layout/_js_footer.html.twig' %}
 </body>
 </html>

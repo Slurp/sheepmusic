@@ -1,10 +1,13 @@
-.sidebar {
-  border-right: 1px solid $primary-color-light;
-  background-color: $navbar-bg-color;
-  .logo-wrapper {
-    img {
-      @include img-fluid();
-      max-height: 80px;
+.navbar,
+.nav {
+  .navbar-brand {
+    color: $navbar-font-color;
+    .logo {
+      width: 2rem;
+      height: 2rem;
+    }
+    &:hover {
+      color: $accent-color;
     }
   }
 }

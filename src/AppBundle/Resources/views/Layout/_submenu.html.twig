@@ -1,5 +1,9 @@
 <nav>
-    <ul id="side-nav" class="side-nav nav flex-column">
+    <ul id="side-nav" class="nav side-nav flex-column">
+        <a class="navbar-brand" href="#" data-close="side-nav">
+            <img class="logo" src="{{ asset('frontend/img/zwartschaap.png') }}">
+            SheepMusic
+        </a>
         <li class="nav-item">
             <a class="nav-link {% if app.request.attributes.get('_route') == 'library_artists' %} active {% endif %}"
                href="{{ path('library_artists') }}">Artists

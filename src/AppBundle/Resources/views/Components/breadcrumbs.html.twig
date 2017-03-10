@@ -1,8 +1,6 @@
 {# @var album \BlackSheep\MusicLibraryBundle\Entity\Albums#}
 {# @var artist \BlackSheep\MusicLibraryBundle\Entity\Artist#}
 <ol class="breadcrumb breadcrumb-fixed">
-    <li class="breadcrumb-item">
-    </li>
     {% if artist is defined and album is not defined %}
         <li class="breadcrumb-item active">
             {{ artist.name }}

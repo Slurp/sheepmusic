@@ -73,6 +73,12 @@
                         removeMenu();
                     });
                 }
+                $('body').on('click','[data-close]',function ()
+                {
+                  if($this.data('activates') == $(this).data('close')) {
+                      removeMenu();
+                  }
+                });
 
                 function removeMenu(restoreNav) {
                     panning = false;

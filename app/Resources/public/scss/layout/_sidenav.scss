@@ -2,67 +2,65 @@
   position: fixed;
   width: 150px;
   left: 0;
-  top: 57px;
+  top: 0px;
   margin: 0;
-  transform: translateX(-100%);
-  height: calc(100vh - 128px);
+  height: calc(100vh - 70px);
   padding-left: 0;
   background-color: $sidenav-bg-color;
-  border-right: 1px solid darken($sidenav-bg-color,10%);
-  z-index: 1040;
+  border-right: 1px solid darken($sidenav-bg-color, 10%);
+  z-index: $zindex-fixed +1;
   backface-visibility: hidden;
   overflow-y: auto;
   will-change: transform;
   backface-visibility: hidden;
-  transform: translateX(-105%);
-
+  transform: translateX(-100%);
   @extend .z-depth-1;
-
-  // Right Align
-  &.right-aligned {
-    right: 0;
-    transform: translateX(105%);
-    left: auto;
-    transform: translateX(100%);
-  }
-
   .collapsible {
     margin: 0;
   }
-
-
+  .navbar-brand {
+    padding: 12px 17px;
+    margin-right: 0;
+    color: $sidenav-font-color;
+    border-bottom: 1px solid $divider-color;
+    &:hover {
+      background-color: $accent-color;
+      color: $sidenav-font-color;
+    }
+  }
   li {
-    &:hover { background-color: $accent-color;}
-    &.logo {
-      padding: 16px 0;
-      .logo {
-        display: inline-block;
-        height: 100%;
-        pointer-events: none;
-      }
+    &:hover {
+      background-color: $accent-color;
+      color: $sidenav-font-color;
     }
   }
 
   a {
     color: $sidenav-font-color;
-
-    &:hover { background-color: $accent-color;}
-
+    &:hover {
+      background-color: $accent-color;
+    }
     &.btn, &.btn-large, &.btn-flat, &.btn-floating {
       margin: 10px 15px;
     }
 
     &.btn,
     &.btn-large,
-    &.btn-floating { color: $btn-primary-color; }
-    &.btn-flat { color: $btn-primary-color; }
-
+    &.btn-floating {
+      color: $btn-primary-color;
+    }
+    &.btn-flat {
+      color: $btn-primary-color;
+    }
     &.btn:hover,
-    &.btn-large:hover { background-color: lighten($btn-primary-border, 5%); }
-    &.btn-floating:hover { background-color: $btn-primary-border; }
+    &.btn-large:hover {
+      background-color: lighten($btn-primary-border, 5%);
+    }
+    &.btn-floating:hover {
+      background-color: $btn-primary-border;
+    }
   }
 }
-
 
 // Touch interaction
 .drag-target {
@@ -73,7 +71,6 @@
   z-index: 998;
 }
 
-
 // Hidden side-nav for all sizes
 .side-nav.fixed {
   a {
@@ -83,18 +80,11 @@
   }
 }
 
-
 // Fixed side-nav shown
 .side-nav.fixed {
   left: 0;
   transform: translateX(0);
   position: fixed;
-
-  // Right Align
-  &.right-aligned {
-    right: 0;
-    left: auto;
-  }
 }
 
 // Fixed sideNav hide on smaller
@@ -108,25 +98,10 @@
   }
 }
 
-
 .side-nav .collapsible-body li.active,
 .side-nav.fixed .collapsible-body li.active {
   background-color: $primary-color;
   a {
     color: $sidenav-bg-color;
   }
-}
-
-
-#sidenav-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  height: 120vh;
-  background-color: rgba(0,0,0,.5);
-  z-index: 997;
-
-  will-change: opacity;
 }
