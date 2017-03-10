@@ -21,6 +21,11 @@
   .navbar-brand {
     padding: 12px 17px;
     margin-right: 0;
+    img {
+      padding: 5px;
+      background: $primary-color;
+      border-radius: 100%;
+    }
     color: $sidenav-font-color;
     border-bottom: 1px solid $divider-color;
     &:hover {
