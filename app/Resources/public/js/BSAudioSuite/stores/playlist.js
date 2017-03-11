@@ -89,7 +89,7 @@ export default class playlist {
           console.log("addArtist", albums);
           for (let album of albums) {
             for (let song of album.songs) {
-              console.log('songs',song);
+              console.log('songs', song);
               let newSong = new Song('', '', song);
               this.songs.push(newSong);
             }
@@ -104,14 +104,22 @@ export default class playlist {
     let playlistHtml = jQuery('[data-playlist]');
     playlistHtml.find('li').remove();
     let i = 0;
+    let active = 0;
+    if(this.currentIndex > 0) {
+      active = this.currentIndex;
+    }
     return this.songs.reduce(function (promise, song)
     {
       return promise.then(function ()
       {
         return song.getInfo().then(() =>
           {
+            let activeClass ='';
+            if(active === i) {
+              activeClass = 'playing'
+            }
             playlistHtml.append(
-              `<li class="playlist-item" data-playlist-index="${i}">
+              `<li class="playlist-item ${activeClass}" data-playlist-index="${i}">
                 <img src="${song.getAlbum().cover}">
                 <div class="playlist-item-info">
                   <h5 class="mt-0">${song.getTitle()}</h5>
@@ -136,11 +144,27 @@ export default class playlist {
 
   }
 
+  shuffle()
+  {
+    for (let i = this.songs.length; i; i--) {
+      let j = Math.floor(Math.random() * i);
+      [this.songs[i - 1], this.songs[j]] = [this.songs[j], this.songs[i - 1]];
+    }
+  }
+
   addEventListeners()
   {
     jQuery('.player').on('click', '[data-toggle="playlist"]', (e) =>
       {
         jQuery(e.currentTarget).parent().toggleClass('show');
+      }
+    );
+    jQuery('.player').on('click', '[data-playlist_action="shuffle"]', (e) =>
+      {
+        this.shuffle();
+        this.currentIndex = 0;
+        jQuery('[data-playlist-play="0"]').click();
+        this.renderPlaylist();
       }
     );
   }

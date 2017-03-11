@@ -14664,42 +14664,68 @@
 	      var playlistHtml = (0, _jquery2.default)('[data-playlist]');
 	      playlistHtml.find('li').remove();
 	      var i = 0;
+	      var active = 0;
+	      if (this.currentIndex > 0) {
+	        active = this.currentIndex;
+	      }
 	      return this.songs.reduce(function (promise, song) {
 	        return promise.then(function () {
 	          return song.getInfo().then(function () {
-	            playlistHtml.append('<li class="playlist-item" data-playlist-index="' + i + '">\n                <img src="' + song.getAlbum().cover + '">\n                <div class="playlist-item-info">\n                  <h5 class="mt-0">' + song.getTitle() + '</h5>\n                  <h6>' + song.getArtistName() + ' - ' + song.getAlbum().name + '</h6>\n                  \n                </div>\n                <div class="playlist-item-actions">\n                <a href="#" data-playlist-play="' + i + '">\n                       <i class="material-icons">play_arrow</i>\n                   </a>\n                   <a href="#" data-playlist-delete="' + i + '">\n                    <i class="material-icons">remove_from_queue</i>\n                   </a>\n                </div>\n              </li>');
+	            var activeClass = '';
+	            if (active === i) {
+	              activeClass = 'playing';
+	            }
+	            playlistHtml.append('<li class="playlist-item ' + activeClass + '" data-playlist-index="' + i + '">\n                <img src="' + song.getAlbum().cover + '">\n                <div class="playlist-item-info">\n                  <h5 class="mt-0">' + song.getTitle() + '</h5>\n                  <h6>' + song.getArtistName() + ' - ' + song.getAlbum().name + '</h6>\n                  \n                </div>\n                <div class="playlist-item-actions">\n                <a href="#" data-playlist-play="' + i + '">\n                       <i class="material-icons">play_arrow</i>\n                   </a>\n                   <a href="#" data-playlist-delete="' + i + '">\n                    <i class="material-icons">remove_from_queue</i>\n                   </a>\n                </div>\n              </li>');
 	            i++;
 	          });
 	        });
 	      }, _promise2.default.resolve());
 	    }
 	  }, {
+	    key: 'shuffle',
+	    value: function shuffle() {
+	      for (var i = this.songs.length; i; i--) {
+	        var j = Math.floor(Math.random() * i);
+	        var _ref = [this.songs[j], this.songs[i - 1]];
+	        this.songs[i - 1] = _ref[0];
+	        this.songs[j] = _ref[1];
+	      }
+	    }
+	  }, {
 	    key: 'addEventListeners',
 	    value: function addEventListeners() {
+	      var _this4 = this;
+
 	      (0, _jquery2.default)('.player').on('click', '[data-toggle="playlist"]', function (e) {
 	        (0, _jquery2.default)(e.currentTarget).parent().toggleClass('show');
+	      });
+	      (0, _jquery2.default)('.player').on('click', '[data-playlist_action="shuffle"]', function (e) {
+	        _this4.shuffle();
+	        _this4.currentIndex = 0;
+	        (0, _jquery2.default)('[data-playlist-play="0"]').click();
+	        _this4.renderPlaylist();
 	      });
 	    }
 	  }, {
 	    key: 'watchPlaylistEvents',
 	    value: function watchPlaylistEvents(player) {
-	      var _this4 = this;
+	      var _this5 = this;
 
 	      var $playlist = (0, _jquery2.default)('.playlist');
 	      $playlist.on('click', '[data-playlist-play]', function (e) {
-	        _this4.currentIndex = (0, _jquery2.default)(e.currentTarget).data('playlist-play');
-	        return _jquery2.default.when(_this4.getCurrentSong()).then(function () {
-	          player.playSong(_this4.currentSong);
+	        _this5.currentIndex = (0, _jquery2.default)(e.currentTarget).data('playlist-play');
+	        return _jquery2.default.when(_this5.getCurrentSong()).then(function () {
+	          player.playSong(_this5.currentSong);
 	        });
 	      });
 
 	      $playlist.on('click', '[data-playlist-delete]', function (e) {
-	        delete _this4.songs[(0, _jquery2.default)(e.currentTarget).data('playlist-delete')];
-	        _this4.songs.filter(function (a) {
+	        delete _this5.songs[(0, _jquery2.default)(e.currentTarget).data('playlist-delete')];
+	        _this5.songs.filter(function (a) {
 	          return typeof a !== 'undefined';
 	        });
 	        (0, _jquery2.default)(e.currentTarget).parent().remove();
-	        _this4.renderPlaylist();
+	        _this5.renderPlaylist();
 	      });
 	    }
 	  }, {

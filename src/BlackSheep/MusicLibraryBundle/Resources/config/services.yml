@@ -12,7 +12,7 @@ services:
             - { name: "kernel.event_subscriber" }
     black_sheep_music_library.services.streamer_service:
         class: BlackSheep\MusicLibraryBundle\Services\StreamerService
-        arguments: ["%black_sheep_music_library.ffmpeg_path%", "%black_sheep_music_library.bitrate%"]
+        arguments: ["%black_sheep_music_library.ffmpeg_path%","%black_sheep_music_library.ffprobe_path%", "%black_sheep_music_library.bitrate%"]
     black_sheep.music_library.api_model.api_artist_data:
         class: BlackSheep\MusicLibraryBundle\ApiModel\ApiArtistData
         arguments: ['@router']
