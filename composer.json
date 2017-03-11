@@ -33,9 +33,6 @@
         "stof/doctrine-extensions-bundle": "^1.2",
         "jasny/twig-extensions": "^1.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "friendsofsymfony/rest-bundle": "^2.0",
-        "jms/serializer-bundle": "^1.1",
-        "friendsofsymfony/jsrouting-bundle": "^1.6",
         "white-october/pagerfanta-bundle": "^1.0",
         "vich/uploader-bundle": "^1.1",
         "matto1990/lastfm-api": "^1.5"

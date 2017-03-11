@@ -93,12 +93,6 @@ fos_user:
         address: 'slurpie@gmail.com'
         sender_name: BlackSheepMusic
 
-fos_rest:
-    routing_loader:
-        default_format: json                            # All responses should be JSON formated
-        include_format: false                           # We do not include format in request, so that all responses
-                                                        # will eventually be JSON formated
-
 black_sheep_music_library:
     ffmpeg_path: "%ffmpeg_path%"
     ffprobe_path: "%ffprobe_path%"

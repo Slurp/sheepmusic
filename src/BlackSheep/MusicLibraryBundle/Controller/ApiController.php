@@ -5,13 +5,13 @@ namespace BlackSheep\MusicLibraryBundle\Controller;
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
-use BlackSheep\MusicLibraryBundle\EventListener\SongEventListener;
 use BlackSheep\MusicLibraryBundle\Events\SongEvent;
 use BlackSheep\MusicLibraryBundle\Events\SongEventInterface;
-use FOS\RestBundle\Controller\Annotations\Route;
-use FOS\RestBundle\Controller\FOSRestController;
+use BlackSheep\MusicLibraryBundle\Model\Artist;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -19,47 +19,54 @@ use Symfony\Component\HttpFoundation\Response;
  *
  * @todo Refactor the repo's to services
  */
-class ApiController extends FOSRestController
+class ApiController extends Controller
 {
     /**
-     * @Route("/user", options={"expose"=true})
+     * @Route("/user", name="get_user")
      */
     public function getUserAction()
     {
-        $view = $this->view([
-            'currentUser' => $this->getUser(),
-        ]);
-
-        return $this->handleView($view);
+        return $this->json(
+            [
+                'currentUser' => $this->getUser(),
+            ]
+        );
     }
 
     /**
-     * @Route("/artists", options={"expose"=true})
+     * @Route("/artists", name="get_artists")
      */
     public function getArtistsAction()
     {
         $adapter = new ArrayAdapter($this->getDoctrine()->getRepository(ArtistsEntity::class)->findAll());
         $pager = new Pagerfanta($adapter);
+        $artists = [];
+        $apiData = $this->get('black_sheep.music_library.api_model.api_artist_data');
+        /** @var Artist $artist */
+        foreach ($pager->getCurrentPageResults() as $artist) {
+            $artists[] = $apiData->getApiData($artist);
+        }
 
-        return $this->handleView($this->view(['artists' => $pager->getCurrentPageResults()]));
+        return $this->json($artists);
+        //return $this->handleView($this->view(['artists' => ]));
     }
 
     /**
-     * @Route("/albums", options={"expose"=true})
+     * @Route("/albums", name="get_albums")
      *
      * @return Response
      */
     public function albumsAction()
     {
-        $view = $this->view([
-            'albums' => $this->getDoctrine()->getRepository(AlbumEntity::class)->findAll(),
-        ]);
-
-        return $this->handleView($view);
+        return $this->json(
+            [
+                'albums' => $this->getDoctrine()->getRepository(AlbumEntity::class)->findAll(),
+            ]
+        );
     }
 
     /**
-     * @Route("/artist/{artist}", options={"expose"=true})
+     * @Route("/artist/{artist}", name="get_artist")
      *
      * @param ArtistsEntity $artist
      *
@@ -67,13 +74,11 @@ class ApiController extends FOSRestController
      */
     public function getArtistAction(ArtistsEntity $artist)
     {
-        $view = $this->view($this->get('black_sheep.music_library.api_model.api_artist_data')->getApiData($artist));
-
-        return $this->handleView($view);
+        return $this->json($this->get('black_sheep.music_library.api_model.api_artist_data')->getApiData($artist));
     }
 
     /**
-     * @Route("/album/{album}", options={"expose"=true})
+     * @Route("/album/{album}", name="get_album")
      *
      * @param AlbumEntity $album
      *
@@ -81,13 +86,11 @@ class ApiController extends FOSRestController
      */
     public function getAlbumAction(AlbumEntity $album)
     {
-        $view = $this->view($this->get('black_sheep.music_library.api_model.api_album_data')->getApiData($album));
-
-        return $this->handleView($view);
+        return $this->json($this->get('black_sheep.music_library.api_model.api_album_data')->getApiData($album));
     }
 
     /**
-     * @Route("/announce/{song}", options={"expose"=true})
+     * @Route("/announce/{song}", name="post_announce_song")
      *
      * @param SongEntity $song
      *
@@ -96,11 +99,12 @@ class ApiController extends FOSRestController
     public function postAnnounceSongAction(SongEntity $song)
     {
         $this->get('delayed_event_dispatcher')->dispatch(SongEventInterface::SONG_EVENT_PLAYING, new SongEvent($song));
-        return $this->handleView($this->view(['played' => $song->getPlayCount()]));
+
+        return $this->json(['played' => $song->getPlayCount()]);
     }
 
     /**
-     * @Route("/played/{song}", options={"expose"=true})
+     * @Route("/played/{song}", name="post_played_song")
      *
      * @param SongEntity $song
      *
@@ -110,11 +114,12 @@ class ApiController extends FOSRestController
     {
         $event = new SongEvent($song);
         $this->get('event_dispatcher')->dispatch(SongEventInterface::SONG_EVENT_PLAYED, $event);
-        return $this->handleView($this->view(['played' => $song->getPlayCount()]));
+
+        return $this->json(['played' => $song->getPlayCount()]);
     }
 
     /**
-     * @Route("/song/{song}", options={"expose"=true})
+     * @Route("/song/{song}", name="get_song_info")
      *
      * @param SongEntity $song
      *
@@ -122,8 +127,6 @@ class ApiController extends FOSRestController
      */
     public function getSongInfoAction(SongEntity $song)
     {
-        $view = $this->view($this->get('black_sheep.music_library.api_model.api_song_data')->getApiData($song));
-
-        return $this->handleView($view);
+        return $this->json($this->get('black_sheep.music_library.api_model.api_song_data')->getApiData($song));
     }
 }
