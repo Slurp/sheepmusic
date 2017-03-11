@@ -14,7 +14,6 @@ class SongEventSubscriber implements SongEventListener
 
     public function __construct(LastFmTrackInfo $lastFmTrackInfo)
     {
-
         $this->lastFmTrackInfo = $lastFmTrackInfo;
     }
 

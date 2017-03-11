@@ -24,20 +24,27 @@ class StreamerService
     private $bitrate;
 
     /**
+     * @var string
+     */
+    private $ffprobePath;
+
+    /**
      * @param $ffmpegPath
+     * @param $ffprobePath
      * @param $bitrate
      */
-    public function __construct($ffmpegPath, $bitrate)
+    public function __construct($ffmpegPath, $ffprobePath, $bitrate)
     {
         $this->ffmpegPath = $ffmpegPath;
         $this->bitrate = $bitrate;
+        $this->ffprobePath = $ffprobePath;
     }
 
     /**
      * Play a song.
      *
      * @param SongInterface $song
-     * @param int           $startTime
+     * @param int $startTime
      *
      * @return Response
      *
@@ -48,7 +55,13 @@ class StreamerService
         $songFile = new File($song->getPath());
         // If transcode parameter isn't passed, the default is to only transcode flac
         if ($songFile->getExtension() === 'flac') {
-            $streamer = new TranscodingStreamer($song, $this->bitrate, $this->ffmpegPath, $startTime);
+            $streamer = new TranscodingStreamer(
+                $song,
+                $this->bitrate,
+                $this->ffmpegPath,
+                $this->ffprobePath,
+                $startTime
+            );
         } else {
             $streamer = new DefaultStreamer($song);
         }

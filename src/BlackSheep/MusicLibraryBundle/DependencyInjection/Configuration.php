@@ -21,14 +21,15 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->scalarNode('last_fm_api_secret')->defaultValue('')->end()
-                ->scalarNode('last_fm_api_key')->defaultValue('')->end()
-                ->scalarNode('ffmpeg_path')->defaultValue('/usr/local/bin/ffmpeg')->end()
-                ->scalarNode('bitrate')->defaultValue(320)->end()
-                ->scalarNode('binary_timeout')->defaultValue(60)->end()
-                ->scalarNode('threads_count')->defaultValue(4)->end()
+            ->scalarNode('last_fm_api_secret')->defaultValue('')->end()
+            ->scalarNode('last_fm_api_key')->defaultValue('')->end()
+            ->scalarNode('ffmpeg_path')->defaultValue('/usr/local/bin/ffmpeg')->end()
+            ->scalarNode('ffprobe_path')->defaultValue('/usr/local/bin/ffprobe')->end()
+            ->scalarNode('bitrate')->defaultValue(320)->end()
+            ->scalarNode('binary_timeout')->defaultValue(60)->end()
+            ->scalarNode('threads_count')->defaultValue(4)->end()
             ->end()
-        ->end();
+            ->end();
         $treeBuilder->buildTree();
 
         return $treeBuilder;

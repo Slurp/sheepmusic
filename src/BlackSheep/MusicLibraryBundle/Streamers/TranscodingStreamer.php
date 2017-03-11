@@ -33,17 +33,24 @@ class TranscodingStreamer extends AbstractStreamer implements AudioStreamInterfa
     private $ffmpeg;
 
     /**
+     * @var
+     */
+    private $ffprobe;
+
+    /**
      * @param SongInterface $song
      * @param $bitrate
      * @param $ffmpeg
+     * @param $ffprobe
      * @param int $startTime
      */
-    public function __construct(SongInterface $song, $bitrate, $ffmpeg, $startTime = 0)
+    public function __construct(SongInterface $song, $bitrate, $ffmpeg, $ffprobe, $startTime = 0)
     {
         parent::__construct($song);
         $this->bitrate = $bitrate;
         $this->startTime = $startTime;
         $this->ffmpeg = $ffmpeg;
+        $this->ffprobe = $ffprobe;
     }
 
     public function getStreamedResponse()

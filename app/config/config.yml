@@ -101,5 +101,6 @@ fos_rest:
 
 black_sheep_music_library:
     ffmpeg_path: "%ffmpeg_path%"
+    ffprobe_path: "%ffprobe_path%"
     last_fm_api_key: "%last_fm_key%"
     last_fm_api_secret: "%last_fm_secret%"
