@@ -90,7 +90,7 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface
     /**
      * @param SongInterface $song
      *
-     * @return AlbumInterface
+     * @return ArtistInterface
      */
     public function addSong(SongInterface $song);
 

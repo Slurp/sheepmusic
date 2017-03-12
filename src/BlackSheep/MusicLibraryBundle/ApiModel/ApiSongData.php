@@ -35,5 +35,6 @@ class ApiSongData extends AbstractApiData implements ApiData
 
             return $apiData;
         }
+        return null;
     }
 }

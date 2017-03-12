@@ -26,5 +26,6 @@ class ApiArtistData extends ApiAlbumData implements ApiData
                 'albums' => $albums,
             ];
         }
+        return null;
     }
 }

@@ -95,7 +95,7 @@ interface AlbumInterface extends ApiInterface
     /**
      * @param SongInterface $song
      *
-     * @return SongInterface
+     * @return AlbumInterface
      */
     public function addSong(SongInterface $song);
 
@@ -136,24 +136,24 @@ interface AlbumInterface extends ApiInterface
     public function setMusicBrainzId($musicBrainzId);
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLastFmId();
 
     /**
-     * @param mixed $lastFmId
+     * @param string $lastFmId
      *
      * @return AlbumInterface
      */
     public function setLastFmId($lastFmId);
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getLastFmUrl();
 
     /**
-     * @param mixed $lastFmUrl
+     * @param string $lastFmUrl
      *
      * @return AlbumInterface
      */

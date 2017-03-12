@@ -43,7 +43,7 @@ interface LastFmUser
     public function setLastFmKey($lastFmKey);
 
     /**
-     * @return string
+     * @return boolean
      */
     public function getLastFmSubscriber();
 

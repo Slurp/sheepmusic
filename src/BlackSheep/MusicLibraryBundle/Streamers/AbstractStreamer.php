@@ -35,10 +35,6 @@ abstract class AbstractStreamer implements AudioStreamInterface
         }
 
         $this->contentType = 'audio/' . pathinfo($this->song->getPath(), PATHINFO_EXTENSION);
-
-        // Turn off error reporting to make sure our stream isn't interfered.
-        /* @noinspection PhpUsageOfSilenceOperatorInspection */
-        @error_reporting(0);
     }
 
     /**

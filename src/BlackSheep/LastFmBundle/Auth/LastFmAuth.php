@@ -63,9 +63,8 @@ class LastFmAuth
             'gettoken',
             ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret]
         );
-        $user->getLastFm()->setLastFmToken($auth->token->__toString());
+        $user->getLastFm()->setLastFmToken((string) $auth->token);
         $this->entityManager->flush($user);
-        dump($user->getLastFm());
         return [
             'token' => $user->getLastFm()->getLastFmToken(),
             'key' => $this->getApiKey()

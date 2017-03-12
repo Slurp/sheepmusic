@@ -30,12 +30,12 @@ class Album implements AlbumInterface
     protected $cover;
 
     /**
-     * @var array
+     * @var SongInterface[]
      */
     protected $songs;
 
     /**
-     * @var array
+     * @var ArtistInterface
      */
     protected $artist;
 
@@ -118,7 +118,9 @@ class Album implements AlbumInterface
         if (is_array($cover)) {
             $cover = $this->generateCover($cover);
         }
-        $this->cover = $cover;
+        if (is_string($cover)) {
+            $this->cover = $cover;
+        }
 
         return $this;
     }
@@ -138,7 +140,7 @@ class Album implements AlbumInterface
      * Write a cover image file with binary data and update the Album with the new cover file.
      *
      * @param string $binaryData
-     * @param string $extension  The file extension
+     * @param string $extension The file extension
      *
      * @return string
      */
