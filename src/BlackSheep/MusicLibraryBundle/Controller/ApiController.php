@@ -8,7 +8,7 @@ use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
 use BlackSheep\MusicLibraryBundle\Events\SongEvent;
 use BlackSheep\MusicLibraryBundle\Events\SongEventInterface;
 use BlackSheep\MusicLibraryBundle\Model\Artist;
-use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -38,7 +38,10 @@ class ApiController extends Controller
      */
     public function getArtistsAction()
     {
-        $adapter = new ArrayAdapter($this->getDoctrine()->getRepository(ArtistsEntity::class)->findAll());
+        $adapter = new DoctrineORMAdapter(
+            $this->getDoctrine()->getRepository(ArtistsEntity::class)->fetchPage(),
+            false
+        );
         $pager = new Pagerfanta($adapter);
         $artists = [];
         $apiData = $this->get('black_sheep.music_library.api_model.api_artist_data');

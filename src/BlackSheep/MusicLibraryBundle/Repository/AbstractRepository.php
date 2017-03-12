@@ -2,12 +2,21 @@
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 /**
  * Some useful common functions
  */
 class AbstractRepository extends EntityRepository implements AbstractRepositoryInterface
 {
+    /**
+     * @return Query
+     */
+    public function queryAll()
+    {
+        return $this->createQueryBuilder('a')->getQuery();
+    }
+
     /**
      * @param $entity
      */
