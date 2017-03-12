@@ -41,7 +41,7 @@ abstract class AbstractLastFmInfo implements LastFmInfo
             $authArray['token'] = $user->getLastFm()->getLastFmToken();
             $authArray['username'] = $user->getLastFm()->getLastFmUserName();
             $authArray['sessionKey'] = $user->getLastFm()->getLastFmKey();
-            $authArray['subscriber'] = $user->getLastFm()->getLastFmSubscriber();
+            $authArray['subscriber'] = $user->getLastFm()->isLastFmSubscriber();
         }
         $this->auth = new AuthApi('setsession', $authArray);
     }

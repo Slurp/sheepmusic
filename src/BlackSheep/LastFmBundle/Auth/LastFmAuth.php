@@ -102,10 +102,9 @@ class LastFmAuth
      */
     private function resetLastFmUser(LastFmUserEmbed $user)
     {
-        dump($user->getLastFm());
         $user->getLastFm()->setLastFmKey('');
         $user->getLastFm()->setLastFmUserName('');
-        $user->getLastFm()->setLastFmSubscriber('');
+        $user->getLastFm()->setLastFmSubscriber(false);
         $user->getLastFm()->setLastFmToken('');
         $this->entityManager->flush($user);
     }
