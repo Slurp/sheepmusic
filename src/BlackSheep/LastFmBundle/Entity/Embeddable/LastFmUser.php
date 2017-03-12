@@ -45,7 +45,7 @@ interface LastFmUser
     /**
      * @return boolean
      */
-    public function getLastFmSubscriber();
+    public function isLastFmSubscriber();
 
     /**
      * @param boolean $lastFmSubscriber

@@ -25,7 +25,7 @@ class Album implements AlbumInterface
     protected $releaseDate;
 
     /**
-     * @var array
+     * @var string
      */
     protected $cover;
 
@@ -40,17 +40,17 @@ class Album implements AlbumInterface
     protected $artist;
 
     /**
-     * @var array
+     * @var string
      */
     protected $musicBrainzId;
 
     /**
-     * @var array
+     * @var string
      */
     protected $lastFmId;
 
     /**
-     * @var array
+     * @var string
      */
     protected $lastFmUrl;
 
@@ -180,7 +180,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @return Song[]
+     * @return SongInterface[]
      */
     public function getSongs()
     {
@@ -267,7 +267,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getLastFmId()
     {
@@ -275,9 +275,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @param mixed $lastFmId
-     *
-     * @return AlbumInterface
+     * {@inheritdoc}
      */
     public function setLastFmId($lastFmId)
     {
@@ -287,7 +285,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getLastFmUrl()
     {
@@ -295,9 +293,7 @@ class Album implements AlbumInterface
     }
 
     /**
-     * @param mixed $lastFmUrl
-     *
-     * @return AlbumInterface
+     * {@inheritdoc}
      */
     public function setLastFmUrl($lastFmUrl)
     {

@@ -85,7 +85,7 @@ class LastFmUserEmbeddable implements LastFmUser
     /**
      * {@inheritdoc}
      */
-    public function getLastFmSubscriber()
+    public function isLastFmSubscriber()
     {
         return $this->lastFmSubscriber;
     }

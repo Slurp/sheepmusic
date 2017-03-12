@@ -86,7 +86,7 @@ interface AlbumInterface extends ApiInterface
     public function getSongs();
 
     /**
-     * @param mixed $songs
+     * @param SongInterface[] $songs
      *
      * @return AlbumInterface
      */
