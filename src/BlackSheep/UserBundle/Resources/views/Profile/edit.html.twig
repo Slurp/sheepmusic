@@ -1,0 +1,17 @@
+{% extends app.request.xmlHttpRequest
+? '@App/Layout/ajaxLayout.html.twig'
+: '@App/Layout/layout.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block content %}
+    {#{% include '@App/Components/navigation.html.twig' %}#}
+    <div class="profile-overview">
+        <div class="card">
+            {{ form_start(form, { 'action': path('black_sheep_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+            {{ form_widget(form) }}
+            <div>
+                <input type="submit" class="btn-primary float-right" value="{{ 'profile.edit.submit'|trans }}" />
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

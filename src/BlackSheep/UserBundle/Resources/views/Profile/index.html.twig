@@ -1,0 +1,17 @@
+{% extends app.request.xmlHttpRequest
+? '@App/Layout/ajaxLayout.html.twig'
+: '@App/Layout/layout.html.twig' %}
+
+{% block content %}
+    {#{% include '@App/Components/navigation.html.twig' %}#}
+    <div class="profile-overview">
+        <div class="card">
+            <div class="card-block">
+                <h4 class="card-title">Profile settings</h4>
+                <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
+                <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
+                <a href="{{ path('black_sheep_user_profile_edit') }}" class="card-link">Edit</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

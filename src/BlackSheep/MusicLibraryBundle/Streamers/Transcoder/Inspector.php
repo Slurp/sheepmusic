@@ -11,7 +11,7 @@ class Inspector
      *
      * @return float
      */
-    public static function getLength($file, $ffprobe = "/usr/bin/ffprobe")
+    public static function getLength($file, $ffprobe = "/usr/local/bin/ffprobe")
     {
         $json = static::probe($file, $ffprobe);
         if (isset($json->streams) && isset($json->streams[0])) {

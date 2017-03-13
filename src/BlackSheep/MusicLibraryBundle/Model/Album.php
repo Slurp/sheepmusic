@@ -49,6 +49,8 @@ class Album implements AlbumInterface
      */
     protected $lastFmId;
 
+
+
     /**
      * @var string
      */

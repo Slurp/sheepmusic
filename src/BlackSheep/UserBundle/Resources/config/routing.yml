@@ -1,3 +1,6 @@
 black_sheep_user_homepage:
     path:     /
-    defaults: { _controller: BlackSheepUserBundle:Default:index }
+    defaults: { _controller: BlackSheepUserBundle:Profile:index }
+black_sheep_user_profile_edit:
+    path:     /edit
+    defaults: { _controller: BlackSheepUserBundle:Profile:edit }
