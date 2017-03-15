@@ -1,4 +1,21 @@
 services:
-#    music_scanner.example:
-#        class: MusicScannerBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    black_sheep_music_scanner.services.media_importer:
+        class: 'BlackSheep\MusicScannerBundle\Services\MediaImporter'
+        calls:
+            - method: setEntityManager
+              arguments:
+                - '@doctrine.orm.entity_manager'
+            - method: setSongImporter
+              arguments:
+                - '@black_sheep_music_scanner.services.song_importer'
+
+    black_sheep_music_scanner.services.song_importer:
+        class: 'BlackSheep\MusicScannerBundle\Services\SongImporter'
+        calls:
+            - method: setEntityManager
+              arguments:
+                - '@doctrine.orm.entity_manager'
+            - method: setLastFmObjects
+              arguments:
+                - '@black_sheep_music_library.last_fm.last_fm_artist'
+                - '@black_sheep_music_library.last_fm.last_fm_album'

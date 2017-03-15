@@ -32,11 +32,15 @@ abstract class AbstractLastFmInfo implements LastFmInfo
      */
     public function __construct($apiKey, $apiSecret, TokenStorageInterface $tokenStorage)
     {
-
-        $user = $tokenStorage->getToken()->getUser();
+        $user = null;
         $authArray = ['apiKey' => $apiKey];
+        if ($tokenStorage->getToken() !== null) {
+            $user = $tokenStorage->getToken()->getUser();
+        }
+
         if ($user !== null && $user instanceof LastFmUserEmbed &&
-            $user->getLastFm()->hasLastFmConnected()) {
+            $user->getLastFm()->hasLastFmConnected()
+        ) {
             $authArray['apiSecret'] = $apiSecret;
             $authArray['token'] = $user->getLastFm()->getLastFmToken();
             $authArray['username'] = $user->getLastFm()->getLastFmUserName();

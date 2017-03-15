@@ -1,13 +1,4 @@
 <?php
-/**
- * @author    : @{USER} <stephan@bureaublauwgeel.nl>
- * Date: 17/02/16
- * Time: 00:09
- * @copyright 2016 Bureau Blauwgeel
- *
- * @version   1.0
- */
-
 namespace BlackSheep\MusicScannerBundle\Helper;
 
 use getID3;
@@ -83,6 +74,7 @@ class TagHelper
         }
         $this->getPropsForTags($info, $props);
         unset($info);
+
         return $props;
     }
 
@@ -99,11 +91,14 @@ class TagHelper
             $this->getPropertyForTag($props, $tags['album'], 'album', 0);
             $this->getPropertyForTag($props, $tags['title'], 'title', 0);
             $this->getPropertyForTag($props, $tags['title'], 'title', 0);
-            $this->getPropertyForTag($props, $tags['unsynchronised_lyric'], 'unsynchronised_lyric', 0);
-            $this->getPropertyForTag($props, $tags['text'], 'artist_mbid', 'MusicBrainz Album Artist Id');
-            $this->getPropertyForTag($props, $tags['text'], 'album_mbid', 'MusicBrainz Album Id');
+
             $this->getPropertyForTag($props, $tags, 'artist_mbid', 'musicbrainz_artistid');
             $this->getPropertyForTag($props, $tags, 'album_mbid', 'musicbrainz_albumid');
+            if (isset($tags['text'])) {
+                $this->getPropertyForTag($props, $tags['text'], 'artist_mbid', 'MusicBrainz Album Artist Id');
+                $this->getPropertyForTag($props, $tags['text'], 'album_mbid', 'MusicBrainz Album Id');
+            }
+            //$this->getPropertyForTag($props, 'unsynchronised_lyric', 'unsynchronised_lyric', 0);
         }
     }
 
@@ -116,7 +111,12 @@ class TagHelper
     private function getPropertyForTag(&$props, $tags, $propertyName, $tagName)
     {
         if (isset($tags[$tagName]) && empty($tags[$tagName]) === false) {
-            $props[$propertyName] = trim($tags[$tagName]);
+            if (is_string($tags[$tagName])) {
+                $props[$propertyName] = trim($tags[$tagName]);
+            }
+            if (is_array($tags[$tagName])) {
+                $props[$propertyName] = trim($tags[$tagName][0]);
+            }
         }
     }
 
