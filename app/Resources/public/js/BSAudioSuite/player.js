@@ -3,6 +3,7 @@ import plyr from 'plyr';
 import Notifications from './services/notifications';
 import BlackSheepPlaylist from './stores/playlist';
 import BlackSheepLibrary from './library';
+import HtmlPlaylist from './components/playlist';
 import Waveform from '../vendor/waveform';
 
 export default class BlackSheepPlayer {
@@ -165,7 +166,7 @@ export default class BlackSheepPlayer {
     $('.player .playing-song-title').text(`${this.currentSong.getArtistName()} : ${this.currentSong.getTitle()}`);
     $('.player .song-image').attr('src', this.currentSong.getAlbum().cover);
     Notifications.notifySong(song);
-    this.playlist.updatePlaying();
+    HtmlPlaylist.updatePlaying(this.playlist.currentIndex);
     this.restart();
   };
 

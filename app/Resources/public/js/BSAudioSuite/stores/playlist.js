@@ -3,6 +3,7 @@
 import Song from './song';
 import Album from './album';
 import Artist from './artist';
+import HtmlPlaylist from '../components/playlist';
 import jQuery from 'jquery';
 
 export default class playlist {
@@ -74,7 +75,6 @@ export default class playlist {
           for (let data of songs) {
             let song = new Song('', '', data);
             this.songs.push(song);
-
           }
         }
       ));
@@ -99,50 +99,7 @@ export default class playlist {
     }
   }
 
-  renderPlaylist()
-  {
-    let playlistHtml = jQuery('[data-playlist]');
-    playlistHtml.find('li').remove();
-    let i = 0;
-    let active = 0;
-    if(this.currentIndex > 0) {
-      active = this.currentIndex;
-    }
-    return this.songs.reduce(function (promise, song)
-    {
-      return promise.then(function ()
-      {
-        return song.getInfo().then(() =>
-          {
-            let activeClass ='';
-            if(active === i) {
-              activeClass = 'playing'
-            }
-            playlistHtml.append(
-              `<li class="playlist-item ${activeClass}" data-playlist-index="${i}">
-                <img src="${song.getAlbum().cover}">
-                <div class="playlist-item-info">
-                  <h5 class="mt-0">${song.getTitle()}</h5>
-                  <h6>${song.getArtistName()} - ${song.getAlbum().name}</h6>
-                  
-                </div>
-                <div class="playlist-item-actions">
-                <a href="#" data-playlist-play="${ i }">
-                       <i class="material-icons">play_arrow</i>
-                   </a>
-                   <a href="#" data-playlist-delete="${ i }">
-                    <i class="material-icons">remove_from_queue</i>
-                   </a>
-                </div>
-              </li>`
-            );
-            i++;
-          }
-        );
-      });
-    }, Promise.resolve());
 
-  }
 
   shuffle()
   {
@@ -164,7 +121,7 @@ export default class playlist {
         this.shuffle();
         this.currentIndex = 0;
         jQuery('[data-playlist-play="0"]').click();
-        this.renderPlaylist();
+        HtmlPlaylist.renderPlaylist();
       }
     );
   }
@@ -189,18 +146,10 @@ export default class playlist {
         return typeof a !== 'undefined';
       });
       jQuery(e.currentTarget).parent().remove();
-      this.renderPlaylist();
+      HtmlPlaylist.renderPlaylist();
     });
 
   };
 
-  updatePlaying()
-  {
-    if (document.body.querySelectorAll('[data-playlist-index]').length > 0) {
-      for (let element of document.body.querySelectorAll('[data-playlist-index]')) {
-        element.classList.remove('playing');
-      }
-      document.body.querySelector('[data-playlist-index="' + this.currentIndex + '"]').classList.add('playing');
-    }
-  }
+
 }
