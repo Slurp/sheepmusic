@@ -59,6 +59,11 @@ class MediaImporter
     protected $songImporter;
 
     /**
+     * @var bool $debug
+     */
+    protected $debug;
+
+    /**
      */
     public function __construct()
     {
@@ -85,8 +90,9 @@ class MediaImporter
     /**
      * @param OutputInterface $output
      */
-    public function setOutputInterface(OutputInterface $output)
+    public function setOutputInterface(OutputInterface $output, $debug = true)
     {
+        $this->debug = $debug;
         $this->output = $output;
     }
 
@@ -102,7 +108,9 @@ class MediaImporter
             // start and displays the progress bar
             $this->progress->start($max);
             $this->progress->setRedrawFrequency(4);
-            $this->progress->setFormat('%current%/%max% %elapsed:6s%/%estimated:-6s% %message% : %filename%');
+            if ($this->debug) {
+                $this->progress->setFormat('%current%/%max% %elapsed:6s%/%estimated:-6s% %message% : %filename%');
+            }
         }
     }
 
@@ -143,8 +151,10 @@ class MediaImporter
     protected function debugStep($operation, $info)
     {
         if ($this->progress !== null) {
-            $this->progress->setMessage("\n" . $operation);
-            $this->progress->setMessage($info, 'filename');
+            if ($this->debug) {
+                $this->progress->setMessage("\n" . $operation);
+                $this->progress->setMessage($info, 'filename');
+            }
             $this->progress->advance();
         }
     }
