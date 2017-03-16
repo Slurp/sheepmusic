@@ -87,10 +87,10 @@ class TagHelper
     {
         if (isset($info['tags'][$tagName])) {
             $tags = $info['tags'][$tagName];
-            $this->getPropertyForTag($props, $tags['artist'], 'artist', 0);
-            $this->getPropertyForTag($props, $tags['album'], 'album', 0);
-            $this->getPropertyForTag($props, $tags['title'], 'title', 0);
-            $this->getPropertyForTag($props, $tags['title'], 'title', 0);
+            $this->getPropertyForTag($props, 'artist', 'artist', 0);
+            $this->getPropertyForTag($props, 'album', 'album', 0);
+            $this->getPropertyForTag($props, 'title', 'title', 0);
+            $this->getPropertyForTag($props, 'title', 'title', 0);
 
             $this->getPropertyForTag($props, $tags, 'artist_mbid', 'musicbrainz_artistid');
             $this->getPropertyForTag($props, $tags, 'album_mbid', 'musicbrainz_albumid');
