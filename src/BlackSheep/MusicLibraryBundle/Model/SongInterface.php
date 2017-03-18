@@ -121,7 +121,7 @@ interface SongInterface extends ApiInterface
     public function getArtists();
 
     /**
-     * @param mixed $artists
+     * @param ArtistInterface[] $artists
      *
      * @return SongInterface
      */

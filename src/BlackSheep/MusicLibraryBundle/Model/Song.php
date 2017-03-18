@@ -33,7 +33,7 @@ class Song implements SongInterface
     protected $path;
 
     /**
-     * @var AlbumInterface[]
+     * @var AlbumInterface
      */
     protected $album;
 
