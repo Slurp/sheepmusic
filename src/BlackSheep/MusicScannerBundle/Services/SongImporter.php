@@ -62,7 +62,7 @@ class SongImporter
         $this->entityManager = $entityManager;
         $this->artistRepository = $this->entityManager->getRepository(ArtistsEntity::class);
         $this->albumRepository = $this->entityManager->getRepository(AlbumEntity::class);
-     }
+        }
 
     /**
      * @param LastFmArtist $lastFmArtist

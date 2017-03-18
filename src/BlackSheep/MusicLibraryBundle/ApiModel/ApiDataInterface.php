@@ -11,6 +11,7 @@ interface ApiDataInterface
 {
     /**
      * @param RouterInterface $router
+     * @return void
      */
     public function __construct(RouterInterface $router);
 

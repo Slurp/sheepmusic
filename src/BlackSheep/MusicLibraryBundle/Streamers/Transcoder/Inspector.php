@@ -27,6 +27,7 @@ class Inspector
 
     /**
      * @param $file
+     * @param string $ffprobe
      *
      * @return mixed
      */
