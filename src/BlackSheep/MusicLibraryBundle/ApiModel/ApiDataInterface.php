@@ -7,11 +7,10 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * Interface ApiData.
  */
-interface ApiData
+interface ApiDataInterface
 {
     /**
      * @param RouterInterface $router
-     * @return void
      */
     public function __construct(RouterInterface $router);
 
