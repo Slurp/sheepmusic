@@ -89,7 +89,6 @@ export default class playlist {
           console.log("addArtist", albums);
           for (let album of albums) {
             for (let song of album.songs) {
-              console.log('songs', song);
               let newSong = new Song('', '', song);
               this.songs.push(newSong);
             }

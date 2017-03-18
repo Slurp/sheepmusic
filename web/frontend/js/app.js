@@ -14626,7 +14626,6 @@
 	                for (var _iterator3 = (0, _getIterator3.default)(album.songs), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
 	                  var song = _step3.value;
 
-	                  console.log('songs', song);
 	                  var newSong = new _song2.default('', '', song);
 	                  _this3.songs.push(newSong);
 	                }
