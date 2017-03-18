@@ -13,6 +13,10 @@ class Inspector
      */
     public static function getLength($file, $ffprobe = "/usr/local/bin/ffprobe")
     {
+        // fallback ffprobe
+        if (file_exists($ffprobe) === false) {
+            $ffprobe = '/usr/bin/ffprobe';
+        }
         $json = static::probe($file, $ffprobe);
         if (isset($json->streams) && isset($json->streams[0])) {
             return $json->streams[0]->duration;
