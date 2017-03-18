@@ -32,13 +32,23 @@ abstract class AbstractLastFmInfo implements LastFmInfo
      */
     public function __construct($apiKey, $apiSecret, TokenStorageInterface $tokenStorage)
     {
-        $user = null;
-        $authArray = ['apiKey' => $apiKey];
-        if ($tokenStorage->getToken() !== null) {
-            $user = $tokenStorage->getToken()->getUser();
-        }
+        $authArray = $this->setUserAuth($apiSecret, $tokenStorage);
+        $authArray['apiKey'] = $apiKey;
 
-        if ($user !== null && $user instanceof LastFmUserEmbed &&
+        $this->auth = new AuthApi('setsession', $authArray);
+    }
+
+    /**
+     * @param $apiSecret
+     * @param TokenStorageInterface $tokenStorage
+     *
+     * @return array
+     */
+    protected function setUserAuth($apiSecret, TokenStorageInterface $tokenStorage)
+    {
+        $authArray = [];
+        $user = $this->getUser($tokenStorage);
+        if ($user instanceof LastFmUserEmbed &&
             $user->getLastFm()->hasLastFmConnected()
         ) {
             $authArray['apiSecret'] = $apiSecret;
@@ -47,7 +57,22 @@ abstract class AbstractLastFmInfo implements LastFmInfo
             $authArray['sessionKey'] = $user->getLastFm()->getLastFmKey();
             $authArray['subscriber'] = $user->getLastFm()->isLastFmSubscriber();
         }
-        $this->auth = new AuthApi('setsession', $authArray);
+
+        return $authArray;
+    }
+
+    /**
+     * @param TokenStorageInterface $tokenStorage
+     *
+     * @return mixed|null
+     */
+    protected function getUser(TokenStorageInterface $tokenStorage)
+    {
+        if ($tokenStorage->getToken() !== null) {
+            return $tokenStorage->getToken()->getUser();
+        }
+
+        return null;
     }
 
     /**

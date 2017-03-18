@@ -69,19 +69,17 @@ class TagHelper
         // Read on.
         getid3_lib::CopyTagsToComments($info);
 
-        if (!isset($info['comments_html']) || !$comments = $info['comments_html']) {
-            return $props;
-        }
+        if (isset($info['comments_html'])) {
+            if (isset($info['comments_html']['track'][0])) {
+                $props['track'] = $info['comments_html']['track'][0];
+            }
 
-        if (isset($info['comments_html']['track'][0])) {
-            $props['track'] = $info['comments_html']['track'][0];
+            foreach ($info['tags'] as $tagName => $value) {
+                $this->getPropsForTags($info, $props, $tagName);
+            }
+            $this->getPropsForTags($info, $props);
+            unset($info);
         }
-
-        foreach ($info['tags'] as $tagName => $value) {
-            $this->getPropsForTags($info, $props, $tagName);
-        }
-        $this->getPropsForTags($info, $props);
-        unset($info);
 
         return $props;
     }
