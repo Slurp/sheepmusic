@@ -79,21 +79,6 @@ class AlbumEntity extends Album implements AlbumInterface
 
     /**
      * {@inheritdoc}
-     * @param ArtistsEntity $artist
-     */
-    public static function createArtistAlbum($name, $artist, $extraInfo)
-    {
-        $album = new self();
-        $album->setName($name);
-        $album->setArtist($artist);
-        $album->setCover($extraInfo['cover']);
-        $album->setMusicBrainzId($extraInfo['album_mbid']);
-
-        return $album;
-    }
-
-    /**
-     * {@inheritdoc}
      */
     public function addSong(SongInterface $song)
     {

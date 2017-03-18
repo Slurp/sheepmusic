@@ -65,7 +65,7 @@ class Album implements AlbumInterface
      */
     public static function createArtistAlbum($name, $artist, $extraInfo)
     {
-        $album = new self();
+        $album = new static();
         $album->setName($name);
         $album->setArtist($artist);
         $album->setCover($extraInfo['cover']);
