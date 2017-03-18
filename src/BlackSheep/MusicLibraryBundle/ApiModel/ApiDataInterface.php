@@ -17,7 +17,7 @@ interface ApiDataInterface
     /**
      * @param mixed
      *
-     * @return array
+     * @return array|null
      */
     public function getApiData($object);
 }
