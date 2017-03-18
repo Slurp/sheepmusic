@@ -8,7 +8,7 @@ use BlackSheep\MusicLibraryBundle\Model\ApiInterface;
 /**
  * Generates a array for the API.
  */
-class ApiSongDataInterface extends AbstractApiData implements ApiDataInterface
+class ApiSongData extends AbstractApiData implements ApiDataInterface
 {
     /**
      * {@inheritdoc}
