@@ -15,6 +15,9 @@ class TagHelper
      */
     protected $getID3;
 
+    /**
+     * Get id3tag helper
+     */
     public function __construct()
     {
         $this->getGetID3();
@@ -31,36 +34,41 @@ class TagHelper
     {
         $info = $this->getID3->analyze($file->getPathname());
 
-        if (isset($info['error'])) {
+        if (isset($info['error']) || !isset($info['playtime_seconds'])) {
             return null;
         }
-        // Copy the available tags over to comment.
-        // This is a helper from getID3, though it doesn't really work well.
-        // We'll still prefer getting ID3v2 tags directly later.
-        // Read on.
-        getid3_lib::CopyTagsToComments($info);
 
-        if (!isset($info['playtime_seconds'])) {
-            return null;
-        }
-        $cover = null;
-        if (isset($info['comments']['picture'])) {
-            $cover = $info['comments']['picture'][0];
-            unset($info['comments']['picture']);
-        }
         $props = [
             'artist' => '',
             'album' => '',
             'title' => '',
             'length' => $info['playtime_seconds'],
             'lyrics' => '',
-            'cover' => $cover,
+            'cover' => $this->getCover($info),
             'path' => $file->getPathname(),
             'mTime' => $file->getMTime(),
             'track' => '',
             'artist_mbid' => '',
             'album_mbid' => '',
         ];
+
+        return $this->getPropsFromTags($info, $props);
+    }
+
+    /**
+     * @param $info
+     * @param $props
+     *
+     * @return array
+     */
+    private function getPropsFromTags(&$info, $props)
+    {
+        // Copy the available tags over to comment.
+        // This is a helper from getID3, though it doesn't really work well.
+        // We'll still prefer getting ID3v2 tags directly later.
+        // Read on.
+        getid3_lib::CopyTagsToComments($info);
+
         if (!isset($info['comments_html']) || !$comments = $info['comments_html']) {
             return $props;
         }
@@ -76,6 +84,22 @@ class TagHelper
         unset($info);
 
         return $props;
+    }
+
+    /**
+     * @param $info
+     *
+     * @return null
+     */
+    private function getCover(&$info)
+    {
+        $cover = null;
+        if (isset($info['comments']['picture'])) {
+            $cover = $info['comments']['picture'][0];
+            unset($info['comments']['picture']);
+        }
+
+        return $cover;
     }
 
     /**
