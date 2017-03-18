@@ -18,7 +18,7 @@ class StreamedResponseOutput extends Output
     /**
      * @var int
      */
-    static protected $BUFFER_SIZE_APACHE = 65536;
+    static protected $bufferSizeApache = 4096;
 
     /**
      * @var mixed|null
@@ -39,7 +39,7 @@ class StreamedResponseOutput extends Output
      */
     public function setBufferSize($bufferSize = 0)
     {
-        $this->bufferSize = $bufferSize ? $bufferSize : max(static::$BUFFER_SIZE_APACHE, 0);
+        $this->bufferSize = $bufferSize ? $bufferSize : max(static::$bufferSizeApache, 0);
     }
 
     /**
@@ -51,7 +51,7 @@ class StreamedResponseOutput extends Output
             throw new InvalidArgumentException();
         }
 
-        echo str_pad($message, 4096);
+        echo str_pad($message, $this->bufferSize);
         ob_flush();
         flush();
     }

@@ -14,11 +14,10 @@ class ImportController extends Controller
 {
     /**
      * @Route("/import", name="import")
-     * @param Request $request
      *
      * @return StreamedResponse
      */
-    public function importMediaAction(Request $request)
+    public function importMediaAction()
     {
         $streamedOutput = new StreamedResponseOutput();
         $buffer = 65536 / 8;

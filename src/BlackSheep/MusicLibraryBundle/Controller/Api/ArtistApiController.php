@@ -33,7 +33,6 @@ class ArtistApiController extends Controller
         }
 
         return $this->json($artists);
-        //return $this->handleView($this->view(['artists' => ]));
     }
 
     /**

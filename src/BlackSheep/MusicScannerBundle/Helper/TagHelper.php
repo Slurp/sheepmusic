@@ -98,7 +98,6 @@ class TagHelper
                 $this->getPropertyForTag($props, $tags['text'], 'artist_mbid', 'MusicBrainz Album Artist Id');
                 $this->getPropertyForTag($props, $tags['text'], 'album_mbid', 'MusicBrainz Album Id');
             }
-            //$this->getPropertyForTag($props, 'unsynchronised_lyric', 'unsynchronised_lyric', 0);
         }
     }
 

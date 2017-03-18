@@ -53,6 +53,6 @@ class LastFmController extends Controller
                 ['user' => $theUser]
             );
         }
-        // return $this->redirect('/');
+        return $this->redirect('/');
     }
 }
