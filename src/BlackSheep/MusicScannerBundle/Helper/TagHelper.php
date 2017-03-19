@@ -37,8 +37,19 @@ class TagHelper
         if (isset($info['error']) || !isset($info['playtime_seconds'])) {
             return null;
         }
+        
+        return $this->getPropsFromTags($info, $this->getDefaultArray($file, $info));
+    }
 
-        $props = [
+    /**
+     * @param $file
+     * @param $info
+     *
+     * @return array
+     */
+    private function getDefaultArray(SplFileInfo $file, $info)
+    {
+        return [
             'artist' => '',
             'album' => '',
             'title' => '',
@@ -51,8 +62,6 @@ class TagHelper
             'artist_mbid' => '',
             'album_mbid' => '',
         ];
-
-        return $this->getPropsFromTags($info, $props);
     }
 
     /**
