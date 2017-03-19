@@ -49,8 +49,6 @@ class Album implements AlbumInterface
      */
     protected $lastFmId;
 
-
-
     /**
      * @var string
      */
@@ -68,8 +66,12 @@ class Album implements AlbumInterface
         $album = new static();
         $album->setName($name);
         $album->setArtist($artist);
-        $album->setCover($extraInfo['cover']);
-        $album->setMusicBrainzId($extraInfo['album_mbid']);
+        if (isset($extraInfo['cover'])) {
+            $album->setCover($extraInfo['cover']);
+        }
+        if (isset($extraInfo['album_mbid'])) {
+            $album->setMusicBrainzId($extraInfo['album_mbid']);
+        }
 
         return $album;
     }
