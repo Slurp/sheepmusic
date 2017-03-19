@@ -71,6 +71,7 @@ class TagHelperTest extends PHPUnit_Framework_TestCase
         $file = new \SplFileInfo($this->flacPath);
         $tagHelper = new TagHelper();
         $info = $tagHelper->getInfo($file);
+        // cover is blob data test a other way
         unset($info['cover']);
         $props = [
             'artist' => 'a',
@@ -78,8 +79,8 @@ class TagHelperTest extends PHPUnit_Framework_TestCase
             'title' => 't',
             'length' => 554.891791383219924682634882628917694091796875,
             'lyrics' => '',
-            'path' => '/Users/slangeweg/privatespace/sheepmusic/tests/BlackSheep/MusicScannerBundle/Helper/../../../flac-file.flac',
-            'mTime' => 1488555434,
+            'path' => $file->getPathname(),
+            'mTime' => $file->getMTime(),
             'track' => '',
             'artist_mbid' => '',
             'album_mbid' => '',
