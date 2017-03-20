@@ -22,7 +22,7 @@ class AbstractRepository extends EntityRepository implements AbstractRepositoryI
      */
     public function save($entity)
     {
-        $this->getEntityManager()->flush($entity);
         $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
     }
 }

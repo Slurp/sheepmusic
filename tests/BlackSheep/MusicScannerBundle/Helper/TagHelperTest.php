@@ -74,9 +74,9 @@ class TagHelperTest extends PHPUnit_Framework_TestCase
         // cover is blob data test a other way
         unset($info['cover']);
         $props = [
-            'artist' => 'a',
-            'album' => 'a',
-            'title' => 't',
+            'artist' => 'Marianne Thorsen',
+            'album' => 'MOZART Violin Concertos (CD-resolution)',
+            'title' => 'MOZART Violin Concerto in D major KV 218, I. Allegro (CD-resolution)',
             'length' => 554.891791383219924682634882628917694091796875,
             'lyrics' => '',
             'path' => $file->getPathname(),

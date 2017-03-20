@@ -60,7 +60,7 @@ class Artist implements ArtistInterface
      */
     public static function createNew($name, $musicBrainzId = null)
     {
-        $artist = new self();
+        $artist = new static();
         $artist->setName($name);
         $artist->setMusicBrainzId($musicBrainzId);
         $artist->setPlayCount(0);

@@ -79,18 +79,6 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public static function createNew($name, $musicBrainzId = null)
-    {
-        $artist = new self();
-        $artist->setName($name);
-        $artist->setMusicBrainzId($musicBrainzId);
-
-        return $artist;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function addSong(SongInterface $song)
     {
         if ($this->songs->contains($song) === false) {

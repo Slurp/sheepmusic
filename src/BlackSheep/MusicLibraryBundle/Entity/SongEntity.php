@@ -86,7 +86,6 @@ class SongEntity extends Song implements SongInterface
         if ($this->artists->contains($artist) === false) {
             $this->artists->add($artist);
         }
-
         return $this;
     }
 

@@ -64,31 +64,20 @@ class MediaImporter
     protected $debug;
 
     /**
+     * @param EntityManager $entityManager
+     * @param SongImporter $songImporter
      */
-    public function __construct()
+    public function __construct(EntityManager $entityManager, SongImporter $songImporter)
     {
         $this->tagHelper = new TagHelper();
         $this->stopwatch = new Stopwatch();
-    }
-
-    /**
-     * @param EntityManager $entityManager
-     */
-    public function setEntityManager(EntityManager $entityManager)
-    {
         $this->entityManager = $entityManager;
-    }
-
-    /**
-     * @param SongImporter $songImporter
-     */
-    public function setSongImporter(SongImporter $songImporter)
-    {
         $this->songImporter = $songImporter;
     }
 
     /**
      * @param OutputInterface $output
+     * @param bool $debug
      */
     public function setOutputInterface(OutputInterface $output, $debug = true)
     {
@@ -133,12 +122,12 @@ class MediaImporter
             $this->stopwatch->lap('import_music');
             $songInfo = $this->tagHelper->getInfo($file);
             $songEntity = $this->songsRepository->needsImporting($songInfo);
+            $operation = 'skipping';
             if ($songEntity === null || $songInfo['artist'] === '') {
-                $this->songImporter->importSong($songInfo);
-                $this->debugStep('ADDING', $songInfo['artist'] . ' ' . $songInfo['album'] . $file->getGroup());
-            } else {
-                $this->debugStep('SKIPPING', $songInfo['artist'] . ' ' . $songInfo['album']);
+                $songEntity = $this->songImporter->importSong($songInfo);
+                $operation = 'adding';
             }
+            $this->debugStep($operation, $songEntity->getArtist()->getName(), $songEntity->getAlbum()->getName());
         }
         $this->entityManager->flush();
         $this->debugEnd();

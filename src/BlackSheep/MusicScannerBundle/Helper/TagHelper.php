@@ -37,7 +37,7 @@ class TagHelper
         if (isset($info['error']) || !isset($info['playtime_seconds'])) {
             return null;
         }
-        
+
         return $this->getPropsFromTags($info, $this->getDefaultArray($file, $info));
     }
 
@@ -118,10 +118,10 @@ class TagHelper
     {
         if (isset($info['tags'][$tagName])) {
             $tags = $info['tags'][$tagName];
-            $this->getPropertyForTag($props, 'artist', 'artist', 0);
-            $this->getPropertyForTag($props, 'album', 'album', 0);
-            $this->getPropertyForTag($props, 'title', 'title', 0);
-            $this->getPropertyForTag($props, 'title', 'title', 0);
+            $this->getPropertyForTag($props, $tags, 'artist');
+            $this->getPropertyForTag($props, $tags, 'album');
+            $this->getPropertyForTag($props, $tags, 'title');
+            $this->getPropertyForTag($props, $tags, 'title');
 
             $this->getPropertyForTag($props, $tags, 'artist_mbid', 'musicbrainz_artistid');
             $this->getPropertyForTag($props, $tags, 'album_mbid', 'musicbrainz_albumid');
@@ -138,8 +138,11 @@ class TagHelper
      * @param string $propertyName
      * @param $tagName
      */
-    private function getPropertyForTag(&$props, $tags, $propertyName, $tagName)
+    private function getPropertyForTag(&$props, $tags, $propertyName, $tagName = null)
     {
+        if ($tagName === null) {
+            $tagName = $propertyName;
+        }
         if (isset($tags[$tagName]) && empty($tags[$tagName]) === false) {
             if (is_string($tags[$tagName])) {
                 $props[$propertyName] = trim($tags[$tagName]);
