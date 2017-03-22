@@ -10,7 +10,7 @@ namespace BlackSheep\MusicScannerBundle\Services;
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
-use Doctrine\ORM\EntityManager;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 
 /**
  * Imports a song based on array information
@@ -18,9 +18,9 @@ use Doctrine\ORM\EntityManager;
 class SongImporter
 {
     /**
-     * @var EntityManager
+     * @var ManagerRegistry
      */
-    protected $entityManager;
+    protected $managerRegistry;
 
     /**
      * @var AlbumImporter
@@ -33,16 +33,16 @@ class SongImporter
     protected $artistImporter;
 
     /**
-     * @param EntityManager $entityManager
+     * @param ManagerRegistry $managerRegistry
      * @param AlbumImporter $albumImporter
      * @param ArtistImporter $artistImporter
      */
     public function __construct(
-        EntityManager $entityManager,
+        ManagerRegistry $managerRegistry,
         AlbumImporter $albumImporter,
         ArtistImporter $artistImporter
     ) {
-        $this->entityManager = $entityManager;
+        $this->managerRegistry = $managerRegistry;
         $this->albumImporter = $albumImporter;
         $this->artistImporter = $artistImporter;
     }
@@ -61,12 +61,12 @@ class SongImporter
         $album->addSong($songEntity);
         $songEntity->addArtist($artist);
 
-        $this->entityManager->persist($songEntity);
+        $this->managerRegistry->getManagerForClass(SongEntity::class)->persist($songEntity);
         if ($album instanceof AlbumEntity) {
-            $this->entityManager->persist($album);
+            $this->managerRegistry->getManagerForClass(AlbumEntity::class)->persist($album);
         }
         if ($artist instanceof ArtistsEntity) {
-            $this->entityManager->persist($artist);
+            $this->managerRegistry->getManagerForClass(ArtistsEntity::class)->persist($artist);
         }
         return $songEntity;
     }

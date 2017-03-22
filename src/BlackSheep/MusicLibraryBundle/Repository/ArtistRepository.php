@@ -23,6 +23,7 @@ class ArtistRepository extends AbstractRepository implements ArtistRepositoryInt
         }
         if ($artistEntity === null || ($artistEntity instanceof ArtistsEntity) === false
         ) {
+            //$this->getEntityManager()->clear();
             $artistEntity = ArtistsEntity::createNew($artistName, $musicBrainzId);
             $this->save($artistEntity);
         }

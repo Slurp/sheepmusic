@@ -11,12 +11,11 @@ namespace BlackSheep\MusicScannerBundle\Services;
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
 use BlackSheep\MusicLibraryBundle\Repository\SongsRepository;
 use BlackSheep\MusicScannerBundle\Helper\TagHelper;
-use Doctrine\ORM\EntityManager;
 use SplFileInfo;
+use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 /**
  * Import some media.
@@ -34,19 +33,14 @@ class MediaImporter
     protected $output;
 
     /**
-     * @var Stopwatch
-     */
-    protected $stopwatch;
-
-    /**
      * @var ProgressBar
      */
     protected $progress;
 
     /**
-     * @var EntityManager
+     * @var ManagerRegistry
      */
-    protected $entityManager;
+    protected $managerRegistry;
 
     /**
      * @var SongsRepository
@@ -64,14 +58,15 @@ class MediaImporter
     protected $debug;
 
     /**
-     * @param EntityManager $entityManager
+     * @param ManagerRegistry $managerRegistry
      * @param SongImporter $songImporter
+     *
+     * @internal param EntityManager $entityManager
      */
-    public function __construct(EntityManager $entityManager, SongImporter $songImporter)
+    public function __construct(ManagerRegistry $managerRegistry, SongImporter $songImporter)
     {
         $this->tagHelper = new TagHelper();
-        $this->stopwatch = new Stopwatch();
-        $this->entityManager = $entityManager;
+        $this->managerRegistry = $managerRegistry;
         $this->songImporter = $songImporter;
     }
 
@@ -96,7 +91,8 @@ class MediaImporter
             $this->progress = new ProgressBar($this->output, $max);
             // start and displays the progress bar
             $this->progress->start($max);
-            $this->progress->setRedrawFrequency(4);
+            $this->progress->setRedrawFrequency(10);
+            $this->progress->setFormat('debug');
             if ($this->debug) {
                 $this->progress->setFormat('%current%/%max% %elapsed:6s%/%estimated:-6s% %message% : %filename%');
             }
@@ -109,9 +105,10 @@ class MediaImporter
     public function import($path)
     {
         $this->path = $path;
-        $this->stopwatch->start('import_music');
         // Make service calls out of these
-        $this->songsRepository = $this->entityManager->getRepository(SongEntity::class);
+        $this->songsRepository = $this->managerRegistry->getRepository(
+            SongEntity::class
+        );
 
         $importingFiles = $this->gatherFiles($this->path);
 
@@ -119,17 +116,23 @@ class MediaImporter
 
         /** @var SplFileInfo $file */
         foreach ($importingFiles as $file) {
-            $this->stopwatch->lap('import_music');
             $songInfo = $this->tagHelper->getInfo($file);
             $songEntity = $this->songsRepository->needsImporting($songInfo);
             $operation = 'skipping';
-            if ($songEntity === null || $songInfo['artist'] === '') {
+            if ($songEntity === null && empty($songInfo['artist']) === false) {
                 $songEntity = $this->songImporter->importSong($songInfo);
                 $operation = 'adding';
             }
-            $this->debugStep($operation, $songEntity->getArtist()->getName(), $songEntity->getAlbum()->getName());
+            if ($songEntity !== null) {
+                $this->debugStep(
+                    $operation,
+                    $songEntity->getArtist()->getName() . " " . $songEntity->getAlbum()->getName()
+                );
+            }
+            unset($songInfo);
+            unset($songEntity);
+            unset($file);
         }
-        $this->entityManager->flush();
         $this->debugEnd();
     }
 
@@ -155,10 +158,6 @@ class MediaImporter
     {
         if ($this->progress !== null) {
             $this->progress->finish();
-        }
-        if ($this->output !== null) {
-            $event = $this->stopwatch->stop('import_music');
-            $this->output->writeln($event->getDuration() / 100 . 'S');
         }
     }
 

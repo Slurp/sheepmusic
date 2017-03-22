@@ -11,10 +11,8 @@ use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\LastFm\LastFmAlbum;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
-use BlackSheep\MusicLibraryBundle\Model\Artist;
-use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use BlackSheep\MusicLibraryBundle\Repository\AlbumsRepository;
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
  * Imports a song based on array information
@@ -35,17 +33,14 @@ class AlbumImporter
     protected $albumRepository;
 
     /**
-     * @var EntityManager
-     */
-    protected $entityManager;
-
-    /**
-     * @param EntityManager $entityManager
+     * @param ManagerRegistry $managerRegistry
      * @param LastFmAlbum $lastFmAlbum
      */
-    public function __construct(EntityManager $entityManager, LastFmAlbum $lastFmAlbum)
+    public function __construct(ManagerRegistry $managerRegistry, LastFmAlbum $lastFmAlbum)
     {
-        $this->albumRepository = $entityManager->getRepository(AlbumEntity::class);
+        $this->albumRepository = $managerRegistry->getRepository(
+            AlbumEntity::class
+        );
         $this->lastFmAlbum = $lastFmAlbum;
     }
 
@@ -63,8 +58,13 @@ class AlbumImporter
                 $songInfo['album'],
                 $songInfo
             );
-            $this->lastFmAlbum->updateLastFmInfo($this->albumCache);
+            try {
+                $this->lastFmAlbum->updateLastFmInfo($this->albumCache);
+            } catch (\Exception $exception) {
+                error_log($exception->getFile() . $exception->getLine() . $exception->getMessage());
+            }
         }
+
         return $this->albumCache;
     }
 }

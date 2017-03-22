@@ -2,24 +2,24 @@ services:
     black_sheep_music_scanner.services.media_importer:
         class: 'BlackSheep\MusicScannerBundle\Services\MediaImporter'
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@doctrine'
             - '@black_sheep_music_scanner.services.song_importer'
 
     black_sheep_music_scanner.services.song_importer:
         class: 'BlackSheep\MusicScannerBundle\Services\SongImporter'
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@doctrine'
             - '@black_sheep_music_scanner.services.album_importer'
             - '@black_sheep_music_scanner.services.artist_importer'
 
     black_sheep_music_scanner.services.album_importer:
         class: 'BlackSheep\MusicScannerBundle\Services\AlbumImporter'
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@doctrine'
             - '@black_sheep_music_library.last_fm.last_fm_album'
 
     black_sheep_music_scanner.services.artist_importer:
         class: 'BlackSheep\MusicScannerBundle\Services\ArtistImporter'
         arguments:
-            - '@doctrine.orm.entity_manager'
+            - '@doctrine'
             - '@black_sheep_music_library.last_fm.last_fm_artist'
