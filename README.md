@@ -1,6 +1,8 @@
 # BlackSheep:Music 
 [![Build Status](https://travis-ci.org/Slurp/sheepmusic.svg?branch=master)](https://travis-ci.org/Slurp/sheepmusic)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Slurp/sheepmusic/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/Slurp/sheepmusic/?branch=develop)
+[![Code Coverage](https://scrutinizer-ci.com/g/Slurp/sheepmusic/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/Slurp/sheepmusic/?branch=develop)
+[![Build Status](https://scrutinizer-ci.com/g/Slurp/sheepmusic/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/Slurp/sheepmusic/build-status/develop)
 # Why another webbased library player?
  - Because i can.
  - There wasn't a Symfony based one?
