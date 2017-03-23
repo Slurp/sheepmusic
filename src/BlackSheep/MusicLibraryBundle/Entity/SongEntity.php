@@ -9,6 +9,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * @ORM\Table(indexes={
+ *     @ORM\Index(name="album_index", columns={"album_id"} ),
+ *      @ORM\Index(name="index_import", columns={"m_time"} ),
+ *     @ORM\Index(name="index_create", columns={"created_at"}),
+ *     @ORM\Index(name="index_update", columns={"updated_at"})
+ * }))
  * @ORM\Entity(repositoryClass="BlackSheep\MusicLibraryBundle\Repository\SongsRepository")
  */
 class SongEntity extends Song implements SongInterface
@@ -36,7 +42,7 @@ class SongEntity extends Song implements SongInterface
     protected $mTime;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text",length=4096)
      */
     protected $path;
 

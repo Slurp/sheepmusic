@@ -13,6 +13,14 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInterface
 {
     /**
+     * {@inheritdoc}
+     */
+    public function queryAll()
+    {
+        return $this->createQueryBuilder('a')->getQuery()->setFetchMode(AlbumEntity::class, 'artist', ClassMetadata::FETCH_EAGER);
+    }
+
+    /**
      * @param ArtistsEntity $artists
      * @param               $albumName
      * @param               $extraInfo
@@ -22,7 +30,7 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
     public function addOrUpdateByArtistAndName(ArtistsEntity $artists, $albumName, $extraInfo)
     {
         $album = $this->getArtistAlbumByName($artists, $albumName);
-        if ($album == null) {
+        if ($album === null) {
             $album = AlbumEntity::createArtistAlbum($albumName, $artists, $extraInfo);
             $this->save($album);
         }

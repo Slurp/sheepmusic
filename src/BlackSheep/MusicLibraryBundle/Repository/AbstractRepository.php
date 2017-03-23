@@ -2,7 +2,6 @@
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\Query;
 
 /**
  * Some useful common functions

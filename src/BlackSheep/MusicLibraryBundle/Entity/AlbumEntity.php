@@ -10,7 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity
+ * @ORM\Table(indexes={
+ *     @ORM\Index(name="index_artist_album", columns={"artist_id","name"}),
+ *     @ORM\Index(name="index_create", columns={"created_at"}),
+ *     @ORM\Index(name="index_update", columns={"updated_at"})
+ * }))
  * @ORM\Entity(repositoryClass="BlackSheep\MusicLibraryBundle\Repository\AlbumsRepository")
  */
 class AlbumEntity extends Album implements AlbumInterface

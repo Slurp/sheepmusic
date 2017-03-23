@@ -61,6 +61,23 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/albums/recent/{page}", defaults={"page" = 1}, name="library_recent_albums")
+     *
+     * @param $page
+     *
+     * @return Response
+     */
+    public function recentAlbumsAction($page = 1)
+    {
+        return $this->renderAlbumsOverview(
+            UtilsPagerFanta::getByQuery(
+                $this->getDoctrine()->getRepository(AlbumEntity::class)->getRecentAlbums(),
+                $page
+            )
+        );
+    }
+
+    /**
      * @Route("/albums/{page}", defaults={"page" = 1}, name="library_albums")
      *
      * @param $page
@@ -77,22 +94,7 @@ class DefaultController extends Controller
         );
     }
 
-    /**
-     * @Route("/albums/recent/{page}", defaults={"page" = 1}, name="library_recent_albums")
-     *
-     * @param $page
-     *
-     * @return Response
-     */
-    public function recentAlbumsAction($page)
-    {
-        return $this->renderAlbumsOverview(
-            UtilsPagerFanta::getByQuery(
-                $this->getDoctrine()->getRepository(AlbumEntity::class)->getRecentAlbums(),
-                $page
-            )
-        );
-    }
+
 
     /**
      * @param Pagerfanta $pager
