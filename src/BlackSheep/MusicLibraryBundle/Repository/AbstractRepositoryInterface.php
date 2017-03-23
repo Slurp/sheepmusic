@@ -1,6 +1,8 @@
 <?php
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
+use Doctrine\ORM\Query;
+
 /**
  * Interface AbstractRepositoryInterface
  */

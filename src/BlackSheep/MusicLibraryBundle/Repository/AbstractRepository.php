@@ -10,7 +10,7 @@ use Doctrine\ORM\Query;
 class AbstractRepository extends EntityRepository implements AbstractRepositoryInterface
 {
     /**
-     * @return Query
+     * {@inheritdoc}
      */
     public function queryAll()
     {
