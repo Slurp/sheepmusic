@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Helper\PagerFantaHelper;
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
+use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -25,11 +26,11 @@ class DefaultController extends Controller
 
     /**
      * @Route("/artists/{page}", defaults={"page" = 1}, name="library_artists")
-     * @param null $page
+     * @param $page
      *
      * @return Response
      */
-    public function artistAction($page = null)
+    public function artistAction($page = 1)
     {
         $pager = PagerFantaHelper::getAllPaged($this->getDoctrine()->getRepository(ArtistsEntity::class), $page);
 
@@ -68,14 +69,11 @@ class DefaultController extends Controller
      */
     public function albumsAction($page)
     {
-        $pager = PagerFantaHelper::getAllPaged($this->getDoctrine()->getRepository(AlbumEntity::class), $page);
-
-        return $this->render(
-            'AppBundle:Album:overview.html.twig',
-            [
-                'pager' => $pager,
-                'albums' => $pager->getCurrentPageResults()
-            ]
+        return $this->renderAlbumsOverview(
+            PagerFantaHelper::getAllPaged(
+                $this->getDoctrine()->getRepository(AlbumEntity::class),
+                $page
+            )
         );
     }
 
@@ -88,11 +86,21 @@ class DefaultController extends Controller
      */
     public function recentAlbumsAction($page)
     {
-        $pager = PagerFantaHelper::getByQuery(
-            $this->getDoctrine()->getRepository(AlbumEntity::class)->getRecentAlbums(),
-            $page
+        return $this->renderAlbumsOverview(
+            PagerFantaHelper::getByQuery(
+                $this->getDoctrine()->getRepository(AlbumEntity::class)->getRecentAlbums(),
+                $page
+            )
         );
+    }
 
+    /**
+     * @param Pagerfanta $pager
+     *
+     * @return Response
+     */
+    protected function renderAlbumsOverview(Pagerfanta $pager)
+    {
         return $this->render(
             'AppBundle:Album:overview.html.twig',
             [

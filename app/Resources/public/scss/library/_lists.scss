@@ -25,4 +25,15 @@
       border-top-right-radius: 5px;
     }
   }
+  ~ .pagination {
+    @extend .justify-content-center;
+    @include media-breakpoint-up(sm) {
+      position: fixed;
+      z-index: 999;
+      bottom: 54px;
+      left: 0;
+      right: 0;
+      background: $pagination-bg;
+    }
+  }
 }

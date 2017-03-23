@@ -43,6 +43,7 @@ class PagerFantaHelper
                 true
             )
         );
+        $pager->setMaxPerPage(50);
         $pager->setCurrentPage($page);
 
         return $pager;

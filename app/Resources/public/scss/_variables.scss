@@ -27,6 +27,8 @@ $primary-text-color:   #212121;
 $secondary-text-color: #727272;
 $divider-color:        #B6B6B6;
 
+$brand-primary:$accent-color;
+
 
 /* ==========  Player  ========== */
 $player-bg-color : $primary-color;
@@ -155,6 +157,23 @@ $card-link-hover-color: $accent-color;
 $card-footer-color:  $primary-color-text;
 $card-cap-bg:  rgba($primary-color-dark, 0.95);
 $card-padding: 5px 5px;
+
+$pagination-color:                     $link-color ;
+$pagination-bg:                        $white ;
+$pagination-border-width:              $border-width ;
+$pagination-border-color:              #ddd ;
+
+$pagination-hover-color:               $link-hover-color ;
+$pagination-hover-bg:                  $gray-lighter ;
+$pagination-hover-border:              #ddd ;
+
+$pagination-active-color:              $white ;
+$pagination-active-bg:                 $brand-primary ;
+$pagination-active-border:             $brand-primary ;
+
+$pagination-disabled-color:            $gray-light ;
+$pagination-disabled-bg:               $white ;
+$pagination-disabled-border:           #ddd ;
 
 // info-bar
 $infobar-bg-color: rgba($primary-color-dark, 0.95);
