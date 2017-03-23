@@ -76,6 +76,11 @@ services:
     class: Jasny\Twig\DateExtension
     tags:
       - { name: twig.extension }
+  pagerfanta.view.twitter_bootstrap3:
+      class: Pagerfanta\View\TwitterBootstrap4View
+      public: false
+      tags:
+          - { name: pagerfanta.view, alias: twitter_bootstrap4 }
 
 # Swiftmailer Configuration
 swiftmailer:

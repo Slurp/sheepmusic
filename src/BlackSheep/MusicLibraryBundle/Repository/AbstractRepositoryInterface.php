@@ -7,6 +7,11 @@ namespace BlackSheep\MusicLibraryBundle\Repository;
 interface AbstractRepositoryInterface
 {
     /**
+     * @return Query
+     */
+    public function queryAll();
+
+    /**
      * @param $entity
      *
      * @return void

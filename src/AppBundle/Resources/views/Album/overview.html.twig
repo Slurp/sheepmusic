@@ -5,5 +5,6 @@
 {% block content %}
     {#{% include '@App/Components/navigation.html.twig' %}#}
     {% include '@App/Album/list.html.twig' %}
+    {{ pagerfanta(pager,'twitter_bootstrap4') }}
 {% endblock %}
 

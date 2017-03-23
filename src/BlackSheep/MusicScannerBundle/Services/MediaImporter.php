@@ -130,7 +130,6 @@ class MediaImporter
                 );
             }
             unset($songInfo);
-            unset($songEntity);
             unset($file);
         }
         $this->debugEnd();

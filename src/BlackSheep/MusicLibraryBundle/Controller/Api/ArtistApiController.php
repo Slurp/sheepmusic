@@ -21,7 +21,7 @@ class ArtistApiController extends Controller
     public function getArtistsAction()
     {
         $adapter = new DoctrineORMAdapter(
-            $this->getDoctrine()->getRepository(ArtistsEntity::class)->fetchPage(),
+            $this->getDoctrine()->getRepository(ArtistsEntity::class)->queryAll(),
             false
         );
         $pager = new Pagerfanta($adapter);

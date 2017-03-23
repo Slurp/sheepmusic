@@ -28,10 +28,7 @@ interface AlbumsRepositoryInterface extends AbstractRepositoryInterface
     public function getArtistAlbumByName(ArtistsEntity $artist, $albumName);
 
     /**
-     * @param int $offset
-     * @param int $limit
-     *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    public function getRecentAlbums($offset = 0, $limit = 12);
+    public function getRecentAlbums();
 }

@@ -53,6 +53,7 @@ class StreamerService
     public function getStreamerForSong(SongInterface $song, $startTime = 0)
     {
         $songFile = new File($song->getPath());
+        $streamer = new DefaultStreamer($song);
         // If transcode parameter isn't passed, the default is to only transcode flac
         if ($songFile->getExtension() === 'flac') {
             $streamer = new TranscodingStreamer(
@@ -62,8 +63,6 @@ class StreamerService
                 $this->ffprobePath,
                 $startTime
             );
-        } else {
-            $streamer = new DefaultStreamer($song);
         }
 
         return $streamer->getStreamedResponse();

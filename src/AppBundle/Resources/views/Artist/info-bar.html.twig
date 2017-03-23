@@ -4,7 +4,7 @@
         <i class="material-icons">play_arrow</i>
     </a>
     <img class="info-bar-image"
-         src="{% if artist.image is not null %}{{ artist.image }}{% else %}{{ artist.lastFmInfo.image.large }}{% endif %}"/>
+         src="{% if artist.image is not null %}{{ artist.image }}{% endif %}"/>
     <div class="info-bar-content">
         <h1 class="artist-name">{{ artist.name }}</h1>
         <span class="label label-info">{{ artist.playCount }}</span>

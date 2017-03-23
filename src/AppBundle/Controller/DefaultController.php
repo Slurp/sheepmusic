@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Helper\PagerFantaHelper;
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -23,12 +24,22 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/artists", name="library_artists")
+     * @Route("/artists/{page}", defaults={"page" = 1}, name="library_artists")
+     * @param null $page
+     *
+     * @return Response
      */
-    public function artistAction()
+    public function artistAction($page = null)
     {
-        $artists = $this->getDoctrine()->getRepository(ArtistsEntity::class)->findAll();
-        return $this->render('AppBundle:Artist:overview.html.twig', ['artists' => $artists]);
+        $pager = PagerFantaHelper::getAllPaged($this->getDoctrine()->getRepository(ArtistsEntity::class), $page);
+
+        return $this->render(
+            'AppBundle:Artist:overview.html.twig',
+            [
+                'pager' => $pager,
+                'artists' => $pager->getCurrentPageResults()
+            ]
+        );
     }
 
     /**
@@ -49,27 +60,46 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/albums", name="library_albums")
+     * @Route("/albums/{page}", defaults={"page" = 1}, name="library_albums")
+     *
+     * @param $page
      *
      * @return Response
      */
-    public function albumsAction()
+    public function albumsAction($page)
     {
-        $albums = $this->getDoctrine()->getRepository(AlbumEntity::class)->findAll();
+        $pager = PagerFantaHelper::getAllPaged($this->getDoctrine()->getRepository(AlbumEntity::class), $page);
 
-        return $this->render('AppBundle:Album:overview.html.twig', ['albums' => $albums]);
+        return $this->render(
+            'AppBundle:Album:overview.html.twig',
+            [
+                'pager' => $pager,
+                'albums' => $pager->getCurrentPageResults()
+            ]
+        );
     }
 
     /**
-     * @Route("/albums/recent", name="library_recent_albums")
+     * @Route("/albums/recent/{page}", defaults={"page" = 1}, name="library_recent_albums")
+     *
+     * @param $page
      *
      * @return Response
      */
-    public function recentAlbumsAction()
+    public function recentAlbumsAction($page)
     {
-        $albums = $this->getDoctrine()->getRepository(AlbumEntity::class)->getRecentAlbums();
+        $pager = PagerFantaHelper::getByQuery(
+            $this->getDoctrine()->getRepository(AlbumEntity::class)->getRecentAlbums(),
+            $page
+        );
 
-        return $this->render('AppBundle:Album:overview.html.twig', ['albums' => $albums]);
+        return $this->render(
+            'AppBundle:Album:overview.html.twig',
+            [
+                'pager' => $pager,
+                'albums' => $pager->getCurrentPageResults()
+            ]
+        );
     }
 
     /**

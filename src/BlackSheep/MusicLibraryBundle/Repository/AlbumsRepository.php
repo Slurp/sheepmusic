@@ -5,6 +5,7 @@ namespace BlackSheep\MusicLibraryBundle\Repository;
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 /**
  * SongsRepository
@@ -43,18 +44,12 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
     }
 
     /**
-     * @param int $offset
-     * @param int $limit
-     *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return \Doctrine\ORM\Query
      */
-    public function getRecentAlbums($offset = 0, $limit = 50)
+    public function getRecentAlbums()
     {
-        $queryBuilder = $this->createQueryBuilder('a')
+        return $this->createQueryBuilder('a')
             ->addOrderBy('a.createdAt', 'DESC')
-            ->setFirstResult($offset)
-            ->setMaxResults($limit);
-
-        return $queryBuilder->getQuery()->getResult();
+            ->getQuery()->setFetchMode(AlbumEntity::class, 'artist', ClassMetadata::FETCH_EAGER);
     }
 }

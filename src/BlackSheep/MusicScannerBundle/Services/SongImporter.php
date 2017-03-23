@@ -68,6 +68,7 @@ class SongImporter
         if ($artist instanceof ArtistsEntity) {
             $this->managerRegistry->getManagerForClass(ArtistsEntity::class)->persist($artist);
         }
+        $this->managerRegistry->getManagerForClass(SongEntity::class)->flush($songEntity);
         return $songEntity;
     }
 }
