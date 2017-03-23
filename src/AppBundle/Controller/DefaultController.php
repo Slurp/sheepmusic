@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-use AppBundle\Helper\PagerFantaHelper;
+use AppBundle\Utils\UtilsPagerFanta;
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use Pagerfanta\Pagerfanta;
@@ -32,7 +32,7 @@ class DefaultController extends Controller
      */
     public function artistAction($page = 1)
     {
-        $pager = PagerFantaHelper::getAllPaged($this->getDoctrine()->getRepository(ArtistsEntity::class), $page);
+        $pager = UtilsPagerFanta::getAllPaged($this->getDoctrine()->getRepository(ArtistsEntity::class), $page);
 
         return $this->render(
             'AppBundle:Artist:overview.html.twig',
@@ -70,7 +70,7 @@ class DefaultController extends Controller
     public function albumsAction($page)
     {
         return $this->renderAlbumsOverview(
-            PagerFantaHelper::getAllPaged(
+            UtilsPagerFanta::getAllPaged(
                 $this->getDoctrine()->getRepository(AlbumEntity::class),
                 $page
             )
@@ -87,7 +87,7 @@ class DefaultController extends Controller
     public function recentAlbumsAction($page)
     {
         return $this->renderAlbumsOverview(
-            PagerFantaHelper::getByQuery(
+            UtilsPagerFanta::getByQuery(
                 $this->getDoctrine()->getRepository(AlbumEntity::class)->getRecentAlbums(),
                 $page
             )
