@@ -1,8 +1,10 @@
+
 .btn-playlist {
   @extend .btn-primary;
   margin-top: 0;
   padding: 6px 8px 0;
   z-index: 3;
+
   i {
     font-size: 24px;
     position: absolute;
@@ -14,100 +16,113 @@
   }
 }
 
-.player {
-  .playlist-dropup {
-    overflow: hidden;
-    opacity: 0;
-    background-color: $playlist-bg-color;
-    color: $playlist-txt-color;
+.playlist-dropup {
+  overflow: hidden;
+  opacity: 0;
+  color: $playlist-txt-color;
+  transition: all 1s ease 0.1s;
+
+}
+
+.playlist {
+  background-color: $playlist-bg-color;
+  transform: translateX(100%);
+  display: none;
+  z-index: 998;
+  margin-right: 0;
+  margin-bottom: 0;
+  transition: all 1s ease 0.2s;
+  color: $playlist-txt-color;
+  .playlist-wrapper {
+    position: absolute;
+    left: 5px;
+    right: 5px;
   }
-  .playlist {
-    z-index: 3;
-    margin-right: 0;
-    margin-bottom: 0;
-    padding: 0 15px;
-    transition: all 1s ease 0.1s;
-    color: $playlist-txt-color;
+  .btn {
+    position: absolute;
+    bottom: 15px;
+    right: 10px;
+  }
+  .playlist-header {
+    padding-top: 15px;
+    margin-bottom: 15px;
+  }
 
-    .playlist-header {
-      padding-top: 15px;
-      margin-bottom: 15px;
+  ul {
+    @extend .nav;
+    @extend .flex-column;
+    overflow-y: auto;
+    position: relative;
+    height: calc(100vh - 230px);
+    &::-webkit-scrollbar {
+      display: none;
     }
-
-    ul {
-      @extend .nav;
-      @extend .flex-column;
-      overflow-y: auto;
+  }
+  .playlist-item {
+    @extend .media;
+    padding: 5px;
+    height: 40px;
+    line-height: 40px;
+    max-height: 40px;
+    min-height: 40px;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    img {
+      width: 32px;
+      height: auto;
       position: relative;
-      height: calc(100vh - 230px);
+      z-index: 1;
     }
-    .playlist-item {
-      @extend .media;
-      padding: 5px;
-      height: 40px;
-      line-height: 40px;
-      max-height: 40px;
-      min-height: 40px;
-      font-size: 14px;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-      img {
-        width: 32px;
-        height: auto;
-        position: relative;
-        z-index: 1;
+    &.playing {
+      position: relative;
+        &:after {
+          position: absolute;
+          top: 2px;
+          left: 2px;
+          z-index: 2;
+          content: "";
+          width: 40px;
+          height: 40px;
+          display: block;
+          background: url(../img/now-playing.gif) rgba($player-txt-color, 0.5);
+        }
+    }
+    .playlist-item-info {
+      position: relative;
+      margin-left: 5px;
+      margin-right: 45px;
+      overflow: hidden;
+      width: 100%;
+      h5, h6 {
+        width: 250px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
-      &.playing {
-        .playlist-item-info {
-          &:after {
-            position: absolute;
-            top:0;
-            left: -40px;
-            z-index: 2;
-            content: "";
-            width: 40px;
-            height: 40px;
-            display: block;
-            background: url(../img/now-playing.gif) rgba($player-txt-color,0.5);
-          }
-        }
+      h5 {
+        font-size: 13px;
+        margin: 0;
       }
-      .playlist-item-info {
-        position: relative;
-        margin-left: 5px;
-        margin-right: 45px;
-
-        width: 100%;
-        h5,h6 {
-          width: 250px;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-        h5 {
-          font-size: 13px;
-          margin: 0;
-        }
-        h6 {
-          font-size: 12px;
-          margin: 0;
-          margin-top: 5px;
-          color: lighten($playlist-txt-color,30%);
-        }
-      }
-      .playlist-item-actions {
-        position: absolute;
-        right: 15px;
+      h6 {
+        font-size: 12px;
+        margin: 0;
+        margin-top: 5px;
+        color: lighten($playlist-txt-color, 30%);
       }
     }
-    .playlist-actions {
-      height: 100px;
+    .playlist-item-actions {
+      position: absolute;
+      right: 15px;
     }
   }
-  .show > .playlist-dropup {
-    top: auto;
-    left: 0;
-    bottom: 0;
-    height: calc(100vh - 126px);
+}
+.playlist-show
+{
+  .playlist {
+    display: block;
+    transform: translateX(0%);
+  }
+  .playlist-dropup {
     opacity: 1;
     z-index: 1;
   }

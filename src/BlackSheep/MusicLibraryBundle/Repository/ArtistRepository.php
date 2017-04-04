@@ -21,24 +21,11 @@ class ArtistRepository extends AbstractRepository implements ArtistRepositoryInt
         if ($artistEntity === null) {
             $artistEntity = $this->getArtistByName($artistName);
         }
-        if ($artistEntity === null || ($artistEntity instanceof ArtistsEntity) === false
-        ) {
-            //$this->getEntityManager()->clear();
+        if ($artistEntity === null) {
             $artistEntity = ArtistsEntity::createNew($artistName, $musicBrainzId);
-            $this->save($artistEntity);
         }
 
         return $artistEntity;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getArtistByName($artistName)
-    {
-        return $this->findOneBy(
-            ['name' => $artistName]
-        );
     }
 
     /**
@@ -53,6 +40,16 @@ class ArtistRepository extends AbstractRepository implements ArtistRepositoryInt
         }
 
         return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getArtistByName($artistName)
+    {
+        return $this->findOneBy(
+            ['name' => $artistName]
+        );
     }
 
     /**

@@ -3,6 +3,7 @@
   left:0;
   right: 0;
   top:58px;
+  line-height: 1.75rem;
   @include media-breakpoint-up(md) {
     transition: left 0.3s ease;
     left: 160px;

@@ -62,7 +62,9 @@ class LastFmArtist implements LastFmArtistInterface
             $this->artist = $artist;
             $lastFmInfo = $this->lastFmArtistInfo->getInfo($this);
             if ($lastFmInfo !== null) {
-                $artist->setImage($lastFmInfo['image']['large']);
+                if (empty($artist->getImage())) {
+                    $artist->setImage($lastFmInfo['image']['large']);
+                }
                 $artist->setBiography($lastFmInfo['bio']['summary']);
             }
             unset($lastFmInfo);

@@ -17,7 +17,11 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
      */
     public function queryAll()
     {
-        return $this->createQueryBuilder('a')->getQuery()->setFetchMode(AlbumEntity::class, 'artist', ClassMetadata::FETCH_EAGER);
+        return $this->createQueryBuilder('a')->getQuery()->setFetchMode(
+            AlbumEntity::class,
+            'artist',
+            ClassMetadata::FETCH_EAGER
+        );
     }
 
     /**
@@ -32,7 +36,6 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
         $album = $this->getArtistAlbumByName($artists, $albumName);
         if ($album === null) {
             $album = AlbumEntity::createArtistAlbum($albumName, $artists, $extraInfo);
-            $this->save($album);
         }
 
         return $album;

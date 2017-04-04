@@ -122,16 +122,7 @@
 	        return;
 	      }
 
-	      var controls = ["<div class='plyr__controls player-controls' id='playerControls'>", "<div class='row'>", "<button type='button' data-plyr='previous'>", "<i class='material-icons'>skip_previous</i>", "<span class='plyr__sr-only'>previous</span>", "</button>", "<button type='button' data-plyr='rewind'>", "<i class='material-icons'>fast_rewind</i>", "<span class='plyr__sr-only'>Rewind {seektime} secs</span>", "</button>", "<button type='button' data-plyr='play'>", "<i class='material-icons'>play_circle_outline</i>", "<span class='plyr__sr-only'>Play</span>", "</button>", "<button type='button' data-plyr='pause'>", "<i class='material-icons'>pause_circle_outline</i>", "<span class='plyr__sr-only'>Pause</span>", "</button>", "<button type='button' data-plyr='fast-forward'>", "<i class='material-icons'>fast_forward</i>", "<span class='plyr__sr-only'>Forward {seektime} secs</span>", "</button>", "<button type='button' data-plyr='next'>", "<i class='material-icons'>skip_next</i>", "<span class='plyr__sr-only'>next</span>", "</button>", "</div>", "</div>", "<div class='player-info'>", "<img src='/frontend/img/default.png' class='song-image'/>", "<span class='plyr__progress progress-wrapper'>", "<label for='seek{id}' class='plyr__sr-only'>Seek</label>", "<input id='seek{id}' class='plyr__progress--seek' type='range' min='0' max='100' step='0.1' value='0' data-plyr='seek'>", "<progress class='plyr__progress--played' max='100' value='0' role='presentation'></progress>", "<progress class='plyr__progress--buffer' max='100' value='0'>", "<span>0</span>% buffered", "</progress>", "<span class='plyr__tooltip'>00:00</span>", "</span>",
-	      //"<span class='plyr__time'>",
-	      //"<span class='plyr__sr-only'>Current time</span>",
-	      //"<span class='plyr__time--current'>00:00</span>",
-	      //"</span>",
-	      //"<span class='plyr__time'>",
-	      //"<span class='plyr__sr-only'>Duration</span>",
-	      //"<span class='plyr__time--duration'>00:00</span>",
-	      //"</span>",
-	      "<div id='now-playing' href='#albums'>", "<a href='#' class='playing-song-title'>", "Nothing Playing", "</a>", "<span class='playing-song-meta'></span>", "<canvas width='453' height='66' id='showcase'></canvas>", "</div>", "<button type='button' data-plyr='restart'>", "<i class='material-icons'>replay</i>", "<span class='plyr__sr-only'>Restart</span>", "</button>", "</div>", "<div class='player-extra player-controls plyr__controls'>", "<button type='button' data-plyr='mute'>", "<i class='material-icons icon--muted'>volume_off</i>", "<i class='material-icons'>volume_mute</i>", "<span class='plyr__sr-only'>Toggle Mute</span>", "</button>", "<span class='plyr__volume'>", "<label for='volume{id}' class='plyr__sr-only'>Volume</label>", "<input id='volume{id}' class='plyr__volume--input' type='range' min='0' max='10' value='5' data-plyr='volume'>", "<progress class='plyr__volume--display' max='10' value='0' role='presentation'></progress>", "</span>", "<button class='player-repeat player-button' title='Repeat is off'>", "<i class='material-icons'>repeat</i>", "</button>", "</div>", "<div class='playlist-wrapper'>", "<a href='#'", "class='btn btn-floating btn-playlist'", "data-toggle='playlist'", "aria-haspopup='true'", "aria-expanded='false'>", "<i class='material-icons'>queue_music</i>", "</a>", "<div class='dropdown-menu dropdown-menu-right playlist-dropup'>", "<div class='playlist'>", "<h3 class='playlist-header'>Current Playlist</h3>", "<ul data-playlist='current'>", "<li> no songs</li>", "</ul>", "<div class='playlist-actions'>", "<a href=# data-playlist_action='shuffle'>", "<i class='material-icons'>shuffle</i>", "</a>", "</div>", "</div>", "</div>", "</div>"].join("");
+	      var controls = ["<div class='plyr__controls player-controls' id='playerControls'>", "<div class='row'>", "<button type='button' data-plyr='previous'>", "<i class='material-icons'>skip_previous</i>", "<span class='plyr__sr-only'>previous</span>", "</button>", "<button type='button' data-plyr='rewind'>", "<i class='material-icons'>fast_rewind</i>", "<span class='plyr__sr-only'>Rewind {seektime} secs</span>", "</button>", "<button type='button' data-plyr='play'>", "<i class='material-icons'>play_circle_outline</i>", "<span class='plyr__sr-only'>Play</span>", "</button>", "<button type='button' data-plyr='pause'>", "<i class='material-icons'>pause_circle_outline</i>", "<span class='plyr__sr-only'>Pause</span>", "</button>", "<button type='button' data-plyr='fast-forward'>", "<i class='material-icons'>fast_forward</i>", "<span class='plyr__sr-only'>Forward {seektime} secs</span>", "</button>", "<button type='button' data-plyr='next'>", "<i class='material-icons'>skip_next</i>", "<span class='plyr__sr-only'>next</span>", "</button>", "</div>", "</div>", "<div class='player-info'>", "<img src='/frontend/img/default.png' class='song-image'/>", "<span class='plyr__progress progress-wrapper'>", "<label for='seek{id}' class='plyr__sr-only'>Seek</label>", "<input id='seek{id}' class='plyr__progress--seek' type='range' min='0' max='100' step='0.1' value='0' data-plyr='seek'>", "<progress class='plyr__progress--played' max='100' value='0' role='presentation'></progress>", "<progress class='plyr__progress--buffer' max='100' value='0'>", "<span>0</span>% buffered", "</progress>", "<span class='plyr__tooltip'>00:00</span>", "</span>", "<div id='now-playing' href='#albums'>", "<a href='#' class='playing-song-title'>", "Nothing Playing", "</a>", "<span class='playing-song-meta'></span>", "<canvas width='453' height='66' id='showcase'></canvas>", "</div>", "<button type='button' data-plyr='restart'>", "<i class='material-icons'>replay</i>", "<span class='plyr__sr-only'>Restart</span>", "</button>", "</div>", "<div class='player-extra player-controls plyr__controls'>", "<button type='button' data-plyr='mute'>", "<i class='material-icons icon--muted'>volume_off</i>", "<i class='material-icons'>volume_mute</i>", "<span class='plyr__sr-only'>Toggle Mute</span>", "</button>", "<span class='plyr__volume'>", "<label for='volume{id}' class='plyr__sr-only'>Volume</label>", "<input id='volume{id}' class='plyr__volume--input' type='range' min='0' max='10' value='5' data-plyr='volume'>", "<progress class='plyr__volume--display' max='10' value='0' role='presentation'></progress>", "</span>", "<button class='player-repeat player-button' title='Repeat is off'>", "<i class='material-icons'>repeat</i>", "</button>", "</div>", "</div>", "</div>"].join("");
 
 	      this.player = _plyr2.default.setup({
 	        html: controls,
@@ -14524,6 +14515,13 @@
 	  }
 
 	  (0, _createClass3.default)(playlist, [{
+	    key: 'clearPlaylist',
+	    value: function clearPlaylist() {
+	      this.songs = [];
+	      this.currentIndex = -1;
+	      this.currentSong = null;
+	    }
+	  }, {
 	    key: 'getCurrentSong',
 	    value: function getCurrentSong() {
 	      this.currentSong = this.songs[this.currentIndex];
@@ -14555,6 +14553,13 @@
 	      return _jquery2.default.when(this.getCurrentSong()).then(function (song) {
 	        return song;
 	      });
+	    }
+	  }, {
+	    key: 'removeSong',
+	    value: function removeSong(index) {
+	      if (index !== -1) {
+	        this.songs.splice(index, 1);
+	      }
 	    }
 	  }, {
 	    key: 'addSong',
@@ -14676,14 +14681,14 @@
 	    value: function addEventListeners() {
 	      var _this4 = this;
 
-	      (0, _jquery2.default)('.player').on('click', '[data-toggle="playlist"]', function (e) {
-	        (0, _jquery2.default)(e.currentTarget).parent().toggleClass('show');
+	      (0, _jquery2.default)('body').on('click', '[data-toggle="playlist"]', function (e) {
+	        (0, _jquery2.default)('.main-content').toggleClass('playlist-show');
 	      });
 	      (0, _jquery2.default)('.player').on('click', '[data-playlist_action="shuffle"]', function (e) {
 	        _this4.shuffle();
 	        _this4.currentIndex = 0;
+	        _playlist2.default.renderPlaylist(_this4.songs);
 	        (0, _jquery2.default)('[data-playlist-play="0"]').click();
-	        _playlist2.default.renderPlaylist();
 	      });
 	    }
 	  }, {
@@ -14700,12 +14705,12 @@
 	      });
 
 	      $playlist.on('click', '[data-playlist-delete]', function (e) {
-	        delete _this5.songs[(0, _jquery2.default)(e.currentTarget).data('playlist-delete')];
+	        _this5.removeSong((0, _jquery2.default)(e.currentTarget).data('playlist-delete'));
 	        _this5.songs.filter(function (a) {
 	          return typeof a !== 'undefined';
 	        });
 	        (0, _jquery2.default)(e.currentTarget).parent().remove();
-	        _playlist2.default.renderPlaylist();
+	        _playlist2.default.renderPlaylist(_this5.songs);
 	      });
 	    }
 	  }]);
@@ -16858,29 +16863,44 @@
 	      var toast = new _toast2.default();
 	      (0, _jquery2.default)("main").on('click', '[data-queue_song]', function () {
 	        playlist.addSong($(this).data('queue_song')).then(function () {
-	          toast.toast('Added song');
-	          _playlist2.default.renderPlaylist(playlist.songs);
-	          player.autoStart();
+	          Library.handleQueded('Added song to queue', player, playlist, toast);
+	        });
+	      });
+	      (0, _jquery2.default)("main").on('click', '[data-play_song]', function () {
+	        playlist.clearPlaylist();
+	        playlist.addSong($(this).data('play_song')).then(function () {
+	          Library.handlePlay('Play song', player, playlist, toast);
 	        });
 	      });
 
 	      (0, _jquery2.default)("main").on('click', '[data-queue_album]', function () {
 	        var album = new _album2.default($(this).data('queue_album'));
 	        playlist.addAlbum(album).then(function () {
-	          toast.toast('Added album');
-	          _playlist2.default.renderPlaylist(playlist.songs);
-	          player.autoStart();
+	          Library.handleQueded('Added album', player, playlist, toast);
 	        });
 	      });
 
 	      (0, _jquery2.default)("main").on('click', '[data-queue_artist_albums]', function () {
 	        var artist = new _artist2.default($(this).data('queue_artist_albums'));
 	        playlist.addArtist(artist).then(function () {
-	          toast.toast('Added all albums');
-	          _playlist2.default.renderPlaylist(playlist.songs);
-	          player.autoStart();
+	          Library.handleQueded('Added all albums', player, playlist, toast);
 	        });
 	      });
+	    }
+	  }, {
+	    key: 'handleQueded',
+
+
+	    //Handle update of playlist
+	    value: function handleQueded(message, player, playlist, toast) {
+	      toast.toast(message);
+	      _playlist2.default.renderPlaylist(playlist.songs);
+	      player.autoStart();
+	    }
+	  }, {
+	    key: 'handlePlay',
+	    value: function handlePlay(message, player, playlist, toast) {
+	      Library.handleQueded(message, player, playlist, toast);
 	    }
 	  }]);
 	  return Library;

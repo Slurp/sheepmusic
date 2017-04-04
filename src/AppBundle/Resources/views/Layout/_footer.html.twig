@@ -1,7 +1,16 @@
 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+
     <footer id='mainFooter' class='footer-player'>
 
         <div class='plyr player'>
             <audio controls preload></audio>
+        </div>
+        <a href='#'
+           class='btn btn-floating btn-playlist'
+           data-toggle='playlist'
+           aria-haspopup='true'
+           aria-expanded='false'>
+            <i class='material-icons'>queue_music</i>
+        </a>
     </footer>
 {% endif %}

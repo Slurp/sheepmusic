@@ -13,9 +13,14 @@ export default class Library {
     jQuery("main").on('click', '[data-queue_song]', function () {
       playlist.addSong($(this).data('queue_song')).then(() =>
       {
-        toast.toast('Added song');
-        HtmlPlaylist.renderPlaylist(playlist.songs);
-        player.autoStart();
+        Library.handleQueded('Added song to queue',player,playlist,toast)
+      });
+    });
+    jQuery("main").on('click', '[data-play_song]', function () {
+      playlist.clearPlaylist();
+      playlist.addSong($(this).data('play_song')).then(() =>
+      {
+        Library.handlePlay('Play song',player,playlist,toast)
       });
     });
 
@@ -24,9 +29,7 @@ export default class Library {
       let album = new Album($(this).data('queue_album'));
       playlist.addAlbum(album).then(() =>
       {
-        toast.toast('Added album');
-        HtmlPlaylist.renderPlaylist(playlist.songs);
-        player.autoStart();
+        Library.handleQueded('Added album',player,playlist,toast)
       });
     });
 
@@ -35,10 +38,21 @@ export default class Library {
       let artist = new Artist($(this).data('queue_artist_albums'));
       playlist.addArtist(artist).then(() =>
       {
-        toast.toast('Added all albums');
-        HtmlPlaylist.renderPlaylist(playlist.songs);
-        player.autoStart();
+        Library.handleQueded('Added all albums',player,playlist,toast)
       });
     });
   };
+
+  //Handle update of playlist
+  static handleQueded(message,player,playlist,toast)
+  {
+    toast.toast(message);
+    HtmlPlaylist.renderPlaylist(playlist.songs);
+    player.autoStart();
+  }
+
+  static handlePlay(message,player,playlist,toast)
+  {
+     Library.handleQueded(message,player,playlist,toast);
+  }
 }

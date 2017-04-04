@@ -16,6 +16,13 @@ export default class playlist {
     this.addEventListeners();
   }
 
+  clearPlaylist()
+  {
+    this.songs = [];
+    this.currentIndex = -1;
+    this.currentSong = null;
+  }
+
   getCurrentSong()
   {
     this.currentSong = this.songs[this.currentIndex];
@@ -55,6 +62,12 @@ export default class playlist {
       }
     );
   };
+
+  removeSong(index) {
+    if (index !== -1) {
+      this.songs.splice(index, 1);
+    }
+  }
 
   addSong($url)
   {
@@ -98,8 +111,6 @@ export default class playlist {
     }
   }
 
-
-
   shuffle()
   {
     for (let i = this.songs.length; i; i--) {
@@ -110,17 +121,18 @@ export default class playlist {
 
   addEventListeners()
   {
-    jQuery('.player').on('click', '[data-toggle="playlist"]', (e) =>
+    jQuery('body').on('click', '[data-toggle="playlist"]', (e) =>
       {
-        jQuery(e.currentTarget).parent().toggleClass('show');
+        jQuery('.main-content').toggleClass('playlist-show');
       }
     );
     jQuery('.player').on('click', '[data-playlist_action="shuffle"]', (e) =>
       {
         this.shuffle();
         this.currentIndex = 0;
+        HtmlPlaylist.renderPlaylist(this.songs);
         jQuery('[data-playlist-play="0"]').click();
-        HtmlPlaylist.renderPlaylist();
+
       }
     );
   }
@@ -139,13 +151,13 @@ export default class playlist {
 
     $playlist.on('click', '[data-playlist-delete]', (e) =>
     {
-      delete this.songs[jQuery(e.currentTarget).data('playlist-delete')];
+      this.removeSong(jQuery(e.currentTarget).data('playlist-delete'));
       this.songs.filter(function (a)
       {
         return typeof a !== 'undefined';
       });
       jQuery(e.currentTarget).parent().remove();
-      HtmlPlaylist.renderPlaylist();
+      HtmlPlaylist.renderPlaylist(this.songs);
     });
 
   };

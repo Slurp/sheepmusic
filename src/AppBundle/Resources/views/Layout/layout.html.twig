@@ -33,12 +33,15 @@
 <main role="main" class="container-fluid  {% block extra_layout_classes %}{% endblock %}">
     {# Content #}
     {% include 'Components/loading-overlay.html.twig' %}
-    <div id="barba-wrapper" class="main-content">
-        <div class="barba-container">
-            {% include ':Components:flashmessage.html.twig' %}
-            {% block content %}
-            {% endblock %}
+    <div class="main-content">
+        <div id="barba-wrapper" class="left-column">
+            <div class="barba-container">
+                {% include ':Components:flashmessage.html.twig' %}
+                {% block content %}
+                {% endblock %}
+            </div>
         </div>
+        {% include 'AppBundle:Components:playlist.html.twig' %}
     </div>
 </main>
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

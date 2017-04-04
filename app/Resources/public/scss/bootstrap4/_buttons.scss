@@ -1,13 +1,6 @@
-.btn-play-album {
-  .info-bar & {
-    position: absolute;
-    right: ($grid-gutter-width-base / 2);
-    top: -1.9rem;
-    width: 3.5rem;
-    height: 3.5rem;
-    i {
-      line-height: 3.5rem;
-      font-size: 3rem;
-    }
+.btn-queue-album  {
+  i {
+    font-size: 22px;
   }
+
 }

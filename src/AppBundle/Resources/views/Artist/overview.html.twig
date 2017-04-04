@@ -4,6 +4,7 @@
 
 {% block content %}
     {#{% include '@App/Components/navigation.html.twig' %}#}
+    {#{{ pagerfanta(pager,'twitter_bootstrap4') }}#}
     {% include '@App/Artist/list.html.twig'  %}
     {{ pagerfanta(pager,'twitter_bootstrap4',{'routeName' : 'library_artists'}) }}
 {% endblock %}

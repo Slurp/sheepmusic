@@ -38,15 +38,11 @@
       background-color:rgba($primary-color,1.0);
       position: fixed;
       left: 50%;
-      right:0;
+      right:100px;
       top: 0;
       bottom: initial;
       margin-left: -20px;
       margin-top: 0px;
-      .btn-play-album {
-        top: 50%;
-        margin-top: -26px;
-      }
 
       .info-bar-image {
         position: static;
@@ -72,20 +68,11 @@
       .label {
         display: none;
       }
-      .btn-play-album {
-        top: 36px;
-        width: 36px;
-        height: 36px;
-        i {
-          font-size: 34px;
-          line-height: 34px;
-        }
-      }
     }
   }
 
   ~ * {
-    margin-top: 320px;
+    margin-top: 285px;
   }
 }
 

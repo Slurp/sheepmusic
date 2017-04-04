@@ -10,4 +10,10 @@ footer {
     z-index: 999;
     position: fixed;
   }
+  .btn-playlist {
+    position: absolute;
+    top: -15px;
+    right: 15px;
+    z-index: 1050;
+  }
 }

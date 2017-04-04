@@ -81,6 +81,59 @@ class MediaImporter
     }
 
     /**
+     * @param $path
+     */
+    public function import($path)
+    {
+        $this->path = $path;
+        // Make service calls out of these
+        $this->songsRepository = $this->managerRegistry->getRepository(
+            SongEntity::class
+        );
+
+        $importingFiles = $this->gatherFiles($this->path);
+
+        $this->setupProgressBar(count($importingFiles));
+        $batch = 0;
+        /** @var SplFileInfo $file */
+        foreach ($importingFiles as $file) {
+            $songInfo = $this->tagHelper->getInfo($file);
+            $songEntity = $this->songsRepository->needsImporting($songInfo);
+            $operation = 'skipping';
+            if ($songEntity === null && empty($songInfo['artist']) === false) {
+                $songEntity = $this->songImporter->importSong($songInfo);
+                $operation = 'adding';
+            }
+            if ($songEntity !== null) {
+                $batch++;
+                $this->debugStep(
+                    $operation,
+                    $songEntity->getArtist()->getName() . " " . $songEntity->getAlbum()->getName()
+                );
+            }
+            if ($batch === 100) {
+                $this->managerRegistry->getManager()->flush();
+                $batch = 0;
+            }
+            unset($songInfo);
+            unset($file);
+        }
+        $this->debugEnd();
+    }
+
+    /**
+     * Gather all applicable files in a given directory.
+     *
+     * @param string $path The directory's full path
+     *
+     * @return Finder An array of SplFileInfo objects
+     */
+    public function gatherFiles($path)
+    {
+        return Finder::create()->files()->name('/\.(mp3|ogg|m4a|flac)$/i')->in($path);
+    }
+
+    /**
      * @param integer $max
      */
     protected function setupProgressBar($max)
@@ -97,42 +150,6 @@ class MediaImporter
                 $this->progress->setFormat('%current%/%max% %elapsed:6s%/%estimated:-6s% %message% : %filename%');
             }
         }
-    }
-
-    /**
-     * @param $path
-     */
-    public function import($path)
-    {
-        $this->path = $path;
-        // Make service calls out of these
-        $this->songsRepository = $this->managerRegistry->getRepository(
-            SongEntity::class
-        );
-
-        $importingFiles = $this->gatherFiles($this->path);
-
-        $this->setupProgressBar(count($importingFiles));
-
-        /** @var SplFileInfo $file */
-        foreach ($importingFiles as $file) {
-            $songInfo = $this->tagHelper->getInfo($file);
-            $songEntity = $this->songsRepository->needsImporting($songInfo);
-            $operation = 'skipping';
-            if ($songEntity === null && empty($songInfo['artist']) === false) {
-                $songEntity = $this->songImporter->importSong($songInfo);
-                $operation = 'adding';
-            }
-            if ($songEntity !== null) {
-                $this->debugStep(
-                    $operation,
-                    $songEntity->getArtist()->getName() . " " . $songEntity->getAlbum()->getName()
-                );
-            }
-            unset($songInfo);
-            unset($file);
-        }
-        $this->debugEnd();
     }
 
     /**
@@ -158,17 +175,5 @@ class MediaImporter
         if ($this->progress !== null) {
             $this->progress->finish();
         }
-    }
-
-    /**
-     * Gather all applicable files in a given directory.
-     *
-     * @param string $path The directory's full path
-     *
-     * @return Finder An array of SplFileInfo objects
-     */
-    public function gatherFiles($path)
-    {
-        return Finder::create()->files()->name('/\.(mp3|ogg|m4a|flac)$/i')->in($path);
     }
 }

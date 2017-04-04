@@ -1,27 +1,6 @@
 
 .artist-card {
-  color: $primary-text-color;
-  font-size: 0.8rem;
-  .card-text,
-  .card-title {
-    font-size: 0.9rem;
-    line-height: 1.0rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: inline-block;
-    width: 100%;
-    padding: 0.25rem;
-    margin:0;
-  }
 
-  .card-reveal {
-    .btn {
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
-  }
 }
 
 .artist-info {

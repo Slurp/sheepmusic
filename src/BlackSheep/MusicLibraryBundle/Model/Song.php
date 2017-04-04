@@ -55,6 +55,18 @@ class Song implements SongInterface
     /**
      * {@inheritdoc}
      */
+    public function addArtist(ArtistInterface $artist)
+    {
+        if (in_array($artist, $this->artists) === false) {
+            $this->artists[] = $artist;
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public static function createFromArray($songInfo)
     {
         $song = new static();
@@ -65,9 +77,7 @@ class Song implements SongInterface
         $song->setPath($songInfo['path']);
 
         return $song;
-    }
-
-    /**
+    }    /**
      * {@inheritdoc}
      */
     public function getTrack()
@@ -180,7 +190,11 @@ class Song implements SongInterface
      */
     public function getPlayCount()
     {
-        return $this->playCount;
+        if ($this->playCount !== null) {
+            return $this->playCount;
+        }
+
+        return 0;
     }
 
     /**
@@ -237,17 +251,7 @@ class Song implements SongInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function addArtist(ArtistInterface $artist)
-    {
-        if (in_array($artist, $this->artists) === false) {
-            $this->artists[] = $artist;
-        }
 
-        return $this;
-    }
 
     /**
      * {@inheritdoc}

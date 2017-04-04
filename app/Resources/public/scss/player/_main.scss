@@ -134,22 +134,11 @@
       position: absolute;
       top: 15px;
       left: 75px;
-      color:$player-txt-color;
+      color: $player-txt-color;
     }
     .plyr__time--duration {
-      left:auto;
-      right:15px;
-    }
-
-  }
-  .playlist-wrapper {
-    position: absolute;
-    left: 0;
-    right: 0;
-    .btn {
-      position: absolute;
+      left: auto;
       right: 15px;
-      top: -16.5px;
     }
   }
 }

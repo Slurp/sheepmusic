@@ -5,11 +5,18 @@
  *
  * @version   1.0
  */
+
 namespace BlackSheep\MusicScannerBundle\Services;
 
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
+use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
+use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
+use BlackSheep\MusicLibraryBundle\Model\SongInterface;
+use BlackSheep\MusicLibraryBundle\Repository\AlbumsRepositoryInterface;
+use BlackSheep\MusicLibraryBundle\Repository\ArtistRepositoryInterface;
+use BlackSheep\MusicLibraryBundle\Repository\SongsRepositoryInterface;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 
 /**
@@ -33,6 +40,21 @@ class SongImporter
     protected $artistImporter;
 
     /**
+     * @var SongsRepositoryInterface
+     */
+    protected $songRepository;
+
+    /**
+     * @var AlbumsRepositoryInterface
+     */
+    protected $albumRepository;
+
+    /**
+     * @var ArtistRepositoryInterface
+     */
+    protected $artistRepository;
+
+    /**
      * @param ManagerRegistry $managerRegistry
      * @param AlbumImporter $albumImporter
      * @param ArtistImporter $artistImporter
@@ -45,6 +67,9 @@ class SongImporter
         $this->managerRegistry = $managerRegistry;
         $this->albumImporter = $albumImporter;
         $this->artistImporter = $artistImporter;
+        $this->songRepository = $this->managerRegistry->getManagerForClass(SongEntity::class);
+        $this->albumRepository = $this->managerRegistry->getManagerForClass(AlbumEntity::class);
+        $this->artistRepository = $this->managerRegistry->getManagerForClass(ArtistsEntity::class);
     }
 
     /**
@@ -56,19 +81,11 @@ class SongImporter
     {
         $artist = $this->artistImporter->importArtist($songInfo);
         $album = $this->albumImporter->importAlbum($artist, $songInfo);
+        $song = SongEntity::createFromArray($songInfo);
+        $album->addSong($song);
+        $song->addArtist($artist);
+        $this->songRepository->persist($song);
 
-        $songEntity = SongEntity::createFromArray($songInfo);
-        $album->addSong($songEntity);
-        $songEntity->addArtist($artist);
-
-        $this->managerRegistry->getManagerForClass(SongEntity::class)->persist($songEntity);
-        if ($album instanceof AlbumEntity) {
-            $this->managerRegistry->getManagerForClass(AlbumEntity::class)->persist($album);
-        }
-        if ($artist instanceof ArtistsEntity) {
-            $this->managerRegistry->getManagerForClass(ArtistsEntity::class)->persist($artist);
-        }
-        $this->managerRegistry->getManagerForClass(SongEntity::class)->flush($songEntity);
-        return $songEntity;
+        return $song;
     }
 }

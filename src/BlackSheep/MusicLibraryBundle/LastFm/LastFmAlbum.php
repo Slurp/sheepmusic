@@ -59,11 +59,15 @@ class LastFmAlbum implements LastFmAlbumInterface
             unset($this->album);
             $this->album = $album;
             $lastFmInfo = $this->lastFmAlbumInfo->getInfo($this);
-            if ($lastFmInfo !== null) {
-                $album->setCover($lastFmInfo['image']['large']);
-                $album->setLastFmId($lastFmInfo['id']);
+            if ($lastFmInfo !== false) {
+                if (empty($album->getCover())) {
+                    $album->setCover($lastFmInfo['image']['large']);
+                }
+                $album->setLastFmId($lastFmInfo['lastfmid']);
                 $album->setLastFmUrl($lastFmInfo['url']);
-                $album->setReleaseDate(new DateTime($lastFmInfo['releasedate']));
+                if ($lastFmInfo['releasedate']) {
+                    $album->setReleaseDate(new DateTime($lastFmInfo['releasedate']));
+                }
             }
             unset($lastFmInfo);
         }

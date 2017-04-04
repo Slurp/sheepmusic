@@ -5,6 +5,7 @@
  *
  * @version   1.0
  */
+
 namespace BlackSheep\MusicScannerBundle\Services;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
@@ -60,9 +61,11 @@ class ArtistImporter
             try {
                 $this->lastFmArtist->updateLastFmInfo($this->artistCache);
             } catch (\Exception $exception) {
-                error_log($exception->getFile().$exception->getLine().$exception->getMessage());
+                error_log($exception->getFile() . $exception->getLine() . $exception->getMessage());
             }
+            $this->artistRepository->save($this->artistCache);
         }
+
         return $this->artistCache;
     }
 }

@@ -1,8 +1,8 @@
 .side-nav {
   position: fixed;
-  width: 150px;
+  width: 200px;
   left: 0;
-  top: 0px;
+  top: 0;
   margin: 0;
   height: calc(100vh - 70px);
   padding-left: 0;
@@ -12,8 +12,6 @@
   backface-visibility: hidden;
   overflow-y: auto;
   will-change: transform;
-  backface-visibility: hidden;
-  transform: translateX(-100%);
   @extend .z-depth-1;
   .collapsible {
     margin: 0;

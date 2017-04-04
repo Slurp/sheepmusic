@@ -59,10 +59,12 @@ class AlbumImporter
                 $songInfo
             );
             try {
-                $this->lastFmAlbum->updateLastFmInfo($this->albumCache);
+                 $this->lastFmAlbum->updateLastFmInfo($this->albumCache);
+
             } catch (\Exception $exception) {
                 error_log($exception->getFile() . $exception->getLine() . $exception->getMessage());
             }
+            $this->albumRepository->save($this->albumCache);
         }
 
         return $this->albumCache;

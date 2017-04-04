@@ -19,21 +19,23 @@
     @include media-breakpoint-up(xl) {
       @include make-col(2);
     }
-    .card {
-      height: 100%;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
-    }
   }
-  ~ .pagination {
-    @extend .justify-content-center;
-    @include media-breakpoint-up(sm) {
-      position: fixed;
-      z-index: 999;
-      bottom: 54px;
-      left: 0;
-      right: 0;
-      background: $pagination-bg;
+  .card {
+    height: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    .card-text,
+    .card-title {
+      font-size: 0.8rem;
+      line-height: 0.9rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+      vertical-align: middle;
+      width: 100%;
+      height: 2rem;
+      padding: 0.25rem;
+      margin: 0;
     }
   }
 }

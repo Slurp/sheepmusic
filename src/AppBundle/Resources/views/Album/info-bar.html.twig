@@ -2,18 +2,19 @@
 {# @var artist \BlackSheep\MusicLibraryBundle\Entity\Artists#}
 {% set artist = album.artist %}
 <div class="info-bar album media">
-    <a class="btn btn-floating btn-play-album" data-queue_album={{ path('get_album', {'album' : album.id}) }}>
-        <i class="material-icons">play_arrow</i>
-    </a>
+
     {% if album.cover is not null %}
     <img class="info-bar-image"
          src="{{ album.cover }}"/>
     {% endif %}
     <div class="info-bar-content media-body">
         <h1 class="album-name">{{ album.name }}</h1>
-        <h3 class="artist-name">{{ artist.name }}</h3>
-        <span class="badge badge-default">{{ artist.playCount }}</span>
-        <span class="badge badge-default">{{ album.createdAt | localdatetime('d-M-Y') }}</span>
-        <span class="badge badge-default">{{ album.updatedAt | localdatetime('d-M-Y') }}</span>
+        <h3 class="artist-name">Artist: {{ artist.name }}</h3>
+        <a class="btn btn-floating btn-play-album" data-queue_album={{ path('get_album', {'album' : album.id}) }}>
+            <i class="material-icons">play_arrow</i>
+        </a>
+        <a class="btn btn-floating btn-queue-album" data-queue_album={{ path('get_album', {'album' : album.id}) }}>
+            <i class="material-icons">queue</i>
+        </a>
     </div>
 </div>

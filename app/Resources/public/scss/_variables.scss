@@ -29,6 +29,23 @@ $divider-color:        #B6B6B6;
 
 $brand-primary:$accent-color;
 
+$font-family-sans-serif: Roboto, "Helvetica Neue", Arial, sans-serif ;
+$font-family-serif:      Georgia, "Times New Roman", Times, serif ;
+$font-family-monospace:  Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace ;
+$font-family-base:       $font-family-sans-serif ;
+
+$font-size-base: .875rem ; // Assumes the browser default, typically `16px`
+$font-size-lg:   1.25rem ;
+$font-size-sm:   .75rem ;
+$font-size-xs:   .65rem ;
+
+$font-size-h1: $font-size-base + 1.25 ;
+$font-size-h2: $font-size-base + 1 ;
+$font-size-h3: $font-size-base + 0.75 ;
+$font-size-h4: $font-size-base + 0.5 ;
+$font-size-h5: $font-size-base + 0.25;
+$font-size-h6: $font-size-base ;
+
 
 /* ==========  Player  ========== */
 $player-bg-color : $primary-color;
@@ -127,7 +144,7 @@ $button-flat-disabled-color: lighten(#999, 10%);
 $button-floating-background: $btn-primary-bg;
 $button-floating-background-hover: $button-floating-background;
 $button-floating-color: $btn-primary-color;
-$button-floating-size: 36px;
+$button-floating-size: 32px;
 $button-floating-large-size: $button-floating-size * 1.5;
 $button-floating-radius: 50%;
 // Large buttons
