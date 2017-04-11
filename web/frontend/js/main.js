@@ -18,4 +18,7 @@ $(function ()
       offset: 0
     });
   });
+  $('body').on('click','[data-expand]',function(){
+    $($(this).data('expand')).toggleClass('expanded');
+  })
 });

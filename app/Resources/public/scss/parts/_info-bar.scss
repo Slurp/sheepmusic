@@ -30,4 +30,19 @@
     padding-top: 20px;
     margin-top: -20px;
   }
+  .meta {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      margin: 0;
+      padding: 0;
+    }
+    label {
+      display: inline-block;
+      max-width: 100%;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+  }
 }

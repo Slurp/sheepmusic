@@ -33,6 +33,15 @@ export default class Library {
       });
     });
 
+    jQuery("main").on('click', '[data-play_album]', function () {
+      playlist.clearPlaylist();
+      let album = new Album($(this).data('play_album'));
+      playlist.addAlbum(album).then(() =>
+      {
+        Library.handleQueded('Playing album',player,playlist,toast)
+      });
+    });
+
     jQuery("main").on('click', '[data-queue_artist_albums]', function ()
     {
       let artist = new Artist($(this).data('queue_artist_albums'));
@@ -41,6 +50,17 @@ export default class Library {
         Library.handleQueded('Added all albums',player,playlist,toast)
       });
     });
+
+    jQuery("main").on('click', '[data-play_artist_albums]', function ()
+    {
+      playlist.clearPlaylist();
+      let artist = new Artist($(this).data('play_artist_albums'));
+      playlist.addArtist(artist).then(() =>
+      {
+        Library.handleQueded('Added all albums',player,playlist,toast)
+      });
+    });
+
   };
 
   //Handle update of playlist

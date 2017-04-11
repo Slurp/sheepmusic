@@ -4,14 +4,15 @@
          src="{% if artist.image is not null %}{{ artist.image }}{% endif %}"/>
     <div class="info-bar-content">
         <h1 class="artist-name">{{ artist.name }}</h1>
-        <a class="btn btn-floating btn-play-album" data-queue_artist_albums="{{ path('get_artist',{'artist' : artist.id}) }}">
+        <a class="btn btn-floating btn-play" data-play_artist_albums="{{ path('get_artist',{'artist' : artist.id}) }}">
             <i class="material-icons">play_arrow</i>
         </a>
-        <a class="btn btn-floating btn-play-album" data-queue_artist_albums="{{ path('get_artist',{'artist' : artist.id}) }}">
-            <i class="material-icons">play_arrow</i>
+        <a class="btn btn-floating btn-queue"
+           data-queue_artist_albums="{{ path('get_artist',{'artist' : artist.id}) }}">
+            <i class="material-icons">queue</i>
         </a>
-        {#<span class="label label-info">{{ artist.playCount }}</span>#}
-        {#<span class="label label-info">{{ artist.createdAt | localdatetime }}</span>#}
-        {#<span class="label label-info">{{ artist.updatedAt | localdatetime }}</span>#}
+        <div class="description" title="click for more" data-expand=".description">
+            {{ artist.biography }}
+        </div>
     </div>
 </div>

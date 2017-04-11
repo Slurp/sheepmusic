@@ -32,7 +32,10 @@ class DefaultController extends Controller
      */
     public function artistAction($page = 1)
     {
-        $pager = UtilsPagerFanta::getAllPaged($this->getDoctrine()->getRepository(ArtistsEntity::class), $page);
+        $pager = UtilsPagerFanta::getAllPaged(
+            $this->getDoctrine()->getRepository(ArtistsEntity::class),
+            $page
+        );
 
         return $this->render(
             'AppBundle:Artist:overview.html.twig',
@@ -78,6 +81,22 @@ class DefaultController extends Controller
     }
 
     /**
+     * @param Pagerfanta $pager
+     *
+     * @return Response
+     */
+    protected function renderAlbumsOverview(Pagerfanta $pager)
+    {
+        return $this->render(
+            'AppBundle:Album:overview.html.twig',
+            [
+                'pager' => $pager,
+                'albums' => $pager->getCurrentPageResults()
+            ]
+        );
+    }
+
+    /**
      * @Route("/albums/{page}", defaults={"page" = 1}, name="library_albums")
      *
      * @param $page
@@ -91,24 +110,6 @@ class DefaultController extends Controller
                 $this->getDoctrine()->getRepository(AlbumEntity::class),
                 $page
             )
-        );
-    }
-
-
-
-    /**
-     * @param Pagerfanta $pager
-     *
-     * @return Response
-     */
-    protected function renderAlbumsOverview(Pagerfanta $pager)
-    {
-        return $this->render(
-            'AppBundle:Album:overview.html.twig',
-            [
-                'pager' => $pager,
-                'albums' => $pager->getCurrentPageResults()
-            ]
         );
     }
 

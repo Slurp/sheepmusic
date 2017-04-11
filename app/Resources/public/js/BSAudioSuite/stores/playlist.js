@@ -63,7 +63,8 @@ export default class playlist {
     );
   };
 
-  removeSong(index) {
+  removeSong(index)
+  {
     if (index !== -1) {
       this.songs.splice(index, 1);
     }
@@ -161,6 +162,4 @@ export default class playlist {
     });
 
   };
-
-
 }

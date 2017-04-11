@@ -1,0 +1,22 @@
+default:
+    suites:
+        test_suite:
+            type: symfony_bundle
+            bundle: AppBundle
+            mink_session: symfony2
+            contexts:
+                - AppBundle\Features\Context\FeatureContext:
+                    parameters:
+                        output_path: build/behat/output
+                        screen_shot_path: build/behat/screenshot
+                        session:   '@session'
+    extensions:
+        Behat\Symfony2Extension: ~
+        Behat\MinkExtension:
+            base_url: http://behat-three.local/app_test.php
+            browser_name: chrome
+            sessions:
+                #selenium2: # fast, CLI, opens up a browser
+                    #selenium2: ~
+                symfony2: # bleeding fast, CLI, no browser
+                    symfony2: ~

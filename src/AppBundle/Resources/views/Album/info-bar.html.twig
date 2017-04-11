@@ -10,10 +10,10 @@
     <div class="info-bar-content media-body">
         <h1 class="album-name">{{ album.name }}</h1>
         <h3 class="artist-name">Artist: {{ artist.name }}</h3>
-        <a class="btn btn-floating btn-play-album" data-queue_album={{ path('get_album', {'album' : album.id}) }}>
+        <a class="btn btn-floating btn-play" data-play_album={{ path('get_album', {'album' : album.id}) }}>
             <i class="material-icons">play_arrow</i>
         </a>
-        <a class="btn btn-floating btn-queue-album" data-queue_album={{ path('get_album', {'album' : album.id}) }}>
+        <a class="btn btn-floating btn-queue" data-queue_album={{ path('get_album', {'album' : album.id}) }}>
             <i class="material-icons">queue</i>
         </a>
     </div>

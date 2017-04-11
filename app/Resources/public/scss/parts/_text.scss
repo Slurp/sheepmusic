@@ -1,0 +1,10 @@
+.description {
+  margin-bottom: 0.5em;
+  max-height: 22px;
+  overflow: hidden;
+  cursor: pointer;
+  color: rgba(255,255,255,0.6);
+  &.expanded {
+    max-height: none;
+  }
+}

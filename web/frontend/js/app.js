@@ -16880,8 +16880,24 @@
 	        });
 	      });
 
+	      (0, _jquery2.default)("main").on('click', '[data-play_album]', function () {
+	        playlist.clearPlaylist();
+	        var album = new _album2.default($(this).data('play_album'));
+	        playlist.addAlbum(album).then(function () {
+	          Library.handleQueded('Playing album', player, playlist, toast);
+	        });
+	      });
+
 	      (0, _jquery2.default)("main").on('click', '[data-queue_artist_albums]', function () {
 	        var artist = new _artist2.default($(this).data('queue_artist_albums'));
+	        playlist.addArtist(artist).then(function () {
+	          Library.handleQueded('Added all albums', player, playlist, toast);
+	        });
+	      });
+
+	      (0, _jquery2.default)("main").on('click', '[data-play_artist_albums]', function () {
+	        playlist.clearPlaylist();
+	        var artist = new _artist2.default($(this).data('play_artist_albums'));
 	        playlist.addArtist(artist).then(function () {
 	          Library.handleQueded('Added all albums', player, playlist, toast);
 	        });
