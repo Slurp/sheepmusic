@@ -57,7 +57,7 @@ class SongEntity extends Song implements SongInterface
     protected $playCount;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Playlist", inversedBy="songs" , fetch="EXTRA_LAZY")
+     * @ORM\ManyToMany(targetEntity="PlaylistEntity", inversedBy="songs" , fetch="EXTRA_LAZY")
      * @ORM\JoinTable(
      *     name="PlaylistSongs",
      *     joinColumns={@ORM\JoinColumn(name="songs_id", referencedColumnName="id", nullable=true)},
@@ -100,7 +100,7 @@ class SongEntity extends Song implements SongInterface
      */
     public static function createFromArray($songInfo)
     {
-        $song = new self();
+        $song = new static();
         $song->setTrack($songInfo['track']);
         $song->setTitle($songInfo['title']);
         $song->setLength($songInfo['length']);

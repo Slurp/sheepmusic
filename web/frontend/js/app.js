@@ -14508,6 +14508,7 @@
 	  function playlist() {
 	    (0, _classCallCheck3.default)(this, playlist);
 
+	    this.name = null;
 	    this.songs = [];
 	    this.currentIndex = -1;
 	    this.currentSong = null;

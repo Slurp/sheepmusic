@@ -10,6 +10,7 @@ export default class playlist {
 
   constructor()
   {
+    this.name = null;
     this.songs = [];
     this.currentIndex = -1;
     this.currentSong = null;
