@@ -1,23 +1,27 @@
 .breadcrumb-fixed {
   position: fixed;
-  left:0;
+  left: 0;
   right: 0;
-  top:58px;
+  top: 58px;
   line-height: 1.75rem;
-  @include media-breakpoint-up(md) {
+
     transition: left 0.3s ease;
-    left: 160px;
+    left: 50px;
     .slide-nav-out & {
-      left: 200px;
+      left: 150px;
     }
     top: 0px;
-    right:80px;
+    right: 80px;
     background: transparent;
     display: inline-block;
     margin: 0;
     padding: 15px;
     z-index: $zindex-fixed;
-  }
+
   text-align: center;
   z-index: $zindex-fixed;
+  .breadcrumb-item {
+    text-transform: capitalize;
+    color: $primary-color-text;
+  }
 }

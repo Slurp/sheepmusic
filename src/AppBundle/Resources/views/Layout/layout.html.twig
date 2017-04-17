@@ -24,13 +24,13 @@
 <body>
 <header>
     {# Header #}
-
     {% include '@App/Layout/_header.html.twig' %}
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted('ROLE_USER') %}
-        {% include '@App/Layout/_submenu.html.twig' %}
-    {% endif %}
 </header>
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted('ROLE_USER') %}
+    {% include '@App/Layout/_submenu.html.twig' %}
+{% endif %}
 <main role="main" class="container-fluid  {% block extra_layout_classes %}{% endblock %}">
+
     {# Content #}
     {% include 'Components/loading-overlay.html.twig' %}
     <div class="main-content">

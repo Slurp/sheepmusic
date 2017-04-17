@@ -58,64 +58,75 @@
       display: none;
     }
   }
-  .playlist-item {
-    @extend .media;
-    padding: 5px;
-    height: 40px;
-    line-height: 40px;
-    max-height: 40px;
-    min-height: 40px;
-    font-size: 14px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    img {
-      width: 32px;
-      height: auto;
-      position: relative;
-      z-index: 1;
-    }
-    &.playing {
-      position: relative;
-        &:after {
-          position: absolute;
-          top: 2px;
-          left: 2px;
-          z-index: 2;
-          content: "";
-          width: 40px;
-          height: 40px;
-          display: block;
-          background: url(../img/now-playing.gif) rgba($player-txt-color, 0.5);
-        }
-    }
-    .playlist-item-info {
-      position: relative;
-      margin-left: 5px;
-      margin-right: 45px;
-      overflow: hidden;
-      width: 100%;
-      h5, h6 {
-        width: 250px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      h5 {
-        font-size: 13px;
-        margin: 0;
-      }
-      h6 {
-        font-size: 12px;
-        margin: 0;
-        margin-top: 5px;
-        color: lighten($playlist-txt-color, 30%);
-      }
-    }
-    .playlist-item-actions {
+}
+.playlist-item {
+  @extend .media;
+  padding: 5px;
+  height: 40px;
+  line-height: 40px;
+  max-height: 40px;
+  min-height: 40px;
+  font-size: 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  img {
+    width: 32px;
+    height: auto;
+    position: relative;
+    z-index: 1;
+  }
+  &.playing {
+    position: relative;
+    &:after {
       position: absolute;
-      right: 15px;
+      top: 2px;
+      left: 2px;
+      z-index: 2;
+      content: "";
+      width: 40px;
+      height: 40px;
+      display: block;
+      background: url(../img/now-playing.gif) rgba($player-txt-color, 0.5);
+    }
+  }
+
+  .playlist-item-actions {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    position: absolute;
+    right: 15px;
+  }
+  &:hover {
+    background: $body-bg;
+    .playlist-item-actions {
+      opacity: 1;
     }
   }
 }
+
+.playlist-item-info {
+  position: relative;
+  margin-left: 5px;
+  margin-right: 45px;
+  overflow: hidden;
+  width: 100%;
+  h5, h6 {
+    width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  h5 {
+    font-size: 13px;
+    margin: 0;
+  }
+  h6 {
+    font-size: 12px;
+    margin: 0;
+    margin-top: 5px;
+    color: lighten($playlist-txt-color, 30%);
+  }
+}
+
 .playlist-show
 {
   .playlist {

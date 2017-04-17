@@ -4,7 +4,7 @@
 $(function ()
 {
   $('[data-activates="side-nav"]').sideNav({
-      menuWidth: 200, // Default is 240
+      menuWidth: 150, // Default is 240
     }
   );
   $('.backdrop  .info-bar').pushpin({

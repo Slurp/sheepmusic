@@ -14,7 +14,7 @@
       @include make-col(3);
     }
     @include media-breakpoint-up(lg) {
-      @include make-col(2.4);
+      @include make-col(12/4);
     }
     @include media-breakpoint-up(xl) {
       @include make-col(2);

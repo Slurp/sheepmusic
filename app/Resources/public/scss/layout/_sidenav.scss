@@ -12,6 +12,7 @@
   backface-visibility: hidden;
   overflow-y: auto;
   will-change: transform;
+  transform: translateX(-100%);
   @extend .z-depth-1;
   .collapsible {
     margin: 0;
@@ -19,6 +20,7 @@
   .navbar-brand {
     padding: 12px 17px;
     margin-right: 0;
+    font-size: 1rem;
     img {
       padding: 5px;
       background: $primary-color;
