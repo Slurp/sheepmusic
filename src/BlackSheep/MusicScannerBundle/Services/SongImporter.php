@@ -11,13 +11,12 @@ namespace BlackSheep\MusicScannerBundle\Services;
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
-use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
-use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
-use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use BlackSheep\MusicLibraryBundle\Repository\AlbumsRepositoryInterface;
 use BlackSheep\MusicLibraryBundle\Repository\ArtistRepositoryInterface;
 use BlackSheep\MusicLibraryBundle\Repository\SongsRepositoryInterface;
+use BlackSheep\MusicScannerBundle\Helper\TagHelper;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
+use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * Imports a song based on array information
@@ -55,6 +54,11 @@ class SongImporter
     protected $artistRepository;
 
     /**
+     * @var \Doctrine\Common\Persistence\ObjectManager|null|object
+     */
+    protected $entitymanager;
+
+    /**
      * @param ManagerRegistry $managerRegistry
      * @param AlbumImporter $albumImporter
      * @param ArtistImporter $artistImporter
@@ -67,9 +71,23 @@ class SongImporter
         $this->managerRegistry = $managerRegistry;
         $this->albumImporter = $albumImporter;
         $this->artistImporter = $artistImporter;
-        $this->songRepository = $this->managerRegistry->getManagerForClass(SongEntity::class);
-        $this->albumRepository = $this->managerRegistry->getManagerForClass(AlbumEntity::class);
-        $this->artistRepository = $this->managerRegistry->getManagerForClass(ArtistsEntity::class);
+        $this->songRepository = $this->managerRegistry->getRepository(SongEntity::class);
+        $this->albumRepository = $this->managerRegistry->getRepository(AlbumEntity::class);
+        $this->artistRepository = $this->managerRegistry->getRepository(ArtistsEntity::class);
+        $this->entitymanager = $this->managerRegistry->getManagerForClass(SongEntity::class);
+        $this->tagHelper = new TagHelper();
+    }
+
+    /**
+     * @param SplFileInfo $file
+     */
+    public function importSong(SplFileInfo $file)
+    {
+        $songInfo = $this->tagHelper->getInfo($file);
+        $songEntity = $this->songRepository->needsImporting($songInfo);
+        if ($songEntity === null && empty($songInfo['artist']) === false) {
+            $this->writeSong($songInfo);
+        }
     }
 
     /**
@@ -77,14 +95,14 @@ class SongImporter
      *
      * @return SongEntity
      */
-    public function importSong($songInfo)
+    protected function writeSong(&$songInfo)
     {
         $artist = $this->artistImporter->importArtist($songInfo);
         $album = $this->albumImporter->importAlbum($artist, $songInfo);
         $song = SongEntity::createFromArray($songInfo);
         $album->addSong($song);
         $song->addArtist($artist);
-        $this->songRepository->persist($song);
+        $this->entitymanager->persist($song);
 
         return $song;
     }

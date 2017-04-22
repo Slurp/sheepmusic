@@ -49,7 +49,7 @@ class ArtistImporter
      *
      * @return ArtistInterface
      */
-    public function importArtist($songInfo)
+    public function importArtist(&$songInfo)
     {
         if ($this->artistCache === null ||
             (
@@ -58,12 +58,14 @@ class ArtistImporter
             )
         ) {
             $this->artistCache = $this->artistRepository->addOrUpdate($songInfo['artist'], $songInfo['artist_mbid']);
-            try {
-                $this->lastFmArtist->updateLastFmInfo($this->artistCache);
-            } catch (\Exception $exception) {
-                error_log($exception->getFile() . $exception->getLine() . $exception->getMessage());
+            if ($this->artistCache->getId() === null) {
+                try {
+                    $this->lastFmArtist->updateLastFmInfo($this->artistCache);
+                } catch (\Exception $exception) {
+                    error_log($exception->getFile() . $exception->getLine() . $exception->getMessage());
+                }
+                $this->artistRepository->save($this->artistCache);
             }
-            $this->artistRepository->save($this->artistCache);
         }
 
         return $this->artistCache;

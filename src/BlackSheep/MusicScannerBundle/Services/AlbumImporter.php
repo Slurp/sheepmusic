@@ -5,6 +5,7 @@
  *
  * @version   1.0
  */
+
 namespace BlackSheep\MusicScannerBundle\Services;
 
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
@@ -23,7 +24,7 @@ class AlbumImporter
     protected $lastFmAlbum;
 
     /**
-     * @var AlbumInterface
+     * @var AlbumEntity
      */
     protected $albumCache;
 
@@ -50,7 +51,7 @@ class AlbumImporter
      *
      * @return AlbumInterface
      */
-    public function importAlbum(ArtistsEntity $artist, $songInfo)
+    public function importAlbum(ArtistsEntity $artist, &$songInfo)
     {
         if ($this->albumCache === null || $this->albumCache->getName() !== $songInfo['album']) {
             $this->albumCache = $this->albumRepository->addOrUpdateByArtistAndName(
@@ -58,13 +59,14 @@ class AlbumImporter
                 $songInfo['album'],
                 $songInfo
             );
-            try {
-                 $this->lastFmAlbum->updateLastFmInfo($this->albumCache);
-
-            } catch (\Exception $exception) {
-                error_log($exception->getFile() . $exception->getLine() . $exception->getMessage());
+            if ($this->albumCache->getId() === null) {
+                try {
+                    $this->lastFmAlbum->updateLastFmInfo($this->albumCache);
+                } catch (\Exception $exception) {
+                    error_log($exception->getFile() . $exception->getLine() . $exception->getMessage());
+                }
+                $this->albumRepository->save($this->albumCache);
             }
-            $this->albumRepository->save($this->albumCache);
         }
 
         return $this->albumCache;

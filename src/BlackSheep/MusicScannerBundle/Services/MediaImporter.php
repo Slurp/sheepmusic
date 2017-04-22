@@ -10,7 +10,6 @@ namespace BlackSheep\MusicScannerBundle\Services;
 
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
 use BlackSheep\MusicLibraryBundle\Repository\SongsRepository;
-use BlackSheep\MusicScannerBundle\Helper\TagHelper;
 use SplFileInfo;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -65,7 +64,7 @@ class MediaImporter
      */
     public function __construct(ManagerRegistry $managerRegistry, SongImporter $songImporter)
     {
-        $this->tagHelper = new TagHelper();
+
         $this->managerRegistry = $managerRegistry;
         $this->songImporter = $songImporter;
     }
@@ -94,28 +93,10 @@ class MediaImporter
         $importingFiles = $this->gatherFiles($this->path);
 
         $this->setupProgressBar(count($importingFiles));
-        $batch = 0;
         /** @var SplFileInfo $file */
         foreach ($importingFiles as $file) {
-            $songInfo = $this->tagHelper->getInfo($file);
-            $songEntity = $this->songsRepository->needsImporting($songInfo);
-            $operation = 'skipping';
-            if ($songEntity === null && empty($songInfo['artist']) === false) {
-                $songEntity = $this->songImporter->importSong($songInfo);
-                $operation = 'adding';
-            }
-            if ($songEntity !== null) {
-                $batch++;
-                $this->debugStep(
-                    $operation,
-                    $songEntity->getArtist()->getName() . " " . $songEntity->getAlbum()->getName()
-                );
-            }
-            if ($batch === 100) {
-                $this->managerRegistry->getManager()->flush();
-                $batch = 0;
-            }
-            unset($songInfo);
+            $this->songImporter->importSong($file);
+            $this->debugStep('imported', $file->getFilename());
             unset($file);
         }
         $this->debugEnd();
@@ -130,7 +111,12 @@ class MediaImporter
      */
     public function gatherFiles($path)
     {
-        return Finder::create()->files()->name('/\.(mp3|ogg|m4a|flac)$/i')->in($path);
+        return Finder::create()
+            ->files()
+            ->name('/\.(mp3|ogg|m4a|flac)$/i')
+            ->in($path)
+            ->date('since last week')
+            ->sortByModifiedTime();
     }
 
     /**
