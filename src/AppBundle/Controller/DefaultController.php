@@ -21,7 +21,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->forward('AppBundle:Default:artist');
+        return $this->forward('AppBundle:Default:recentAlbums');
     }
 
     /**
@@ -76,22 +76,26 @@ class DefaultController extends Controller
             UtilsPagerFanta::getByQuery(
                 $this->getDoctrine()->getRepository(AlbumEntity::class)->getRecentAlbums(),
                 $page
-            )
+            ),
+            'library_recent_albums'
         );
     }
 
     /**
      * @param Pagerfanta $pager
      *
+     * @param $routeName
+     *
      * @return Response
      */
-    protected function renderAlbumsOverview(Pagerfanta $pager)
+    protected function renderAlbumsOverview(Pagerfanta $pager, $routeName)
     {
         return $this->render(
             'AppBundle:Album:overview.html.twig',
             [
                 'pager' => $pager,
-                'albums' => $pager->getCurrentPageResults()
+                'albums' => $pager->getCurrentPageResults(),
+                'routeName' => $routeName
             ]
         );
     }
@@ -109,7 +113,8 @@ class DefaultController extends Controller
             UtilsPagerFanta::getAllPaged(
                 $this->getDoctrine()->getRepository(AlbumEntity::class),
                 $page
-            )
+            ),
+            "library_albums"
         );
     }
 
