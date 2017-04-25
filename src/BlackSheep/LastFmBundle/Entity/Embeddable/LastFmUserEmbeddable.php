@@ -105,6 +105,6 @@ class LastFmUserEmbeddable implements LastFmUser
      */
     public function hasLastFmConnected()
     {
-        return $this->getLastFmUserName() !== '';
+        return ($this->getLastFmUserName() !== '' && $this->getLastFmUserName() !== null);
     }
 }

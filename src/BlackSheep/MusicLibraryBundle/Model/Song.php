@@ -43,9 +43,9 @@ class Song implements SongInterface
     protected $playCount;
 
     /**
-     * @var array;
+     * @var PlaylistInterface[];
      */
-    protected $playlist;
+    protected $playlists;
 
     /**
      * @var ArtistInterface[]
@@ -210,19 +210,35 @@ class Song implements SongInterface
     /**
      * {@inheritdoc}
      */
-    public function getPlaylist()
+    public function getPlaylists()
     {
-        return $this->playlist;
+        return $this->playlists;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setPlaylist($playlist)
+    public function setPlaylists($playlists)
     {
-        $this->playlist = $playlist;
+        $this->playlists = $playlists;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function addPlaylist(PlaylistInterface $playlist)
+    {
+        $this->playlists[] = $playlist;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function removePlaylist(PlaylistInterface $playlist)
+    {
+        unset($playlist,$this->playlists);
     }
 
     /**

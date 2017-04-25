@@ -38,7 +38,6 @@ export default class Song extends HttpClient {
     return jQuery.when().done(() =>
       {
         return this;
-
       }
     );
   }
@@ -48,6 +47,11 @@ export default class Song extends HttpClient {
     return this.src;
   }
 
+  getId()
+  {
+     return this.apiData.id;
+  }
+
   getTitle()
   {
     return this.apiData.title;
@@ -55,16 +59,11 @@ export default class Song extends HttpClient {
 
   getArtistName()
   {
-
     return this.apiData.artist.name;
-
   }
 
   getAlbum()
   {
-
     return this.apiData.album;
-
   }
-
 }

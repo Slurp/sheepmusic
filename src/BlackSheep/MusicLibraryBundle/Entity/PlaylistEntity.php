@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="BlackSheep\MusicLibraryBundle\Repository\PlaylistRepository")
  */
 class PlaylistEntity extends Playlist
 {
@@ -20,7 +20,12 @@ class PlaylistEntity extends Playlist
     protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="SongEntity", mappedBy="playlist")
+     * @ORM\ManyToMany(targetEntity="SongEntity", inversedBy="playlist", cascade={"persist"})
+     * @ORM\JoinTable(
+     *     name="PlaylistSongs",
+     *     joinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id", nullable=true)},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="songs_id", referencedColumnName="id", nullable=true)}
+     * )
      */
     protected $songs;
 
@@ -37,7 +42,9 @@ class PlaylistEntity extends Playlist
     public function addSong(SongInterface $song)
     {
         if ($this->songs->contains($song) === false) {
+            $song->addPlaylist($this);
             $this->songs->add($song);
+            var_dump($song->getTitle());
         }
 
         return $this;
@@ -63,6 +70,10 @@ class PlaylistEntity extends Playlist
     public static function create($name)
     {
         $playlist = new static();
+        if ($name === "") {
+            $date = new \DateTime();
+            $name = $date->format(DATE_W3C);
+        }
         $playlist->setName($name);
 
         return $playlist;

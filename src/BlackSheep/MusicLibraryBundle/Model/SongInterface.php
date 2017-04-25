@@ -5,6 +5,11 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 /**
  * SongInterface = SING.
  */
+/**
+ * Interface SongInterface
+ *
+ * @package BlackSheep\MusicLibraryBundle\Model
+ */
 interface SongInterface extends ApiInterface
 {
     /**
@@ -99,16 +104,31 @@ interface SongInterface extends ApiInterface
     public function setPlayCount($playCount);
 
     /**
-     * @return mixed
+     * @return PlaylistInterface[]
      */
-    public function getPlaylist();
+    public function getPlaylists();
 
     /**
-     * @param mixed $playlist
+     * @param PlaylistInterface[] $playlists
      *
      * @return SongInterface
      */
-    public function setPlaylist($playlist);
+    public function setPlaylists($playlists);
+
+    /**
+     * @param PlaylistInterface $playlist
+     *
+     * @return SongInterface
+     */
+    public function addPlaylist(PlaylistInterface $playlist);
+
+    /**
+     * @param PlaylistInterface $playlist
+     *
+     * @return SongInterface
+     */
+    public function removePlaylist(PlaylistInterface $playlist);
+
 
     /**
      * @return ArtistInterface

@@ -22,14 +22,13 @@ class LastFmController extends Controller
         $theUser = $this->getUser();
         if ($theUser instanceof LastFmUserEmbed) {
             $auth = $this->get('black_sheep.last_fm.auth');
-            if ($theUser->getLastFm()->getLastFmToken() === "") {
+            if ($theUser->getLastFm()->getLastFmToken() === "" || $theUser->getLastFm()->getLastFmToken() === null) {
                 return $this->render(
                     'BlackSheepLastFmBundle:LastFm:index.html.twig',
                     $auth->tokenForUser($theUser)
                 );
             }
             if ($theUser->getLastFm()->hasLastFmConnected() === false) {
-
                 try {
                     $auth->sessionForUser($theUser);
                     $request->getSession()

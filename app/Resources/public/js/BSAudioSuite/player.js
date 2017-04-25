@@ -204,7 +204,6 @@ export default class BlackSheepPlayer {
     });
 
     this.player.on('play', e => {
-      console.log('play event');
       this.currentSong.playing();
     });
 

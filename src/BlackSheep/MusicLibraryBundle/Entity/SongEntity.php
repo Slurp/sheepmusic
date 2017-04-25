@@ -3,6 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
+use BlackSheep\MusicLibraryBundle\Model\PlaylistInterface;
 use BlackSheep\MusicLibraryBundle\Model\Song;
 use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -57,14 +58,9 @@ class SongEntity extends Song implements SongInterface
     protected $playCount;
 
     /**
-     * @ORM\ManyToMany(targetEntity="PlaylistEntity", inversedBy="songs" , fetch="EXTRA_LAZY")
-     * @ORM\JoinTable(
-     *     name="PlaylistSongs",
-     *     joinColumns={@ORM\JoinColumn(name="songs_id", referencedColumnName="id", nullable=true)},
-     *     inverseJoinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id", nullable=true)}
-     * )
+     * @ORM\ManyToMany(targetEntity="PlaylistEntity", mappedBy="songs" , fetch="EXTRA_LAZY",cascade={"persist"})
      */
-    protected $playlist;
+    protected $playlists;
 
     /**
      * @ORM\ManyToMany(targetEntity="ArtistsEntity", inversedBy="songs", fetch="EXTRA_LAZY")
@@ -82,6 +78,7 @@ class SongEntity extends Song implements SongInterface
     public function __construct()
     {
         $this->artists = new ArrayCollection();
+        $this->playlists = new ArrayCollection();
     }
 
     /**
@@ -91,6 +88,28 @@ class SongEntity extends Song implements SongInterface
     {
         if ($this->artists->contains($artist) === false) {
             $this->artists->add($artist);
+        }
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addPlaylist(PlaylistInterface $playlist)
+    {
+        if ($this->playlists->contains($playlist) === false) {
+            $this->playlists->add($playlist);
+        }
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removePlaylist(PlaylistInterface $playlist)
+    {
+        if ($this->playlists->contains($playlist)) {
+            $this->playlists->removeElement($playlist);
         }
         return $this;
     }

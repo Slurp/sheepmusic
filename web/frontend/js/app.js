@@ -225,7 +225,6 @@
 	      });
 
 	      this.player.on('play', function (e) {
-	        console.log('play event');
 	        _this3.currentSong.playing();
 	      });
 	    }
@@ -14678,6 +14677,15 @@
 	      }
 	    }
 	  }, {
+	    key: 'savePlaylist',
+	    value: function savePlaylist(url) {
+	      var songs = [];
+	      for (var index = 0; index < this.songs.length; index++) {
+	        songs.push(this.songs[index].getId());
+	      }
+	      _jquery2.default.post(url, { name: this.name, 'songs[]': songs });
+	    }
+	  }, {
 	    key: 'addEventListeners',
 	    value: function addEventListeners() {
 	      var _this4 = this;
@@ -14685,11 +14693,15 @@
 	      (0, _jquery2.default)('body').on('click', '[data-toggle="playlist"]', function (e) {
 	        (0, _jquery2.default)('.main-content').toggleClass('playlist-show');
 	      });
-	      (0, _jquery2.default)('.player').on('click', '[data-playlist_action="shuffle"]', function (e) {
+	      (0, _jquery2.default)('body').on('click', '[data-playlist_action="shuffle"]', function (e) {
 	        _this4.shuffle();
 	        _this4.currentIndex = 0;
 	        _playlist2.default.renderPlaylist(_this4.songs);
 	        (0, _jquery2.default)('[data-playlist-play="0"]').click();
+	      });
+	      (0, _jquery2.default)('body').on('click', '[data-playlist_save]', function (e) {
+	        console.log($(e.currentTarget).data('playlist_save'));
+	        _this4.savePlaylist($(e.currentTarget).data('playlist_save'));
 	      });
 	    }
 	  }, {
@@ -15355,6 +15367,11 @@
 	      return this.src;
 	    }
 	  }, {
+	    key: 'getId',
+	    value: function getId() {
+	      return this.apiData.id;
+	    }
+	  }, {
 	    key: 'getTitle',
 	    value: function getTitle() {
 	      return this.apiData.title;
@@ -15362,13 +15379,11 @@
 	  }, {
 	    key: 'getArtistName',
 	    value: function getArtistName() {
-
 	      return this.apiData.artist.name;
 	    }
 	  }, {
 	    key: 'getAlbum',
 	    value: function getAlbum() {
-
 	      return this.apiData.album;
 	    }
 	  }]);

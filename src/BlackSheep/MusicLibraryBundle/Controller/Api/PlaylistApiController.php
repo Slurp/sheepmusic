@@ -13,24 +13,24 @@ use Symfony\Component\HttpFoundation\Response;
 class PlaylistApiController extends Controller
 {
     /**
-     * @Route("/save/playlist/{$name}", name="post_save_playlist")
+     * @Route("/save/playlist", name="post_save_playlist")
      *
      * @param Request $request
-     * @param $name
      *
      * @return Response
      */
-    public function postSavePlaylist(Request $request, $name)
+    public function postSavePlaylist(Request $request)
     {
-        if ($name !== null) {
-            $playlist = $this->get("black_sheep_music_library.repository.playlist_repository")->getByName($name);
+        $name = $request->get('name');
+        $playlist = $this->get("black_sheep_music_library.repository.playlist_repository")->getByName($name);
+        if ($request->get('songs') !== null) {
+            $songRepo = $this->get('black_sheep_music_library.repository.songs_repository');
             foreach ($request->get('songs') as $songId) {
-                $playlist->addSong($this->get('black_sheep_music_library.repository.songs_repository')->find($songId));
+                $song = $songRepo->findOneById($songId);
+                $playlist->addSong($song);
             }
-
-            return $this->json(['saved' => $playlist->getName()]);
         }
-
-        return $this->json(['failed' => 'no name supplied']);
+        $this->get("black_sheep_music_library.repository.playlist_repository")->save($playlist);
+        return $this->json(['saved' => $playlist->getName()]);
     }
 }

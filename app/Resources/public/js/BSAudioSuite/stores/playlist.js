@@ -121,6 +121,15 @@ export default class playlist {
     }
   }
 
+  savePlaylist(url)
+  {
+    let songs = [];
+    for(let index=0; index < this.songs.length ; index++) {
+      songs.push(this.songs[index].getId());
+    }
+    jQuery.post(url,{ name: this.name, 'songs[]' : songs});
+  }
+
   addEventListeners()
   {
     jQuery('body').on('click', '[data-toggle="playlist"]', (e) =>
@@ -128,15 +137,21 @@ export default class playlist {
         jQuery('.main-content').toggleClass('playlist-show');
       }
     );
-    jQuery('.player').on('click', '[data-playlist_action="shuffle"]', (e) =>
+    jQuery('body').on('click', '[data-playlist_action="shuffle"]', (e) =>
       {
         this.shuffle();
         this.currentIndex = 0;
         HtmlPlaylist.renderPlaylist(this.songs);
         jQuery('[data-playlist-play="0"]').click();
-
       }
     );
+    jQuery('body').on('click', '[data-playlist_save]', (e) =>
+      {
+        console.log($(e.currentTarget).data('playlist_save'));
+        this.savePlaylist($(e.currentTarget).data('playlist_save'));
+      }
+    );
+
   }
 
   watchPlaylistEvents(player)

@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\LastFmBundle\EventListener;
 
 use BlackSheep\LastFmBundle\Info\LastFmTrackInfo;
@@ -44,7 +45,12 @@ class SongEventSubscriber implements SongEventListener
      */
     public function playedSong(SongEventInterface $songEvent)
     {
-        $this->lastFmTrackInfo->scrobbleTrack($songEvent->getSong());
+        try {
+            $this->lastFmTrackInfo->scrobbleTrack($songEvent->getSong());
+        } catch (\Exception $e) {
+            // do nothing for now
+            error_log($e->getMessage());
+        }
     }
 
     /**

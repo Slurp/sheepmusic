@@ -17,6 +17,7 @@ class ApiSongData extends AbstractApiData implements ApiDataInterface
     {
         if ($object instanceof SongEntity) {
             $apiData = [
+                'id' => $object->getId(),
                 'track' => $object->getTrack(),
                 'title' => $object->getTitle(),
                 'src' => $this->router->generate('song_play', ['song' => $object->getId()]),
