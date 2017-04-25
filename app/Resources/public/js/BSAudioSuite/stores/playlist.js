@@ -76,7 +76,6 @@ export default class playlist {
     let song = new Song('', $url);
     return jQuery.when(song.getInfo()).then(() =>
     {
-      console.log('add song');
       this.songs.push(song);
     });
   };
@@ -86,7 +85,6 @@ export default class playlist {
     if (album instanceof Album) {
       return jQuery.when(album.getSongs().then((songs) =>
         {
-          console.log("addAlbum", songs);
           for (let data of songs) {
             let song = new Song('', '', data);
             this.songs.push(song);
@@ -101,7 +99,6 @@ export default class playlist {
     if (artist instanceof Artist) {
       return jQuery.when(artist.getAlbums().then((albums) =>
         {
-          console.log("addArtist", albums);
           for (let album of albums) {
             for (let song of album.songs) {
               let newSong = new Song('', '', song);
@@ -147,7 +144,6 @@ export default class playlist {
     );
     jQuery('body').on('click', '[data-playlist_save]', (e) =>
       {
-        console.log($(e.currentTarget).data('playlist_save'));
         this.savePlaylist($(e.currentTarget).data('playlist_save'));
       }
     );

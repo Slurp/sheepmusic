@@ -145,7 +145,6 @@ export default class BlackSheepPlayer {
   autoStart()
   {
     if (this.player.getMedia().paused !== false) {
-      console.log('auto start');
       this.playNext();
     }
   };
@@ -154,8 +153,6 @@ export default class BlackSheepPlayer {
   {
     jQuery.when(this.playlist.getNextSong()).then((song) =>
       {
-        console.log(song);
-        console.log('auto start');
         this.playSong(song);
       }
     );

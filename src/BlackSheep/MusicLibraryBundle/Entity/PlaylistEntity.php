@@ -44,7 +44,6 @@ class PlaylistEntity extends Playlist
         if ($this->songs->contains($song) === false) {
             $song->addPlaylist($this);
             $this->songs->add($song);
-            var_dump($song->getTitle());
         }
 
         return $this;

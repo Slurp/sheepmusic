@@ -165,7 +165,6 @@
 	    key: 'autoStart',
 	    value: function autoStart() {
 	      if (this.player.getMedia().paused !== false) {
-	        console.log('auto start');
 	        this.playNext();
 	      }
 	    }
@@ -175,8 +174,6 @@
 	      var _this = this;
 
 	      _jquery2.default.when(this.playlist.getNextSong()).then(function (song) {
-	        console.log(song);
-	        console.log('auto start');
 	        _this.playSong(song);
 	      });
 	    }
@@ -14568,7 +14565,6 @@
 
 	      var song = new _song2.default('', $url);
 	      return _jquery2.default.when(song.getInfo()).then(function () {
-	        console.log('add song');
 	        _this.songs.push(song);
 	      });
 	    }
@@ -14579,7 +14575,6 @@
 
 	      if (album instanceof _album2.default) {
 	        return _jquery2.default.when(album.getSongs().then(function (songs) {
-	          console.log("addAlbum", songs);
 	          var _iteratorNormalCompletion = true;
 	          var _didIteratorError = false;
 	          var _iteratorError = undefined;
@@ -14615,7 +14610,6 @@
 
 	      if (artist instanceof _artist2.default) {
 	        return _jquery2.default.when(artist.getAlbums().then(function (albums) {
-	          console.log("addArtist", albums);
 	          var _iteratorNormalCompletion2 = true;
 	          var _didIteratorError2 = false;
 	          var _iteratorError2 = undefined;
@@ -14700,7 +14694,6 @@
 	        (0, _jquery2.default)('[data-playlist-play="0"]').click();
 	      });
 	      (0, _jquery2.default)('body').on('click', '[data-playlist_save]', function (e) {
-	        console.log($(e.currentTarget).data('playlist_save'));
 	        _this4.savePlaylist($(e.currentTarget).data('playlist_save'));
 	      });
 	    }
@@ -15924,10 +15917,8 @@
 	    (0, _classCallCheck3.default)(this, httpClient);
 
 	    this.apiData;
-	    console.log($url);
 	    this.url = $url;
-	    if ($url != '') {
-
+	    if ($url !== '') {
 	      this.getInfo(this.url);
 	    }
 	  }
