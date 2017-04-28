@@ -22,3 +22,6 @@ services:
     black_sheep.music_library.api_model.api_album_data:
         class: BlackSheep\MusicLibraryBundle\ApiModel\ApiAlbumData
         arguments: ['@router']
+    black_sheep.music_library.api_model.api_playlist_data:
+        class: BlackSheep\MusicLibraryBundle\ApiModel\ApiPlaylistData
+        arguments: ['@router']

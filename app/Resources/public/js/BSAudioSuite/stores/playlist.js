@@ -19,6 +19,7 @@ export default class playlist {
 
   clearPlaylist()
   {
+    this.name = null;
     this.songs = [];
     this.currentIndex = -1;
     this.currentSong = null;
@@ -107,6 +108,21 @@ export default class playlist {
           }
         }
       ));
+    }
+  }
+
+  /**
+   * Add a playlist to a playlist.
+   * @param playlist
+   */
+  addPlaylist(playlist)
+  {
+    if(this.name === null) {
+      this.name = playlist.name;
+    }
+    for (let song of playlist.songs) {
+      let newSong = new Song('', '', song);
+      this.songs.push(newSong);
     }
   }
 

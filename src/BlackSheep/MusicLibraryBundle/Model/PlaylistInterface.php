@@ -51,4 +51,14 @@ interface PlaylistInterface
      * @return $this
      */
     public function removeSong(SongInterface $song);
+
+    /**
+     * @return AlbumInterface[]
+     */
+    public function getAlbums();
+
+    /**
+     * @return mixed
+     */
+    public function getCover();
 }

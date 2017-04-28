@@ -19,5 +19,10 @@
                href="{{ path('library_recent_albums') }}">Recent albums
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link {% if app.request.attributes.get('_route') == 'library_playlists' %} active {% endif %}"
+               href="{{ path('library_playlists') }}">Playlists
+            </a>
+        </li>
     </ul>
 </nav>

@@ -30,10 +30,32 @@ class PlaylistEntity extends Playlist
     protected $songs;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $cover;
+
+    /**
      */
     public function __construct()
     {
         $this->songs = new ArrayCollection();
+    }
+
+    /**
+     * @param $name
+     *
+     * @return static
+     */
+    public static function create($name)
+    {
+        $playlist = new static();
+        if ($name === "") {
+            $date = new \DateTime();
+            $name = $date->format(DATE_W3C);
+        }
+        $playlist->setName($name);
+
+        return $playlist;
     }
 
     /**
@@ -59,22 +81,5 @@ class PlaylistEntity extends Playlist
         }
 
         return $this;
-    }
-
-    /**
-     * @param $name
-     *
-     * @return static
-     */
-    public static function create($name)
-    {
-        $playlist = new static();
-        if ($name === "") {
-            $date = new \DateTime();
-            $name = $date->format(DATE_W3C);
-        }
-        $playlist->setName($name);
-
-        return $playlist;
     }
 }

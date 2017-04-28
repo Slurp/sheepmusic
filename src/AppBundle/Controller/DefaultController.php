@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Utils\UtilsPagerFanta;
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
+use BlackSheep\MusicLibraryBundle\Entity\PlaylistEntity;
 use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -135,6 +136,35 @@ class DefaultController extends Controller
         return $this->render(
             'AppBundle:Album:detail.html.twig',
             ['artist' => $album->getArtist(), 'album' => $album]
+        );
+    }
+
+    /**
+     * List all the playlists!!!!
+     * @Route("/playlists", name="library_playlists")
+     *
+     * @return Response
+     */
+    public function playlistsAction()
+    {
+        return $this->render(
+            'AppBundle:Playlist:overview.html.twig',
+            ['playlists' => $this->get('black_sheep_music_library.repository.playlist_repository')->findAll()]
+        );
+    }
+
+    /**
+     * @Route("/playlists/{playlist}", name="library_playlist")
+     *
+     * @param PlaylistEntity $playlist
+     *
+     * @return Response
+     */
+    public function playlistDetailAction(PlaylistEntity $playlist)
+    {
+        return $this->render(
+            'AppBundle:Playlist:detail.html.twig',
+            ['playlist' => $this->get('black_sheep_music_library.repository.playlist_repository')->find($playlist)]
         );
     }
 }

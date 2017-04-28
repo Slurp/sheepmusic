@@ -2,6 +2,8 @@
 
 namespace BlackSheep\MusicLibraryBundle\Controller\Api;
 
+use BlackSheep\MusicLibraryBundle\Entity\PlaylistEntity;
+use BlackSheep\MusicLibraryBundle\Helper\PlaylistCoverHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,8 +31,23 @@ class PlaylistApiController extends Controller
                 $song = $songRepo->findOneById($songId);
                 $playlist->addSong($song);
             }
+            $cover = new PlaylistCoverHelper();
+            $playlist = $cover->createCoverForPlaylist($playlist, false);
         }
         $this->get("black_sheep_music_library.repository.playlist_repository")->save($playlist);
+
         return $this->json(['saved' => $playlist->getName()]);
+    }
+
+    /**
+     * @Route("/playlist/{playlist}", name="get_playlist")
+     *
+     * @param PlaylistEntity $playlist
+     *
+     * @return Response
+     */
+    public function getAlbumAction(PlaylistEntity $playlist)
+    {
+        return $this->json($this->get('black_sheep.music_library.api_model.api_playlist_data')->getApiData($playlist));
     }
 }

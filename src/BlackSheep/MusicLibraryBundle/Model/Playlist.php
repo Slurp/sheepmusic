@@ -5,6 +5,11 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 /**
  *
  */
+use BlackSheep\MusicLibraryBundle\Helper\PlaylistCoverHelper;
+
+/**
+ *
+ */
 class Playlist implements PlaylistInterface
 {
     /**
@@ -16,6 +21,11 @@ class Playlist implements PlaylistInterface
      * @var array
      */
     protected $songs;
+
+    /**
+     * @var $string
+     */
+    protected $cover;
 
     /**
      * {@inheritdoc}
@@ -72,6 +82,38 @@ class Playlist implements PlaylistInterface
             unset($this->songs[$key]);
             $this->songs = array_values($this->songs);
         }
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAlbums()
+    {
+        $albums = [];
+        foreach ($this->getSongs() as $song) {
+            $albums[$song->getAlbum()->getSlug()] = $song->getAlbum();
+        }
+        return $albums;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCover()
+    {
+        return $this->cover;
+    }
+
+    /**
+     * @param string $cover
+     *
+     * @return PlaylistInterface
+     */
+    public function setCover($cover)
+    {
+        $this->cover = $cover;
 
         return $this;
     }

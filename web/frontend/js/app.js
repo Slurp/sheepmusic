@@ -14514,6 +14514,7 @@
 	  (0, _createClass3.default)(playlist, [{
 	    key: 'clearPlaylist',
 	    value: function clearPlaylist() {
+	      this.name = null;
 	      this.songs = [];
 	      this.currentIndex = -1;
 	      this.currentSong = null;
@@ -14658,6 +14659,44 @@
 	            }
 	          }
 	        }));
+	      }
+	    }
+
+	    /**
+	     * Add a playlist to a playlist.
+	     * @param playlist
+	     */
+
+	  }, {
+	    key: 'addPlaylist',
+	    value: function addPlaylist(playlist) {
+	      if (this.name === null) {
+	        this.name = playlist.name;
+	      }
+	      var _iteratorNormalCompletion4 = true;
+	      var _didIteratorError4 = false;
+	      var _iteratorError4 = undefined;
+
+	      try {
+	        for (var _iterator4 = (0, _getIterator3.default)(playlist.songs), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+	          var song = _step4.value;
+
+	          var newSong = new _song2.default('', '', song);
+	          this.songs.push(newSong);
+	        }
+	      } catch (err) {
+	        _didIteratorError4 = true;
+	        _iteratorError4 = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion4 && _iterator4.return) {
+	            _iterator4.return();
+	          }
+	        } finally {
+	          if (_didIteratorError4) {
+	            throw _iteratorError4;
+	          }
+	        }
 	      }
 	    }
 	  }, {
@@ -16907,6 +16946,21 @@
 	        var artist = new _artist2.default($(this).data('play_artist_albums'));
 	        playlist.addArtist(artist).then(function () {
 	          Library.handleQueded('Added all albums', player, playlist, toast);
+	        });
+	      });
+
+	      (0, _jquery2.default)("main").on('click', '[data-queue_playlist]', function () {
+	        _jquery2.default.get($(this).data('queue_album')).done();
+	        playlist.addPlaylist(album).then(function () {
+	          Library.handleQueded('Added playlist', player, playlist, toast);
+	        });
+	      });
+
+	      (0, _jquery2.default)("main").on('click', '[data-play_playlist]', function () {
+	        playlist.clearPlaylist();
+	        _jquery2.default.get({ url: $(this).data('play_playlist') }).done(function (data) {
+	          playlist.addPlaylist(data);
+	          Library.handleQueded('Playing playlist', player, playlist, toast);
 	        });
 	      });
 	    }
