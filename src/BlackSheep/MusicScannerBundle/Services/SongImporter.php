@@ -80,14 +80,18 @@ class SongImporter
 
     /**
      * @param SplFileInfo $file
+     *
+     * @return SongEntity|null
      */
     public function importSong(SplFileInfo $file)
     {
         $songInfo = $this->tagHelper->getInfo($file);
         $songEntity = $this->songRepository->needsImporting($songInfo);
         if ($songEntity === null && empty($songInfo['artist']) === false) {
-            $this->writeSong($songInfo);
+            return $this->writeSong($songInfo);
         }
+
+        return null;
     }
 
     /**
