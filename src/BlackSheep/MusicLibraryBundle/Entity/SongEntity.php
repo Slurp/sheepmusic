@@ -23,7 +23,7 @@ class SongEntity extends Song implements SongInterface
     use BaseEntity;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $track;
 

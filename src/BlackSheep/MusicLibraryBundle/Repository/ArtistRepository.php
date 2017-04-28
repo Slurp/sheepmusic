@@ -14,6 +14,16 @@ class ArtistRepository extends AbstractRepository implements ArtistRepositoryInt
     /**
      * {@inheritdoc}
      */
+    public function queryAll()
+    {
+        return $this->createQueryBuilder('a')
+            ->addOrderBy('a.slug', 'ASC')
+            ->getQuery();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function addOrUpdate($artistName, $musicBrainzId = null)
     {
         $artistEntity = $this->getArtistByMusicBrainzId($musicBrainzId);

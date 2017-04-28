@@ -140,7 +140,12 @@ export default class playlist {
     for(let index=0; index < this.songs.length ; index++) {
       songs.push(this.songs[index].getId());
     }
-    jQuery.post(url,{ name: this.name, 'songs[]' : songs});
+
+    jQuery.post(url,{ name: this.name, 'songs[]' : songs}).done((e) => {
+      this.name = e.name;
+      HtmlPlaylist.renderPlaylistHeader(this.name);
+    });
+
   }
 
   addEventListeners()

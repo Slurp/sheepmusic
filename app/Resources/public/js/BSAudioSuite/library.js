@@ -89,7 +89,7 @@ export default class Library {
   static handleQueded(message, player, playlist, toast)
   {
     toast.toast(message);
-    HtmlPlaylist.renderPlaylist(playlist.songs);
+    HtmlPlaylist.renderPlaylist(playlist);
     player.autoStart();
   }
 

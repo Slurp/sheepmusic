@@ -53,7 +53,8 @@
     @extend .flex-column;
     overflow-y: auto;
     position: relative;
-    height: calc(100vh - 230px);
+    height: calc(100vh - 215px);
+    padding-bottom: 30px;
     &::-webkit-scrollbar {
       display: none;
     }
@@ -125,6 +126,17 @@
     margin-top: 5px;
     color: lighten($playlist-txt-color, 30%);
   }
+}
+
+.playlist-actions {
+  padding-top: 5px;
+  position: absolute;
+  bottom: 10px;
+  left:10px;
+  right:10px;
+  background: #ffffff;
+  z-index: 999;
+  height: 30px;
 }
 
 .playlist-show

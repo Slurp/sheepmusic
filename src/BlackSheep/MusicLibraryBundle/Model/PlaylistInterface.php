@@ -58,7 +58,14 @@ interface PlaylistInterface
     public function getAlbums();
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCover();
+
+    /**
+     * @param string $cover
+     *
+     * @return PlaylistInterface
+     */
+    public function setCover($cover);
 }

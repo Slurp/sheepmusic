@@ -38,7 +38,7 @@ class PlaylistCoverHelper
     public function createCoverForPlaylist(PlaylistInterface $playlist, $useCache = true)
     {
         $fileName = $this->getUploadRootDirectory() . $playlist->getName() . '.jpg';
-        if (file_exists($fileName) === false && $useCache === true) {
+        if (file_exists($fileName) === false || $useCache === false) {
             $covers = $this->collectAllAlbumCovers($playlist);
             $numberOfCovers = count($covers);
 

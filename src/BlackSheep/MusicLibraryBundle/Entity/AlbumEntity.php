@@ -50,6 +50,7 @@ class AlbumEntity extends Album implements AlbumInterface
 
     /**
      * @ORM\OneToMany(targetEntity="SongEntity", mappedBy="album",cascade={"all"})
+     * @ORM\OrderBy({"track" = "ASC"})
      */
     protected $songs;
 

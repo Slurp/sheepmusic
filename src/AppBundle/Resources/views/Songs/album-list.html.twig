@@ -1,11 +1,5 @@
 {# @var album \BlackSheep\MusicLibraryBundle\Model\AlbumInterface#}
 {# @var song \BlackSheep\MusicLibraryBundle\Model\SongInterface#}
-{% if album.cover is not null %}
-    {% set backgroundImage = asset(album.cover) %}
-{% else %}
-    {% set backgroundImage = asset('frontend/img/default.png') %}
-{% endif %}
-
 <div class="song-list">
     <div class="song-list-header">
         <div class="col col-track">track</div>

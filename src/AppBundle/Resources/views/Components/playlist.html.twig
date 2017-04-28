@@ -1,18 +1,18 @@
 <div class='playlist'>
     <div class='playlist-dropup'>
-        <h3 class='playlist-header'>Current Playlist</h3>
+        <h5 class='playlist-header' data-playlistheader="Current Playlist"></h5>
         <div class='playlist-wrapper'>
             <ul data-playlist='current'>
                 <li> no songs</li>
             </ul>
-            <div class='playlist-actions'>
-                <a href=# data-playlist_action='shuffle'>
-                    <i class='material-icons'>shuffle</i>
-                </a>
-                <a href=# data-playlist_save='{{ path('post_save_playlist') }}'>
-                    <i class='material-icons'>save</i>
-                </a>
-            </div>
+        </div>
+        <div class='playlist-actions'>
+            <a href=# data-playlist_action='shuffle'>
+                <i class='material-icons'>shuffle</i>
+            </a>
+            <a href=# data-playlist_save='{{ path('post_save_playlist') }}'>
+                <i class='material-icons'>save</i>
+            </a>
         </div>
     </div>
 </div>

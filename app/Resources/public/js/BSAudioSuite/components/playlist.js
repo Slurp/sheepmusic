@@ -36,16 +36,27 @@ export default class Playlist {
               </li>`;
   }
 
-  static renderPlaylist(songs)
+  static renderPlaylistHeader(name)
   {
-    let playlistHtml = jQuery('[data-playlist]');
-    playlistHtml.find('li').remove();
+    let playlistHtml = jQuery('[data-playlistheader]');
+    if (name !== null) {
+      playlistHtml.text(name);
+    } else {
+      playlistHtml.text(playlistHtml.data('playlistheader'));
+    }
+  }
+
+  static renderPlaylist(playlist)
+  {
     let i = 0;
     let active = 0;
     if (this.currentIndex > 0) {
       active = this.currentIndex;
     }
-    return songs.reduce(function (promise, song)
+    let playlistHtml = jQuery('[data-playlist]');
+    playlistHtml.find('li').remove();
+    Playlist.renderPlaylistHeader(playlist.name);
+    return playlist.songs.reduce(function (promise, song)
     {
       return promise.then(function ()
       {
@@ -60,6 +71,5 @@ export default class Playlist {
         );
       });
     }, Promise.resolve());
-
   }
 }

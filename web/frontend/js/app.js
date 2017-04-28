@@ -14712,50 +14712,56 @@
 	  }, {
 	    key: 'savePlaylist',
 	    value: function savePlaylist(url) {
+	      var _this4 = this;
+
 	      var songs = [];
 	      for (var index = 0; index < this.songs.length; index++) {
 	        songs.push(this.songs[index].getId());
 	      }
-	      _jquery2.default.post(url, { name: this.name, 'songs[]': songs });
+
+	      _jquery2.default.post(url, { name: this.name, 'songs[]': songs }).done(function (e) {
+	        _this4.name = e.name;
+	        _playlist2.default.renderPlaylistHeader(_this4.name);
+	      });
 	    }
 	  }, {
 	    key: 'addEventListeners',
 	    value: function addEventListeners() {
-	      var _this4 = this;
+	      var _this5 = this;
 
 	      (0, _jquery2.default)('body').on('click', '[data-toggle="playlist"]', function (e) {
 	        (0, _jquery2.default)('.main-content').toggleClass('playlist-show');
 	      });
 	      (0, _jquery2.default)('body').on('click', '[data-playlist_action="shuffle"]', function (e) {
-	        _this4.shuffle();
-	        _this4.currentIndex = 0;
-	        _playlist2.default.renderPlaylist(_this4.songs);
+	        _this5.shuffle();
+	        _this5.currentIndex = 0;
+	        _playlist2.default.renderPlaylist(_this5.songs);
 	        (0, _jquery2.default)('[data-playlist-play="0"]').click();
 	      });
 	      (0, _jquery2.default)('body').on('click', '[data-playlist_save]', function (e) {
-	        _this4.savePlaylist($(e.currentTarget).data('playlist_save'));
+	        _this5.savePlaylist($(e.currentTarget).data('playlist_save'));
 	      });
 	    }
 	  }, {
 	    key: 'watchPlaylistEvents',
 	    value: function watchPlaylistEvents(player) {
-	      var _this5 = this;
+	      var _this6 = this;
 
 	      var $playlist = (0, _jquery2.default)('.playlist');
 	      $playlist.on('click', '[data-playlist-play]', function (e) {
-	        _this5.currentIndex = (0, _jquery2.default)(e.currentTarget).data('playlist-play');
-	        return _jquery2.default.when(_this5.getCurrentSong()).then(function () {
-	          player.playSong(_this5.currentSong);
+	        _this6.currentIndex = (0, _jquery2.default)(e.currentTarget).data('playlist-play');
+	        return _jquery2.default.when(_this6.getCurrentSong()).then(function () {
+	          player.playSong(_this6.currentSong);
 	        });
 	      });
 
 	      $playlist.on('click', '[data-playlist-delete]', function (e) {
-	        _this5.removeSong((0, _jquery2.default)(e.currentTarget).data('playlist-delete'));
-	        _this5.songs.filter(function (a) {
+	        _this6.removeSong((0, _jquery2.default)(e.currentTarget).data('playlist-delete'));
+	        _this6.songs.filter(function (a) {
 	          return typeof a !== 'undefined';
 	        });
 	        (0, _jquery2.default)(e.currentTarget).parent().remove();
-	        _playlist2.default.renderPlaylist(_this5.songs);
+	        _playlist2.default.renderPlaylist(_this6.songs);
 	      });
 	    }
 	  }]);
@@ -16833,16 +16839,27 @@
 	      return '<li class="playlist-item ' + activeClass + '" data-playlist-index="' + index + '">\n                <img src="' + song.getAlbum().cover + '">\n                <div class="playlist-item-info">\n                  <h5 class="mt-0">' + song.getTitle() + '</h5>\n                  <h6>' + song.getArtistName() + ' - ' + song.getAlbum().name + '</h6>\n                  \n                </div>\n                <div class="playlist-item-actions">\n                <a href="#" data-playlist-play="' + index + '">\n                       <i class="material-icons">play_arrow</i>\n                   </a>\n                   <a href="#" data-playlist-delete="' + index + '">\n                    <i class="material-icons">remove_from_queue</i>\n                   </a>\n                </div>\n              </li>';
 	    }
 	  }, {
+	    key: 'renderPlaylistHeader',
+	    value: function renderPlaylistHeader(name) {
+	      var playlistHtml = jQuery('[data-playlistheader]');
+	      if (name !== null) {
+	        playlistHtml.text(name);
+	      } else {
+	        playlistHtml.text(playlistHtml.data('playlistheader'));
+	      }
+	    }
+	  }, {
 	    key: 'renderPlaylist',
-	    value: function renderPlaylist(songs) {
-	      var playlistHtml = jQuery('[data-playlist]');
-	      playlistHtml.find('li').remove();
+	    value: function renderPlaylist(playlist) {
 	      var i = 0;
 	      var active = 0;
 	      if (this.currentIndex > 0) {
 	        active = this.currentIndex;
 	      }
-	      return songs.reduce(function (promise, song) {
+	      var playlistHtml = jQuery('[data-playlist]');
+	      playlistHtml.find('li').remove();
+	      Playlist.renderPlaylistHeader(playlist.name);
+	      return playlist.songs.reduce(function (promise, song) {
 	        return promise.then(function () {
 	          return song.getInfo().then(function () {
 
@@ -16971,7 +16988,7 @@
 	    //Handle update of playlist
 	    value: function handleQueded(message, player, playlist, toast) {
 	      toast.toast(message);
-	      _playlist2.default.renderPlaylist(playlist.songs);
+	      _playlist2.default.renderPlaylist(playlist);
 	      player.autoStart();
 	    }
 	  }, {
