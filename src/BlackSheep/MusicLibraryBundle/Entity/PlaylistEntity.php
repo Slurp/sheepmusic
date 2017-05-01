@@ -42,23 +42,6 @@ class PlaylistEntity extends Playlist
     }
 
     /**
-     * @param $name
-     *
-     * @return static
-     */
-    public static function create($name)
-    {
-        $playlist = new static();
-        if ($name === "") {
-            $date = new \DateTime();
-            $name = $date->format(DATE_W3C);
-        }
-        $playlist->setName($name);
-
-        return $playlist;
-    }
-
-    /**
      * @inheritDoc
      */
     public function addSong(SongInterface $song)

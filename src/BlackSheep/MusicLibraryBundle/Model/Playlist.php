@@ -22,9 +22,26 @@ class Playlist implements PlaylistInterface
     protected $songs;
 
     /**
-     * @var $string
+     * @var string $cover
      */
     protected $cover;
+
+    /**
+     * @param string|null $name
+     *
+     * @return PlaylistInterface
+     */
+    public static function create($name = null)
+    {
+        $playlist = new static();
+        if ($name === "" || $name === null) {
+            $date = new \DateTime();
+            $name = $date->format(DATE_W3C);
+        }
+        $playlist->setName($name);
+
+        return $playlist;
+    }
 
     /**
      * {@inheritdoc}

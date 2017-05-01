@@ -15,6 +15,13 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 interface PlaylistInterface
 {
     /**
+     * @param string|null $name
+     *
+     * @return PlaylistInterface
+     */
+    public static function create($name = null);
+
+    /**
      * @return mixed
      */
     public function getName();
