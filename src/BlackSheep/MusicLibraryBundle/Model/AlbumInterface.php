@@ -46,41 +46,6 @@ interface AlbumInterface extends ApiInterface
     public function setCover($cover);
 
     /**
-     * Generate a cover from provided data.
-     *
-     * @param array $cover The cover data in array format, extracted by getID3.
-     *                     For example:
-     *                     [
-     *                     'data' => '<binary data>',
-     *                     'image_mime' => 'image/png',
-     *                     'image_width' => 512,
-     *                     'image_height' => 512,
-     *                     'imagetype' => 'PNG', // not always present
-     *                     'picturetype' => 'Other',
-     *                     'description' => '',
-     *                     'datalength' => 7627,
-     *                     ]
-     *
-     * @return string
-     */
-    public function generateCover(array $cover);
-
-    /**
-     * @return string
-     */
-    public function getUploadRootDirectory();
-
-    /**
-     * @return string
-     */
-    public function getWebDirectory();
-
-    /**
-     * @return string
-     */
-    public function getUploadDirectory();
-
-    /**
      * @return SongInterface[]
      */
     public function getSongs();

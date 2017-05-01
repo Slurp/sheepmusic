@@ -7,8 +7,9 @@ use BlackSheep\MusicLibraryBundle\Model\PlaylistInterface;
 /**
  * Generates a cover for a playlist.
  */
-class PlaylistCoverHelper
+class PlaylistCoverHelper extends AbstractUploadHelper
 {
+
     /**
      *
      */
@@ -56,30 +57,6 @@ class PlaylistCoverHelper
         }
 
         return $this->getUploadDirectory() . $playlist->getName() . '.jpg';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getUploadRootDirectory()
-    {
-        return $this->getWebDirectory() . $this->getUploadDirectory();
-    }
-
-    /**
-     * @return string
-     */
-    public function getWebDirectory()
-    {
-        return __DIR__ . '/../../../../web';
-    }
-
-    /**
-     * @return string
-     */
-    public function getUploadDirectory()
-    {
-        return '/uploads/playlist/';
     }
 
     /**
@@ -163,5 +140,13 @@ class PlaylistCoverHelper
                 $step++; // steps through the $coverObjects array
             }
         }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getUploadDirectory()
+    {
+        return '/uploads/playlist/';
     }
 }

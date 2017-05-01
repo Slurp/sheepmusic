@@ -2,7 +2,7 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model;
 
-use Symfony\Component\Filesystem\Filesystem;
+use BlackSheep\MusicLibraryBundle\Helper\AlbumCoverHelper;
 
 /**
  * Define a Album.
@@ -108,7 +108,7 @@ class Album implements AlbumInterface
     public function getCover()
     {
         if (strpos($this->cover, 'http') !== 0 && $this->cover !== null) {
-            return $this->getUploadDirectory() . $this->cover;
+            return AlbumCoverHelper::getUploadDirectory() . $this->getArtist()->getSlug() . $this->cover;
         }
 
         return $this->cover;
@@ -120,67 +120,14 @@ class Album implements AlbumInterface
     public function setCover($cover)
     {
         if (is_array($cover)) {
-            $cover = $this->generateCover($cover);
+            $helper = new AlbumCoverHelper();
+            $helper->generateCover($this, $cover);
         }
         if (is_string($cover)) {
             $this->cover = $cover;
         }
 
         return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function generateCover(array $cover)
-    {
-        $extension = explode('/', $cover['image_mime']);
-        $extension = empty($extension[1]) ? 'png' : $extension[1];
-
-        return $this->writeCoverFile($cover['data'], $extension);
-    }
-
-    /**
-     * Write a cover image file with binary data and update the Album with the new cover file.
-     *
-     * @param string $binaryData
-     * @param string $extension The file extension
-     *
-     * @return string
-     */
-    private function writeCoverFile($binaryData, $extension)
-    {
-        $extension = trim(strtolower($extension), '. ');
-        $fileName = uniqid() . ".$extension";
-        $coverPath = $this->getUploadRootDirectory() . $fileName;
-        $fs = new Filesystem();
-        $fs->dumpFile($coverPath, $binaryData);
-
-        return $fileName;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getUploadRootDirectory()
-    {
-        return $this->getWebDirectory() . $this->getUploadDirectory();
-    }
-
-    /**
-     * @return string
-     */
-    public function getWebDirectory()
-    {
-        return __DIR__ . '/../../../../web';
-    }
-
-    /**
-     * @return string
-     */
-    public function getUploadDirectory()
-    {
-        return '/uploads/' . $this->getArtist()->getSlug() . '/';
     }
 
     /**
