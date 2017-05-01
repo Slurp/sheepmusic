@@ -50,7 +50,7 @@ class AlbumCoverHelper extends AbstractUploadHelper implements AlbumCoverInterfa
             $this->getUploadRootDirectory() . $album->getArtist()->getSlug() . '/' . $filename,
             $binaryData
         );
-        $fs = null;
+        unset($fs);
 
         return $filename;
     }

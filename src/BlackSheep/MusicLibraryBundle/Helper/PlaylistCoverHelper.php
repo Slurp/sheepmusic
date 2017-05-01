@@ -56,7 +56,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
             imagedestroy($cover);
         }
 
-        return $fileName;
+        return $fileName.   '.jpg';
     }
 
     /**
@@ -70,7 +70,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
         foreach ($playlist->getAlbums() as $album) {
             $cover = $album->getCover();
             if (strpos($cover, 'http') !== 0 && $cover !== null) {
-                $cover = $album->getWebDirectory() . $cover;
+                $cover = $this->getWebDirectory() . $cover;
             }
             $covers[] = $cover;
         }
