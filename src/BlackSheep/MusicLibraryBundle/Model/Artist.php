@@ -220,7 +220,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @return string
+     * @return integer
      */
     public function getPlayCount()
     {
