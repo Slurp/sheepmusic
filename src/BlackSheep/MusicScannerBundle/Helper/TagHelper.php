@@ -136,7 +136,7 @@ class TagHelper
      * @param $props
      * @param $tags
      * @param string $propertyName
-     * @param $tagName
+     * @param string $tagName
      */
     private function getPropertyForTag(&$props, $tags, $propertyName, $tagName = null)
     {

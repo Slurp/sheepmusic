@@ -5,7 +5,6 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 /**
  *
  */
-use BlackSheep\MusicLibraryBundle\Helper\PlaylistCoverHelper;
 
 /**
  *

@@ -238,7 +238,7 @@ class Song implements SongInterface
      */
     public function removePlaylist(PlaylistInterface $playlist)
     {
-        unset($playlist,$this->playlists);
+        unset($playlist, $this->playlists);
     }
 
     /**
