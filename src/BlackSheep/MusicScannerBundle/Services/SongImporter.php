@@ -8,11 +8,7 @@
 
 namespace BlackSheep\MusicScannerBundle\Services;
 
-use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
-use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
-use BlackSheep\MusicLibraryBundle\Repository\AlbumsRepositoryInterface;
-use BlackSheep\MusicLibraryBundle\Repository\ArtistRepositoryInterface;
 use BlackSheep\MusicLibraryBundle\Repository\SongsRepositoryInterface;
 use BlackSheep\MusicScannerBundle\Helper\TagHelper;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
@@ -23,11 +19,6 @@ use Symfony\Component\Finder\SplFileInfo;
  */
 class SongImporter
 {
-    /**
-     * @var ManagerRegistry
-     */
-    protected $managerRegistry;
-
     /**
      * @var AlbumImporter
      */
@@ -44,19 +35,14 @@ class SongImporter
     protected $songRepository;
 
     /**
-     * @var AlbumsRepositoryInterface
-     */
-    protected $albumRepository;
-
-    /**
-     * @var ArtistRepositoryInterface
-     */
-    protected $artistRepository;
-
-    /**
      * @var \Doctrine\Common\Persistence\ObjectManager|null|object
      */
     protected $entitymanager;
+
+    /**
+     * @var TagHelper
+     */
+    protected $tagHelper;
 
     /**
      * @param ManagerRegistry $managerRegistry
@@ -68,13 +54,10 @@ class SongImporter
         AlbumImporter $albumImporter,
         ArtistImporter $artistImporter
     ) {
-        $this->managerRegistry = $managerRegistry;
         $this->albumImporter = $albumImporter;
         $this->artistImporter = $artistImporter;
-        $this->songRepository = $this->managerRegistry->getRepository(SongEntity::class);
-        $this->albumRepository = $this->managerRegistry->getRepository(AlbumEntity::class);
-        $this->artistRepository = $this->managerRegistry->getRepository(ArtistsEntity::class);
-        $this->entitymanager = $this->managerRegistry->getManagerForClass(SongEntity::class);
+        $this->songRepository = $managerRegistry->getRepository(SongEntity::class);
+        $this->entitymanager = $managerRegistry->getManagerForClass(SongEntity::class);
         $this->tagHelper = new TagHelper();
     }
 

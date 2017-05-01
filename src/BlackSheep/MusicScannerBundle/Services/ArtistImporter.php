@@ -47,7 +47,7 @@ class ArtistImporter
     /**
      * @param $songInfo
      *
-     * @return ArtistInterface
+     * @return ArtistsEntity
      */
     public function importArtist(&$songInfo)
     {

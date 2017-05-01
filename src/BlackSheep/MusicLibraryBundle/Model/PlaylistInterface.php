@@ -39,7 +39,7 @@ interface PlaylistInterface
     public function getSongs();
 
     /**
-     * @param mixed $songs
+     * @param SongInterface[] $songs
      *
      * @return $this
      */

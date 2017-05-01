@@ -20,7 +20,7 @@ class TranscodedSizeEstimator
      */
     public static function estimatedBytes($length, $kbps)
     {
-        return round(static::estimatedBits($length, $kbps) / static::BITS_PER_BYTE);
+        return round(self::estimatedBits($length, $kbps) / static::BITS_PER_BYTE);
     }
 
     /**

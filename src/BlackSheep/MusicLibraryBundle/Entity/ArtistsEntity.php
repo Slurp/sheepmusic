@@ -56,7 +56,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     protected $biography;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $playCount;
 

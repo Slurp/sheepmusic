@@ -38,7 +38,7 @@ class Artist implements ArtistInterface
     protected $biography;
 
     /**
-     * @var string
+     * @var integer
      */
     protected $playCount;
 
@@ -176,7 +176,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @param mixed $albums
+     * @param AlbumInterface[] $albums
      *
      * @return ArtistInterface
      */
@@ -196,7 +196,7 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @param mixed $songs
+     * @param SongInterface[] $songs
      *
      * @return ArtistInterface
      */

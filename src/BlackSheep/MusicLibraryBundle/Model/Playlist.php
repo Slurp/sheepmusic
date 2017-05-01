@@ -5,10 +5,6 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 /**
  *
  */
-
-/**
- *
- */
 class Playlist implements PlaylistInterface
 {
     /**
@@ -17,7 +13,7 @@ class Playlist implements PlaylistInterface
     protected $name;
 
     /**
-     * @var array
+     * @var SongInterface[]
      */
     protected $songs;
 

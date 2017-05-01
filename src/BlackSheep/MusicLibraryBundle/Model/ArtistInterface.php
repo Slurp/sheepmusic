@@ -69,7 +69,7 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface
     public function getAlbums();
 
     /**
-     * @param mixed $albums
+     * @param AlbumInterface[] $albums
      *
      * @return ArtistInterface
      */
@@ -81,7 +81,7 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface
     public function getSongs();
 
     /**
-     * @param mixed $songs
+     * @param SongInterface[] $songs
      *
      * @return ArtistInterface
      */

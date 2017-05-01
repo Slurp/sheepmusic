@@ -21,4 +21,11 @@ abstract class AbstractApiData
     {
         $this->router = $router;
     }
+
+    /**
+     * @param mixed
+     *
+     * @return array|null
+     */
+    abstract public function getApiData($object);
 }
