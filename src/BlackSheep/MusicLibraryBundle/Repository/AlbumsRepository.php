@@ -17,7 +17,7 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
      */
     public function queryAll()
     {
-        return $this->createQueryBuilder('a')->addOrderBy('a.slug', 'ASC')->getQuery()->setFetchMode(
+        return $this->createQueryBuilder('a')->addOrderBy('a.name', 'ASC')->getQuery()->setFetchMode(
             AlbumEntity::class,
             'artist',
             ClassMetadata::FETCH_EAGER

@@ -35,7 +35,9 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "white-october/pagerfanta-bundle": "^1.0",
         "vich/uploader-bundle": "^1.1",
-        "matto1990/lastfm-api": "^1.5"
+        "matto1990/lastfm-api": "^1.5",
+        "ruflin/elastica": "^5.2.0",
+        "friendsofsymfony/elastica-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
