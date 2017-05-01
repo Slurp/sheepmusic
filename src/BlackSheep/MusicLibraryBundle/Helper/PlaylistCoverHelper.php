@@ -56,7 +56,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
             imagedestroy($cover);
         }
 
-        return $this->getUploadDirectory() . $playlist->getName() . '.jpg';
+        return $fileName;
     }
 
     /**
