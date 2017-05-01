@@ -72,7 +72,7 @@ class ProfileController extends Controller
      * @param FormInterface $form
      * @param Request $request
      * @param EventDispatcherInterface $dispatcher
-     * @param $user
+     * @param UserInterface $user
      *
      * @return null|RedirectResponse|Response
      */
