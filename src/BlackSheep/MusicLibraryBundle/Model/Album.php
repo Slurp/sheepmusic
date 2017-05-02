@@ -3,12 +3,15 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 use BlackSheep\MusicLibraryBundle\Helper\AlbumCoverHelper;
+use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
 
 /**
  * Define a Album.
  */
-class Album implements AlbumInterface
+class Album implements AlbumInterface, SongCollectionInterface
 {
+    use SongCollectionTrait;
+
     /**
      * @var string
      */
@@ -28,11 +31,6 @@ class Album implements AlbumInterface
      * @var string
      */
     protected $cover;
-
-    /**
-     * @var SongInterface[]
-     */
-    protected $songs;
 
     /**
      * @var ArtistInterface
@@ -125,36 +123,6 @@ class Album implements AlbumInterface
         }
         if (is_string($cover)) {
             $this->cover = $cover;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return SongInterface[]
-     */
-    public function getSongs()
-    {
-        return $this->songs;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setSongs($songs)
-    {
-        $this->songs = $songs;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addSong(SongInterface $song)
-    {
-        if (in_array($song, $this->songs) === false) {
-            $this->songs[] = $song;
         }
 
         return $this;

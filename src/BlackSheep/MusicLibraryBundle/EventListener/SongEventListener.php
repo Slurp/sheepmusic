@@ -4,6 +4,11 @@ namespace BlackSheep\MusicLibraryBundle\EventListener;
 use BlackSheep\MusicLibraryBundle\Events\SongEventInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Interface SongEventListener
+ *
+ * @package BlackSheep\MusicLibraryBundle\EventListener
+ */
 interface SongEventListener extends EventSubscriberInterface
 {
     /**

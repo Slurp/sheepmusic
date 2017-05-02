@@ -1,0 +1,41 @@
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            index_name: app_%kernel.environment%
+            finder: ~
+            types:
+                artist:
+                    dynamic: strict
+                    properties:
+                        name: { type: text }
+                    persistence:
+                        driver: orm
+                        model: BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity
+                        finder: ~
+                        provider: ~
+                        listener:
+                            defer: true
+                album:
+                    dynamic: strict
+                    properties:
+                        name: { type: text }
+                    persistence:
+                        driver: orm
+                        model: BlackSheep\MusicLibraryBundle\Entity\AlbumEntity
+                        finder: ~
+                        provider: ~
+                        listener:
+                            defer: true
+                song:
+                    dynamic: strict
+                    properties:
+                        title: { type: text }
+                    persistence:
+                        driver: orm
+                        model: BlackSheep\MusicLibraryBundle\Entity\SongEntity
+                        finder: ~
+                        provider: ~
+                        listener:
+                            defer: true

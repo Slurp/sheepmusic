@@ -45,24 +45,6 @@ interface AlbumInterface extends ApiInterface
      */
     public function setCover($cover);
 
-    /**
-     * @return SongInterface[]
-     */
-    public function getSongs();
-
-    /**
-     * @param SongInterface[] $songs
-     *
-     * @return AlbumInterface
-     */
-    public function setSongs($songs);
-
-    /**
-     * @param SongInterface $song
-     *
-     * @return AlbumInterface
-     */
-    public function addSong(SongInterface $song);
 
     /**
      * @return ArtistInterface

@@ -4,12 +4,14 @@
 <div class="info-bar album media">
 
     {% if album.cover is not null %}
-    <img class="info-bar-image"
-         src="{{ album.cover }}"/>
+        <img class="info-bar-image"
+             src="{{ album.cover }}"/>
     {% endif %}
     <div class="info-bar-content media-body">
         <h1 class="album-name">{{ album.name }}</h1>
-        <h3 class="artist-name">Artist: {{ artist.name }}</h3>
+        <h3 class="artist-name">
+            <a href="{{ path('library_artist', {'artist' : artist.slug}) }}">{{ artist.name }}</a>
+        </h3>
         <a class="btn btn-floating btn-play" data-play_album={{ path('get_album', {'album' : album.id}) }}>
             <i class="material-icons">play_arrow</i>
         </a>

@@ -4,6 +4,9 @@ namespace BlackSheep\MusicLibraryBundle\EventListener;
 use BlackSheep\MusicLibraryBundle\Events\SongEventInterface;
 use BlackSheep\MusicLibraryBundle\Repository\SongsRepositoryInterface;
 
+/**
+ * SongEventSubscriber
+ */
 class SongEventSubscriber implements SongEventListener
 {
     /**
@@ -11,6 +14,9 @@ class SongEventSubscriber implements SongEventListener
      */
     protected $songsRepository;
 
+    /**
+     * @param SongsRepositoryInterface $songsRepository
+     */
     public function __construct(SongsRepositoryInterface $songsRepository)
     {
         $this->songsRepository = $songsRepository;
