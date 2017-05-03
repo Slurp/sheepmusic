@@ -1,3 +1,4 @@
+{# @var album \BlackSheep\MusicLibraryBundle\Model\AlbumInterface#}
 {% extends app.request.xmlHttpRequest
 ? '@App/Layout/ajaxLayout.html.twig'
 : '@App/Layout/layout.html.twig' %}
@@ -10,7 +11,7 @@
     <div class="album-backdrop backdrop" {% if album.cover is not null %} style="{{ backgroundImage }}" {% endif %}>
         {% include '@App/Album/info-bar.html.twig' with {'album': album} only %}
     </div>
-    {% include '@App/Songs/album-list.html.twig' with {'album': album} only %}
+    {% include '@App/Songs/album-list.html.twig' with {'songs': album.songs} only %}
 
 {% endblock %}
 

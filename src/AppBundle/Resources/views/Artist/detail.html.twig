@@ -10,8 +10,8 @@
     </div>
     {% if artist.albums|length > 0 %}
         {% include '@App/Album/list.html.twig' with { 'albums': artist.albums} %}
-    {% else %}
-        {% include '@App/Songs/album-list.html.twig' with {'album': artist} only %}
+    {% elseif artist.songs|length > 0 %}
+        {% include '@App/Songs/album-list.html.twig' with {'songs': artist.songs} only %}
     {% endif %}
 {% endblock %}
 

@@ -8,7 +8,7 @@ use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
 /**
  * Define a Album.
  */
-class Album implements AlbumInterface, SongCollectionInterface
+class Album implements AlbumInterface
 {
     use SongCollectionTrait;
 

@@ -1,0 +1,10 @@
+{% extends app.request.xmlHttpRequest
+? '@App/Layout/ajaxLayout.html.twig'
+: '@App/Layout/layout.html.twig' %}
+
+{% block content %}
+    {% include '@App/Artist/list.html.twig'%}
+    {% include '@App/Album/list.html.twig'%}
+    {% include '@App/Songs/album-list.html.twig'%}
+{% endblock %}
+

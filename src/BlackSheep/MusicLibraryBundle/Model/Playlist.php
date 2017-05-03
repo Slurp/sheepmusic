@@ -7,7 +7,7 @@ use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
 /**
  *
  */
-class Playlist implements PlaylistInterface, SongCollectionInterface
+class Playlist implements PlaylistInterface
 {
     use SongCollectionTrait;
 

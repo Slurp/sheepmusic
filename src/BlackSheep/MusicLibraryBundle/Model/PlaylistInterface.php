@@ -4,7 +4,7 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 /**
  *
  */
-interface PlaylistInterface
+interface PlaylistInterface extends SongCollectionInterface
 {
     /**
      * @param string|null $name
