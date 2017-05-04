@@ -3,6 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Helper;
 
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
+use Gedmo\Sluggable\Util\Urlizer;
 use Symfony\Component\Filesystem\Filesystem;
 
 /**
@@ -31,7 +32,7 @@ class AlbumCoverHelper extends AbstractUploadHelper implements AlbumCoverInterfa
     {
         $extension = trim(strtolower($extension), '. ');
 
-        return $album->getSlug() . ".$extension";
+        return Urlizer::urlize($album->getName()) . ".$extension";
     }
 
     /**

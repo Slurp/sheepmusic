@@ -50,9 +50,10 @@ class SongEventSubscriber implements SongEventListener
     public function playedSong(SongEventInterface $songEvent)
     {
         $song = $songEvent->getSong();
-        $playCount = $song->getPlayCount() + 1;
-        $song->setPlayCount($playCount);
+        $song->updatePlayCount();
+        $song->getAlbum()->updatePlayCount();
         $this->songsRepository->save($song);
+        $this->songsRepository->save($song->getAlbum());
     }
 
     /**

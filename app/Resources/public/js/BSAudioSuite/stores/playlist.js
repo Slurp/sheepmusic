@@ -25,6 +25,19 @@ export default class playlist {
     this.currentSong = null;
   }
 
+  getPreloadSong()
+  {
+    let $song = this.songs[this.currentIndex + 1];
+    if (typeof $song !== "undefined") {
+      return $song.getInfo().then(
+        function returnSong()
+        {
+          return $song;
+        }
+      );
+    }
+  }
+
   getCurrentSong()
   {
     this.currentSong = this.songs[this.currentIndex];

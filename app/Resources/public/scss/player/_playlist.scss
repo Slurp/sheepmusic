@@ -53,7 +53,7 @@
     @extend .flex-column;
     overflow-y: auto;
     position: relative;
-    height: calc(100vh - 215px);
+    height: calc(100vh - 160px);
     padding-bottom: 30px;
     &::-webkit-scrollbar {
       display: none;

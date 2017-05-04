@@ -5,6 +5,7 @@ import BlackSheepPlaylist from './stores/playlist';
 import BlackSheepLibrary from './library';
 import HtmlPlaylist from './components/playlist';
 import Waveform from '../vendor/waveform';
+import Toaster from './components/toast';
 
 export default class BlackSheepPlayer {
 
@@ -12,7 +13,7 @@ export default class BlackSheepPlayer {
     this.initialized = false;
     this.player = null;
     this.repeatModes = ['NO_REPEAT', 'REPEAT_ALL', 'REPEAT_ONE'];
-
+    this.nextSong = null;
     this.currentSong = null;
     this.playlist = null;
     this.init();
@@ -131,6 +132,7 @@ export default class BlackSheepPlayer {
 
   playSong(song)
   {
+    this.nextSong = null;
     this.currentSong = song;
     this.updateAudioElement(this.currentSong.getSrc());
     $('title').text(`${this.currentSong.getTitle()} ♫ sheepMusic`);
@@ -151,11 +153,17 @@ export default class BlackSheepPlayer {
 
   playNext()
   {
-    jQuery.when(this.playlist.getNextSong()).then((song) =>
-      {
-        this.playSong(song);
-      }
-    );
+    if(this.nextSong === null || this.nextSong.preloaded === false) {
+      jQuery.when(this.playlist.getNextSong()).then((song) =>
+        {
+          this.playSong(song);
+        }
+      );
+    } else {
+      this.nextSong = null;
+      this.playlist.getNextSong();
+      this.playSong(this.nextSong);
+    }
   };
 
   restart()
@@ -204,7 +212,28 @@ export default class BlackSheepPlayer {
       this.currentSong.playing();
     });
 
-
+    /**
+     * Attempt to preload the next song.
+     */
+    this.player.on('canplaythrough', e => {
+      if (!this.nextSong || this.nextSong.preloaded) {
+        jQuery.when(this.playlist.getPreloadSong()).then((song) =>
+        {
+          this.nextSong = song;
+          if (!this.nextSong || this.nextSong.preloaded) {
+            // Don't preload if
+            // - there's no next song
+            // - next song has already been preloaded
+            return
+          }
+          const audio = document.createElement('audio');
+          audio.setAttribute('src', this.nextSong.src);
+          audio.setAttribute('preload', 'auto');
+          audio.load();
+          this.nextSong.preloaded = true;
+        });
+      }
+    });
   };
 }
 

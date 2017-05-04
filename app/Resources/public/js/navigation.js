@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", function ()
 {
   Barba.Pjax.init();
-
   var FadeTransition = Barba.BaseTransition.extend({
     start:       function ()
                  {
@@ -25,12 +24,8 @@ document.addEventListener("DOMContentLoaded", function ()
                  },
     hideLoading: function ()
                  {
-                   var _this = this;
-                   setTimeout(function ()
-                   {
-                     $('#loading-overlay').removeClass('show');
-                   }, 400);
-                   _this.done();
+                   $('#loading-overlay').removeClass('show');
+                   this.done();
                  },
     fadeOut:     function ()
                  {
@@ -42,12 +37,6 @@ document.addEventListener("DOMContentLoaded", function ()
 
     fadeIn: function ()
             {
-              /**
-               * this.newContainer is the HTMLElement of the new Container
-               * At this stage newContainer is on the DOM (inside our #barba-container and with visibility: hidden)
-               * Please note, newContainer is available just after newContainerLoading is resolved!
-               */
-
 
               var $el = $(this.newContainer);
 
@@ -60,11 +49,6 @@ document.addEventListener("DOMContentLoaded", function ()
 
               $el.animate({opacity: 1}, 400, function ()
               {
-                /**
-                 * Do not forget to call .done() as soon your transition is finished!
-                 * .done() will automatically remove from the DOM the old Container
-                 */
-
               }).promise();
             }
   });
