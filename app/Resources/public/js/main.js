@@ -5,6 +5,7 @@ $(function ()
 {
   $('[data-activates="side-nav"]').sideNav({
       menuWidth: 150, // Default is 240
+      closeOnClick: true,
     }
   );
   $('.backdrop  .info-bar').pushpin({

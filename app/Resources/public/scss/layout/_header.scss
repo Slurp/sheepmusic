@@ -3,9 +3,8 @@
   @extend .fixed-top;
   background-color: $navbar-bg-color;
   color: $navbar-font-color;
-  .navbar-right {
-    width:100%;
-    justify-content: flex-end;
+  .navbar-nav {
+    margin-left: 20px;
   }
   .page-title
   {

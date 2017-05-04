@@ -3,6 +3,11 @@
     left: 150px;
   }
 }
+.playlist-show {
+  #loading-overlay {
+    right: 25%;
+  }
+}
 #loading-overlay {
   @include transition(all 0.1s ease);
   position: fixed;

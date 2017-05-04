@@ -141,9 +141,14 @@
 
 .playlist-show
 {
+  .sheepnav {
+    right:25%;
+  }
   .playlist {
     display: block;
     transform: translateX(0%);
+    top:0;
+
   }
   .playlist-dropup {
     opacity: 1;

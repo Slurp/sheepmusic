@@ -37,7 +37,7 @@
     {# JS #}
     {% include '@App/Layout/_js_header.html.twig' %}
 </head>
-<body>
+<body class="playlist-show">
 <header>
     {# Header #}
     {% include '@App/Layout/_header.html.twig' %}
@@ -48,7 +48,7 @@
 <main role="main" class="container-fluid  {% block extra_layout_classes %}{% endblock %}">
     {# Content #}
     {% include 'Components/loading-overlay.html.twig' %}
-    <div class="main-content playlist-show">
+    <div class="main-content">
         <div id="barba-wrapper" class="left-column">
             <div class="barba-container">
                 {% include ':Components:flashmessage.html.twig' %}

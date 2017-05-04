@@ -152,7 +152,7 @@ export default class playlist {
   {
     jQuery('body').on('click', '[data-toggle="playlist"]', (e) =>
       {
-        jQuery('.main-content').toggleClass('playlist-show');
+        jQuery('body').toggleClass('playlist-show');
       }
     );
     jQuery('body').on('click', '[data-playlist_action="shuffle"]', (e) =>
