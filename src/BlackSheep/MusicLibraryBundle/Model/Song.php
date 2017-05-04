@@ -2,11 +2,15 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model;
 
+use BlackSheep\MusicLibraryBundle\Traits\PlayCountTrait;
+
 /**
  * Model for a Song.
  */
 class Song implements SongInterface
 {
+    use PlayCountTrait;
+
     /**
      * @var string
      */
@@ -36,11 +40,6 @@ class Song implements SongInterface
      * @var AlbumInterface
      */
     protected $album;
-
-    /**
-     * @var int
-     */
-    protected $playCount;
 
     /**
      * @var PlaylistInterface[];
@@ -185,27 +184,6 @@ class Song implements SongInterface
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getPlayCount()
-    {
-        if ($this->playCount !== null) {
-            return $this->playCount;
-        }
-
-        return 0;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setPlayCount($playCount)
-    {
-        $this->playCount = $playCount;
-
-        return $this;
-    }
 
     /**
      * {@inheritdoc}

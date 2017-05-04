@@ -63,4 +63,9 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
             ->addOrderBy('a.createdAt', 'DESC')
             ->getQuery()->setFetchMode(AlbumEntity::class, 'artist', ClassMetadata::FETCH_EAGER);
     }
+
+    public function getMostPlayedAlbums()
+    {
+
+    }
 }

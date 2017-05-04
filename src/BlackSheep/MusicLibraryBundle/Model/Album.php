@@ -3,6 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 use BlackSheep\MusicLibraryBundle\Helper\AlbumCoverHelper;
+use BlackSheep\MusicLibraryBundle\Traits\PlayCountTrait;
 use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
 
 /**
@@ -11,6 +12,7 @@ use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
 class Album implements AlbumInterface
 {
     use SongCollectionTrait;
+    use PlayCountTrait;
 
     /**
      * @var string
@@ -51,6 +53,11 @@ class Album implements AlbumInterface
      * @var string
      */
     protected $lastFmUrl;
+
+    /**
+     * @var integer
+     */
+    protected $playCount;
 
     /**
      * @param $name

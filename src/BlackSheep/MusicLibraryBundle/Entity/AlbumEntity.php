@@ -75,6 +75,11 @@ class AlbumEntity extends Album implements AlbumInterface
     protected $lastFmUrl;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    protected $playCount;
+
+    /**
      * Constructs this object with a array collection.
      */
     public function __construct()

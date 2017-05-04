@@ -5,7 +5,7 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 /**
  * Interface AlbumInterface.
  */
-interface AlbumInterface extends ApiInterface, SongCollectionInterface
+interface AlbumInterface extends ApiInterface, SongCollectionInterface, PlayCountInterface
 {
     /**
      * @param $name
