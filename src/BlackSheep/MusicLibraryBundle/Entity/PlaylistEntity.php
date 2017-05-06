@@ -20,7 +20,7 @@ class PlaylistEntity extends Playlist
     protected $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="SongEntity", inversedBy="playlist", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="SongEntity", inversedBy="playlists", cascade={"persist"})
      * @ORM\JoinTable(
      *     name="PlaylistSongs",
      *     joinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id", nullable=true)},

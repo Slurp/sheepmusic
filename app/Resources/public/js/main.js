@@ -26,6 +26,17 @@ $(function ()
 
   $(document).on('submit', 'form', function (e)
   {
+    e.stopPropagation();
+    e.preventDefault();
+    var transition = Object.create(Barba.Pjax.getTransition());
+
+    Barba.Pjax.transitionProgress = true;
+
+    Barba.Dispatcher.trigger('initStateChange',
+      Barba.Pjax.History.currentStatus(),
+      Barba.Pjax.History.prevStatus()
+    );
+    
     jQuery.ajax({
       url:   e.target.getAttribute('action'),
       type: e.target.method || 'get',
@@ -38,17 +49,10 @@ $(function ()
         Barba.Pjax.Dom.putContainer(container);
         Barba.Pjax.History.add(response.url);
         window.history.pushState({}, '', response.url);
-        setTimeout(resolve(container), 1);
+        resolve(container);
       });
 
-      var transition = Object.create(Barba.Pjax.getTransition());
 
-      Barba.Pjax.transitionProgress = true;
-
-      Barba.Dispatcher.trigger('initStateChange',
-        Barba.Pjax.History.currentStatus(),
-        Barba.Pjax.History.prevStatus()
-      );
 
       var transitionInstance = transition.init(
         Barba.Pjax.Dom.getContainer(),

@@ -4,12 +4,44 @@ fos_elastica:
     indexes:
         app:
             index_name: app_%kernel.environment%
-            finder: ~
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                          custom_analyzer :
+                            type     :    custom
+                            tokenizer:    nGram
+                            filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+                          custom_search_analyzer :
+                            type     :    custom
+                            tokenizer:    standard
+                            filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+                        tokenizer:
+                          nGram:
+                            type:     nGram
+                            min_gram: 2
+                            max_gram: 20
+                        filter:
+                          snowball:
+                            type:     snowball
+                            language: English
+        #                  elision:
+        #                    type:     elision
+        #                    articles: [l, m, t, qu, n, s, j, d]
+                          stopwords:
+                            type:      stop
+                            stopwords: [_english_]
+                            ignore_case : true
+                          worddelimiter :
+                            type:      word_delimiter
             types:
                 artist:
-                    dynamic: strict
                     properties:
-                        name: { type: text }
+                        name:
+                            type: text
+                            boost: 6
+                            analyzer : custom_analyzer
+                            search_analyzer: custom_search_analyzer
                     persistence:
                         driver: orm
                         model: BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity
@@ -18,9 +50,12 @@ fos_elastica:
                         listener:
                             defer: true
                 album:
-                    dynamic: strict
                     properties:
-                        name: { type: text }
+                        name:
+                            type: text
+                            boost: 6
+                            analyzer : custom_analyzer
+                            search_analyzer: custom_search_analyzer
                     persistence:
                         driver: orm
                         model: BlackSheep\MusicLibraryBundle\Entity\AlbumEntity
@@ -29,9 +64,12 @@ fos_elastica:
                         listener:
                             defer: true
                 song:
-                    dynamic: strict
                     properties:
-                        title: { type: text }
+                        title:
+                            type: text
+                            boost: 10
+                            analyzer : custom_analyzer
+                            search_analyzer: custom_search_analyzer
                     persistence:
                         driver: orm
                         model: BlackSheep\MusicLibraryBundle\Entity\SongEntity
