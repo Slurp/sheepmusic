@@ -2,10 +2,7 @@
   margin-top: 10px;
   @extend .d-flex;
   @extend .flex-column;
-  @extend .justify-content-center;
   .card {
-   @extend .mr-auto;
-   @extend .ml-auto;
    @extend .p-3;
     &:hover {
       &::after {

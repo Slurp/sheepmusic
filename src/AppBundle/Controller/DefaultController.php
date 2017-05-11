@@ -3,10 +3,8 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Utils\UtilsPagerFanta;
-use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Entity\PlaylistEntity;
-use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,7 +20,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        return $this->forward('AppBundle:Default:recentAlbums');
+        return $this->forward('AppBundle:Album:recentAlbums');
     }
 
     /**
@@ -64,80 +62,7 @@ class DefaultController extends Controller
         return $this->render('AppBundle:Artist:detail.html.twig', ['artist' => $artist]);
     }
 
-    /**
-     * @Route("/albums/recent/{page}", defaults={"page" = 1}, name="library_recent_albums")
-     *
-     * @param $page
-     *
-     * @return Response
-     */
-    public function recentAlbumsAction($page = 1)
-    {
-        return $this->renderAlbumsOverview(
-            UtilsPagerFanta::getByQuery(
-                $this->getDoctrine()->getRepository(AlbumEntity::class)->getRecentAlbums(),
-                $page
-            ),
-            'library_recent_albums'
-        );
-    }
 
-    /**
-     * @param Pagerfanta $pager
-     *
-     * @param $routeName
-     *
-     * @return Response
-     */
-    protected function renderAlbumsOverview(Pagerfanta $pager, $routeName)
-    {
-        return $this->render(
-            'AppBundle:Album:overview.html.twig',
-            [
-                'pager' => $pager,
-                'albums' => $pager->getCurrentPageResults(),
-                'routeName' => $routeName
-            ]
-        );
-    }
-
-    /**
-     * @Route("/albums/{page}", defaults={"page" = 1}, name="library_albums")
-     *
-     * @param $page
-     *
-     * @return Response
-     */
-    public function albumsAction($page)
-    {
-        return $this->renderAlbumsOverview(
-            UtilsPagerFanta::getAllPaged(
-                $this->getDoctrine()->getRepository(AlbumEntity::class),
-                $page
-            ),
-            "library_albums"
-        );
-    }
-
-    /**
-     * @Route("/album/{album}", name="library_album",requirements={"album"=".+"})
-     * @ParamConverter(
-     *     "album",
-     *     class="BlackSheepMusicLibraryBundle:AlbumEntity",
-     *     options={"mapping": {"album": "slug"}}
-     * )
-     *
-     * @param AlbumEntity $album
-     *
-     * @return Response
-     */
-    public function albumDetailAction(AlbumEntity $album)
-    {
-        return $this->render(
-            'AppBundle:Album:detail.html.twig',
-            ['artist' => $album->getArtist(), 'album' => $album]
-        );
-    }
 
     /**
      * List all the playlists!!!!

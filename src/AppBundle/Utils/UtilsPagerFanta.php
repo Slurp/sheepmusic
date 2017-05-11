@@ -6,6 +6,7 @@
  * @copyright 2017 Bureau Blauwgeel
  * @version 1.0
  */
+
 namespace AppBundle\Utils;
 
 use BlackSheep\MusicLibraryBundle\Repository\AbstractRepositoryInterface;
@@ -37,6 +38,9 @@ class UtilsPagerFanta
      */
     public static function getByQuery(Query $query, $page = 1)
     {
+        if (is_int($page) === false) {
+            $page = 1;
+        }
         $pager = new Pagerfanta(
             new DoctrineORMAdapter(
                 $query,

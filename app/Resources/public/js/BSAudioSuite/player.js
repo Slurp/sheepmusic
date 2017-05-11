@@ -160,7 +160,6 @@ export default class BlackSheepPlayer {
         }
       );
     } else {
-      this.nextSong = null;
       this.playlist.getNextSong();
       this.playSong(this.nextSong);
     }
@@ -174,13 +173,15 @@ export default class BlackSheepPlayer {
 
   watchButtons()
   {
-    jQuery("[data-plyr='next']").on('click', () =>
+    jQuery("[data-plyr='next']").on('click', (e) =>
     {
+      e.stopPropagation();
       this.playNext();
     });
 
-    jQuery("[data-plyr='previous']").on('click', () =>
+    jQuery("[data-plyr='previous']").on('click', (e) =>
     {
+      e.stopPropagation();
       jQuery.when(this.playlist.getPrevSong()).then((song) =>
         {
           this.playSong(song);

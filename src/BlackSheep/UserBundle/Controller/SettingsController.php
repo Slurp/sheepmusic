@@ -19,7 +19,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 /**
  * Profile for a user
  */
-class ProfileController extends BaseController
+class SettingsController
 {
     /**
      * @return Response

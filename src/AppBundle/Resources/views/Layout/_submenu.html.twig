@@ -20,6 +20,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link {% if app.request.attributes.get('_route') == 'library_mostplayed_albums' %} active {% endif %}"
+               href="{{ path('library_mostplayed_albums') }}">Most played albums
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link {% if app.request.attributes.get('_route') == 'library_playlists' %} active {% endif %}"
                href="{{ path('library_playlists') }}">Playlists
             </a>

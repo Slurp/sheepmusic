@@ -36,7 +36,7 @@ $(function ()
       Barba.Pjax.History.currentStatus(),
       Barba.Pjax.History.prevStatus()
     );
-    
+
     jQuery.ajax({
       url:   e.target.getAttribute('action'),
       type: e.target.method || 'get',

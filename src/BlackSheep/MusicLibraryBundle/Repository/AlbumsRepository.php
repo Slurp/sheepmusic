@@ -6,6 +6,7 @@ use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Query;
 
 /**
  * SongsRepository
@@ -64,8 +65,15 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
             ->getQuery()->setFetchMode(AlbumEntity::class, 'artist', ClassMetadata::FETCH_EAGER);
     }
 
+    /**
+     * @return Query
+     */
     public function getMostPlayedAlbums()
     {
-
+        return $this->createQueryBuilder('a')
+            ->where('a.playCount > 0')
+            ->andWhere('a.playCount is not NULL')
+            ->addOrderBy('a.playCount', 'DESC')
+            ->getQuery()->setFetchMode(AlbumEntity::class, 'artist', ClassMetadata::FETCH_EAGER);
     }
 }

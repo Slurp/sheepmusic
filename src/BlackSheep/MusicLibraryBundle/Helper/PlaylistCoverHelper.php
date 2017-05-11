@@ -145,7 +145,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
     /**
      * @return string
      */
-    protected function getUploadDirectory()
+    public static function getUploadDirectory()
     {
         return '/uploads/playlist/';
     }
