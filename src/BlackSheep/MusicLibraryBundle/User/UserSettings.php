@@ -3,9 +3,10 @@
 namespace BlackSheep\MusicLibraryBundle\User;
 
 /**
- *
+ * Settings
+ * Settings which are loaded from config adn updated from the system.
  */
-class UserSettings
+class UserSettings implements UserSettingsInterface
 {
     /**
      * @var string
@@ -18,11 +19,7 @@ class UserSettings
     protected $lastImport;
 
     /**
-     * Set path.
-     *
-     * @param string $path
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function setPath($path)
     {
@@ -32,9 +29,7 @@ class UserSettings
     }
 
     /**
-     * Get path.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getPath()
     {
@@ -42,11 +37,7 @@ class UserSettings
     }
 
     /**
-     * Set lastImport.
-     *
-     * @param \DateTime $lastImport
-     *
-     * @return $this
+     * {@inheritdoc}
      */
     public function setLastImport($lastImport)
     {
@@ -56,9 +47,7 @@ class UserSettings
     }
 
     /**
-     * Get lastImport.
-     *
-     * @return \DateTime
+     * {@inheritdoc}
      */
     public function getLastImport()
     {
