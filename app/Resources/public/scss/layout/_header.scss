@@ -3,6 +3,8 @@
   @extend .fixed-top;
   background-color: $navbar-bg-color;
   color: $navbar-font-color;
+  transition: width 1s ease 0.3s;
+  width:100%;
   .navbar-nav {
     margin-left: 20px;
   }

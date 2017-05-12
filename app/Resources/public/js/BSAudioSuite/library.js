@@ -95,6 +95,7 @@ export default class Library {
 
   static handlePlay(message, player, playlist, toast)
   {
+    player.stop();
     Library.handleQueded(message, player, playlist, toast);
   }
 }

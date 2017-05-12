@@ -14,6 +14,11 @@
             </a>
             <ul class="action-sheet">
                 <li>
+                    <a class="btn-floating" data-play_album="{{ path('get_album', {'album' : album.id}) }}">
+                        <i class="material-icons">play_arrow</i>
+                    </a>
+                </li>
+                <li>
                     <a class="btn-floating" data-queue_album="{{ path('get_album', {'album' : album.id}) }}">
                         <i class="material-icons">playlist_add</i>
                     </a>

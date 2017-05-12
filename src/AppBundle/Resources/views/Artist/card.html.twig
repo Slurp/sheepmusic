@@ -1,18 +1,34 @@
 {% if artist.slug %}
-    <a href="{{ path('library_artist', {'artist' : artist.slug } ) }}" class="card artist-card">
-
-
-        <img class="card-img-top"
-             src='{% if artist.image is not null %}
+    <div class="card artist-card">
+        <a href="{{ url('library_artist',{'artist':artist.slug }) }}">
+            <img class="card-img-top"
+                 src='{% if artist.image is not null %}
                             {{ artist.image }}{% else %}{{ asset('frontend/img/default.png') }}
                       {% endif %}'/>
-
-        <div class="card-block">
-            <h4 class="card-title">
-                {{ artist.name }}
-
-            </h4>
+        </a>
+        <div class="card-block has-sheet">
+            <div class="fixed-action-btn click-to-toggle">
+                <a class="btn btn-floating">
+                    <i class="material-icons">more_horiz</i>
+                </a>
+                <ul class="action-sheet">
+                    <li>
+                        <a class="btn-floating" data-play_artist_albums="{{ path('get_artist', {'artist' : artist.id}) }}">
+                            <i class="material-icons">play_arrow</i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn-floating" data-queue_artist_albums="{{ path('get_artist', {'artist' : artist.id}) }}">
+                            <i class="material-icons">playlist_add</i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <a href="{{ url('library_artist',{'artist':artist.slug }) }}">
+                <h4 class="card-title">
+                    {{ artist.name }}
+                </h4>
+            </a>
         </div>
-
-    </a>
+    </div>
 {% endif %}

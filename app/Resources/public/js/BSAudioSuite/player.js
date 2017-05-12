@@ -76,6 +76,8 @@ export default class BlackSheepPlayer {
             "<a href='#' class='playing-song-title'>",
             "Nothing Playing",
             "</a>",
+            "<a href='#' class='playing-song-artist'>",
+            "</a>",
             "<span class='playing-song-meta'></span>",
             "<canvas width='453' height='66' id='showcase'></canvas>",
             "</div>",
@@ -137,7 +139,8 @@ export default class BlackSheepPlayer {
     this.updateAudioElement(this.currentSong.getSrc());
     $('title').text(`${this.currentSong.getTitle()} ♫ sheepMusic`);
     $('.plyr audio').attr('title', `${this.currentSong.getArtistName()} - ${this.currentSong.getTitle()}`);
-    $('.player .playing-song-title').text(`${this.currentSong.getArtistName()} : ${this.currentSong.getTitle()}`);
+    $('.player .playing-song-title').text(`${this.currentSong.getTitle()}`);
+    $('.player .playing-song-artist').text(`${this.currentSong.getArtistName()}`);
     $('.player .song-image').attr('src', this.currentSong.getAlbum().cover);
     Notifications.notifySong(song);
     HtmlPlaylist.updatePlaying(this.playlist.currentIndex);
@@ -170,6 +173,12 @@ export default class BlackSheepPlayer {
     this.player.restart(0);
     this.player.play();
   };
+
+  stop()
+  {
+    this.nextSong = null;
+    this.player.stop();
+  }
 
   watchButtons()
   {

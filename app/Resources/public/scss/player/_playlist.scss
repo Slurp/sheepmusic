@@ -25,9 +25,9 @@
 }
 
 .playlist {
+  top:0;
   background-color: $playlist-bg-color;
   transform: translateX(100%);
-  display: none;
   z-index: 998;
   margin-right: 0;
   margin-bottom: 0;
@@ -143,12 +143,11 @@
 {
   .sheepnav {
     right:25%;
+    width: 75%;
   }
   .playlist {
     display: block;
     transform: translateX(0%);
-    top:0;
-
   }
   .playlist-dropup {
     opacity: 1;

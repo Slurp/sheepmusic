@@ -82,8 +82,9 @@
       }
       #now-playing {
         margin-top: 10px;
+        .playing-song-artist,
         .playing-song-title {
-          margin-left: -10px;
+          display: block;
         }
       }
 
@@ -113,13 +114,23 @@
     }
     .plyr__volume {
       position: absolute;
-      top: 0;
+      top: 0px;
       right: 65px;
       left: 15px;
       /* width: 100%; */
       max-width: 100%;
       .plyr__volume__display {
         border-radius: 0;
+      }
+      input[type='range'] {
+        &::-webkit-slider-thumb {
+          margin-top: 8px;
+        }
+        &:hover {
+          &::-webkit-slider-thumb {
+            margin-top: 4px;
+          }
+        }
       }
     }
     // Change icons on state change

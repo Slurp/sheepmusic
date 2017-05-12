@@ -13,20 +13,24 @@
 }
 @mixin plyr-range-thumb() {
   position: relative;
-  height: $plyr-range-thumb-height;
-  width: $plyr-range-thumb-width;
+  height: $plyr-range-thumb-height - 8px;
+  width: $plyr-range-thumb-width - 8px;
   background: $plyr-range-thumb-bg;
   border: $plyr-range-thumb-border;
-  border-radius: 100%;
-  transition: background .2s ease, border .2s ease, transform .2s ease;
-  box-shadow: $plyr-range-thumb-shadow;
+  border-radius: 0%;
+  transition: all .2s ease;
   box-sizing: border-box;
-  margin-top: 4px;
+  margin-top: 7px;
 }
 @mixin plyr-range-thumb-active() {
-  background: $plyr-range-thumb-active-bg;
-  border-color: $plyr-range-thumb-active-border-color;
+  background: $plyr-range-thumb-bg;
+  height: $plyr-range-thumb-height;
+  width: $plyr-range-thumb-width;
+  border-color: $plyr-range-thumb-active-bg;
   transform: scale($plyr-range-thumb-active-scale);
+  box-shadow: $plyr-range-thumb-shadow;
+  border-radius: 100%;
+  margin-top: 4px;
 }
 
 // Animation
@@ -98,8 +102,9 @@
     }
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
-      margin-top: -(($plyr-range-thumb-height - $plyr-range-track-height) / 2);
       @include plyr-range-thumb();
+      margin-top: (($plyr-range-thumb-height + 6 - $plyr-range-track-height) / 2);
+
     }
 
     // Mozilla
@@ -145,6 +150,7 @@
     }
 
     // Pressed styles
+    &:hover,
     &:active {
       &::-webkit-slider-thumb {
         @include plyr-range-thumb-active();

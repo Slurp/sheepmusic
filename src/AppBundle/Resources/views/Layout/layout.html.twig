@@ -18,7 +18,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('/apple-icon-144x144.png') }} ">
     <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('/apple-icon-152x152.png') }} ">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('/apple-icon-180x180.png') }} ">
-    <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('/android-icon-192x192.png') }} ">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('/android-icon-192x192.png') }} ">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('/favicon-32x32.png') }} ">
     <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('/favicon-96x96.png') }} ">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/favicon-16x16.png') }} ">
@@ -37,7 +37,7 @@
     {# JS #}
     {% include '@App/Layout/_js_header.html.twig' %}
 </head>
-<body class="playlist-show">
+<body {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted('ROLE_USER') %}class="playlist-show"{% endif %}>
 <header>
     {# Header #}
     {% include '@App/Layout/_header.html.twig' %}
@@ -56,7 +56,9 @@
                 {% endblock %}
             </div>
         </div>
-        {% include 'AppBundle:Components:playlist.html.twig' %}
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") and is_granted('ROLE_USER') %}
+            {% include 'AppBundle:Components:playlist.html.twig' %}
+        {% endif %}
     </div>
 </main>
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -64,7 +66,8 @@
     {% include '@App/Layout/_footer.html.twig' %}
     {# JS Footer #}
     <script src="{{ asset('frontend/js/app.js') }}"></script>
+
+    {% include '@App/Layout/_js_footer.html.twig' %}
 {% endif %}
-{% include '@App/Layout/_js_footer.html.twig' %}
 </body>
 </html>
