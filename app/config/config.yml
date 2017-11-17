@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: services.yml }
     - { resource: config_search.yml }
+    - { resource: cors_config.yml}
     - { resource: "@BlackSheepMusicScannerBundle/Resources/config/services.yml" }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
@@ -104,3 +105,17 @@ black_sheep_music_library:
     ffprobe_path: "%ffprobe_path%"
     last_fm_api_key: "%last_fm_key%"
     last_fm_api_secret: "%last_fm_secret%"
+
+lexik_jwt_authentication:
+    private_key_path: '%jwt_private_key_path%'
+    public_key_path:  '%jwt_public_key_path%'
+    pass_phrase:      '%jwt_key_pass_phrase%'
+    token_ttl:        '%jwt_token_ttl%'
+    token_extractors:
+        authorization_header:      # look for a token as Authorization Header
+            enabled: true
+            prefix:  Bearer
+            name:    Authorization
+gesdinet_jwt_refresh_token:
+    firewall: api
+

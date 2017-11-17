@@ -99,4 +99,14 @@ class AlbumEntity extends Album implements AlbumInterface
 
         return $this;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getApiData()
+    {
+        $array = parent::getApiData();
+        $array['id'] = $this->getId();
+        return $array;
+    }
 }

@@ -76,4 +76,30 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
             ->addOrderBy('a.playCount', 'DESC')
             ->getQuery()->setFetchMode(AlbumEntity::class, 'artist', ClassMetadata::FETCH_EAGER);
     }
+
+    /**
+     * @return array
+     */
+    public function getAlbumsList()
+    {
+        return $this->createQueryBuilder('a')->select(
+            ['a.id', 'a.slug', 'a.name', 'a.createdAt', 'a.updatedAt', 'a.playCount']
+        )->getQuery()->execute(
+            [],
+            Query::HYDRATE_ARRAY
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function getRecentAlbumsList()
+    {
+        return $this->createQueryBuilder('a')->select(
+            ['a.id', 'a.slug', 'a.name', 'a.createdAt', 'a.updatedAt', 'a.playCount']
+        )->addOrderBy('a.createdAt', 'DESC')->getQuery()->execute(
+            [],
+            Query::HYDRATE_ARRAY
+        );
+    }
 }

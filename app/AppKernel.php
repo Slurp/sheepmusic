@@ -31,6 +31,10 @@ class AppKernel extends Kernel
             new BlackSheep\LastFmBundle\BlackSheepLastFmBundle(),
             new BlackSheep\UserBundle\BlackSheepUserBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
+            new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
+            new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Gesdinet\JWTRefreshTokenBundle\GesdinetJWTRefreshTokenBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

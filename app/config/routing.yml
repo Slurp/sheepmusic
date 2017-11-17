@@ -1,3 +1,5 @@
+api_login_check:
+    path: /api/login_check
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
@@ -11,6 +13,9 @@ black_sheep_user:
     prefix:   /you
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+gesdinet_jwt_refresh_token:
+    path:     /api/token/refresh
+    defaults: { _controller: gesdinet.jwtrefreshtoken:refresh }
 
 
 

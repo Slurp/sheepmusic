@@ -94,7 +94,31 @@
     opacity: 0;
     transition: opacity 0.5s ease;
     position: absolute;
-    right: 15px;
+    right: 5px;
+    left: 5px;
+    z-index: 3;
+    a {
+      background: rgba($player-txt-color, 0.9);
+      text-align: center;
+      float: right;
+      display: block;
+      width: 32px;
+      height: 32px;
+      &:first-child {
+        float: left;
+        background: rgba($player-txt-color, 0.5);
+      }
+      &:hover {
+        color:$accent-color;
+        i {
+          color:$accent-color;
+        }
+      }
+      i {
+        color:$playlist-txt-color;
+        line-height: 32px;
+      }
+    }
   }
   &:hover {
     background: $body-bg;
@@ -107,7 +131,6 @@
 .playlist-item-info {
   position: relative;
   margin-left: 5px;
-  margin-right: 45px;
   overflow: hidden;
   width: 100%;
   h5, h6 {

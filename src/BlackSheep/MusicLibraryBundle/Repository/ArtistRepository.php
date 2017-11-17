@@ -3,6 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
+use Doctrine\ORM\Query;
 
 /**
  * SongsRepository
@@ -74,5 +75,31 @@ class ArtistRepository extends AbstractRepository implements ArtistRepositoryInt
         }
 
         return null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArtistList()
+    {
+        return $this->createQueryBuilder('a')->select(
+            ['a.id', 'a.slug', 'a.name', 'a.createdAt', 'a.updatedAt', 'a.playCount']
+        )->getQuery()->execute(
+            [],
+            Query::HYDRATE_ARRAY
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function getRecentArtistList()
+    {
+        return $this->createQueryBuilder('a')->select(
+            ['a.id', 'a.slug', 'a.name', 'a.createdAt', 'a.updatedAt', 'a.playCount']
+        )->addOrderBy('a.createdAt', 'DESC')->getQuery()->execute(
+            [],
+            Query::HYDRATE_ARRAY
+        );
     }
 }

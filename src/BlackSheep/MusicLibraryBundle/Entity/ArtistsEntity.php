@@ -88,4 +88,14 @@ class ArtistsEntity extends Artist implements ArtistInterface
 
         return $this;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getApiData()
+    {
+        $array = parent::getApiData();
+        $array['id'] = $this->getId();
+        return $array;
+    }
 }
