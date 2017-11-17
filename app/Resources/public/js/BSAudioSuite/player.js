@@ -16,8 +16,8 @@ export default class BlackSheepPlayer {
     this.nextSong = null;
     this.currentSong = null;
     this.playlist = null;
-    this.init();
     this.$volumeInput = null;
+    this.init();
   }
 
 

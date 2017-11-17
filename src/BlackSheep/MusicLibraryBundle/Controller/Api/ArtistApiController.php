@@ -36,6 +36,30 @@ class ArtistApiController extends Controller
     }
 
     /**
+     * @Route("/artist_list", name="get_artist_list")
+     *
+     * @return Response
+     */
+    public function getAlbumListAction()
+    {
+        return $this->json(
+            $this->getDoctrine()->getRepository(ArtistsEntity::class)->getArtistList()
+        );
+    }
+
+    /**
+     * @Route("/artist_recent_list", name="get_artist_recent_list")
+     *
+     * @return Response
+     */
+    public function getAlbumRecentListAction()
+    {
+        return $this->json(
+            $this->getDoctrine()->getRepository(ArtistsEntity::class)->getRecentArtistList()
+        );
+    }
+
+    /**
      * @Route("/artist/{artist}", name="get_artist")
      *
      * @param ArtistsEntity $artist

@@ -22,12 +22,19 @@ class ApiAlbumData extends ApiSongData implements ApiDataInterface
                 $songs[] = parent::getApiData($song);
             }
 
-            return [
-                'album' => $albumData,
-                'artist' => $artistData,
-                'songs' => $songs,
-            ];
+            return array_merge(
+                [
+                    'id' => $object->getId(),
+                    'slug' => $albumData['slug'],
+                    'createdAt' => $object->getCreatedAt(),
+                    'updatedAt' => $object->getUpdatedAt(),
+                    'artist' => $artistData,
+                    'songs' => $songs,
+                ],
+                $albumData
+            );
         }
+
         return null;
     }
 }

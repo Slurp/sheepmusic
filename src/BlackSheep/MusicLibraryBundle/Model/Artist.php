@@ -261,6 +261,7 @@ class Artist implements ArtistInterface
     {
         return [
             'name' => $this->getName(),
+            'biography' => $this->getBiography(),
             'image' => $this->getImage(),
             'albumArt' => $this->getAlbumArt(),
         ];
