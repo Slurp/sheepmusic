@@ -20,7 +20,11 @@ class ApiPlaylistData extends ApiSongData implements ApiDataInterface
                 $songs[] = parent::getApiData($song);
             }
             return [
+                'id' => $object->getId(),
+                'cover' => $object->getCover(),
                 'name' => $object->getName(),
+                'createdAt' => $object->getCreatedAt(),
+                'updatedAt' => $object->getUpdatedAt(),
                 'songs' => $songs,
             ];
         }

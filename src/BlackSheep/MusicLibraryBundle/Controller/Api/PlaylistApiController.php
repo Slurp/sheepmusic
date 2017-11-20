@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Song Api
+ * Playlist Api
  */
 class PlaylistApiController extends Controller
 {
@@ -47,8 +47,20 @@ class PlaylistApiController extends Controller
      *
      * @return Response
      */
-    public function getAlbumAction(PlaylistEntity $playlist)
+    public function getPlaylistAction(PlaylistEntity $playlist)
     {
         return $this->json($this->get('black_sheep.music_library.api_model.api_playlist_data')->getApiData($playlist));
+    }
+
+    /**
+     * @Route("/playlist_list", name="get_playlist_list")
+     *
+     * @return Response
+     */
+    public function getListAction()
+    {
+        return $this->json(
+            $this->getDoctrine()->getRepository(PlaylistEntity::class)->getLists()
+        );
     }
 }
