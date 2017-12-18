@@ -31,13 +31,19 @@ class PlaylistApiController extends Controller
                 $song = $songRepo->findOneById($songId);
                 $playlist->addSong($song);
             }
+            $cover = new PlaylistCoverHelper();
+            $playlist->setCover($cover->createCoverForPlaylist($playlist, false));
+            $this->get("black_sheep_music_library.repository.playlist_repository")->save($playlist);
 
+            return $this->json(['name' => $playlist->getName()]);
         }
-        $cover = new PlaylistCoverHelper();
-        $playlist->setCover($cover->createCoverForPlaylist($playlist, false));
-        $this->get("black_sheep_music_library.repository.playlist_repository")->save($playlist);
 
-        return $this->json(['name' => $playlist->getName()]);
+        return $this->json(
+            [
+                'code' => 418,
+                'message' => $request->getContent()->all(),
+            ]
+        );
     }
 
     /**

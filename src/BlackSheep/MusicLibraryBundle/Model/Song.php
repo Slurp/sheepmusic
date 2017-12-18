@@ -255,6 +255,8 @@ class Song implements SongInterface
         $apiData = [
             'track' => $this->getTrack(),
             'title' => $this->getTitle(),
+            'length' => $this->getLength(),
+            'playCount' => $this->getPlayCount(),
         ];
         if ($this->getArtist() instanceof ApiInterface) {
             $apiData['artist'] = $this->getArtist()->getApiData();
