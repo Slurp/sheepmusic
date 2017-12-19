@@ -113,7 +113,7 @@ class Album implements AlbumInterface
     public function getCover()
     {
         if (strpos($this->cover, 'http') !== 0 && $this->cover !== null) {
-            return 'http://music.zwartschaap.net.dev' .
+            return 'http://music.zwartschaap.net.develop' .
                     AlbumCoverHelper::getUploadDirectory() .
                     $this->getArtist()->getSlug() . '/' . $this->cover;
         }
