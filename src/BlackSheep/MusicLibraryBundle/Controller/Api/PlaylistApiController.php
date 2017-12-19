@@ -27,7 +27,11 @@ class PlaylistApiController extends Controller
         $playlist = $this->get("black_sheep_music_library.repository.playlist_repository")->getByName($name);
         if ($request->get('songs') !== null) {
             $songRepo = $this->get('black_sheep_music_library.repository.songs_repository');
-            foreach ($request->get('songs') as $songId) {
+            $songs = $request->get('songs');
+            if (count($songs) === 1) {
+                $songs = explode(',', $songs[0]);
+            }
+            foreach ($songs as $songId) {
                 $song = $songRepo->findOneById($songId);
                 $playlist->addSong($song);
             }
@@ -35,7 +39,9 @@ class PlaylistApiController extends Controller
             $playlist->setCover($cover->createCoverForPlaylist($playlist, false));
             $this->get("black_sheep_music_library.repository.playlist_repository")->save($playlist);
 
-            return $this->json(['name' => $playlist->getName()]);
+            return $this->json(
+                $this->get('black_sheep.music_library.api_model.api_playlist_data')->getApiData($playlist)
+            );
         }
 
         return $this->json(

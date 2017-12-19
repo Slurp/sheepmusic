@@ -264,6 +264,7 @@ class Artist implements ArtistInterface
             'biography' => $this->getBiography(),
             'image' => $this->getImage(),
             'albumArt' => $this->getAlbumArt(),
+            'playCount' => $this->getPlayCount()
         ];
     }
 }
