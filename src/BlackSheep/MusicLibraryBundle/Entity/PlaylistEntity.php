@@ -50,7 +50,6 @@ class PlaylistEntity extends Playlist
             $song->addPlaylist($this);
             $this->songs->add($song);
         }
-
         return $this;
     }
 

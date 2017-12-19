@@ -28,9 +28,6 @@ class PlaylistApiController extends Controller
         if ($request->get('songs') !== null) {
             $songRepo = $this->get('black_sheep_music_library.repository.songs_repository');
             $songs = $request->get('songs');
-            if (count($songs) === 1) {
-                $songs = explode(',', $songs[0]);
-            }
             foreach ($songs as $songId) {
                 $song = $songRepo->findOneById($songId);
                 $playlist->addSong($song);
