@@ -5,12 +5,11 @@ app:
     type:     annotation
 black_sheep_music_library:
     resource: '@BlackSheepMusicLibraryBundle/Resources/config/routing.yml'
+black_sheep_user:
+    resource: "@BlackSheepUserBundle/Resources/config/routing.yml"
 black_sheep_last_fm:
     resource: "@BlackSheepLastFmBundle/Resources/config/routing.yml"
     prefix:   /lastfm
-black_sheep_user:
-    resource: "@BlackSheepUserBundle/Resources/config/routing.yml"
-    prefix:   /you
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 gesdinet_jwt_refresh_token:

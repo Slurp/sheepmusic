@@ -18,7 +18,7 @@ trait ControllerHelper
      *
      * @return Response
      */
-    private function setBaseHeaders(Response $response)
+    protected function setBaseHeaders(Response $response)
     {
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');

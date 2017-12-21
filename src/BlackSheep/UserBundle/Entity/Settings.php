@@ -49,4 +49,15 @@ class Settings
     {
         return $this->lastImport;
     }
+
+    /**
+     * @return array
+     */
+    public function getApiData()
+    {
+        return [
+            'path' => $this->getPath(),
+            'last_import' => $this->getLastImport()
+        ];
+    }
 }
