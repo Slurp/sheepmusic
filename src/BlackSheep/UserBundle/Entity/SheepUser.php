@@ -89,6 +89,18 @@ class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, U
     }
 
     /**
+     * @return array
+     */
+    public function getApiData()
+    {
+        return [
+            'user_name' => $this->getUsername(),
+            'email' => $this->getEmail(),
+            'last_fm' => $this->getLastFm()->getApiData(),
+            'settings' => $this->getSettings()->getApiData()
+        ];
+    }
+    /**
      * @param string $username
      * @param array $payload
      *

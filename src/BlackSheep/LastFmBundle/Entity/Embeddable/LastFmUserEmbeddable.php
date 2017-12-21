@@ -107,4 +107,15 @@ class LastFmUserEmbeddable implements LastFmUser
     {
         return ($this->getLastFmUserName() !== '' && $this->getLastFmUserName() !== null);
     }
+
+    /**
+     * @return array
+     */
+    public function getApiData()
+    {
+        return [
+            'user_name' => $this->getLastFmUserName(),
+            'isConnected' => $this->hasLastFmConnected()
+        ];
+    }
 }

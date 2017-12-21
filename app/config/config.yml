@@ -99,6 +99,9 @@ fos_user:
     from_email:
         address: 'slurpie@gmail.com'
         sender_name: BlackSheepMusic
+    registration:
+        confirmation:
+            enabled: true
 
 black_sheep_music_library:
     ffmpeg_path: "%ffmpeg_path%"
