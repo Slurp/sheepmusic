@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\LastFmBundle\Entity\Embeddable;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -109,13 +110,29 @@ class LastFmUserEmbeddable implements LastFmUser
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function disconnect($token)
+    {
+        if ($this->getLastFmToken() === $token) {
+            $this->setLastFmToken(null);
+            $this->setLastFmUserName(null);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @return array
      */
     public function getApiData()
     {
         return [
             'user_name' => $this->getLastFmUserName(),
-            'isConnected' => $this->hasLastFmConnected()
+            'isConnected' => $this->hasLastFmConnected(),
+            'token' => $this->getLastFmToken()
         ];
     }
 }

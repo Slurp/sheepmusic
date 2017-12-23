@@ -35,7 +35,6 @@ class PlaylistApiController extends Controller
             $cover = new PlaylistCoverHelper();
             $playlist->setCover($cover->createCoverForPlaylist($playlist, false));
             $this->get("black_sheep_music_library.repository.playlist_repository")->save($playlist);
-
             return $this->json(
                 $this->get('black_sheep.music_library.api_model.api_playlist_data')->getApiData($playlist)
             );

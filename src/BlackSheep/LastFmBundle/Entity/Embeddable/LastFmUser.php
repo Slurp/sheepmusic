@@ -58,4 +58,11 @@ interface LastFmUser
      * @return bool
      */
     public function hasLastFmConnected();
+
+    /**
+     * @param $token
+     *
+     * @return bool
+     */
+    public function disconnect($token);
 }
