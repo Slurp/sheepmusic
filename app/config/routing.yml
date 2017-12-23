@@ -9,7 +9,6 @@ black_sheep_user:
     resource: "@BlackSheepUserBundle/Resources/config/routing.yml"
 black_sheep_last_fm:
     resource: "@BlackSheepLastFmBundle/Resources/config/routing.yml"
-    prefix:   /lastfm
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 gesdinet_jwt_refresh_token:

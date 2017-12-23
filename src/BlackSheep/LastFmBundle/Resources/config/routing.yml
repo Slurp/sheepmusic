@@ -1,3 +1,7 @@
+black_sheep_music_last_fm_api:
+    resource: '@BlackSheepLastFmBundle/Controller/Api'
+    type:     annotation
+    prefix:   /api/
 black_sheep_last_fm_homepage:
-    path:     /
+    path:     /lastfm/
     defaults: { _controller: BlackSheepLastFmBundle:LastFm:index }

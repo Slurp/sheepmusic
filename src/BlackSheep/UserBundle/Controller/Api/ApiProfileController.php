@@ -2,7 +2,6 @@
 
 namespace BlackSheep\UserBundle\Controller\Api;
 
-use BlackSheep\UserBundle\Helper\ControllerHelper;
 use FOS\UserBundle\Event\FilterUserResponseEvent;
 use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Event\GetResponseUserEvent;
@@ -11,11 +10,12 @@ use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Services\EmailConfirmation\EmailUpdateConfirmation;
-use JMS\Serializer\SerializerBuilder;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -98,9 +98,9 @@ class ApiProfileController extends AbstractController
     }
 
     /**
-     * @param Request $request
-     *
-     * @return null|RedirectResponse|Response
+     * @Route("/user/save/profile", name="save_user_profile")
+     * @Method({"PUT", "POST","PATCH"})
+     * @return Response
      */
     public function editAction(Request $request)
     {
@@ -115,7 +115,8 @@ class ApiProfileController extends AbstractController
             return $event->getResponse();
         }
 
-        $form = $this->get('fos_user.profile.form.factory')->createForm();
+        $form = $this->get('fos_user.profile.form.factory')->createForm(['csrf_protection' => false]);
+        $form->remove('password');
         $form->setData($user);
 
         $form->handleRequest($request);
@@ -124,12 +125,16 @@ class ApiProfileController extends AbstractController
             return $this->handleForm($form, $request, $dispatcher, $user);
         }
 
-        return $this->render(
-            '@BlackSheepUser/Profile/edit.html.twig',
-            [
-                'form' => $form->createView(),
-            ]
-        );
+        if ($form->isSubmitted() && $form->isValid() == false) {
+            $errors = [];
+            foreach ($form->getErrors(true) as $error) {
+                $errors[$error->getOrigin()->getName()][] = $error->getMessage();
+            }
+
+            return $this->json($errors, Response::HTTP_BAD_REQUEST);
+        }
+
+        return new JsonResponse(['formName' => $form->getName()]);
     }
 
     /**
@@ -151,8 +156,7 @@ class ApiProfileController extends AbstractController
         $userManager->updateUser($user);
         $response = $event->getResponse();
         if (null === $response) {
-            $url = $this->generateUrl('fos_user_profile_show');
-            $response = new RedirectResponse($url);
+            $response = new JsonResponse($user);
         }
 
         $dispatcher->dispatch(

@@ -4,6 +4,7 @@ namespace BlackSheep\LastFmBundle\Auth;
 
 use BlackSheep\LastFmBundle\Entity\LastFmUserEmbed;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\OptimisticLockException;
 use LastFmApi\Api\AuthApi;
 use LastFmApi\Exception\ApiFailedException;
 
@@ -54,21 +55,49 @@ class LastFmAuth
 
     /**
      * @param LastFmUserEmbed $user
+     * @param bool $refresh
      *
      * @return array
      */
-    public function tokenForUser(LastFmUserEmbed $user)
+    public function tokenForUser(LastFmUserEmbed $user, $refresh = false)
     {
-        $auth = new AuthApi(
-            'gettoken',
-            ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret]
-        );
-        $user->getLastFm()->setLastFmToken((string) $auth->token);
-        $this->entityManager->flush($user);
-        return [
-            'token' => $user->getLastFm()->getLastFmToken(),
-            'key' => $this->getApiKey()
-        ];
+        if ($refresh || $user->getLastFm()->getLastFmToken() === "" || $user->getLastFm()->getLastFmToken() === null) {
+            $auth = new AuthApi(
+                'gettoken',
+                ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret]
+            );
+            $user->getLastFm()->setLastFmToken((string) $auth->token);
+            try {
+                $this->entityManager->flush($user);
+            } catch (OptimisticLockException $e) {
+                return [];
+            }
+        }
+        if ($user->getLastFm()->hasLastFmConnected() === false) {
+            return [
+                'lastfm_token' => $user->getLastFm()->getLastFmToken(),
+                'key' => $this->getApiKey()
+            ];
+        }
+        return [];
+    }
+
+    /**
+     * @param LastFmUserEmbed $user
+     * @param $token
+     *
+     * @return bool
+     */
+    public function disconnectUser(LastFmUserEmbed $user, $token)
+    {
+        $disconnected = $user->getLastFm()->disconnect($token);
+        try {
+            $this->entityManager->flush($user);
+        } catch (OptimisticLockException $e) {
+            return false;
+        }
+
+        return $disconnected;
     }
 
     /**
@@ -84,8 +113,7 @@ class LastFmAuth
         try {
             $auth = new AuthApi('getsession', $authArray);
             if ($auth === false) {
-                $this->resetLastFmUser($user);
-                throw new \Exception('NOOOOO!!! Something has failed us');
+                throw new ApiFailedException('NOOOOO!!! Something has failed us');
             }
             $user->getLastFm()->setLastFmKey($auth->sessionKey);
             $user->getLastFm()->setLastFmUserName($auth->username);
