@@ -8,6 +8,7 @@ use BlackSheep\MusicLibraryBundle\EventListener\ArtistEventListener;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
 use BlackSheep\MusicLibraryBundle\Factory\LogoFactory;
 use BlackSheep\MusicLibraryBundle\Repository\ArtistRepositoryInterface;
+use GuzzleHttp\Exception\ClientException;
 
 /**
  * ArtistEventSubscriber
@@ -87,15 +88,19 @@ class ArtistEventSubscriber implements ArtistEventListener
     protected function updateArtWork(ArtistEventInterface $artistEvent)
     {
         $artist = $artistEvent->getArtist();
-        if ($artist->getMusicBrainzId() !== null && count($artist->getLogos()) === 0) {
-            $fanart = new FanartTvResponse(
-                json_decode(
-                    $this->client->loadArtist($artist->getMusicBrainzId())->getBody()
-                )
-            );
-            if ($fanart->getLogos() !== null) {
-                $this->logoFactory->addLogosToArtist($artist, $fanart->getLogos());
-                $this->artistsRepository->save($artist);
+        if (empty($artist->getMusicBrainzId()) === false && count($artist->getLogos()) === 0) {
+            try {
+                $fanart = new FanartTvResponse(
+                    json_decode(
+                        $this->client->loadArtist($artist->getMusicBrainzId())->getBody()
+                    )
+                );
+                if ($fanart->getLogos() !== null) {
+                    $this->logoFactory->addLogosToArtist($artist, $fanart->getLogos());
+                    $this->artistsRepository->save($artist);
+                }
+            } catch (ClientException $e) {
+                // do nothing
             }
         }
     }

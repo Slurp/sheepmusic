@@ -80,19 +80,6 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
     /**
      * @return array
      */
-    public function getAlbumsList()
-    {
-        return $this->createQueryBuilder('a')->select(
-            ['a.id', 'a.slug', 'a.name', 'a.createdAt', 'a.updatedAt', 'a.playCount']
-        )->getQuery()->execute(
-            [],
-            Query::HYDRATE_ARRAY
-        );
-    }
-
-    /**
-     * @return array
-     */
     public function getRecentAlbumsList()
     {
         return $this->createQueryBuilder('a')->select(

@@ -80,7 +80,7 @@ class ArtistRepository extends AbstractRepository implements ArtistRepositoryInt
     /**
      * @return array
      */
-    public function getArtistList()
+    public function getList()
     {
         return $this->createQueryBuilder('a')->select(
             ['a.id', 'a.slug', 'a.name', 'a.createdAt', 'a.updatedAt', 'a.playCount']
