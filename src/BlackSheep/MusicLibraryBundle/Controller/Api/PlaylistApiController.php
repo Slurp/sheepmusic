@@ -3,49 +3,39 @@
 namespace BlackSheep\MusicLibraryBundle\Controller\Api;
 
 use BlackSheep\MusicLibraryBundle\Entity\PlaylistEntity;
-use BlackSheep\MusicLibraryBundle\Helper\PlaylistCoverHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Playlist Api
  */
-class PlaylistApiController extends Controller
+class PlaylistApiController extends BaseApiController
 {
     /**
-     * @Route("/save/playlist", name="post_save_playlist")
-     *
-     * @param Request $request
+     * @inheritDoc
+     */
+    protected function getRepository()
+    {
+        return $this->get("black_sheep_music_library.repository.playlist_repository");
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function getApiDataModel()
+    {
+        return $this->get('black_sheep.music_library.api_model.api_playlist_data');
+    }
+
+    /**
+     * @Route("/playlist_list", name="get_playlist_list")
      *
      * @return Response
      */
-    public function postSavePlaylist(Request $request)
+    public function getListAction()
     {
-        $name = $request->get('name');
-        $playlist = $this->get("black_sheep_music_library.repository.playlist_repository")->getByName($name);
-        if ($request->get('songs') !== null) {
-            $songRepo = $this->get('black_sheep_music_library.repository.songs_repository');
-            $songs = $request->get('songs');
-            foreach ($songs as $songId) {
-                $song = $songRepo->findOneById($songId);
-                $playlist->addSong($song);
-            }
-            $cover = new PlaylistCoverHelper();
-            $playlist->setCover($cover->createCoverForPlaylist($playlist, false));
-            $this->get("black_sheep_music_library.repository.playlist_repository")->save($playlist);
-            return $this->json(
-                $this->get('black_sheep.music_library.api_model.api_playlist_data')->getApiData($playlist)
-            );
-        }
-
-        return $this->json(
-            [
-                'code' => 418,
-                'message' => $request->getContent()->all(),
-            ]
-        );
+        return $this->getList();
     }
 
     /**
@@ -57,18 +47,35 @@ class PlaylistApiController extends Controller
      */
     public function getPlaylistAction(PlaylistEntity $playlist)
     {
-        return $this->json($this->get('black_sheep.music_library.api_model.api_playlist_data')->getApiData($playlist));
+        return $this->getDetail($playlist);
     }
 
     /**
-     * @Route("/playlist_list", name="get_playlist_list")
+     * @Route("/save/playlist", name="post_save_playlist")
+     *
+     * @param Request $request
      *
      * @return Response
      */
-    public function getListAction()
+    public function postSavePlaylist(Request $request)
     {
+        $songs = $request->get('songs');
+        if ($songs !== null && is_array($songs)) {
+            $songs = $this->get('black_sheep_music_library.repository.songs_repository')->find($songs);
+            $playlist = $this->getRepository()->savePlaylistWithSongs(
+                $request->get('name'),
+                $songs
+            );
+            if ($playlist) {
+                return $this->getDetail($playlist);
+            }
+        }
+
         return $this->json(
-            $this->getDoctrine()->getRepository(PlaylistEntity::class)->getLists()
+            [
+                'code' => 418,
+                'message' => $request->getContent()->all(),
+            ]
         );
     }
 }

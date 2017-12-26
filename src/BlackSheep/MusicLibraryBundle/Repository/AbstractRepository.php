@@ -2,12 +2,18 @@
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 /**
  * Some useful common functions
  */
 class AbstractRepository extends EntityRepository implements AbstractRepositoryInterface
 {
+    /**
+     * @var array
+     */
+    protected $listSelection = ['a.id', 'a.slug', 'a.name', 'a.createdAt', 'a.updatedAt', 'a.playCount'];
+
     /**
      * {@inheritdoc}
      */
@@ -17,7 +23,22 @@ class AbstractRepository extends EntityRepository implements AbstractRepositoryI
     }
 
     /**
+     * @return mixed
+     */
+    public function getList()
+    {
+        return $this->createQueryBuilder('a')->select(
+            $this->listSelection
+        )->getQuery()->execute(
+            [],
+            Query::HYDRATE_ARRAY
+        );
+    }
+
+    /**
      * @param $entity
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function save($entity)
     {

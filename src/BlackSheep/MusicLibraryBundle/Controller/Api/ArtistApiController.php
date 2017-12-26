@@ -3,38 +3,28 @@
 namespace BlackSheep\MusicLibraryBundle\Controller\Api;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
-use BlackSheep\MusicLibraryBundle\Events\ArtistEvent;
-use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
-use BlackSheep\MusicLibraryBundle\Model\Artist;
-use Pagerfanta\Adapter\DoctrineORMAdapter;
-use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Artist Api controller
  */
-class ArtistApiController extends Controller
+class ArtistApiController extends BaseApiController
 {
     /**
-     * @Route("/artists", name="get_artists")
+     * {@inheritdoc}
      */
-    public function getArtistsAction()
+    protected function getRepository()
     {
-        $adapter = new DoctrineORMAdapter(
-            $this->getDoctrine()->getRepository(ArtistsEntity::class)->queryAll(),
-            false
-        );
-        $pager = new Pagerfanta($adapter);
-        $artists = [];
-        $apiData = $this->get('black_sheep.music_library.api_model.api_artist_data');
-        /** @var Artist $artist */
-        foreach ($pager->getCurrentPageResults() as $artist) {
-            $artists[] = $apiData->getApiData($artist);
-        }
+        return $this->get('black_sheep_music_library.repository.artists_repository');
+    }
 
-        return $this->json($artists);
+    /**
+     * {@inheritDoc}
+     */
+    protected function getApiDataModel()
+    {
+        return $this->get('black_sheep.music_library.api_model.api_artist_data');
     }
 
     /**
@@ -44,21 +34,7 @@ class ArtistApiController extends Controller
      */
     public function getAlbumListAction()
     {
-        return $this->json(
-            $this->getDoctrine()->getRepository(ArtistsEntity::class)->getArtistList()
-        );
-    }
-
-    /**
-     * @Route("/artist_recent_list", name="get_artist_recent_list")
-     *
-     * @return Response
-     */
-    public function getAlbumRecentListAction()
-    {
-        return $this->json(
-            $this->getDoctrine()->getRepository(ArtistsEntity::class)->getRecentArtistList()
-        );
+        return $this->getList();
     }
 
     /**
@@ -70,7 +46,6 @@ class ArtistApiController extends Controller
      */
     public function getArtistAction(ArtistsEntity $artist)
     {
-        $this->get('event_dispatcher')->dispatch(ArtistEventInterface::ARTIST_EVENT_FETCHED, new ArtistEvent($artist));
-        return $this->json($this->get('black_sheep.music_library.api_model.api_artist_data')->getApiData($artist));
+        return $this->getDetail($artist);
     }
 }

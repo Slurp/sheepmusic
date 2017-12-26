@@ -37,8 +37,7 @@ class SongApiController extends Controller
      */
     public function postPlayedSongAction(SongEntity $song)
     {
-        $event = new SongEvent($song);
-        $this->get('event_dispatcher')->dispatch(SongEventInterface::SONG_EVENT_PLAYED, $event);
+        $this->get('event_dispatcher')->dispatch(SongEventInterface::SONG_EVENT_PLAYED, new SongEvent($song));
 
         return $this->json(['played' => $song->getPlayCount()]);
     }

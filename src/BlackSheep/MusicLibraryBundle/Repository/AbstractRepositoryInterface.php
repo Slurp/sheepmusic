@@ -14,6 +14,11 @@ interface AbstractRepositoryInterface
     public function queryAll();
 
     /**
+     *
+     */
+    public function getList();
+
+    /**
      * @param $entity
      *
      * @return void
