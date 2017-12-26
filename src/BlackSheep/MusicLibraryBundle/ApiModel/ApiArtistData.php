@@ -20,6 +20,16 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
             foreach ($object->getAlbums() as $album) {
                 $albums[] = parent::getApiData($album);
             }
+            $logos = [];
+            if (count($object->getLogos()) > 0) {
+                $baseUrl = '//' . $this->router->getContext()->getHost();
+                foreach ($object->getLogos() as $logo) {
+                    $logos[] = $baseUrl . $this->uploaderHelper->asset(
+                            $logo,
+                            'imageFile'
+                        );
+                }
+            }
 
             return array_merge(
                 [
@@ -28,6 +38,7 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                     'createdAt' => $object->getCreatedAt(),
                     'updatedAt' => $object->getUpdatedAt(),
                     'albums' => $albums,
+                    'logos' => $logos
                 ],
                 $artistData
             );

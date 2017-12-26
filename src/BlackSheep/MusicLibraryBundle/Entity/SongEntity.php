@@ -63,6 +63,16 @@ class SongEntity extends Song implements SongInterface
     protected $playlists;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    protected $year;
+
+    /**
+     * @ORM\Embedded(class="BlackSheep\MusicLibraryBundle\Entity\SongAudioInfoEntity", columnPrefix=false))
+     */
+    protected $audio;
+
+    /**
      * @ORM\ManyToMany(targetEntity="ArtistsEntity", inversedBy="songs", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(
      *     name="ArtistSongs",
@@ -71,6 +81,11 @@ class SongEntity extends Song implements SongInterface
      * )
      */
     protected $artists;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="BlackSheep\MusicLibraryBundle\Entity\GenreEntity")
+     */
+    protected $genre;
 
     /**
      * Compose a song (pun intented).
@@ -89,6 +104,7 @@ class SongEntity extends Song implements SongInterface
         if ($this->artists->contains($artist) === false) {
             $this->artists->add($artist);
         }
+
         return $this;
     }
 
@@ -100,6 +116,7 @@ class SongEntity extends Song implements SongInterface
         if ($this->playlists->contains($playlist) === false) {
             $this->playlists->add($playlist);
         }
+
         return $this;
     }
 
@@ -111,6 +128,7 @@ class SongEntity extends Song implements SongInterface
         if ($this->playlists->contains($playlist)) {
             $this->playlists->removeElement($playlist);
         }
+
         return $this;
     }
 
@@ -125,6 +143,10 @@ class SongEntity extends Song implements SongInterface
         $song->setLength($songInfo['length']);
         $song->setMTime($songInfo['mTime']);
         $song->setPath($songInfo['path']);
+        $song->setYear($songInfo['year']);
+        if (isset($songInfo['audio'])) {
+            $song->setAudio(new SongAudioInfoEntity($songInfo['audio']));
+        }
 
         return $song;
     }
@@ -136,6 +158,7 @@ class SongEntity extends Song implements SongInterface
     {
         $array = parent::getApiData();
         $array['id'] = $this->getId();
+
         return $array;
     }
 }

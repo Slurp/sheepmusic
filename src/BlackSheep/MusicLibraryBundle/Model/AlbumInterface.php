@@ -45,18 +45,17 @@ interface AlbumInterface extends ApiInterface, SongCollectionInterface, PlayCoun
      */
     public function setCover($cover);
 
-
     /**
      * @return ArtistInterface
      */
     public function getArtist();
 
     /**
-     * @param mixed $artists
+     * @param ArtistInterface $artist
      *
-     * @return AlbumInterface
+     * @return $this
      */
-    public function setArtist($artists);
+    public function setArtist(ArtistInterface $artist);
 
     /**
      * @return mixed

@@ -80,6 +80,11 @@ class AlbumEntity extends Album implements AlbumInterface
     protected $playCount;
 
     /**
+     * @ORM\ManyToOne(targetEntity="BlackSheep\MusicLibraryBundle\Entity\GenreEntity")
+     */
+    protected $genre;
+
+    /**
      * Constructs this object with a array collection.
      */
     public function __construct()
@@ -107,6 +112,7 @@ class AlbumEntity extends Album implements AlbumInterface
     {
         $array = parent::getApiData();
         $array['id'] = $this->getId();
+        $array['year'] = $this->getSongs()->first()->getYear();
         return $array;
     }
 }

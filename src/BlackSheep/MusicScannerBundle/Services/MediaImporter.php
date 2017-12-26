@@ -91,13 +91,14 @@ class MediaImporter
         );
 
         $importingFiles = $this->gatherFiles($this->path);
-
-        $this->setupProgressBar(count($importingFiles));
-        /** @var SplFileInfo $file */
-        foreach ($importingFiles as $file) {
-            $this->songImporter->importSong($file);
-            $this->debugStep('imported', $file->getFilename());
-            unset($file);
+        if (count($importingFiles) > 0) {
+            $this->setupProgressBar(count($importingFiles));
+            /** @var SplFileInfo $file */
+            foreach ($importingFiles as $file) {
+                $this->songImporter->importSong($file);
+                $this->debugStep('imported', $file->getFilename());
+                unset($file);
+            }
         }
         $this->debugEnd();
     }
@@ -115,7 +116,7 @@ class MediaImporter
             ->files()
             ->name('/\.(mp3|ogg|m4a|flac)$/i')
             ->in($path)
-            ->date('since last week')
+            //->date('since last week')
             ->sortByModifiedTime();
     }
 
@@ -130,7 +131,7 @@ class MediaImporter
             $this->progress = new ProgressBar($this->output, $max);
             // start and displays the progress bar
             $this->progress->start($max);
-            $this->progress->setRedrawFrequency(10);
+            $this->progress->setRedrawFrequency(100);
             $this->progress->setFormat('debug');
             if ($this->debug) {
                 $this->progress->setFormat('%current%/%max% %elapsed:6s%/%estimated:-6s% %message% : %filename%');

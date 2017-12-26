@@ -15,13 +15,28 @@ services:
         arguments: ["%black_sheep_music_library.ffmpeg_path%","%black_sheep_music_library.ffprobe_path%", "%black_sheep_music_library.bitrate%"]
     black_sheep.music_library.api_model.api_artist_data:
         class: BlackSheep\MusicLibraryBundle\ApiModel\ApiArtistData
-        arguments: ['@router']
+        arguments:
+        - '@router'
+        - '@vich_uploader.templating.helper.uploader_helper'
     black_sheep.music_library.api_model.api_song_data:
         class: BlackSheep\MusicLibraryBundle\ApiModel\ApiSongData
-        arguments: ['@router']
+        arguments:
+        - '@router'
+        - '@vich_uploader.templating.helper.uploader_helper'
     black_sheep.music_library.api_model.api_album_data:
         class: BlackSheep\MusicLibraryBundle\ApiModel\ApiAlbumData
-        arguments: ['@router']
+        arguments:
+        - '@router'
+        - '@vich_uploader.templating.helper.uploader_helper'
     black_sheep.music_library.api_model.api_playlist_data:
         class: BlackSheep\MusicLibraryBundle\ApiModel\ApiPlaylistData
-        arguments: ['@router']
+        arguments:
+        - '@router'
+        - '@vich_uploader.templating.helper.uploader_helper'
+    black_sheep_music_library.naming.artist_directory_namer:
+        class: BlackSheep\MusicLibraryBundle\Naming\ArtistDirectoryNamer
+    black_sheep.music_library.logo.factory:
+        class: BlackSheep\MusicLibraryBundle\Factory\LogoFactory
+        arguments:
+            - '@vich_uploader.upload_handler'
+            - '%kernel.root_dir%'

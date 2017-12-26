@@ -1,6 +1,8 @@
 <?php
+
 namespace BlackSheep\MusicScannerBundle\Helper;
 
+use BlackSheep\MusicLibraryBundle\Model\SongAudioInfo;
 use getID3;
 use getid3_lib;
 use SplFileInfo;
@@ -58,11 +60,14 @@ class TagHelper
             'cover' => $this->getCover($info),
             'path' => $file->getPathname(),
             'mTime' => $file->getMTime(),
+            'year' => '',
+            'genre' => '',
             'track' => '',
             'artist_mbid' => '',
             'album_mbid' => '',
         ];
     }
+
 
     /**
      * @param $info
@@ -77,16 +82,15 @@ class TagHelper
         // We'll still prefer getting ID3v2 tags directly later.
         // Read on.
         getid3_lib::CopyTagsToComments($info);
-
         if (isset($info['comments_html'])) {
             if (isset($info['comments_html']['track'][0])) {
                 $props['track'] = $info['comments_html']['track'][0];
             }
-
             foreach ($info['tags'] as $tagName => $value) {
                 $this->getPropsForTags($info, $props, $tagName);
             }
             $this->getPropsForTags($info, $props);
+            $this->handleAudioInfo($info, $props);
             unset($info);
         }
 
@@ -121,10 +125,10 @@ class TagHelper
             $this->getPropertyForTag($props, $tags, 'artist');
             $this->getPropertyForTag($props, $tags, 'album');
             $this->getPropertyForTag($props, $tags, 'title');
-            $this->getPropertyForTag($props, $tags, 'title');
-
             $this->getPropertyForTag($props, $tags, 'artist_mbid', 'musicbrainz_artistid');
             $this->getPropertyForTag($props, $tags, 'album_mbid', 'musicbrainz_albumid');
+            $this->getPropertyForTag($props, $tags, 'year');
+            $this->getPropertyForTag($props, $tags, 'genre');
             if (isset($tags['text'])) {
                 $this->getPropertyForTag($props, $tags['text'], 'artist_mbid', 'MusicBrainz Album Artist Id');
                 $this->getPropertyForTag($props, $tags['text'], 'album_mbid', 'MusicBrainz Album Id');
@@ -149,6 +153,21 @@ class TagHelper
             }
             if (is_array($tags[$tagName])) {
                 $props[$propertyName] = trim($tags[$tagName][0]);
+            }
+        }
+    }
+
+    /**
+     * @param $info
+     * @param $props
+     */
+    private function handleAudioInfo(&$info, &$props)
+    {
+        if (isset($info['audio'])) {
+            foreach (SongAudioInfo::getAllowedKeys() as $key) {
+                if (isset($info['audio'][$key])) {
+                    $props['audio'][$key] = $info['audio'][$key];
+                }
             }
         }
     }
@@ -196,7 +215,8 @@ class TagHelper
                     'option_tag_lyrics3' => false,
                     'option_tag_apetag' => false,
                     'option_tags_process' => true,
-                    'option_tags_html' => false,
+                    'option_tags_html' => true,
+                    'option_extra_info' => true,
                 ]
             );
         }

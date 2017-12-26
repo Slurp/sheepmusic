@@ -102,6 +102,13 @@ fos_user:
     registration:
         confirmation:
             enabled: true
+vich_uploader:
+    db_driver: orm
+    mappings:
+        artist_image:
+            uri_prefix: '/uploads/artist'
+            upload_destination: '%kernel.root_dir%/../web/uploads/artist'
+            directory_namer: black_sheep_music_library.naming.artist_directory_namer
 
 black_sheep_music_library:
     ffmpeg_path: "%ffmpeg_path%"

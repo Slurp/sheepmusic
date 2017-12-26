@@ -3,6 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\ApiModel;
 
 use Symfony\Component\Routing\RouterInterface;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
  * A Abstract Class to define the router.
@@ -15,11 +16,18 @@ abstract class AbstractApiData
     protected $router;
 
     /**
-     * @param RouterInterface $router
+     * @var UploaderHelper
      */
-    public function __construct(RouterInterface $router)
+    protected $uploaderHelper;
+
+    /**
+     * @param RouterInterface $router
+     * @param UploaderHelper $uploaderHelper
+     */
+    public function __construct(RouterInterface $router, UploaderHelper $uploaderHelper)
     {
         $this->router = $router;
+        $this->uploaderHelper = $uploaderHelper;
     }
 
     /**

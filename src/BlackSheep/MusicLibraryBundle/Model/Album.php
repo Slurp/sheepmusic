@@ -3,6 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 use BlackSheep\MusicLibraryBundle\Helper\AlbumCoverHelper;
+use BlackSheep\MusicLibraryBundle\Traits\HasGenreTrait;
 use BlackSheep\MusicLibraryBundle\Traits\PlayCountTrait;
 use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
 
@@ -13,6 +14,7 @@ class Album implements AlbumInterface
 {
     use SongCollectionTrait;
     use PlayCountTrait;
+    use HasGenreTrait;
 
     /**
      * @var string
@@ -148,9 +150,9 @@ class Album implements AlbumInterface
     /**
      * {@inheritdoc}
      */
-    public function setArtist($artists)
+    public function setArtist(ArtistInterface $artist)
     {
-        $this->artist = $artists;
+        $this->artist = $artist;
 
         return $this;
     }
@@ -240,6 +242,7 @@ class Album implements AlbumInterface
             'name' => $this->getName(),
             'cover' => $this->getCover(),
             'playCount' => $this->getPlayCount(),
+            'mbId' => $this->getMusicBrainzId()
         ];
     }
 }
