@@ -37,14 +37,15 @@
         "jasny/twig-extensions": "^1.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "white-october/pagerfanta-bundle": "^1.0",
-        "vich/uploader-bundle": "^1.1",
+        "vich/uploader-bundle": "^1.7",
         "matto1990/lastfm-api": "^1.5",
         "ruflin/elastica": "^5.2.0",
-        "friendsofsymfony/elastica-bundle": "dev-master",
+        "friendsofsymfony/elastica-bundle": "~5.0",
         "nelmio/cors-bundle": "^1.5",
         "jms/serializer-bundle": "^2.2",
         "lexik/jwt-authentication-bundle": "^2.4",
-        "gesdinet/jwt-refresh-token-bundle": "^0.2.1"
+        "gesdinet/jwt-refresh-token-bundle": "^0.2.1",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

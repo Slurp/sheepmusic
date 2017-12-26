@@ -8,7 +8,9 @@
 
 namespace BlackSheep\MusicScannerBundle\Services;
 
+use BlackSheep\MusicLibraryBundle\Entity\GenreEntity;
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
+use BlackSheep\MusicLibraryBundle\Repository\GenresRepository;
 use BlackSheep\MusicLibraryBundle\Repository\SongsRepositoryInterface;
 use BlackSheep\MusicScannerBundle\Helper\TagHelper;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
@@ -45,6 +47,11 @@ class SongImporter
     protected $tagHelper;
 
     /**
+     * @var GenresRepository|\Doctrine\Common\Persistence\ObjectRepository
+     */
+    protected $genreRepository;
+
+    /**
      * @param ManagerRegistry $managerRegistry
      * @param AlbumImporter $albumImporter
      * @param ArtistImporter $artistImporter
@@ -58,13 +65,14 @@ class SongImporter
         $this->artistImporter = $artistImporter;
         $this->songRepository = $managerRegistry->getRepository(SongEntity::class);
         $this->entitymanager = $managerRegistry->getManagerForClass(SongEntity::class);
+        $this->genreRepository = $managerRegistry->getRepository(GenreEntity::class);
         $this->tagHelper = new TagHelper();
     }
 
     /**
      * @param SplFileInfo $file
      *
-     * @return SongEntity|null
+     * @return SongEntity|array|null
      */
     public function importSong(SplFileInfo $file)
     {
@@ -84,11 +92,16 @@ class SongImporter
      */
     protected function writeSong(&$songInfo)
     {
+
         $artist = $this->artistImporter->importArtist($songInfo);
         $album = $this->albumImporter->importAlbum($artist, $songInfo);
         $song = SongEntity::createFromArray($songInfo);
         $album->addSong($song);
         $song->addArtist($artist);
+        if ($songInfo['genre'] !== '') {
+            $genre = $this->genreRepository->addOrUpdateByName($songInfo['genre']);
+            $song->setGenre($genre);
+        }
         $this->entitymanager->persist($song);
 
         return $song;

@@ -4,6 +4,16 @@ services:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - BlackSheep\MusicLibraryBundle\Entity\SongEntity
+    black_sheep_music_library.repository.albums_repository:
+            class: BlackSheep\MusicLibraryBundle\Repository\AlbumsRepository
+            factory: ['@doctrine.orm.default_entity_manager', getRepository]
+            arguments:
+                - BlackSheep\MusicLibraryBundle\Entity\AlbumEntity
+    black_sheep_music_library.repository.artists_repository:
+                class: BlackSheep\MusicLibraryBundle\Repository\ArtistRepository
+                factory: ['@doctrine.orm.default_entity_manager', getRepository]
+                arguments:
+                    - BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity
     black_sheep_music_library.repository.playlist_repository:
         class: BlackSheep\MusicLibraryBundle\Repository\PlaylistRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]

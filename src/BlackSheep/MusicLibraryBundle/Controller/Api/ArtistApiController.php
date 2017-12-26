@@ -3,6 +3,8 @@
 namespace BlackSheep\MusicLibraryBundle\Controller\Api;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
+use BlackSheep\MusicLibraryBundle\Events\ArtistEvent;
+use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
 use BlackSheep\MusicLibraryBundle\Model\Artist;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
@@ -68,6 +70,7 @@ class ArtistApiController extends Controller
      */
     public function getArtistAction(ArtistsEntity $artist)
     {
+        $this->get('event_dispatcher')->dispatch(ArtistEventInterface::ARTIST_EVENT_FETCHED, new ArtistEvent($artist));
         return $this->json($this->get('black_sheep.music_library.api_model.api_artist_data')->getApiData($artist));
     }
 }

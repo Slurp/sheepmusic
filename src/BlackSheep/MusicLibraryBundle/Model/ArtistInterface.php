@@ -7,7 +7,12 @@ use BlackSheep\MusicLibraryBundle\MusicBrainz\MusicBrainzModelInterface;
 /**
  * Interface AlbumInterface.
  */
-interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface
+interface ArtistInterface extends
+    ApiInterface,
+    MusicBrainzModelInterface,
+    SongCollectionInterface,
+    GenreCollectionInterface,
+    LogoCollectionInterface
 {
     /**
      * @param      $name
@@ -74,25 +79,6 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface
      * @return ArtistInterface
      */
     public function setAlbums($albums);
-
-    /**
-     * @return mixed
-     */
-    public function getSongs();
-
-    /**
-     * @param SongInterface[] $songs
-     *
-     * @return ArtistInterface
-     */
-    public function setSongs($songs);
-
-    /**
-     * @param SongInterface $song
-     *
-     * @return ArtistInterface
-     */
-    public function addSong(SongInterface $song);
 
     /**
      * @return mixed

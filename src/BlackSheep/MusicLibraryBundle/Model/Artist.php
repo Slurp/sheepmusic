@@ -2,11 +2,19 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model;
 
+use BlackSheep\MusicLibraryBundle\Traits\GenreCollectionTrait;
+use BlackSheep\MusicLibraryBundle\Traits\LogoCollectionTrait;
+use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
+
 /**
  * Artist Model Class.
  */
 class Artist implements ArtistInterface
 {
+    use GenreCollectionTrait;
+    use SongCollectionTrait;
+    use LogoCollectionTrait;
+
     /**
      * @var string
      */
@@ -46,11 +54,6 @@ class Artist implements ArtistInterface
      * @var AlbumInterface[]
      */
     protected $albums;
-
-    /**
-     * @var SongInterface[]
-     */
-    protected $songs;
 
     /**
      * @param      $name
@@ -188,38 +191,6 @@ class Artist implements ArtistInterface
     }
 
     /**
-     * @return SongInterface[]
-     */
-    public function getSongs()
-    {
-        return $this->songs;
-    }
-
-    /**
-     * @param SongInterface[] $songs
-     *
-     * @return ArtistInterface
-     */
-    public function setSongs($songs)
-    {
-        $this->songs = $songs;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addSong(SongInterface $song)
-    {
-        if (in_array($song, $this->songs) === false) {
-            $this->songs[] = $song;
-        }
-
-        return $this;
-    }
-
-    /**
      * @return integer
      */
     public function getPlayCount()
@@ -264,7 +235,8 @@ class Artist implements ArtistInterface
             'biography' => $this->getBiography(),
             'image' => $this->getImage(),
             'albumArt' => $this->getAlbumArt(),
-            'playCount' => $this->getPlayCount()
+            'playCount' => $this->getPlayCount(),
+            'mbId' => $this->getMusicBrainzId()
         ];
     }
 }

@@ -1,0 +1,19 @@
+services:
+    black_sheep_fanart_tv.album_event_subscriber:
+        class: BlackSheep\FanartTvBundle\EventListener\AlbumEventSubscriber
+        arguments:
+            - '@black_sheep_music_library.repository.albums_repository'
+            - '@black_sheep_fanart_tv.client.music_client'
+            - '@black_sheep.music_library.logo.factory'
+        tags:
+            - { name: kernel.event_subscriber }
+    black_sheep_fanart_tv.artist_event_subscriber:
+            class: BlackSheep\FanartTvBundle\EventListener\ArtistEventSubscriber
+            arguments:
+                - '@black_sheep_music_library.repository.artists_repository'
+                - '@black_sheep_fanart_tv.client.music_client'
+                - '@black_sheep.music_library.logo.factory'
+            tags:
+                - { name: kernel.event_subscriber }
+    black_sheep_fanart_tv.client.music_client:
+        class: BlackSheep\FanartTvBundle\Client\MusicClient

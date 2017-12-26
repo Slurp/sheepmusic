@@ -36,19 +36,6 @@ class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, U
     protected $settings;
 
     /**
-     * @param $username
-     * @param array $roles
-     * @param $email
-     */
-    public function __construct($username, array $roles, $email)
-    {
-        parent::__construct();
-        $this->username = $username;
-        $this->roles = $roles;
-        $this->email = $email;
-    }
-
-    /**
      * @return LastFmUser
      */
     public function getLastFm()
@@ -100,6 +87,7 @@ class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, U
             'settings' => $this->getSettings()->getApiData()
         ];
     }
+
     /**
      * @param string $username
      * @param array $payload
@@ -108,10 +96,11 @@ class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, U
      */
     public static function createFromPayload($username, array $payload)
     {
-        return new self(
-            $username,
-            $payload['roles'], // Added by default
-            $payload['email']  // Custom
-        );
+        $user = new static();
+        $user->setUsername($username);
+        $user->setRoles($payload['roles']);
+        $user->setEmail($payload['email']);
+
+        return $user;
     }
 }

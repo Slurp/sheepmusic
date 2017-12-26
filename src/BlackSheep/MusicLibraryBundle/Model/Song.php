@@ -2,6 +2,7 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model;
 
+use BlackSheep\MusicLibraryBundle\Traits\HasGenreTrait;
 use BlackSheep\MusicLibraryBundle\Traits\PlayCountTrait;
 
 /**
@@ -10,6 +11,7 @@ use BlackSheep\MusicLibraryBundle\Traits\PlayCountTrait;
 class Song implements SongInterface
 {
     use PlayCountTrait;
+    use HasGenreTrait;
 
     /**
      * @var string
@@ -20,6 +22,11 @@ class Song implements SongInterface
      * @var string
      */
     protected $title;
+
+    /**
+     * @var \DateTime
+     */
+    protected $year;
 
     /**
      * @var int
@@ -52,6 +59,11 @@ class Song implements SongInterface
     protected $artists;
 
     /**
+     * @var SongAudioInfoInterface
+     */
+    protected $audio;
+
+    /**
      * {@inheritdoc}
      */
     public function addArtist(ArtistInterface $artist)
@@ -74,9 +86,15 @@ class Song implements SongInterface
         $song->setLength($songInfo['length']);
         $song->setMTime($songInfo['mTime']);
         $song->setPath($songInfo['path']);
+        $song->setYear($songInfo['year']);
+        if (isset($songInfo['audio'])) {
+            $song->setAudio(new SongAudioInfo($songInfo['audio']));
+        }
 
         return $song;
-    }    /**
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getTrack()
@@ -108,6 +126,24 @@ class Song implements SongInterface
     public function setTitle($title)
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getYear()
+    {
+        return $this->year;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setYear($year)
+    {
+        $this->year = $year;
 
         return $this;
     }
@@ -184,7 +220,6 @@ class Song implements SongInterface
         return $this;
     }
 
-
     /**
      * {@inheritdoc}
      */
@@ -245,7 +280,21 @@ class Song implements SongInterface
         return $this;
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function getAudio()
+    {
+        return $this->audio;
+    }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function setAudio(SongAudioInfoInterface $audio)
+    {
+        $this->audio = $audio;
+    }
 
     /**
      * {@inheritdoc}

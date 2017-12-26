@@ -4,13 +4,14 @@ namespace BlackSheep\MusicLibraryBundle\Entity;
 
 use BlackSheep\MusicLibraryBundle\Model\Artist;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
+use BlackSheep\MusicLibraryBundle\Model\GenreInterface;
+use BlackSheep\MusicLibraryBundle\Model\Media\LogoInterface;
 use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
- * @ORM\Entity
  * @ORM\Entity(repositoryClass="BlackSheep\MusicLibraryBundle\Repository\ArtistRepository")
  */
 class ArtistsEntity extends Artist implements ArtistInterface
@@ -70,10 +71,31 @@ class ArtistsEntity extends Artist implements ArtistInterface
      */
     protected $songs;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="GenreEntity", fetch="EXTRA_LAZY")
+     * @ORM\JoinTable(
+     *  name="artists_genres",
+     *  joinColumns={
+     *      @ORM\JoinColumn(name="artist_id", referencedColumnName="id")
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(name="genre_id", referencedColumnName="id")
+     *  }
+     * )
+     */
+    protected $genres;
+
+    /**
+     * @ORM\OneToMany(targetEntity="BlackSheep\MusicLibraryBundle\Entity\Media\LogoEntity", mappedBy="artist" ,cascade={"all"})
+     */
+    protected $logos;
+
     public function __construct()
     {
         $this->albums = new ArrayCollection();
         $this->songs = new ArrayCollection();
+        $this->genres = new ArrayCollection();
+        $this->logos = new ArrayCollection();
     }
 
     /**
@@ -90,12 +112,38 @@ class ArtistsEntity extends Artist implements ArtistInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function addGenre(GenreInterface $genre)
+    {
+        if ($this->genres->contains($genre) === false) {
+            $this->logos->add($genre);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addLogo(LogoInterface $logo)
+    {
+        if ($this->logos->contains($logo) === false) {
+            $this->logos->add($logo);
+            $logo->setArtist($this);
+        }
+
+        return $this;
+    }
+
+    /**
      * @inheritDoc
      */
     public function getApiData()
     {
         $array = parent::getApiData();
         $array['id'] = $this->getId();
+
         return $array;
     }
 }
