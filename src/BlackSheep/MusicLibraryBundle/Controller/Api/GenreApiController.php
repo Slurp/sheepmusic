@@ -2,22 +2,21 @@
 
 namespace BlackSheep\MusicLibraryBundle\Controller\Api;
 
-use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
+use BlackSheep\MusicLibraryBundle\Entity\GenreEntity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Album api
+ * Genre Api controller
  */
-class AlbumApiController extends BaseApiController
+class GenreApiController extends BaseApiController
 {
     /**
      * {@inheritdoc}
      */
     protected function getRepository()
     {
-        return $this->get('black_sheep_music_library.repository.albums_repository');
+        return $this->get('black_sheep_music_library.repository.genre_repository');
     }
 
     /**
@@ -25,11 +24,11 @@ class AlbumApiController extends BaseApiController
      */
     protected function getApiDataModel()
     {
-        return $this->get('black_sheep.music_library.api_model.api_album_data');
+        return $this->get('black_sheep.music_library.api_model.api_genre_data');
     }
 
     /**
-     * @Route("/album_list", name="get_album_list")
+     * @Route("/genre_list", name="get_genre_list")
      *
      * @return Response
      */
@@ -39,14 +38,14 @@ class AlbumApiController extends BaseApiController
     }
 
     /**
-     * @Route("/album/{album}", name="get_album")
+     * @Route("/genre/{genre}", name="get_genre")
      *
-     * @param AlbumEntity $album
+     * @param GenreEntity $genre
      *
      * @return Response
      */
-    public function getAlbumAction(AlbumEntity $album)
+    public function getGenreAction(GenreEntity $genre)
     {
-        return $this->getDetail($album);
+        return $this->getDetail($genre);
     }
 }

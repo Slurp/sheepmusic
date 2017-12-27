@@ -2,6 +2,7 @@
 
 namespace BlackSheep\MusicLibraryBundle\ApiModel;
 
+use BlackSheep\MusicLibraryBundle\Entity\PlaylistEntity;
 use BlackSheep\MusicLibraryBundle\Model\PlaylistInterface;
 
 /**
@@ -14,19 +15,17 @@ class ApiPlaylistData extends ApiSongData implements ApiDataInterface
      */
     public function getApiData($object)
     {
-        if ($object instanceof PlaylistInterface) {
+        if ($object instanceof PlaylistEntity) {
             $songs = [];
             foreach ($object->getSongs() as $song) {
                 $songs[] = parent::getApiData($song);
             }
-            return [
-                'id' => $object->getId(),
-                'cover' => $object->getCover(),
-                'name' => $object->getName(),
-                'createdAt' => $object->getCreatedAt(),
-                'updatedAt' => $object->getUpdatedAt(),
-                'songs' => $songs,
-            ];
+            return array_merge(
+                [
+                    'songs' => $songs,
+                ],
+                $object->getApiData()
+            );
         }
         return null;
     }

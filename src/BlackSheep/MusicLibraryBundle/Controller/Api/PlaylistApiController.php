@@ -61,7 +61,7 @@ class PlaylistApiController extends BaseApiController
     {
         $songs = $request->get('songs');
         if ($songs !== null && is_array($songs)) {
-            $songs = $this->get('black_sheep_music_library.repository.songs_repository')->find($songs);
+            $songs = $this->get('black_sheep_music_library.repository.songs_repository')->findById($songs);
             $playlist = $this->getRepository()->savePlaylistWithSongs(
                 $request->get('name'),
                 $songs

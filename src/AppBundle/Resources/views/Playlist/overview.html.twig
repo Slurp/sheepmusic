@@ -1,9 +1,0 @@
-{% extends app.request.xmlHttpRequest
-? '@App/Layout/ajaxLayout.html.twig'
-: '@App/Layout/layout.html.twig' %}
-
-{% block content %}
-    {#{% include '@App/Components/navigation.html.twig' %}#}
-    {% include '@App/Playlist/list.html.twig' %}
-{% endblock %}
-

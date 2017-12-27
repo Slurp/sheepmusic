@@ -1,7 +1,7 @@
 api_login_check:
     path: /api/login_check
-app:
-    resource: "@AppBundle/Controller/"
+black_sheep_music_scanner_library:
+    resource: "@BlackSheepMusicScannerBundle/Controller"
     type:     annotation
 black_sheep_music_library:
     resource: '@BlackSheepMusicLibraryBundle/Resources/config/routing.yml'
