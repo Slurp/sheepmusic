@@ -32,7 +32,7 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
     /**
      * @return array
      */
-    public function getLists()
+    public function getList()
     {
         return $this->createQueryBuilder('a')->select(
             ['a.id', 'a.name', 'a.createdAt', 'a.updatedAt', 'a.cover']

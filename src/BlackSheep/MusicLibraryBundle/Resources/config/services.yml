@@ -33,6 +33,11 @@ services:
         arguments:
         - '@router'
         - '@vich_uploader.templating.helper.uploader_helper'
+    black_sheep.music_library.api_model.api_genre_data:
+        class: BlackSheep\MusicLibraryBundle\ApiModel\ApiGenreData
+        arguments:
+        - '@router'
+        - '@vich_uploader.templating.helper.uploader_helper'
     black_sheep_music_library.naming.artist_directory_namer:
         class: BlackSheep\MusicLibraryBundle\Naming\ArtistDirectoryNamer
     black_sheep.music_library.logo.factory:

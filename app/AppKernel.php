@@ -25,18 +25,18 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
-            new AppBundle\AppBundle(),
-            new BlackSheep\MusicScannerBundle\BlackSheepMusicScannerBundle(),
-            new BlackSheep\MusicLibraryBundle\BlackSheepMusicLibraryBundle(),
-            new BlackSheep\LastFmBundle\BlackSheepLastFmBundle(),
-            new BlackSheep\UserBundle\BlackSheepUserBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Gesdinet\JWTRefreshTokenBundle\GesdinetJWTRefreshTokenBundle(),
-            new BlackSheep\FanartTvBundle\BlackSheepFanartTvBundle(),
             new Vich\UploaderBundle\VichUploaderBundle(),
+            // Application
+            new BlackSheep\FanartTvBundle\BlackSheepFanartTvBundle(),
+            new BlackSheep\MusicScannerBundle\BlackSheepMusicScannerBundle(),
+            new BlackSheep\MusicLibraryBundle\BlackSheepMusicLibraryBundle(),
+            new BlackSheep\LastFmBundle\BlackSheepLastFmBundle(),
+            new BlackSheep\UserBundle\BlackSheepUserBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

@@ -64,4 +64,15 @@ class PlaylistEntity extends Playlist
 
         return $this;
     }
+    /**
+     * @inheritDoc
+     */
+    public function getApiData()
+    {
+        $array = parent::getApiData();
+        $array['id'] = $this->getId();
+        $array['createdAt'] = $this->getCreatedAt();
+        $array['updatedAt'] = $this->getUpdatedAt();
+        return $array;
+    }
 }

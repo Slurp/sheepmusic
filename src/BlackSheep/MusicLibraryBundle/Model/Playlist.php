@@ -7,7 +7,7 @@ use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
 /**
  *
  */
-class Playlist implements PlaylistInterface
+class Playlist implements PlaylistInterface, ApiInterface
 {
     use SongCollectionTrait;
 
@@ -65,6 +65,7 @@ class Playlist implements PlaylistInterface
         foreach ($this->getSongs() as $song) {
             $albums[$song->getAlbum()->getSlug()] = $song->getAlbum();
         }
+
         return $albums;
     }
 
@@ -86,5 +87,16 @@ class Playlist implements PlaylistInterface
         $this->cover = $cover;
 
         return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getApiData()
+    {
+        return [
+            'cover' => $this->getCover(),
+            'name' => $this->getName()
+        ];
     }
 }
