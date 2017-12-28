@@ -89,7 +89,6 @@ class MediaImporter
         $this->songsRepository = $this->managerRegistry->getRepository(
             SongEntity::class
         );
-
         $importingFiles = $this->gatherFiles($this->path);
         if (count($importingFiles) > 0) {
             $this->setupProgressBar(count($importingFiles));
