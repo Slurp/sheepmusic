@@ -2,18 +2,15 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model\Media;
 
-use BlackSheep\MusicLibraryBundle\Entity\BaseEntity;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 
 /**
- * Class LogoEntity
+ * Class Artwork
  *
  * @package BlackSheep\MusicLibraryBundle\Entity\Media
  */
-class Logo extends AbstractMedia implements LogoInterface
+class Artwork extends AbstractMedia implements ArtworkInterface
 {
-    use BaseEntity;
-
     /**
      * @var ArtistInterface
      */
@@ -23,6 +20,30 @@ class Logo extends AbstractMedia implements LogoInterface
      * @var int
      */
     protected $likes;
+
+    /**
+     * @var string
+     */
+    protected $type;
+
+    /**
+     * Artwork constructor.
+     *
+     * @param $type
+     */
+    public function __construct($type)
+    {
+        $this->type = $type;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+
 
     /**
      * {@inheritdoc}

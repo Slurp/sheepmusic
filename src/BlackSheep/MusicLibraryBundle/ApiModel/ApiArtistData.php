@@ -2,6 +2,7 @@
 
 namespace BlackSheep\MusicLibraryBundle\ApiModel;
 
+use BlackSheep\MusicLibraryBundle\ApiModel\Helper\ApiArtworkHelper;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 
 /**
@@ -20,16 +21,15 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
             foreach ($object->getAlbums() as $album) {
                 $albums[] = parent::getApiData($album);
             }
-            $logos = [];
-            if (count($object->getLogos()) > 0) {
-                $baseUrl = '//' . $this->router->getContext()->getHost();
-                foreach ($object->getLogos() as $logo) {
-                    $logos[] = $baseUrl . $this->uploaderHelper->asset(
-                            $logo,
-                            'imageFile'
-                        );
-                }
-            }
+
+            $artistData = array_merge(
+                $artistData,
+                ApiArtworkHelper::prefixArtworkSetWithUrl(
+                    $object,
+                    $this->uploaderHelper,
+                    '//' . $this->router->getContext()->getHost()
+                )
+            );
 
             return array_merge(
                 [
@@ -38,7 +38,6 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                     'createdAt' => $object->getCreatedAt(),
                     'updatedAt' => $object->getUpdatedAt(),
                     'albums' => $albums,
-                    'logos' => $logos
                 ],
                 $artistData
             );

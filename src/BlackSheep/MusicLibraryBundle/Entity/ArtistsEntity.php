@@ -5,7 +5,7 @@ namespace BlackSheep\MusicLibraryBundle\Entity;
 use BlackSheep\MusicLibraryBundle\Model\Artist;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use BlackSheep\MusicLibraryBundle\Model\GenreInterface;
-use BlackSheep\MusicLibraryBundle\Model\Media\LogoInterface;
+use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
 use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -86,16 +86,16 @@ class ArtistsEntity extends Artist implements ArtistInterface
     protected $genres;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlackSheep\MusicLibraryBundle\Entity\Media\LogoEntity", mappedBy="artist" ,cascade={"all"})
+     * @ORM\OneToMany(targetEntity="BlackSheep\MusicLibraryBundle\Entity\Media\ArtworkEntity", mappedBy="artist" ,cascade={"all"})
      */
-    protected $logos;
+    protected $artworks;
 
     public function __construct()
     {
         $this->albums = new ArrayCollection();
         $this->songs = new ArrayCollection();
         $this->genres = new ArrayCollection();
-        $this->logos = new ArrayCollection();
+        $this->artworks = new ArrayCollection();
     }
 
     /**
@@ -117,7 +117,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     public function addGenre(GenreInterface $genre)
     {
         if ($this->genres->contains($genre) === false) {
-            $this->logos->add($genre);
+            $this->artworks->add($genre);
         }
 
         return $this;
@@ -126,11 +126,11 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function addLogo(LogoInterface $logo)
+    public function addArtwork(ArtworkInterface $artwork)
     {
-        if ($this->logos->contains($logo) === false) {
-            $this->logos->add($logo);
-            $logo->setArtist($this);
+        if ($this->artworks->contains($artwork) === false) {
+            $this->artworks->add($artwork);
+            $artwork->setArtist($this);
         }
 
         return $this;

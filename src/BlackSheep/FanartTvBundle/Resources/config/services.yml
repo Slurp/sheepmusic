@@ -4,7 +4,7 @@ services:
         arguments:
             - '@black_sheep_music_library.repository.albums_repository'
             - '@black_sheep_fanart_tv.client.music_client'
-            - '@black_sheep.music_library.logo.factory'
+            - '@black_sheep.music_library.artwork.factory'
         tags:
             - { name: kernel.event_subscriber }
     black_sheep_fanart_tv.artist_event_subscriber:
@@ -12,7 +12,7 @@ services:
             arguments:
                 - '@black_sheep_music_library.repository.artists_repository'
                 - '@black_sheep_fanart_tv.client.music_client'
-                - '@black_sheep.music_library.logo.factory'
+                - '@black_sheep.music_library.artwork.factory'
             tags:
                 - { name: kernel.event_subscriber }
     black_sheep_fanart_tv.client.music_client:

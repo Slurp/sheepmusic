@@ -40,8 +40,4 @@ services:
         - '@vich_uploader.templating.helper.uploader_helper'
     black_sheep_music_library.naming.artist_directory_namer:
         class: BlackSheep\MusicLibraryBundle\Naming\ArtistDirectoryNamer
-    black_sheep.music_library.logo.factory:
-        class: BlackSheep\MusicLibraryBundle\Factory\LogoFactory
-        arguments:
-            - '@vich_uploader.upload_handler'
-            - '%kernel.root_dir%'
+        public: true

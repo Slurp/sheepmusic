@@ -1,19 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: slangeweg
- * Date: 25/12/2017
- * Time: 15:57
- */
 
 namespace BlackSheep\FanartTvBundle\Model;
+
+use BlackSheep\MusicLibraryBundle\Model\ArtworkSetInterface;
 
 /**
  * Class FanartTvResponse
  *
  * @package BlackSheep\FanartTvBundle\Model
  */
-class FanartTvResponse
+class FanartTvResponse implements ArtworkSetInterface
 {
     /**
      * @var array

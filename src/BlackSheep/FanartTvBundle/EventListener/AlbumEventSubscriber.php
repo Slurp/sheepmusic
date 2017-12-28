@@ -5,7 +5,7 @@ namespace BlackSheep\FanartTvBundle\EventListener;
 use BlackSheep\FanartTvBundle\Client\MusicClient;
 use BlackSheep\MusicLibraryBundle\EventListener\AlbumEventListener;
 use BlackSheep\MusicLibraryBundle\Events\AlbumEventInterface;
-use BlackSheep\MusicLibraryBundle\Factory\LogoFactory;
+use BlackSheep\MusicLibraryBundle\Factory\ArtworkFactory;
 use BlackSheep\MusicLibraryBundle\Repository\AlbumsRepositoryInterface;
 
 /**
@@ -24,19 +24,19 @@ class AlbumEventSubscriber implements AlbumEventListener
     protected $client;
 
     /**
-     * @var LogoFactory
+     * @var ArtworkFactory
      */
     private $logoFactory;
 
     /**
      * @param AlbumsRepositoryInterface $albumsRepository
      * @param MusicClient $client
-     * @param LogoFactory $logoFactory
+     * @param ArtworkFactory $logoFactory
      */
     public function __construct(
         AlbumsRepositoryInterface $albumsRepository,
         MusicClient $client,
-        LogoFactory $logoFactory
+        ArtworkFactory $logoFactory
     ) {
         $this->albumsRepository = $albumsRepository;
         $this->client = $client;

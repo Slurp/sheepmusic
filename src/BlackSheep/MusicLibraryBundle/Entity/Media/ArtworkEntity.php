@@ -3,26 +3,26 @@
 namespace BlackSheep\MusicLibraryBundle\Entity\Media;
 
 use BlackSheep\MusicLibraryBundle\Entity\BaseEntity;
-use BlackSheep\MusicLibraryBundle\Model\Media\Logo;
+use BlackSheep\MusicLibraryBundle\Model\Media\Artwork;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * Class LogoEntity
+ * Class ArtworkEntity
  *
  * @package BlackSheep\MusicLibraryBundle\Entity\Media
  * @ORM\Table()
  * @ORM\Entity()
  * @Vich\Uploadable
  */
-class LogoEntity extends Logo implements AbstractMediaInterface
+class ArtworkEntity extends Artwork implements AbstractMediaInterface
 {
     use BaseEntity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity", inversedBy="logos")
+     * @ORM\ManyToOne(targetEntity="BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity", inversedBy="artworks")
      */
     protected $artist;
 
@@ -47,8 +47,19 @@ class LogoEntity extends Logo implements AbstractMediaInterface
      */
     protected $image;
 
-    public function __construct()
+    /**
+     * @ORM\Column(type="string", nullable=false)
+     */
+    protected $type;
+
+    /**
+     * ArtworkEntity constructor.
+     *
+     * @param $type
+     */
+    public function __construct($type)
     {
+        parent::__construct($type);
         $this->image = new EmbeddedFile();
     }
 

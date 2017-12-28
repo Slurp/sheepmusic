@@ -25,6 +25,7 @@ class BlackSheepMusicLibraryExtension extends Extension
         $loader->load('services.yml');
         $loader->load('services_repositories.yml');
         $loader->load('services_lastfm.yml');
+        $loader->load('services_artwork.yml');
         $parameters = [
             'ffprobe_path',
             'ffmpeg_path',
