@@ -1,7 +1,9 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\EventListener;
 
 use BlackSheep\MusicLibraryBundle\Events\SongEventInterface;
+use BlackSheep\MusicLibraryBundle\Model\PlayCountInterface;
 use BlackSheep\MusicLibraryBundle\Repository\SongsRepositoryInterface;
 
 /**
@@ -33,7 +35,7 @@ class SongEventSubscriber implements SongEventListener
             SongEventInterface::SONG_EVENT_PLAYED => "playedSong",
             SongEventInterface::SONG_EVENT_LOVED => "lovedSong",
             SongEventInterface::SONG_EVENT_RATED => "ratedSong"
-            ];
+        ];
     }
 
     /**
@@ -50,10 +52,18 @@ class SongEventSubscriber implements SongEventListener
     public function playedSong(SongEventInterface $songEvent)
     {
         $song = $songEvent->getSong();
-        $song->updatePlayCount();
-        $song->getAlbum()->updatePlayCount();
-        $this->songsRepository->save($song);
-        $this->songsRepository->save($song->getAlbum());
+        if ($song instanceof PlayCountInterface) {
+            $this->songsRepository->save($song->updatePlayCount());
+        }
+        if ($song->getAlbum() instanceof PlayCountInterface) {
+            $this->songsRepository->save($song->getAlbum()->updatePlayCount());
+        }
+        if ($song->getGenre() instanceof PlayCountInterface) {
+            $this->songsRepository->save($song->getGenre()->updatePlayCount());
+        }
+        if ($song->getArtist() instanceof PlayCountInterface) {
+            $this->songsRepository->save($song->getGenre()->updatePlayCount());
+        }
     }
 
     /**

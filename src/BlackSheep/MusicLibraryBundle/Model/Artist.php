@@ -4,6 +4,7 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 
 use BlackSheep\MusicLibraryBundle\Traits\GenreCollectionTrait;
 use BlackSheep\MusicLibraryBundle\Traits\ArtworkCollectionTrait;
+use BlackSheep\MusicLibraryBundle\Traits\PlayCountTrait;
 use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
 
 /**
@@ -14,6 +15,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     use GenreCollectionTrait;
     use SongCollectionTrait;
     use ArtworkCollectionTrait;
+    use PlayCountTrait;
 
     /**
      * @var string
@@ -186,26 +188,6 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     public function setAlbums($albums)
     {
         $this->albums = $albums;
-
-        return $this;
-    }
-
-    /**
-     * @return integer
-     */
-    public function getPlayCount()
-    {
-        return $this->playCount;
-    }
-
-    /**
-     * @param integer $playCount
-     *
-     * @return ArtistInterface
-     */
-    public function setPlayCount($playCount)
-    {
-        $this->playCount = $playCount;
 
         return $this;
     }
