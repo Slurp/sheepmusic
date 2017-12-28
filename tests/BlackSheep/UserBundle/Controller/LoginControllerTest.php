@@ -16,10 +16,10 @@ class LoginControllerTest extends ApiTestCaseBase
         $password = "ja_sam_Dalmatino_1950";
 
         $this->createUser($userName, $password);
-        $parameter = '{"username":"'.$userName.'","password":"'.$password.'"}';
+        $parameter = '{"username":"' . $userName . '","password":"' . $password . '"}';
         $this->client->request(
             'POST',
-            '/api/login',
+            '/api/login_check',
             [],
             [],
             [
@@ -32,35 +32,6 @@ class LoginControllerTest extends ApiTestCaseBase
         $responseArr = json_decode($content, true);
         $this->assertEquals(200, $reponse->getStatusCode());
 
-
-        $this->assertArrayHasKey('token', $responseArr);
-    }
-
-    /**
-     *
-     */
-    public function testPOSTLoginUserWitAddOnEmail()
-    {
-        $userName = "mate@misho.com";
-        $password = "ja_sam_Dalmatino_1950";
-        $addOnEmail = "majlo.hrnic@du.hr";
-
-        $user = $this->createUser($userName, $password, $addOnEmail);
-
-        $parameter = '{"username":"'.$addOnEmail.'","password":"'.$password.'"}';
-        $this->client->request(
-            'POST',
-            '/api/login',
-            [],
-            [],
-            [
-                'CONTENT_TYPE' => 'application/json',
-            ],
-            $parameter
-        );
-
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        $responseArr = json_decode($this->client->getResponse()->getContent(), true);
         $this->assertArrayHasKey('token', $responseArr);
     }
 
@@ -77,7 +48,7 @@ class LoginControllerTest extends ApiTestCaseBase
         $parameter = '{"username":"'.$userName.'_nope","password":"'.$password.'"}';
         $this->client->request(
             'POST',
-            '/api/login',
+            '/api/login_check',
             [],
             [],
             [
@@ -86,8 +57,8 @@ class LoginControllerTest extends ApiTestCaseBase
             $parameter
         );
 
-        $this->assertEquals(404, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(401, $this->client->getResponse()->getStatusCode());
         $responseArr = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertEquals('Not Found', $responseArr['error']['message']);
+        $this->assertEquals( 'Bad credentials', $responseArr['message']);
     }
 }

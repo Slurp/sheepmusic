@@ -9,6 +9,7 @@
 namespace Tests\BlackSheep\MusicLibraryBundle\Model;
 
 use BlackSheep\MusicLibraryBundle\Model\Album;
+use BlackSheep\MusicLibraryBundle\Model\Artist;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -25,7 +26,8 @@ class AlbumTest extends PHPUnit_Framework_TestCase
     {
         $extraInfo['cover'] = "cover";
         $extraInfo['album_mbid'] = '';
-        $this->album = Album::createArtistAlbum('test', 'test', $extraInfo);
+
+        $this->album = Album::createArtistAlbum('test', Artist::createNew('test'), $extraInfo);
     }
 
     /**
@@ -33,7 +35,7 @@ class AlbumTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateAlbumEmptyInfo()
     {
-        Album::createArtistAlbum('test', 'test', []);
+        Album::createArtistAlbum('test', Artist::createNew('test'), []);
     }
 
     /**
@@ -43,6 +45,6 @@ class AlbumTest extends PHPUnit_Framework_TestCase
     {
         $extraInfo['cover'] = "cover";
         $extraInfo['album_mbid'] = '';
-        self::assertEquals($this->album, Album::createArtistAlbum('test', 'test', $extraInfo));
+        self::assertEquals($this->album, Album::createArtistAlbum('test', Artist::createNew('test'), $extraInfo));
     }
 }

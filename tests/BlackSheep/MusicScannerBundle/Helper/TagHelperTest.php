@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\BlackSheep\MusicScannerBundle\Helper;
 
 use BlackSheep\MusicScannerBundle\Helper\TagHelper;
@@ -84,6 +85,18 @@ class TagHelperTest extends PHPUnit_Framework_TestCase
             'track' => '',
             'artist_mbid' => '',
             'album_mbid' => '',
+            'year' => '',
+            'genre' => 'Art Music > Classical > Classical',
+            'audio' => [
+                'dataformat' => 'flac',
+                'channels' => 2,
+                'sample_rate' => 44100,
+                'bitrate' => 722833.471729978802613914012908935546875,
+                'channelmode' => 'stereo',
+                'bitrate_mode' => 'vbr',
+                'lossless' => true,
+                'compression_ratio' => 0.5122119272463001582451624926761724054813385009765625
+            ]
         ];
         self::assertEquals($props, $info);
     }

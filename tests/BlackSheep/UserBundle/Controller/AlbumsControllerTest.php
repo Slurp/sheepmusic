@@ -16,7 +16,7 @@ class AlbumsControllerTest extends ApiTestCaseBase
 
         $this->client->request(
             'GET',
-            '/api/albums',
+            '/api/album_list',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json',
@@ -36,7 +36,7 @@ class AlbumsControllerTest extends ApiTestCaseBase
     {
         $this->client->request(
             'GET',
-            '/api/albums',
+            '/api/album_list',
             [],
             [],
             ['CONTENT_TYPE' => 'application/json'],
