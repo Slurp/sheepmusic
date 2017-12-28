@@ -21,7 +21,6 @@ trait PlayCountTrait
     public function updatePlayCount()
     {
         $this->setPlayCount($this->getPlayCount() + 1);
-
         return $this;
     }
 

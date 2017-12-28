@@ -9,6 +9,7 @@ use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
 use BlackSheep\MusicLibraryBundle\Factory\ArtworkFactory;
 use BlackSheep\MusicLibraryBundle\Repository\ArtistRepositoryInterface;
 use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ConnectException;
 
 /**
  * ArtistEventSubscriber
@@ -98,6 +99,8 @@ class ArtistEventSubscriber implements ArtistEventListener
                 $this->artworkFactory->addArtworkToArtist($artist, $fanart);
                 $this->artistsRepository->save($artist);
             } catch (ClientException $e) {
+                error_log($e->getMessage());
+            } catch (ConnectException $e) {
                 error_log($e->getMessage());
             }
         }
