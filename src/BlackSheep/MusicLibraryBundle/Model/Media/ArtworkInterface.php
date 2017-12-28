@@ -11,14 +11,31 @@ namespace BlackSheep\MusicLibraryBundle\Model\Media;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 
 /**
- * Class LogoEntity
+ * Interface ArtworkInterface
  *
  * @package BlackSheep\MusicLibraryBundle\Entity\Media
  * @ORM\Table()
  * @ORM\Entity()
  */
-interface LogoInterface
+interface ArtworkInterface
 {
+    const TYPE_LOGO = 'logo';
+    const TYPE_BANNER = 'banner';
+    const TYPE_BACKGROUND = 'background';
+    const TYPE_THUMBS = 'thumbs';
+
+    /**
+     * Artwork constructor.
+     *
+     * @param $type
+     */
+    public function __construct($type);
+
+    /**
+     * @return string
+     */
+    public function getType();
+
     /**
      * @return ArtistInterface
      */

@@ -49,18 +49,20 @@ class AbstractMediaFactory
     {
         $ext = substr($url, strrpos($url, ".") + 1);
         $tempFile = $this->kernelRootDir . '/../web/uploads/_temp.' . $name . '.' . $ext;
-        copy($url, $tempFile);
-        $entity->setImageFile(
-            new UploadedFile(
-                $tempFile,
-                uniqid($name,true). '.' . $ext,
-                mime_content_type($tempFile),
-                filesize($tempFile),
-                null,
-                true
-            )
-        );
-        $this->uploadHandler->upload($entity, 'imageFile');
-        //unlink($tempFile);
+        if (@copy($url, $tempFile)) {
+            $entity->setImageFile(
+                new UploadedFile(
+                    $tempFile,
+                    uniqid($name, true) . '.' . $ext,
+                    mime_content_type($tempFile),
+                    filesize($tempFile),
+                    null,
+                    true
+                )
+            );
+            $this->uploadHandler->upload($entity, 'imageFile');
+        } else {
+            @unlink($tempFile);
+        }
     }
 }

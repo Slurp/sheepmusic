@@ -12,7 +12,7 @@ interface ArtistInterface extends
     MusicBrainzModelInterface,
     SongCollectionInterface,
     GenreCollectionInterface,
-    LogoCollectionInterface
+    ArtworkCollectionInterface
 {
     /**
      * @param      $name

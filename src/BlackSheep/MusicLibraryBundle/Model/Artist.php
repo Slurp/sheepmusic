@@ -3,17 +3,17 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 use BlackSheep\MusicLibraryBundle\Traits\GenreCollectionTrait;
-use BlackSheep\MusicLibraryBundle\Traits\LogoCollectionTrait;
+use BlackSheep\MusicLibraryBundle\Traits\ArtworkCollectionTrait;
 use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
 
 /**
  * Artist Model Class.
  */
-class Artist implements ArtistInterface
+class Artist implements ArtistInterface, ArtworkSetInterface
 {
     use GenreCollectionTrait;
     use SongCollectionTrait;
-    use LogoCollectionTrait;
+    use ArtworkCollectionTrait;
 
     /**
      * @var string

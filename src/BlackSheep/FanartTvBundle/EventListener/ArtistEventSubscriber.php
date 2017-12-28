@@ -6,7 +6,7 @@ use BlackSheep\FanartTvBundle\Client\MusicClient;
 use BlackSheep\FanartTvBundle\Model\FanartTvResponse;
 use BlackSheep\MusicLibraryBundle\EventListener\ArtistEventListener;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
-use BlackSheep\MusicLibraryBundle\Factory\LogoFactory;
+use BlackSheep\MusicLibraryBundle\Factory\ArtworkFactory;
 use BlackSheep\MusicLibraryBundle\Repository\ArtistRepositoryInterface;
 use GuzzleHttp\Exception\ClientException;
 
@@ -26,23 +26,23 @@ class ArtistEventSubscriber implements ArtistEventListener
     protected $client;
 
     /**
-     * @var LogoFactory
+     * @var ArtworkFactory
      */
-    private $logoFactory;
+    private $artworkFactory;
 
     /**
      * @param ArtistRepositoryInterface $artistsRepository
      * @param MusicClient $client
-     * @param LogoFactory $logoFactory
+     * @param ArtworkFactory $artworkFactory
      */
     public function __construct(
         ArtistRepositoryInterface $artistsRepository,
         MusicClient $client,
-        LogoFactory $logoFactory
+        ArtworkFactory $artworkFactory
     ) {
         $this->artistsRepository = $artistsRepository;
         $this->client = $client;
-        $this->logoFactory = $logoFactory;
+        $this->artworkFactory = $artworkFactory;
     }
 
     /**
@@ -88,19 +88,17 @@ class ArtistEventSubscriber implements ArtistEventListener
     protected function updateArtWork(ArtistEventInterface $artistEvent)
     {
         $artist = $artistEvent->getArtist();
-        if (empty($artist->getMusicBrainzId()) === false && count($artist->getLogos()) === 0) {
+        if (empty($artist->getMusicBrainzId()) === false && count($artist->getArtworks()) === 0) {
             try {
                 $fanart = new FanartTvResponse(
                     json_decode(
                         $this->client->loadArtist($artist->getMusicBrainzId())->getBody()
                     )
                 );
-                if ($fanart->getLogos() !== null) {
-                    $this->logoFactory->addLogosToArtist($artist, $fanart->getLogos());
-                    $this->artistsRepository->save($artist);
-                }
+                $this->artworkFactory->addArtworkToArtist($artist, $fanart);
+                $this->artistsRepository->save($artist);
             } catch (ClientException $e) {
-                // do nothing
+                error_log($e->getMessage());
             }
         }
     }

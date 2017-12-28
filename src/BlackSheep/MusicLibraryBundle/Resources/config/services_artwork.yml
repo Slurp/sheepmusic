@@ -1,0 +1,6 @@
+services:
+    black_sheep.music_library.artwork.factory:
+        class: BlackSheep\MusicLibraryBundle\Factory\ArtworkFactory
+        arguments:
+            - '@vich_uploader.upload_handler'
+            - '%kernel.root_dir%'
