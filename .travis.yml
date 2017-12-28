@@ -31,8 +31,8 @@ install:
   - php bin/console doctrine:database:create --env=test
   - php bin/console doctrine:schema:create --env=test
   - mkdir -p var/jwt # For Symfony3+, no need of the -p option
-  - openssl genrsa -out var/jwt/private.pem -aes256 4096 -passout pass:foo
-  - openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+  - openssl genrsa -out var/jwt/private.pem -aes256 4096 -passout pass:x
+  - openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem -passin pass:x
 
 # Run script
 script:
