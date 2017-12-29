@@ -3,10 +3,18 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Slurp/sheepmusic/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/Slurp/sheepmusic/?branch=develop)
 [![Code Coverage](https://scrutinizer-ci.com/g/Slurp/sheepmusic/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/Slurp/sheepmusic/?branch=develop)
 [![Build Status](https://scrutinizer-ci.com/g/Slurp/sheepmusic/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/Slurp/sheepmusic/build-status/develop)
+
+# Frontend
+ The frontend is now removed and this is used only for the backend.
+ Because Vuejs is a nice frontend framework but but also wanted other users to use this backend but create there own frontend.
+ You know something about taste and stuff.
+
 # Why another webbased library player?
- - Because i can.
- - There wasn't a Symfony based one?
- - The challenge to create one that can handle a big ass collection.
+ - Because i can. (I think add a issue if you think i can't)
+ - There wasn't a Symfony based one? (Let me know if there is one.)
+ - The challenge to create one that can handle a big ass collection. (90000 songs and lots of artists and albums)
+ - Collect artwork from all kinds of places. Not just lastfm.
+ 
 Furthermore:
  - In the future there is going to be a app.
  - Use native flac files for html5 audio.
@@ -21,7 +29,25 @@ Furthermore:
 
 # The Black Sheep Todo list
 Settings
-Speed up import
 Implement https://github.com/katspaugh/wavesurfer.js
 
+
+#Installation
+
+Steno version:
+```
+git clone git@github.com:Slurp/sheepmusic.git
+cd sheepmusic
+composer install
+php bin/console doctrine:database:create --env=test
+php bin/console doctrine:schema:create --env=test
+mkdir -p var/jwt # For Symfony3+, no need of the -p option
+# add encription type for safety (this is a test version)
+openssl genrsa -out var/jwt/private.pem
+openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+bin/console fos:user:create admin admin@gmail.com test
+-
+```
+after that you could try bin/console music:import --env=dev -vvv but at the moment it is not yet in a nice congiuration.
+Shame on me
 
