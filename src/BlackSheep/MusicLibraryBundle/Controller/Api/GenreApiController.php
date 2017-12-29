@@ -32,7 +32,7 @@ class GenreApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getAlbumListAction()
+    public function getGenreListAction()
     {
         return $this->getList();
     }
