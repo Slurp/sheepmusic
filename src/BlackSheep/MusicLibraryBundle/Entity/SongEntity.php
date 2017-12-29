@@ -147,6 +147,8 @@ class SongEntity extends Song implements SongInterface
         if (isset($songInfo['audio'])) {
             $song->setAudio(new SongAudioInfoEntity($songInfo['audio']));
         }
+        // not used else where clear the memory.
+        unset($songInfo['audio']);
 
         return $song;
     }

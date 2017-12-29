@@ -16,7 +16,6 @@ class ApiGenreData extends AbstractApiData implements ApiDataInterface
     {
         if ($object instanceof GenreEntity) {
             $apiData = $object->getApiData();
-
             return $apiData;
         }
 

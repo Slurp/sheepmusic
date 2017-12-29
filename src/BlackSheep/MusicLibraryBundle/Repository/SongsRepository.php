@@ -21,4 +21,20 @@ class SongsRepository extends AbstractRepository implements SongsRepositoryInter
     {
         return $this->findOneBy(['mTime' => $songInfo['mTime'], 'path' => $songInfo['path']]);
     }
+
+    /**
+     * @return null|\DateTime
+     */
+    public function lastImportDate()
+    {
+        $lastCall = $this->findOneBy([], ['mTime' => 'DESC']);
+        $lastImportDate = null;
+        if ($lastCall !== null) {
+            $lastImportDate = new \DateTime();
+            $lastImportDate->setTimestamp($lastCall->getMTime());
+            unset($lastCall);
+        }
+
+        return $lastImportDate;
+    }
 }
