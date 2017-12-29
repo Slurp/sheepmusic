@@ -15,4 +15,9 @@ interface SongsRepositoryInterface extends AbstractRepositoryInterface
      * @return null|SongEntity
      */
     public function needsImporting($songInfo);
+
+    /**
+     * @return null|object
+     */
+    public function lastImportDate();
 }

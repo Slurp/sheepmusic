@@ -10,11 +10,11 @@ namespace BlackSheep\MusicScannerBundle\Services;
 
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
 use BlackSheep\MusicLibraryBundle\Repository\SongsRepository;
-use SplFileInfo;
 use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * Import some media.
@@ -89,7 +89,7 @@ class MediaImporter
         $this->songsRepository = $this->managerRegistry->getRepository(
             SongEntity::class
         );
-        $importingFiles = $this->gatherFiles($this->path);
+        $importingFiles = $this->gatherFiles($this->path, $this->songsRepository->lastImportDate());
         if (count($importingFiles) > 0) {
             $this->setupProgressBar(count($importingFiles));
             /** @var SplFileInfo $file */
@@ -107,16 +107,22 @@ class MediaImporter
      *
      * @param string $path The directory's full path
      *
+     * @param \DateTime|null $lastImportDate
+     *
      * @return Finder An array of SplFileInfo objects
      */
-    public function gatherFiles($path)
+    public function gatherFiles($path, \DateTime $lastImportDate = null)
     {
-        return Finder::create()
+        $finder = Finder::create()
             ->files()
             ->name('/\.(mp3|ogg|m4a|flac)$/i')
             ->in($path)
-            //->date('since last week')
             ->sortByModifiedTime();
+        if ($lastImportDate !== null) {
+            $finder->date('>=' . $lastImportDate->format('Y-m-d'));
+        }
+
+        return $finder;
     }
 
     /**
