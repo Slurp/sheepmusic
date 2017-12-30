@@ -3,9 +3,11 @@
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use BlackSheep\MusicLibraryBundle\Entity\PlaylistEntity;
+use BlackSheep\MusicLibraryBundle\Entity\PlaylistsSongsEntity;
 use BlackSheep\MusicLibraryBundle\Helper\PlaylistCoverHelper;
 use BlackSheep\MusicLibraryBundle\Model\PlaylistInterface;
 use BlackSheep\MusicLibraryBundle\Model\SongInterface;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\Query;
 
@@ -52,8 +54,13 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
     {
         $playlist = $this->getByName($name);
         if ($songs !== null) {
+            $position = 0;
+            $playlist->setSongs(new ArrayCollection());
             foreach ($songs as $song) {
-                $playlist->addSong($song);
+                $plSong = new PlaylistsSongsEntity();
+                $plSong->setSong($song);
+                $plSong->setPosition($position++);
+                $playlist->addSong($plSong);
             }
             $cover = new PlaylistCoverHelper();
             $playlist->setCover($cover->createCoverForPlaylist($playlist, false));

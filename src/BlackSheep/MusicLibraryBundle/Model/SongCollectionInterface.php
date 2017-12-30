@@ -16,14 +16,14 @@ interface SongCollectionInterface
     /**
      * @param SongInterface[] $songs
      *
-     * @return AlbumInterface
+     * @return array
      */
     public function setSongs($songs);
 
     /**
      * @param SongInterface $song
      *
-     * @return AlbumInterface
+     * @return $this
      */
     public function addSong(SongInterface $song);
 

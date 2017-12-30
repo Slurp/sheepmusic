@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace BlackSheep\UserBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

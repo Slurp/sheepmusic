@@ -2,15 +2,12 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model;
 
-use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
 
 /**
  *
  */
 class Playlist implements PlaylistInterface, ApiInterface
 {
-    use SongCollectionTrait;
-
     /**
      * @var string
      */
@@ -20,6 +17,11 @@ class Playlist implements PlaylistInterface, ApiInterface
      * @var string $cover
      */
     protected $cover;
+
+    /**
+     * @var array
+     */
+    protected $songs;
 
     /**
      * @param string|null $name
@@ -34,6 +36,7 @@ class Playlist implements PlaylistInterface, ApiInterface
             $name = $date->format(DATE_W3C);
         }
         $playlist->setName($name);
+        $playlist->setSongs([]);
 
         return $playlist;
     }
@@ -63,7 +66,7 @@ class Playlist implements PlaylistInterface, ApiInterface
     {
         $albums = [];
         foreach ($this->getSongs() as $song) {
-            $albums[$song->getAlbum()->getSlug()] = $song->getAlbum();
+            $albums[$song->getSong()->getAlbum()->getSlug()] = $song->getSong()->getAlbum();
         }
 
         return $albums;
@@ -85,6 +88,47 @@ class Playlist implements PlaylistInterface, ApiInterface
     public function setCover($cover)
     {
         $this->cover = $cover;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getSongs()
+    {
+        return $this->songs;
+    }
+
+    /**
+     * @param array $songs
+     */
+    public function setSongs($songs)
+    {
+        $this->songs = $songs;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function addSong(PlaylistsSongsInterface $song)
+    {
+        if (in_array($song, $this->songs) === false) {
+            $this->songs[] = $song;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function removeSong(PlaylistsSongsInterface $song)
+    {
+        if (($key = array_search($song, $this->songs, true)) !== false) {
+            unset($this->songs[$key]);
+            $this->songs = array_values($this->songs);
+        }
 
         return $this;
     }

@@ -4,7 +4,7 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 /**
  *
  */
-interface PlaylistInterface extends SongCollectionInterface
+interface PlaylistInterface
 {
     /**
      * @param string|null $name
@@ -41,4 +41,30 @@ interface PlaylistInterface extends SongCollectionInterface
      * @return PlaylistInterface
      */
     public function setCover($cover);
+
+    /**
+     * @return PlaylistsSongsInterface[]
+     */
+    public function getSongs();
+
+    /**
+     * @param PlaylistsSongsInterface[] $songs
+     *
+     * @return array
+     */
+    public function setSongs($songs);
+
+    /**
+     * @param PlaylistsSongsInterface $song
+     *
+     * @return $this
+     */
+    public function addSong(PlaylistsSongsInterface $song);
+
+    /**
+     * @param PlaylistsSongsInterface $song
+     *
+     * @return $this
+     */
+    public function removeSong(PlaylistsSongsInterface $song);
 }
