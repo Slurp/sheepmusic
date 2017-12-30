@@ -28,7 +28,9 @@ trait SongCollectionTrait
      */
     public function setSongs($songs)
     {
-        $this->songs = $songs;
+        foreach ($songs as $song) {
+            $this->addSong($song);
+        }
 
         return $this;
     }

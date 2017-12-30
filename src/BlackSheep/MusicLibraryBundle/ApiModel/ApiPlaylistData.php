@@ -3,7 +3,6 @@
 namespace BlackSheep\MusicLibraryBundle\ApiModel;
 
 use BlackSheep\MusicLibraryBundle\Entity\PlaylistEntity;
-use BlackSheep\MusicLibraryBundle\Model\PlaylistInterface;
 
 /**
  * Generates a array for the API.
@@ -18,8 +17,9 @@ class ApiPlaylistData extends ApiSongData implements ApiDataInterface
         if ($object instanceof PlaylistEntity) {
             $songs = [];
             foreach ($object->getSongs() as $song) {
-                $songs[] = parent::getApiData($song);
+                $songs[] = parent::getApiData($song->getSong());
             }
+
             return array_merge(
                 [
                     'songs' => $songs,
@@ -27,6 +27,7 @@ class ApiPlaylistData extends ApiSongData implements ApiDataInterface
                 $object->getApiData()
             );
         }
+
         return null;
     }
 }
