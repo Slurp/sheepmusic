@@ -17,7 +17,7 @@ class ApiPlaylistData extends ApiSongData implements ApiDataInterface
         if ($object instanceof PlaylistEntity) {
             $songs = [];
             foreach ($object->getSongs() as $song) {
-                $songs[] = parent::getApiData($song->getSong());
+                $songs[$song->getPosition()] = parent::getApiData($song->getSong());
             }
 
             return array_merge(
