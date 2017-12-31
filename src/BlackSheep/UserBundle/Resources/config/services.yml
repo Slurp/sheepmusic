@@ -6,3 +6,10 @@ services:
     BlackSheep\UserBundle\Controller\ProfileController:
         class: BlackSheep\UserBundle\Controller\ProfileController
         arguments: ['@event_dispatcher', '@fos_user.profile.form.factory', '@fos_user.user_manager', '@fos_user.email_update_confirmation', '@translator']
+
+    blacksheep_user.event.jwt_expired_listener:
+        class: BlackSheep\UserBundle\EventListener\JWTExpiredListener
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_expired, method: onJWTExpired }
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_invalid, method: onJWTInvalid }
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_not_found, method: onJWTNotFound }

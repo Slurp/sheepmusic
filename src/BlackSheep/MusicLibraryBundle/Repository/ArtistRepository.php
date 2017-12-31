@@ -3,6 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
+use BlackSheep\MusicLibraryBundle\Entity\GenreEntity;
 use Doctrine\ORM\Query;
 
 /**
@@ -101,5 +102,12 @@ class ArtistRepository extends AbstractRepository implements ArtistRepositoryInt
             [],
             Query::HYDRATE_ARRAY
         );
+    }
+
+    public function getArtistsByGenre(GenreEntity $genre)
+    {
+        return $this->createQueryBuilder("a")
+            ->where(':genre MEMBER OF a.genres')
+            ->setParameters(['genre' => $genre])->getQuery()->getResult();
     }
 }
