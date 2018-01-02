@@ -104,4 +104,14 @@ interface AlbumInterface extends ApiInterface, SongCollectionInterface, PlayCoun
      * @return AlbumInterface
      */
     public function setLastFmUrl($lastFmUrl);
+
+    /**
+     * @return bool
+     */
+    public function isLossless();
+
+    /**
+     * @return bool
+     */
+    public function setLossless($lossless);
 }

@@ -33,7 +33,11 @@ class LastFmArtist implements LastFmArtistInterface
      */
     public function getLastFmInfoQuery()
     {
-        return ['artist' => $this->artist->getName()];
+        if (empty($this->artist->getMusicBrainzId()) === false) {
+            return ['mbid' => $this->artist->getMusicBrainzId(), 'autocorrect' => '1'];
+        }
+
+        return ['artist' => $this->artist->getName(), 'autocorrect' => '1'];
     }
 
     /**
@@ -62,6 +66,9 @@ class LastFmArtist implements LastFmArtistInterface
             $this->artist = $artist;
             $lastFmInfo = $this->lastFmArtistInfo->getInfo($this);
             if ($lastFmInfo !== null) {
+                if ($artist->getName() !== $lastFmInfo['name']) {
+                    $artist->setName($lastFmInfo['name']);
+                }
                 if (empty($artist->getImage())) {
                     $artist->setImage($lastFmInfo['image']['large']);
                 }

@@ -1,0 +1,99 @@
+<?php
+
+namespace BlackSheep\LastFmBundle\EventListener;
+
+use BlackSheep\LastFmBundle\Info\LastFmArtistInfo;
+use BlackSheep\MusicLibraryBundle\EventListener\ArtistEventListener;
+use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
+use BlackSheep\MusicLibraryBundle\Repository\ArtistRepositoryInterface;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ConnectException;
+use LastFmApi\Exception\ApiFailedException;
+use LastFmApi\Exception\ConnectionException;
+
+/**
+ * ArtistEventSubscriber
+ */
+class ArtistEventSubscriber implements ArtistEventListener
+{
+    /**
+     * @var ArtistRepositoryInterface
+     */
+    protected $artistsRepository;
+
+    /**
+     * @var LastFmArtistInfo
+     */
+    protected $client;
+
+    /**
+     * @param ArtistRepositoryInterface $artistsRepository
+     * @param LastFmArtistInfo $client
+     */
+    public function __construct(
+        ArtistRepositoryInterface $artistsRepository,
+        LastFmArtistInfo $client
+    ) {
+        $this->artistsRepository = $artistsRepository;
+        $this->client = $client;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public static function getSubscribedEvents()
+    {
+        // return the subscribed events, their methods and priorities
+        return [
+            ArtistEventInterface::ARTIST_EVENT_FETCHED => "fetchedArtist",
+            ArtistEventInterface::ARTIST_EVENT_CREATED => "createdArtist",
+            ArtistEventInterface::ARTIST_EVENT_UPDATED => "updatedArtist"
+        ];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function fetchedArtist(ArtistEventInterface $event)
+    {
+        $this->addSimilar($event);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function updatedArtist(ArtistEventInterface $event)
+    {
+        $this->addSimilar($event);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function createdArtist(ArtistEventInterface $event)
+    {
+        $this->addSimilar($event);
+    }
+
+    /**
+     * @param ArtistEventInterface $artistEvent
+     */
+    protected function addSimilar(ArtistEventInterface $artistEvent)
+    {
+        $artist = $artistEvent->getArtist();
+        if (empty($artist->getMusicBrainzId()) === false && count($artist->getSimilarArtists()) === 0) {
+            try {
+                $similarArtists = $this->client->getSimilarByMusicBrainzId($artist->getMusicBrainzId());
+                if ($similarArtists) {
+                    $artist->setSimilarArtists(
+                        $this->artistsRepository->findBy(
+                            ['musicBrainzId' => array_column($similarArtists, 'mbid')]
+                        )
+                    );
+                }
+            } catch (ConnectionException $connectionException) {
+            } catch (ApiFailedException $apiFailedException) {
+            }
+        }
+    }
+}

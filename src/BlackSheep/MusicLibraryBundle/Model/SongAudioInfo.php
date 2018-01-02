@@ -87,6 +87,18 @@ class SongAudioInfo implements SongAudioInfoInterface
     }
 
     /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $info = [];
+        foreach (static::getAllowedKeys() as $key) {
+            $info[$key] = $this->$key;
+        }
+        return $info;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getDataformat()

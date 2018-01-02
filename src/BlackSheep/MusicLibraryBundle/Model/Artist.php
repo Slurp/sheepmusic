@@ -58,10 +58,12 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     protected $albums;
 
     /**
-     * @param      $name
-     * @param null $musicBrainzId
-     *
-     * @return ArtistInterface
+     * @var ArtistInterface[]
+     */
+    protected $similarArtists;
+
+    /**
+     * {@inheritdoc}
      */
     public static function createNew($name, $musicBrainzId = null)
     {
@@ -74,7 +76,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getSlug()
     {
@@ -82,7 +84,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getAlias()
     {
@@ -90,7 +92,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getName()
     {
@@ -98,9 +100,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @param mixed $name
-     *
-     * @return ArtistInterface
+     * {@inheritdoc}
      */
     public function setName($name)
     {
@@ -110,7 +110,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getMusicBrainzId()
     {
@@ -118,9 +118,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @param mixed $musicBrainzId
-     *
-     * @return ArtistInterface
+     * {@inheritdoc}
      */
     public function setMusicBrainzId($musicBrainzId)
     {
@@ -133,7 +131,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getImage()
     {
@@ -141,9 +139,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @param mixed $image
-     *
-     * @return ArtistInterface
+     * {@inheritdoc}
      */
     public function setImage($image)
     {
@@ -153,7 +149,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @return string
+     * {@inheritdoc}
      */
     public function getBiography()
     {
@@ -161,9 +157,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @param mixed $biography
-     *
-     * @return ArtistInterface
+     * {@inheritdoc}
      */
     public function setBiography($biography)
     {
@@ -173,7 +167,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @return AlbumInterface[]
+     * {@inheritdoc}
      */
     public function getAlbums()
     {
@@ -181,9 +175,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @param AlbumInterface[] $albums
-     *
-     * @return ArtistInterface
+     * {@inheritdoc}
      */
     public function setAlbums($albums)
     {
@@ -193,7 +185,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getAlbumArt()
     {
@@ -208,17 +200,62 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getSimilarArtists()
+    {
+        return $this->similarArtists;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setSimilarArtists($similarArtists)
+    {
+        $this->similarArtists = $similarArtists;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addSimilarArtist(ArtistInterface $similarArtist)
+    {
+        if (in_array($similarArtist, $this->similarArtists) === false) {
+            $this->similarArtists[] = $similarArtist;
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeSimilarArtist(ArtistInterface $similarArtist)
+    {
+        if (($key = array_search($similarArtist, $this->similarArtists, true)) !== false) {
+            unset($this->similarArtists[$key]);
+            $this->similarArtists = array_values($this->similarArtists);
+        }
+
+        return $this;
+    }
+    /**
      * @return array
      */
     public function getApiData()
     {
+        $genres = [];
+        foreach ($this->getGenres() as $genre) {
+            $genres[] = $genre->getApiData();
+        }
         return [
             'name' => $this->getName(),
             'biography' => $this->getBiography(),
             'image' => $this->getImage(),
             'albumArt' => $this->getAlbumArt(),
             'playCount' => $this->getPlayCount(),
-            'mbId' => $this->getMusicBrainzId()
+            'mbId' => $this->getMusicBrainzId(),
+            'genres' => $genres
         ];
     }
 }

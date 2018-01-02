@@ -66,7 +66,9 @@ class LastFmAlbum implements LastFmAlbumInterface
                 $album->setLastFmId($lastFmInfo['lastfmid']);
                 $album->setLastFmUrl($lastFmInfo['url']);
                 if ($lastFmInfo['releasedate']) {
-                    $album->setReleaseDate(new DateTime($lastFmInfo['releasedate']));
+                    $date = new DateTime();
+                    $date->setTimestamp($lastFmInfo['releasedate']);
+                    $album->setReleaseDate($date);
                 }
             }
             unset($lastFmInfo);

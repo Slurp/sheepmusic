@@ -160,6 +160,7 @@ class SongEntity extends Song implements SongInterface
     {
         $array = parent::getApiData();
         $array['id'] = $this->getId();
+        $array['audio'] = $this->getAudio()->toArray();
 
         return $array;
     }

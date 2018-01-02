@@ -21,11 +21,6 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
             foreach ($object->getAlbums() as $album) {
                 $albums[] = parent::getApiData($album);
             }
-            $genres = [];
-            foreach ($object->getGenres() as $genre) {
-                $genres[] = $genre->getApiData();
-            }
-
             $artistData = array_merge(
                 $artistData,
                 ApiArtworkHelper::prefixArtworkSetWithUrl(
@@ -42,7 +37,6 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                     'createdAt' => $object->getCreatedAt(),
                     'updatedAt' => $object->getUpdatedAt(),
                     'albums' => $albums,
-                    'genres' => $genres
                 ],
                 $artistData
             );

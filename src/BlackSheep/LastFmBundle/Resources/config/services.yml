@@ -10,6 +10,13 @@ services:
         arguments: ['@black_sheep.last_fm.last_fm_track_info']
         tags:
             - { name: kernel.event_subscriber }
+    black_sheep.last_fm.artist_event_subscriber:
+        class: BlackSheep\LastFmBundle\EventListener\ArtistEventSubscriber
+        arguments:
+            - '@black_sheep_music_library.repository.artists_repository'
+            - '@black_sheep.last_fm.last_fm_artist_info'
+        tags:
+            - { name: kernel.event_subscriber }
     black_sheep.last_fm.last_fm_album_info:
         class: BlackSheep\LastFmBundle\Info\LastFmAlbumInfo
         arguments:
