@@ -85,11 +85,17 @@ class AlbumEntity extends Album implements AlbumInterface
     protected $genre;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $lossless = true;
+
+    /**
      * Constructs this object with a array collection.
      */
     public function __construct()
     {
         $this->songs = new ArrayCollection();
+        $this->lossless = true;
     }
 
     /**
@@ -99,6 +105,7 @@ class AlbumEntity extends Album implements AlbumInterface
     {
         if ($this->songs->contains($song) === false) {
             $this->songs->add($song);
+            $this->lossless = ($song->getAudio()->getLossless() === true && $this->lossless === true);
             $song->setAlbum($this);
         }
 

@@ -62,6 +62,11 @@ class Album implements AlbumInterface
     protected $playCount;
 
     /**
+     * @var boolean
+     */
+    protected $lossless;
+
+    /**
      * @param $name
      * @param \BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity $artist
      * @param $extraInfo
@@ -233,6 +238,22 @@ class Album implements AlbumInterface
     }
 
     /**
+     * @return bool
+     */
+    public function isLossless()
+    {
+        return $this->lossless;
+    }
+
+    /**
+     * @param bool $lossless
+     */
+    public function setLossless($lossless)
+    {
+        $this->lossless = $lossless;
+    }
+
+    /**
      * @return array
      */
     public function getApiData()
@@ -242,7 +263,8 @@ class Album implements AlbumInterface
             'name' => $this->getName(),
             'cover' => $this->getCover(),
             'playCount' => $this->getPlayCount(),
-            'mbId' => $this->getMusicBrainzId()
+            'mbId' => $this->getMusicBrainzId(),
+            'lossless' => $this->isLossless()
         ];
     }
 }

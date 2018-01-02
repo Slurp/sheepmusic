@@ -97,4 +97,24 @@ interface ArtistInterface extends
      * @return mixed
      */
     public function getAlbumArt();
+
+    /**
+     * @return ArtistInterface[]
+     */
+    public function getSimilarArtists();
+
+    /**
+     * @param ArtistInterface[] $similarArtists
+     */
+    public function setSimilarArtists($similarArtists);
+
+    /**
+     * @param ArtistInterface $similarArtist
+     */
+    public function addSimilarArtist(ArtistInterface $similarArtist);
+
+    /**
+     * @param ArtistInterface $similarArtist
+     */
+    public function removeSimilarArtist(ArtistInterface $similarArtist);
 }

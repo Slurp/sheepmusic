@@ -86,9 +86,27 @@ class ArtistsEntity extends Artist implements ArtistInterface
     protected $genres;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlackSheep\MusicLibraryBundle\Entity\Media\ArtworkEntity", mappedBy="artist" ,cascade={"all"})
+     * @ORM\OneToMany(
+     *     targetEntity="BlackSheep\MusicLibraryBundle\Entity\Media\ArtworkEntity",
+     *     mappedBy="artist",
+     *     cascade={"all"}
+     * )
      */
     protected $artworks;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity", fetch="EXTRA_LAZY")
+     * @ORM\JoinTable(
+     *  name="artists_similar",
+     *  joinColumns={
+     *      @ORM\JoinColumn(name="artist_id", referencedColumnName="id")
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(name="similar_id", referencedColumnName="id")
+     *  }
+     * )
+     */
+    protected $similarArtists;
 
     public function __construct()
     {
@@ -96,6 +114,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
         $this->songs = new ArrayCollection();
         $this->genres = new ArrayCollection();
         $this->artworks = new ArrayCollection();
+        $this->similarArtists = new ArrayCollection();
     }
 
     /**
@@ -112,12 +131,37 @@ class ArtistsEntity extends Artist implements ArtistInterface
     }
 
     /**
+     * @inheritDoc
+     */
+    public function removeSong(SongInterface $song)
+    {
+        if ($this->songs->contains($song) === true) {
+            $song->setAlbum(null);
+            $this->songs->remove($song);
+        }
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function addGenre(GenreInterface $genre)
     {
         if ($this->genres->contains($genre) === false) {
-            $this->artworks->add($genre);
+            $this->genres->add($genre);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function removeGenre(GenreInterface $genre)
+    {
+        if ($this->genres->contains($genre) === true) {
+            $this->genres->remove($genre);
         }
 
         return $this;
@@ -131,6 +175,30 @@ class ArtistsEntity extends Artist implements ArtistInterface
         if ($this->artworks->contains($artwork) === false) {
             $this->artworks->add($artwork);
             $artwork->setArtist($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function addSimilarArtist(ArtistInterface $similarArtist)
+    {
+        if ($this->similarArtists->contains($similarArtist) === false) {
+            $this->similarArtists->add($similarArtist);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function removeSimilarArtist(ArtistInterface $similarArtist)
+    {
+        if ($this->similarArtists->contains($similarArtist) === true) {
+            $this->similarArtists->remove($similarArtist);
         }
 
         return $this;

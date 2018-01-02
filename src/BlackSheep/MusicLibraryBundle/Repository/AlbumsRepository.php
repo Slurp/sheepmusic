@@ -13,6 +13,8 @@ use Doctrine\ORM\Query;
  */
 class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInterface
 {
+    protected $listSelection = ['a.id', 'a.slug', 'a.name', 'a.createdAt', 'a.playCount', 'a.lossless'];
+
     /**
      * {@inheritdoc}
      */
@@ -83,7 +85,7 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
     public function getRecentAlbumsList()
     {
         return $this->createQueryBuilder('a')->select(
-            ['a.id', 'a.slug', 'a.name', 'a.createdAt', 'a.updatedAt', 'a.playCount']
+            ['a.id', 'a.slug', 'a.name', 'a.createdAt', 'a.playCount', 'a.lossless']
         )->addOrderBy('a.createdAt', 'DESC')->getQuery()->execute(
             [],
             Query::HYDRATE_ARRAY

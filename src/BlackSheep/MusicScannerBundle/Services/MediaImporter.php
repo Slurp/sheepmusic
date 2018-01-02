@@ -98,6 +98,7 @@ class MediaImporter
                 $this->debugStep('imported', $file->getFilename());
                 unset($file);
             }
+            $this->managerRegistry->getManager()->flush();
         }
         $this->debugEnd();
     }

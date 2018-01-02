@@ -31,7 +31,7 @@ class SongsRepository extends AbstractRepository implements SongsRepositoryInter
         $lastImportDate = null;
         if ($lastCall !== null) {
             $lastImportDate = new \DateTime();
-            $lastImportDate->setTimestamp($lastCall->getMTime());
+            $lastImportDate->setTimestamp($lastCall->getMTime())->modify('-3 hours');
             unset($lastCall);
         }
 

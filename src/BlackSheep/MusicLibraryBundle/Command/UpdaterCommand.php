@@ -86,11 +86,13 @@ class UpdaterCommand extends ContainerAwareCommand
         $genres = [];
         foreach ($artist->getAlbums() as $album) {
             if ($album->getSongs() &&
-                $album->getSongs()->first() !== false &&
-                $album->getSongs()->first()->getGenre() !== '' &&
-                $album->getSongs()->first()->getGenre() !== null) {
-                $album->setGenre($album->getSongs()->first()->getGenre());
-                $genres[$album->getGenre()->getSlug()] = $album->getGenre() ;
+                $album->getSongs()->first() !== false) {
+                $album->setLossless($album->getSongs()->first()->getAudio()->getLossless());
+                if ($album->getSongs()->first()->getGenre() !== '' &&
+                    $album->getSongs()->first()->getGenre() !== null) {
+                    $album->setGenre($album->getSongs()->first()->getGenre());
+                    $genres[$album->getGenre()->getSlug()] = $album->getGenre();
+                }
                 $this->getContainer()->get('doctrine.orm.default_entity_manager')->flush($album);
             }
         }
