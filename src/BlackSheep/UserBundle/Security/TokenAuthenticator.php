@@ -14,13 +14,14 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationExc
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
+use Symfony\Component\Security\Guard\AuthenticatorInterface;
 
 /**
  * Class TokenAuthenticator
  *
  * @package BlackSheep\UserBundle\Security
  */
-class TokenAuthenticator extends AbstractGuardAuthenticator
+class TokenAuthenticator extends AbstractGuardAuthenticator implements AuthenticatorInterface
 {
     /**
      * @var JWTEncoderInterface
@@ -55,7 +56,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         $token = $extractor->extract($request);
 
         if (!$token) {
-            return;
+            return false;
         }
 
         return $token;
@@ -99,6 +100,14 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function supports(Request $request)
+    {
+        return true;
     }
 
     /**

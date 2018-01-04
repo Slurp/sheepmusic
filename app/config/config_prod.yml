@@ -16,12 +16,26 @@ imports:
 monolog:
     handlers:
         main:
-            type:         fingers_crossed
-            action_level: error
-            handler:      nested
-        nested:
+            type: fingers_crossed
+            action_level: critical
+            handler: grouped
+            excluded_404s:
+                - ^/
+        grouped:
+            type: group
+            members: [streamed, buffered, console]
+        console:
+            type:  console
+        streamed:
             type:  stream
             path:  "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
-        console:
-            type:  console
+        buffered:
+            type: buffer
+            handler: swift
+        swift:
+            type: swift_mailer
+            from_email: '%service_email_address_from%'
+            to_email: '%service_email_address_to%'
+            subject: 'BlaatMusic: An error occured!'
+            level: debug

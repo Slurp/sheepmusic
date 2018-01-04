@@ -3,6 +3,8 @@
 namespace BlackSheep\MusicLibraryBundle\Controller\Api;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
+use BlackSheep\MusicLibraryBundle\Events\ArtistEvent;
+use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -46,6 +48,22 @@ class ArtistApiController extends BaseApiController
      */
     public function getArtistAction(ArtistsEntity $artist)
     {
+        return $this->getDetail($artist);
+    }
+
+    /**
+     * @Route("/artist/update/{artist}", name="update_artist")
+     *
+     * @param ArtistsEntity $artist
+     *
+     * @return Response
+     */
+    public function updateMetaData(ArtistsEntity $artist)
+    {
+        $this->get('event_dispatcher')->dispatch(
+            ArtistEventInterface::ARTIST_EVENT_UPDATED,
+            new ArtistEvent($artist)
+        );
         return $this->getDetail($artist);
     }
 }
