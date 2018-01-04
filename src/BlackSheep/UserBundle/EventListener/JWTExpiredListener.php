@@ -44,7 +44,7 @@ class JWTExpiredListener
     {
         $data = [
             'status' => '403 Forbidden',
-            'message' => 'Missing token',
+            'message' => 'No token. Missing token! Look for it!',
         ];
 
         $response = new JsonResponse($data, 403);

@@ -35,10 +35,9 @@ security:
             pattern:  ^/api
             stateless: true
             anonymous: false
-            provider: jwt
             guard:
                 authenticators:
-                    - 'token_authenticator'
+                    - 'black_sheep.jwt_token_authenticator'
         song:
             pattern:  ^/song
             stateless: true
@@ -46,7 +45,7 @@ security:
             provider: jwt
             guard:
                 authenticators:
-                    - 'token_authenticator'
+                    - 'black_sheep.jwt_token_authenticator'
 
     access_control:
         - { path: ^/song/*, role: IS_AUTHENTICATED_ANONYMOUSLY }

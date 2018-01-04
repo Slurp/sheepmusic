@@ -33,6 +33,7 @@ class LoginControllerTest extends ApiTestCaseBase
         $this->assertEquals(200, $reponse->getStatusCode());
 
         $this->assertArrayHasKey('token', $responseArr);
+        $this->assertArrayHasKey('refresh_token', $responseArr);
     }
 
     /**

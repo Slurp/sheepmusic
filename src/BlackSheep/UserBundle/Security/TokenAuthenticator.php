@@ -35,7 +35,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator implements Authentic
 
     /**
      * @param JWTEncoderInterface $jwtEncoder
-     * @param EntityManager       $em
+     * @param EntityManager $em
      */
     public function __construct(JWTEncoderInterface $jwtEncoder, EntityManager $em)
     {
@@ -93,6 +93,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator implements Authentic
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
+        return new Response('Token missing or invalid', '401');
     }
 
     /**
