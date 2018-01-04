@@ -22,6 +22,7 @@ security:
             pattern:  ^/api/token/refresh
             stateless: true
             anonymous: true
+            provider: jwt
         login:
             pattern:  ^/api/login
             stateless: true
@@ -42,7 +43,6 @@ security:
             pattern:  ^/song
             stateless: true
             anonymous: false
-            provider: jwt
             guard:
                 authenticators:
                     - 'black_sheep.jwt_token_authenticator'

@@ -113,6 +113,42 @@ class ApiTestCaseBase extends WebTestCase
     }
 
     /**
+     * Create a client with a default Authorization header.
+     *
+     * @param string $username
+     * @param string $password
+     *
+     * @return \Symfony\Bundle\FrameworkBundle\Client
+     */
+    protected function refreshedToken($username = 'user', $password = 'password')
+    {
+        $this->createUser($username, $password);
+        $parameter = '{"username":"' . $username . '","password":"' . $password . '"}';
+        $this->client->request(
+            'POST',
+            '/api/login_check',
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            $parameter
+        );
+
+        $response = $this->client->getResponse()->getContent();
+        $data = json_decode($response, true);
+
+        $this->client->request(
+            'GET',
+            '/api/token/refresh?refresh_token=' . $data['refresh_token']
+        );
+        $refreshReponse = $this->client->getResponse()->getContent();
+        $refreshData = json_decode($refreshReponse, true);
+
+        return $refreshData['token'];
+    }
+
+    /**
      *
      */
     private function purgeDatabase()
