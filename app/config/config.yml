@@ -128,4 +128,5 @@ lexik_jwt_authentication:
             name:    Authorization
 gesdinet_jwt_refresh_token:
     firewall: api
+    user_provider: fos_user.user_provider.username
 

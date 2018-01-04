@@ -31,6 +31,27 @@ class AlbumsControllerTest extends ApiTestCaseBase
     /**
      *
      */
+    public function testGETAlbumsForUserRefreshToken()
+    {
+        $token = $this->refreshedToken();
+        $this->client->request(
+            'GET',
+            '/api/album_list',
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json',
+                'HTTP_AUTHORIZATION' => 'Bearer '.$token],
+            []
+        );
+
+        $content = $this->client->getResponse()->getContent();
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals([], json_decode($content, true));
+    }
+
+    /**
+     *
+     */
     public function testGETAlbumsAsUnauthorizedUser()
     {
         $this->client->request(
