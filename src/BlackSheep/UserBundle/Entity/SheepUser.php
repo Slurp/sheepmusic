@@ -98,8 +98,12 @@ class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, U
     {
         $user = new static();
         $user->setUsername($username);
-        $user->setRoles($payload['roles']);
-        $user->setEmail($payload['email']);
+        if (isset($payload['roles'])) {
+            $user->setRoles($payload['roles']);
+        }
+        if (isset($payload['email'])) {
+            $user->setEmail($payload['email']);
+        }
 
         return $user;
     }

@@ -2,9 +2,9 @@
 
 namespace Tests\BlackSheep\UserBundle\Controller;
 
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 
 class ApiTestCaseBase extends WebTestCase
 {
@@ -48,6 +48,7 @@ class ApiTestCaseBase extends WebTestCase
 
     /**
      * @param $id
+     *
      * @return object
      */
     protected function getService($id)
@@ -60,6 +61,7 @@ class ApiTestCaseBase extends WebTestCase
      * @param $userName
      * @param $password
      * @param null $addOnEmail
+     *
      * @return mixed
      */
     protected function createUser($userName, $password, $addOnEmail = null)
@@ -79,6 +81,35 @@ class ApiTestCaseBase extends WebTestCase
         }
 
         return $user;
+    }
+
+    /**
+     * Create a client with a default Authorization header.
+     *
+     * @param string $username
+     * @param string $password
+     *
+     * @return \Symfony\Bundle\FrameworkBundle\Client
+     */
+    protected function getToken($username = 'user', $password = 'password')
+    {
+        $this->createUser($username, $password);
+        $parameter = '{"username":"' . $username . '","password":"' . $password . '"}';
+        $this->client->request(
+            'POST',
+            '/api/login_check',
+            [],
+            [],
+            [
+                'CONTENT_TYPE' => 'application/json',
+            ],
+            $parameter
+        );
+
+        $response = $this->client->getResponse()->getContent();
+        $data = json_decode($response, true);
+
+        return $data['token'];
     }
 
     /**

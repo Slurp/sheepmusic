@@ -12,8 +12,7 @@ class AlbumsControllerTest extends ApiTestCaseBase
      */
     public function testGETAlbumsForUser()
     {
-        $token = $this->getTokenForTestUser();
-
+        $token = $this->getToken();
         $this->client->request(
             'GET',
             '/api/album_list',
@@ -24,8 +23,8 @@ class AlbumsControllerTest extends ApiTestCaseBase
             []
         );
 
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $content = $this->client->getResponse()->getContent();
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals([], json_decode($content, true));
     }
 
@@ -43,25 +42,7 @@ class AlbumsControllerTest extends ApiTestCaseBase
             []
         );
 
-        $this->assertEquals(401, $this->client->getResponse()->getStatusCode());
-        $this->assertEquals('Token is missing!', $this->client->getResponse()->getContent());
-    }
-
-    /**
-     * Creates some user and returns his token
-     *
-     * @return string
-     */
-    private function getTokenForTestUser()
-    {
-        $userName = "drle_torca";
-        $password = "huligan_kola";
-
-        $user = $this->createUser($userName, $password);
-
-        $token = $this->getService('lexik_jwt_authentication.encoder')
-                ->encode(['username' => 'drle_torca']);
-
-        return $token;
+        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals('{"status":"403 Forbidden","message":"No token. Missing token! Look for it!"}', $this->client->getResponse()->getContent());
     }
 }
