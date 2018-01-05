@@ -9,7 +9,7 @@ class FfmpegArgumentBuilder
 {
     /**
      * @param $path
-     * @param integer $startTime
+     * @param int $startTime
      *
      * @return string
      */

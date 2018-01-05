@@ -1,11 +1,12 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Query;
 
 /**
- * Some useful common functions
+ * Some useful common functions.
  */
 class AbstractRepository extends EntityRepository implements AbstractRepositoryInterface
 {

@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ConnectException;
 
 /**
- * ArtistEventSubscriber
+ * ArtistEventSubscriber.
  */
 class ArtistEventSubscriber implements ArtistEventListener
 {
@@ -33,8 +33,8 @@ class ArtistEventSubscriber implements ArtistEventListener
 
     /**
      * @param ArtistRepositoryInterface $artistsRepository
-     * @param MusicClient $client
-     * @param ArtworkFactory $artworkFactory
+     * @param MusicClient               $client
+     * @param ArtworkFactory            $artworkFactory
      */
     public function __construct(
         ArtistRepositoryInterface $artistsRepository,
@@ -47,20 +47,20 @@ class ArtistEventSubscriber implements ArtistEventListener
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
         // return the subscribed events, their methods and priorities
         return [
-            ArtistEventInterface::ARTIST_EVENT_FETCHED => "fetchedArtist",
-            ArtistEventInterface::ARTIST_EVENT_CREATED => "createdArtist",
-            ArtistEventInterface::ARTIST_EVENT_UPDATED => "updatedArtist"
+            ArtistEventInterface::ARTIST_EVENT_FETCHED => 'fetchedArtist',
+            ArtistEventInterface::ARTIST_EVENT_CREATED => 'createdArtist',
+            ArtistEventInterface::ARTIST_EVENT_UPDATED => 'updatedArtist',
         ];
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchedArtist(ArtistEventInterface $event)
     {
@@ -68,7 +68,7 @@ class ArtistEventSubscriber implements ArtistEventListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function updatedArtist(ArtistEventInterface $event)
     {
@@ -76,7 +76,7 @@ class ArtistEventSubscriber implements ArtistEventListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function createdArtist(ArtistEventInterface $event)
     {

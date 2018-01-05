@@ -3,7 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * Interface hasGenreInterface
+ * Interface hasGenreInterface.
  */
 interface HasGenreInterface
 {

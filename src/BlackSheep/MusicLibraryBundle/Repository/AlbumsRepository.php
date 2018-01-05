@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query;
 
 /**
- * SongsRepository
+ * SongsRepository.
  */
 class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInterface
 {

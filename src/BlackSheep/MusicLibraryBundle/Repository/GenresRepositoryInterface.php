@@ -10,14 +10,14 @@ use BlackSheep\MusicLibraryBundle\Model\GenreInterface;
 interface GenresRepositoryInterface extends AbstractRepositoryInterface
 {
     /**
-     * @param               $genreName
+     * @param   $genreName
      *
      * @return GenreInterface|null
      */
     public function addOrUpdateByName($genreName);
 
     /**
-     * @param               $genreName
+     * @param   $genreName
      *
      * @return null|GenreInterface
      */

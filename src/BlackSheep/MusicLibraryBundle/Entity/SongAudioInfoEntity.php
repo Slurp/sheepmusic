@@ -6,13 +6,12 @@ use BlackSheep\MusicLibraryBundle\Model\SongAudioInfo;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * SongAudioInfoEntity
+ * SongAudioInfoEntity.
  *
  * @ORM\Embeddable()
  */
 class SongAudioInfoEntity extends SongAudioInfo
 {
-
     /**
      * @var string
      * @ORM\Column(type="string", nullable=true)

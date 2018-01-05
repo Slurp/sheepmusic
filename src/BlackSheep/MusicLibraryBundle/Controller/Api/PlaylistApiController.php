@@ -8,20 +8,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Playlist Api
+ * Playlist Api.
  */
 class PlaylistApiController extends BaseApiController
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function getRepository()
     {
-        return $this->get("black_sheep_music_library.repository.playlist_repository");
+        return $this->get('black_sheep_music_library.repository.playlist_repository');
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function getApiDataModel()
     {

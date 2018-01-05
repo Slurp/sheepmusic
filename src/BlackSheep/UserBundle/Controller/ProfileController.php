@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * Profile for a user
+ * Profile for a user.
  */
 class ProfileController extends BaseController
 {
@@ -27,6 +27,7 @@ class ProfileController extends BaseController
     public function indexAction()
     {
         $user = $this->getUser();
+
         return $this->render('BlackSheepUserBundle:Profile:index.html.twig', ['user' => $user]);
     }
 
@@ -64,6 +65,7 @@ class ProfileController extends BaseController
         if ($form->isSubmitted() && $form->isValid()) {
             return $this->handleForm($form, $request, $dispatcher, $user);
         }
+
         return $this->render(
             '@BlackSheepUser/Profile/edit.html.twig',
             [
@@ -73,10 +75,10 @@ class ProfileController extends BaseController
     }
 
     /**
-     * @param Form $form
-     * @param Request $request
+     * @param Form                     $form
+     * @param Request                  $request
      * @param EventDispatcherInterface $dispatcher
-     * @param UserInterface $user
+     * @param UserInterface            $user
      *
      * @return null|RedirectResponse|Response
      */
@@ -104,7 +106,7 @@ class ProfileController extends BaseController
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function getUser()
     {

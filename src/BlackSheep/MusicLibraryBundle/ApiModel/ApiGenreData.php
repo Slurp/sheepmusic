@@ -20,7 +20,7 @@ class ApiGenreData extends AbstractApiData implements ApiDataInterface
     protected $managerRegistry;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function __construct(
         RouterInterface $router,

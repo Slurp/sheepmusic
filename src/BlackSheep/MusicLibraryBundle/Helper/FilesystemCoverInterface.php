@@ -1,10 +1,9 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Helper;
 
 /**
- * Interface FilesystemCoverInterface
- *
- * @package BlackSheep\MusicLibraryBundle\Helper
+ * Interface FilesystemCoverInterface.
  */
 interface FilesystemCoverInterface
 {

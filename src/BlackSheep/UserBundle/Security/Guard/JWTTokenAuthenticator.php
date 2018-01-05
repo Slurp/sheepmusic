@@ -6,9 +6,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator as
 use Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor;
 
 /**
- * Class JWTTokenAuthenticator
- *
- * @package BlackSheep\UserBundle\Security\Guard
+ * Class JWTTokenAuthenticator.
  */
 class JWTTokenAuthenticator extends BaseAuthenticator
 {

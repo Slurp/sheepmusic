@@ -113,16 +113,17 @@ class AlbumEntity extends Album implements AlbumInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getApiData()
     {
         $array = parent::getApiData();
         $array['id'] = $this->getId();
-        $array['year'] =  '....';
-        if($this->getSongs()->first()) {
+        $array['year'] = '....';
+        if ($this->getSongs()->first()) {
             $array['year'] = $this->getSongs()->first()->getYear();
         }
+
         return $array;
     }
 }

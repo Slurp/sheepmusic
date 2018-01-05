@@ -3,15 +3,14 @@
  * @author: @{USER} <stephan@bureaublauwgeel.nl>
  * Date: 12/05/17
  * Time: 01:00
+ *
  * @copyright 2017 Bureau Blauwgeel
+ *
  * @version 1.0
  */
 
 namespace BlackSheep\MusicLibraryBundle\User;
 
-/**
- *
- */
 interface UserSettingsInterface
 {
     /**

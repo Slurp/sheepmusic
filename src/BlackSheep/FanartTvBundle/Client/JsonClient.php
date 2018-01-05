@@ -6,14 +6,12 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request as GuzzleRequest;
 
 /**
- * Class JsonClient
- *
- * @package BlackSheep\FanartTvBundle\Client
+ * Class JsonClient.
  */
 class JsonClient
 {
     /**
-     * BASE_URL FOR THE API
+     * BASE_URL FOR THE API.
      */
     const BASE_URL = 'https://webservice.fanart.tv/v3/';
 

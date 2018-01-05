@@ -1,9 +1,7 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Model;
 
-/**
- *
- */
 interface PlaylistInterface
 {
     /**

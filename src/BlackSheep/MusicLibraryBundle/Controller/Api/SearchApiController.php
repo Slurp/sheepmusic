@@ -11,12 +11,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Search Api
+ * Search Api.
  */
 class SearchApiController extends Controller
 {
     /**
      * @Route("/search/{query}", name="search")
+     *
      * @param $query
      *
      * @return Response
@@ -66,9 +67,9 @@ class SearchApiController extends Controller
     {
         $nameQuery = new Query\Match();
 
-        $nameQuery->setFieldQuery("name", $searchTerm);
-        $nameQuery->setFieldFuzziness("name", 0.7);
-        $nameQuery->setFieldMinimumShouldMatch("name", "80%");
+        $nameQuery->setFieldQuery('name', $searchTerm);
+        $nameQuery->setFieldFuzziness('name', 0.7);
+        $nameQuery->setFieldMinimumShouldMatch('name', '80%');
 
         return $nameQuery;
     }
@@ -82,9 +83,9 @@ class SearchApiController extends Controller
     {
         $titleQuery = new Query\Match();
 
-        $titleQuery->setFieldQuery("title", $searchTerm);
-        $titleQuery->setFieldFuzziness("title", 0.7);
-        $titleQuery->setFieldMinimumShouldMatch("title", "80%");
+        $titleQuery->setFieldQuery('title', $searchTerm);
+        $titleQuery->setFieldFuzziness('title', 0.7);
+        $titleQuery->setFieldMinimumShouldMatch('title', '80%');
 
         return $titleQuery;
     }

@@ -1,8 +1,9 @@
 <?php
+
 namespace BlackSheep\LastFmBundle\Entity\Embeddable;
 
 /**
- * Interface for the LastFm  User
+ * Interface for the LastFm  User.
  */
 interface LastFmUser
 {
@@ -43,12 +44,12 @@ interface LastFmUser
     public function setLastFmKey($lastFmKey);
 
     /**
-     * @return boolean
+     * @return bool
      */
     public function isLastFmSubscriber();
 
     /**
-     * @param boolean $lastFmSubscriber
+     * @param bool $lastFmSubscriber
      *
      * @return LastFmUserEmbeddable
      */

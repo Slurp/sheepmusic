@@ -9,14 +9,8 @@ use BlackSheep\MusicLibraryBundle\Model\PlaylistInterface;
  */
 class PlaylistCoverHelper extends AbstractUploadHelper
 {
-
-    /**
-     *
-     */
     const COVER_DIRECTION_PRIORITY = 'columns';
-    /**
-     *
-     */
+
     const COVER_GRID_NUMBER = 3;
 
     /**
@@ -31,8 +25,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
 
     /**
      * @param PlaylistInterface $playlist
-     *
-     * @param bool $useCache
+     * @param bool              $useCache
      *
      * @return string
      */
@@ -45,7 +38,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
 
             $columns = min(static::COVER_GRID_NUMBER, $numberOfCovers);
             $rows = (int) max(($numberOfCovers / $columns), 1);
-            if (static::COVER_DIRECTION_PRIORITY == "rows") {
+            if (static::COVER_DIRECTION_PRIORITY == 'rows') {
                 $rows = $columns;
                 $columns = (int) max(($numberOfCovers / $rows), 1);
             }
@@ -56,7 +49,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
             imagedestroy($cover);
         }
 
-        return static::getUploadDirectory().$playlist->getName() . '.jpg';
+        return static::getUploadDirectory() . $playlist->getName() . '.jpg';
     }
 
     /**
@@ -103,7 +96,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
     {
         // Creating image objects
         $coverObjects = [];
-        for ($i = 0; $i < ($rows * $columns); $i++) {
+        for ($i = 0; $i < ($rows * $columns); ++$i) {
             $coverObjects[$i] = imagescale(
                 imagecreatefromstring(file_get_contents($covers[$i])),
                 $this->coverThumbWidth,
@@ -124,8 +117,8 @@ class PlaylistCoverHelper extends AbstractUploadHelper
     {
         // Merge Images
         $step = 0;
-        for ($x = 0; $x < $columns; $x++) {
-            for ($y = 0; $y < $rows; $y++) {
+        for ($x = 0; $x < $columns; ++$x) {
+            for ($y = 0; $y < $rows; ++$y) {
                 imagecopymerge(
                     $background,
                     $covers[$step],
@@ -137,7 +130,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
                     $this->coverThumbHeight,
                     100
                 );
-                $step++; // steps through the $coverObjects array
+                ++$step; // steps through the $coverObjects array
             }
         }
     }

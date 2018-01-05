@@ -5,9 +5,7 @@ namespace BlackSheep\FanartTvBundle\Model;
 use BlackSheep\MusicLibraryBundle\Model\ArtworkSetInterface;
 
 /**
- * Class FanartTvResponse
- *
- * @package BlackSheep\FanartTvBundle\Model
+ * Class FanartTvResponse.
  */
 class FanartTvResponse implements ArtworkSetInterface
 {

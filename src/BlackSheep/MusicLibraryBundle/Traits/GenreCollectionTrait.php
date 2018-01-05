@@ -1,12 +1,11 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Traits;
 
 use BlackSheep\MusicLibraryBundle\Model\GenreInterface;
 
 /**
- * Trait GenreCollectionTrait
- *
- * @package BlackSheep\MusicLibraryBundle\Traits
+ * Trait GenreCollectionTrait.
  */
 trait GenreCollectionTrait
 {

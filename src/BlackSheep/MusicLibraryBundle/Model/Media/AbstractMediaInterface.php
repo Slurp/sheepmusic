@@ -3,9 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model\Media;
 
 /**
- * Class AbstractMediaClass
- *
- * @package BlackSheep\MusicLibraryBundle\Modal\Media
+ * Class AbstractMediaClass.
  */
 interface AbstractMediaInterface
 {

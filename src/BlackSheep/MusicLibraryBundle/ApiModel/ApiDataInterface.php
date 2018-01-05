@@ -12,8 +12,7 @@ interface ApiDataInterface
 {
     /**
      * @param RouterInterface $router
-     * @param UploaderHelper $uploaderHelper
-     * @return void
+     * @param UploaderHelper  $uploaderHelper
      */
     public function __construct(RouterInterface $router, UploaderHelper $uploaderHelper);
 

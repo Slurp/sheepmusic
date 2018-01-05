@@ -3,15 +3,10 @@
 namespace BlackSheep\FanartTvBundle\Client;
 
 /**
- * Class MusicClient
- *
- * @package BlackSheep\FanartTvBundle\Client
+ * Class MusicClient.
  */
 class MusicClient extends JsonClient
 {
-    /**
-     *
-     */
     const END_POINT = 'music/';
 
     /**

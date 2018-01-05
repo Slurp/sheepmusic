@@ -22,7 +22,7 @@ class Genre implements GenreInterface
     protected $name;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $playCount;
 

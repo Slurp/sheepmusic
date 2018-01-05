@@ -9,7 +9,7 @@ use BlackSheep\MusicLibraryBundle\Factory\ArtworkFactory;
 use BlackSheep\MusicLibraryBundle\Repository\AlbumsRepositoryInterface;
 
 /**
- * AlbumEventSubscriber
+ * AlbumEventSubscriber.
  */
 class AlbumEventSubscriber implements AlbumEventListener
 {
@@ -30,8 +30,8 @@ class AlbumEventSubscriber implements AlbumEventListener
 
     /**
      * @param AlbumsRepositoryInterface $albumsRepository
-     * @param MusicClient $client
-     * @param ArtworkFactory $logoFactory
+     * @param MusicClient               $client
+     * @param ArtworkFactory            $logoFactory
      */
     public function __construct(
         AlbumsRepositoryInterface $albumsRepository,
@@ -44,20 +44,20 @@ class AlbumEventSubscriber implements AlbumEventListener
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
         // return the subscribed events, their methods and priorities
         return [
-            AlbumEventInterface::ALBUM_EVENT_FETCHED => "fetchedAlbum",
-            AlbumEventInterface::ALBUM_EVENT_CREATED => "createdAlbum",
-            AlbumEventInterface::ALBUM_EVENT_UPDATED => "updatedAlbum"
+            AlbumEventInterface::ALBUM_EVENT_FETCHED => 'fetchedAlbum',
+            AlbumEventInterface::ALBUM_EVENT_CREATED => 'createdAlbum',
+            AlbumEventInterface::ALBUM_EVENT_UPDATED => 'updatedAlbum',
         ];
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchedAlbum(AlbumEventInterface $event)
     {
@@ -65,7 +65,7 @@ class AlbumEventSubscriber implements AlbumEventListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function updatedAlbum(AlbumEventInterface $event)
     {
@@ -73,7 +73,7 @@ class AlbumEventSubscriber implements AlbumEventListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function createdAlbum(AlbumEventInterface $event)
     {

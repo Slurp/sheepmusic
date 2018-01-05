@@ -239,7 +239,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function addPlaylist(PlaylistInterface $playlist)
     {
@@ -247,7 +247,7 @@ class Song implements SongInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function removePlaylist(PlaylistInterface $playlist)
     {

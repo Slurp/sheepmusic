@@ -30,5 +30,4 @@ interface GenreInterface extends ApiInterface, PlayCountInterface
      * @return GenreInterface
      */
     public function setName($name);
-
 }

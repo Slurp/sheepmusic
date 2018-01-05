@@ -1,10 +1,9 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * Interface SongCollectionInterface
- *
- * @package BlackSheep\MusicLibraryBundle\Model
+ * Interface SongCollectionInterface.
  */
 interface SongCollectionInterface
 {

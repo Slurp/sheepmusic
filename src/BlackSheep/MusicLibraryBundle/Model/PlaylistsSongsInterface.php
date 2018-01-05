@@ -3,24 +3,15 @@
  * Created by PhpStorm.
  * User: slangeweg
  * Date: 30/12/2017
- * Time: 00:35
+ * Time: 00:35.
  */
 
 namespace BlackSheep\MusicLibraryBundle\Model;
 
-/**
- *
- */
 interface PlaylistsSongsInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getPosition();
 
-    /**
-     * {@inheritdoc}
-     */
     public function setPosition($position);
 
     /**

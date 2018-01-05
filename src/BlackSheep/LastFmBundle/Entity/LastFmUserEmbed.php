@@ -1,11 +1,12 @@
 <?php
+
 namespace BlackSheep\LastFmBundle\Entity;
 
 use BlackSheep\LastFmBundle\Entity\Embeddable\LastFmUser;
 use FOS\UserBundle\Model\UserInterface;
 
 /**
- * Interface for the LastFm  User
+ * Interface for the LastFm  User.
  */
 interface LastFmUserEmbed
 {

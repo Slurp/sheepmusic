@@ -2,10 +2,6 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model;
 
-
-/**
- *
- */
 class Playlist implements PlaylistInterface, ApiInterface
 {
     /**
@@ -14,7 +10,7 @@ class Playlist implements PlaylistInterface, ApiInterface
     protected $name;
 
     /**
-     * @var string $cover
+     * @var string
      */
     protected $cover;
 
@@ -31,7 +27,7 @@ class Playlist implements PlaylistInterface, ApiInterface
     public static function create($name = null)
     {
         $playlist = new static();
-        if ($name === "" || $name === null) {
+        if ($name === '' || $name === null) {
             $date = new \DateTime();
             $name = $date->format(DATE_W3C);
         }
@@ -60,7 +56,7 @@ class Playlist implements PlaylistInterface, ApiInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getAlbums()
     {
@@ -109,7 +105,7 @@ class Playlist implements PlaylistInterface, ApiInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function addSong(PlaylistsSongsInterface $song)
     {
@@ -121,7 +117,7 @@ class Playlist implements PlaylistInterface, ApiInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function removeSong(PlaylistsSongsInterface $song)
     {
@@ -134,13 +130,13 @@ class Playlist implements PlaylistInterface, ApiInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getApiData()
     {
         return [
             'cover' => $this->getCover(),
-            'name' => $this->getName()
+            'name' => $this->getName(),
         ];
     }
 }

@@ -52,26 +52,25 @@ class MediaImporter
     protected $songImporter;
 
     /**
-     * @var bool $debug
+     * @var bool
      */
     protected $debug;
 
     /**
      * @param ManagerRegistry $managerRegistry
-     * @param SongImporter $songImporter
+     * @param SongImporter    $songImporter
      *
      * @internal param EntityManager $entityManager
      */
     public function __construct(ManagerRegistry $managerRegistry, SongImporter $songImporter)
     {
-
         $this->managerRegistry = $managerRegistry;
         $this->songImporter = $songImporter;
     }
 
     /**
      * @param OutputInterface $output
-     * @param bool $debug
+     * @param bool            $debug
      */
     public function setOutputInterface(OutputInterface $output, $debug = true)
     {
@@ -106,8 +105,7 @@ class MediaImporter
     /**
      * Gather all applicable files in a given directory.
      *
-     * @param string $path The directory's full path
-     *
+     * @param string         $path           The directory's full path
      * @param \DateTime|null $lastImportDate
      *
      * @return Finder An array of SplFileInfo objects
@@ -127,7 +125,7 @@ class MediaImporter
     }
 
     /**
-     * @param integer $max
+     * @param int $max
      */
     protected function setupProgressBar($max)
     {
@@ -160,9 +158,6 @@ class MediaImporter
         }
     }
 
-    /**
-     *
-     */
     protected function debugEnd()
     {
         if ($this->progress !== null) {

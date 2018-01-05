@@ -5,7 +5,7 @@ namespace BlackSheep\MusicLibraryBundle\Events;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 
 /**
- * ArtistEvent for when something happens with a artist
+ * ArtistEvent for when something happens with a artist.
  */
 interface ArtistEventInterface
 {

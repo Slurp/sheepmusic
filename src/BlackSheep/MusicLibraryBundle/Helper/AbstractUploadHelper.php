@@ -3,8 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Helper;
 
 /**
- *
- * Give a class a nudge to help with uploading of files
+ * Give a class a nudge to help with uploading of files.
  */
 abstract class AbstractUploadHelper implements FilesystemCoverInterface
 {

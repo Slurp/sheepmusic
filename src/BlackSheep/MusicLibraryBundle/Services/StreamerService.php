@@ -44,7 +44,7 @@ class StreamerService
      * Play a song.
      *
      * @param SongInterface $song
-     * @param int $startTime
+     * @param int           $startTime
      *
      * @return Response
      *

@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: slangeweg
  * Date: 26/12/2017
- * Time: 00:12
+ * Time: 00:12.
  */
 
 namespace BlackSheep\MusicLibraryBundle\Factory\Media;
@@ -13,9 +13,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Handler\UploadHandler;
 
 /**
- * Class AbstractMediaFactory
- *
- * @package BlackSheep\MusicLibraryBundle\Factory\Media
+ * Class AbstractMediaFactory.
  */
 class AbstractMediaFactory
 {
@@ -47,7 +45,7 @@ class AbstractMediaFactory
      */
     public function copyExternalFile(AbstractMediaInterface &$entity, $url, $name)
     {
-        $ext = substr($url, strrpos($url, ".") + 1);
+        $ext = substr($url, strrpos($url, '.') + 1);
         $tempFile = $this->kernelRootDir . '/../web/uploads/_temp.' . $name . '.' . $ext;
         if (@copy($url, $tempFile)) {
             $entity->setImageFile(

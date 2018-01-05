@@ -1,10 +1,9 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * Interface PlayCountInterface
- *
- * @package BlackSheep\MusicLibraryBundle\Model
+ * Interface PlayCountInterface.
  */
 interface PlayCountInterface
 {
@@ -14,12 +13,12 @@ interface PlayCountInterface
     public function updatePlayCount();
 
     /**
-     * @return integer
+     * @return int
      */
     public function getPlayCount();
 
     /**
-     * @param integer $playCount
+     * @param int $playCount
      *
      * @return PlayCountInterface
      */

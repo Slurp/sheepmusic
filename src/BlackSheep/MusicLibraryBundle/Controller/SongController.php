@@ -17,7 +17,7 @@ class SongController extends Controller
      * @Route("/play/{song}", name="song_play")
      *
      * @param SongEntity $song
-     * @param Request $request
+     * @param Request    $request
      *
      * @return Response
      */

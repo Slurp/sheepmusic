@@ -9,9 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class BaseApiController
- *
- * @package BlackSheep\MusicLibraryBundle\Controller
+ * Class BaseApiController.
  */
 abstract class BaseApiController extends Controller
 {

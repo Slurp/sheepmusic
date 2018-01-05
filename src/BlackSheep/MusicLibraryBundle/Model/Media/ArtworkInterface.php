@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: slangeweg
  * Date: 26/12/2017
- * Time: 01:13
+ * Time: 01:13.
  */
 
 namespace BlackSheep\MusicLibraryBundle\Model\Media;
@@ -11,9 +11,8 @@ namespace BlackSheep\MusicLibraryBundle\Model\Media;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 
 /**
- * Interface ArtworkInterface
+ * Interface ArtworkInterface.
  *
- * @package BlackSheep\MusicLibraryBundle\Entity\Media
  * @ORM\Table()
  * @ORM\Entity()
  */

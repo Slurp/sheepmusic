@@ -3,9 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * Class ArtworkResponseInterface
- *
- * @package BlackSheep\MusicLibraryBundle\Model
+ * Class ArtworkResponseInterface.
  */
 interface ArtworkSetInterface
 {

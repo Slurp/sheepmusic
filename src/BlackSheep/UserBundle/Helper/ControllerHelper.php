@@ -6,8 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 use JMS\Serializer\SerializationContext;
 
 /**
- * Trait ControllerHelper
- * @package BlackSheep\UserBundle\Helper
+ * Trait ControllerHelper.
  */
 trait ControllerHelper
 {

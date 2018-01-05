@@ -1,12 +1,9 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Traits;
 
-use BlackSheep\MusicLibraryBundle\Model\SongInterface;
-
 /**
- * Trait SongCollectionTrait
- *
- * @package BlackSheep\MusicLibraryBundle\Traits
+ * Trait SongCollectionTrait.
  */
 trait PlayCountTrait
 {
@@ -21,6 +18,7 @@ trait PlayCountTrait
     public function updatePlayCount()
     {
         $this->setPlayCount($this->getPlayCount() + 1);
+
         return $this;
     }
 
@@ -47,5 +45,4 @@ trait PlayCountTrait
 
         return $this;
     }
-
 }

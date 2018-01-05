@@ -3,7 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * SongAudioInfo
+ * SongAudioInfo.
  */
 interface SongAudioInfoInterface
 {

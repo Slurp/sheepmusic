@@ -22,7 +22,7 @@ abstract class AbstractApiData
 
     /**
      * @param RouterInterface $router
-     * @param UploaderHelper $uploaderHelper
+     * @param UploaderHelper  $uploaderHelper
      */
     public function __construct(RouterInterface $router, UploaderHelper $uploaderHelper)
     {

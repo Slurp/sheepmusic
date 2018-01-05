@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query;
 
 /**
- * SongsRepository
+ * SongsRepository.
  */
 class GenresRepository extends AbstractRepository implements GenresRepositoryInterface
 {
@@ -25,7 +25,7 @@ class GenresRepository extends AbstractRepository implements GenresRepositoryInt
     }
 
     /**
-     * @param               $genreName
+     * @param   $genreName
      *
      * @return GenreInterface|null
      */

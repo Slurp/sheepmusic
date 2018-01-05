@@ -22,7 +22,6 @@ class ApiAlbumData extends ApiSongData implements ApiDataInterface
                 $songs[] = parent::getApiData($song);
             }
 
-
             return array_merge(
                 [
                     'id' => $object->getId(),
@@ -31,7 +30,7 @@ class ApiAlbumData extends ApiSongData implements ApiDataInterface
                     'updatedAt' => $object->getUpdatedAt(),
                     'artist' => $artistData,
                     'songs' => $songs,
-                    'genre' => $object->getGenre() ? $object->getGenre()->getApiData() : []
+                    'genre' => $object->getGenre() ? $object->getGenre()->getApiData() : [],
                 ],
                 $albumData
             );

@@ -16,7 +16,7 @@ use BlackSheep\MusicLibraryBundle\Repository\AlbumsRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * Imports a song based on array information
+ * Imports a song based on array information.
  */
 class AlbumImporter
 {
@@ -35,7 +35,7 @@ class AlbumImporter
 
     /**
      * @param ManagerRegistry $managerRegistry
-     * @param LastFmAlbum $lastFmAlbum
+     * @param LastFmAlbum     $lastFmAlbum
      */
     public function __construct(ManagerRegistry $managerRegistry, LastFmAlbum $lastFmAlbum)
     {

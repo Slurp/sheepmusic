@@ -35,7 +35,7 @@ class GenreEntity extends Genre implements GenreInterface
     protected $playCount;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getApiData()
     {

@@ -7,9 +7,7 @@ use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 /**
- * Class ApiArtworkHelper
- *
- * @package BlackSheep\MusicLibraryBundle\ApiModel\Helper
+ * Class ApiArtworkHelper.
  */
 class ApiArtworkHelper
 {

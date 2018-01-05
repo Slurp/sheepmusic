@@ -19,21 +19,21 @@ class SongEventSubscriber implements SongEventListener
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
         // return the subscribed events, their methods and priorities
         return [
-            SongEventInterface::SONG_EVENT_PLAYING => "playingSong",
-            SongEventInterface::SONG_EVENT_PLAYED => "playedSong",
-            SongEventInterface::SONG_EVENT_LOVED => "lovedSong",
-            SongEventInterface::SONG_EVENT_RATED => "ratedSong"
+            SongEventInterface::SONG_EVENT_PLAYING => 'playingSong',
+            SongEventInterface::SONG_EVENT_PLAYED => 'playedSong',
+            SongEventInterface::SONG_EVENT_LOVED => 'lovedSong',
+            SongEventInterface::SONG_EVENT_RATED => 'ratedSong',
         ];
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function playingSong(SongEventInterface $songEvent)
     {
@@ -41,7 +41,7 @@ class SongEventSubscriber implements SongEventListener
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function playedSong(SongEventInterface $songEvent)
     {
@@ -54,7 +54,7 @@ class SongEventSubscriber implements SongEventListener
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function lovedSong(SongEventInterface $songEvent)
     {
@@ -62,7 +62,7 @@ class SongEventSubscriber implements SongEventListener
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function ratedSong(SongEventInterface $songEvent)
     {

@@ -5,9 +5,7 @@ namespace BlackSheep\MusicLibraryBundle\Model\Media;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 
 /**
- * Class Artwork
- *
- * @package BlackSheep\MusicLibraryBundle\Entity\Media
+ * Class Artwork.
  */
 class Artwork extends AbstractMedia implements ArtworkInterface
 {
@@ -43,7 +41,6 @@ class Artwork extends AbstractMedia implements ArtworkInterface
     {
         return $this->type;
     }
-
 
     /**
      * {@inheritdoc}

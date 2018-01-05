@@ -8,9 +8,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class GenreUpdaterCommand
- *
- * @package BlackSheep\MusicLibraryBundle\Command
+ * Class GenreUpdaterCommand.
  */
 class GenreUpdaterCommand extends ContainerAwareCommand
 {
