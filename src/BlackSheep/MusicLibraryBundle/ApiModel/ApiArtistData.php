@@ -19,7 +19,7 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
             $artistData = $object->getApiData();
             $albums = [];
             foreach ($object->getAlbums() as $album) {
-                $albums[] = parent::getApiData($album);
+                $albums[] = ['id' => $album->getId()];
             }
             $artistData = array_merge(
                 $artistData,
