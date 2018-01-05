@@ -6,16 +6,17 @@
  * @copyright 2017 Bureau Blauwgeel
  * @version 1.0
  */
+
 namespace Tests\BlackSheep\MusicLibraryBundle\Model;
 
 use BlackSheep\MusicLibraryBundle\Model\Album;
 use BlackSheep\MusicLibraryBundle\Model\Artist;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  *
  */
-class AlbumTest extends PHPUnit_Framework_TestCase
+class AlbumTest extends TestCase
 {
     protected $album;
 
@@ -35,7 +36,9 @@ class AlbumTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateAlbumEmptyInfo()
     {
-        Album::createArtistAlbum('test', Artist::createNew('test'), []);
+        $album = Album::createArtistAlbum('test', Artist::createNew('test'), []);
+        static::assertEquals('test', $album->getName());
+        static::assertEquals('test', $album->getArtist()->getName());
     }
 
     /**

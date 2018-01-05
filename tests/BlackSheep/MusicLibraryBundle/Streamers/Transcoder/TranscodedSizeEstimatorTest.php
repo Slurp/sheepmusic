@@ -9,12 +9,12 @@
 namespace Tests\BlackSheep\MusicLibraryBundle\Streamers\Transcoder;
 
 use BlackSheep\MusicLibraryBundle\Streamers\Transcoder\TranscodedSizeEstimator;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  *TranscodedSizeEstimatorTest
  */
-class TranscodedSizeEstimatorTest extends PHPUnit_Framework_TestCase
+class TranscodedSizeEstimatorTest extends TestCase
 {
     /**
      *
