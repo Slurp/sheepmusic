@@ -2,12 +2,12 @@
 namespace Tests\BlackSheep\MusicLibraryBundle\Streamers\Transcoder;
 
 use BlackSheep\MusicLibraryBundle\Streamers\Transcoder\Inspector;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Test the inspector
  */
-class InspectorTest extends PHPUnit_Framework_TestCase
+class InspectorTest extends TestCase
 {
     /**
      * @var string

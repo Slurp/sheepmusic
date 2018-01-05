@@ -9,7 +9,6 @@ use FOS\UserBundle\Form\Factory\FactoryInterface;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
-use FOS\UserBundle\Services\EmailConfirmation\EmailUpdateConfirmation;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,33 +42,25 @@ class ApiProfileController extends AbstractController
     private $userManager;
 
     /**
-     * @var EmailUpdateConfirmation
-     */
-    private $emailUpdateConfirmation;
-
-    /**
      * @var TranslatorInterface
      */
     private $translator;
 
     /**
      * @param EventDispatcherInterface $eventDispatcher
-     * @param FactoryInterface         $formFactory
-     * @param UserManagerInterface     $userManager
-     * @param EmailUpdateConfirmation  $emailUpdateConfirmation
-     * @param TranslatorInterface      $translator
+     * @param FactoryInterface $formFactory
+     * @param UserManagerInterface $userManager
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         FactoryInterface $formFactory,
         UserManagerInterface $userManager,
-        EmailUpdateConfirmation $emailUpdateConfirmation,
         TranslatorInterface $translator
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->formFactory = $formFactory;
         $this->userManager = $userManager;
-        $this->emailUpdateConfirmation = $emailUpdateConfirmation;
         $this->translator = $translator;
     }
 
@@ -100,6 +91,8 @@ class ApiProfileController extends AbstractController
     /**
      * @Route("/user/save/profile", name="save_user_profile")
      * @Method({"PUT", "POST","PATCH"})
+     *
+     * @param Request $request
      *
      * @return Response
      */
@@ -139,10 +132,10 @@ class ApiProfileController extends AbstractController
     }
 
     /**
-     * @param FormInterface            $form
-     * @param Request                  $request
+     * @param FormInterface $form
+     * @param Request $request
      * @param EventDispatcherInterface $dispatcher
-     * @param UserInterface            $user
+     * @param UserInterface $user
      *
      * @return null|RedirectResponse|Response
      */

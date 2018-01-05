@@ -1,11 +1,11 @@
 services:
     BlackSheep\UserBundle\Controller\Api\ApiProfileController:
         class: BlackSheep\UserBundle\Controller\Api\ApiProfileController
-        arguments: ['@event_dispatcher', '@fos_user.profile.form.factory', '@fos_user.user_manager', '@fos_user.email_update_confirmation', '@translator']
+        arguments: ['@event_dispatcher', '@fos_user.profile.form.factory', '@fos_user.user_manager', '@translator']
 
     BlackSheep\UserBundle\Controller\ProfileController:
         class: BlackSheep\UserBundle\Controller\ProfileController
-        arguments: ['@event_dispatcher', '@fos_user.profile.form.factory', '@fos_user.user_manager', '@fos_user.email_update_confirmation', '@translator']
+        arguments: ['@event_dispatcher', '@fos_user.profile.form.factory', '@fos_user.user_manager']
 
     blacksheep_user.event.jwt_expired_listener:
         class: BlackSheep\UserBundle\EventListener\JWTExpiredListener

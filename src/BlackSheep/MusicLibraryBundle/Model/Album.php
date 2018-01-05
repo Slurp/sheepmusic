@@ -68,7 +68,7 @@ class Album implements AlbumInterface
 
     /**
      * @param $name
-     * @param \BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity $artist
+     * @param ArtistInterface $artist
      * @param $extraInfo
      *
      * @return AlbumInterface

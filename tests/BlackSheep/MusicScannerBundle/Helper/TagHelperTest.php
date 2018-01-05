@@ -3,9 +3,9 @@
 namespace Tests\BlackSheep\MusicScannerBundle\Helper;
 
 use BlackSheep\MusicScannerBundle\Helper\TagHelper;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class TagHelperTest extends PHPUnit_Framework_TestCase
+class TagHelperTest extends TestCase
 {
     /**
      * @var string
