@@ -61,7 +61,7 @@ class SongEventSubscriber implements SongEventListener
             $this->songsRepository->save($song->getGenre()->updatePlayCount());
         }
         if ($song->getArtist() instanceof PlayCountInterface) {
-            $this->songsRepository->save($song->getGenre()->updatePlayCount());
+            $this->songsRepository->save($song->getArtist()->updatePlayCount());
         }
     }
 

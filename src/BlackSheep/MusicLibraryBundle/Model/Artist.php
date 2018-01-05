@@ -10,7 +10,7 @@ use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
 /**
  * Artist Model Class.
  */
-class Artist implements ArtistInterface, ArtworkSetInterface
+class Artist implements ArtistInterface
 {
     use GenreCollectionTrait;
     use SongCollectionTrait;
