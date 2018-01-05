@@ -131,7 +131,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function removeSong(SongInterface $song)
     {
@@ -156,7 +156,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function removeGenre(GenreInterface $genre)
     {
@@ -181,7 +181,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function addSimilarArtist(ArtistInterface $similarArtist)
     {
@@ -193,7 +193,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function removeSimilarArtist(ArtistInterface $similarArtist)
     {
@@ -205,7 +205,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getApiData()
     {

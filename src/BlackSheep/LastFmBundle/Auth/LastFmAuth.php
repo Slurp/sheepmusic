@@ -9,7 +9,7 @@ use LastFmApi\Api\AuthApi;
 use LastFmApi\Exception\ApiFailedException;
 
 /**
- * LastFm auth
+ * LastFm auth.
  */
 class LastFmAuth
 {
@@ -34,8 +34,8 @@ class LastFmAuth
     private $entityManager;
 
     /**
-     * @param string $apiKey
-     * @param string $apiSecret
+     * @param string        $apiKey
+     * @param string        $apiSecret
      * @param EntityManager $entityManager
      */
     public function __construct($apiKey, $apiSecret, EntityManager $entityManager)
@@ -55,13 +55,13 @@ class LastFmAuth
 
     /**
      * @param LastFmUserEmbed $user
-     * @param bool $refresh
+     * @param bool            $refresh
      *
      * @return array
      */
     public function tokenForUser(LastFmUserEmbed $user, $refresh = false)
     {
-        if ($refresh || $user->getLastFm()->getLastFmToken() === "" || $user->getLastFm()->getLastFmToken() === null) {
+        if ($refresh || $user->getLastFm()->getLastFmToken() === '' || $user->getLastFm()->getLastFmToken() === null) {
             $auth = new AuthApi(
                 'gettoken',
                 ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret]
@@ -76,9 +76,10 @@ class LastFmAuth
         if ($user->getLastFm()->hasLastFmConnected() === false) {
             return [
                 'lastfm_token' => $user->getLastFm()->getLastFmToken(),
-                'key' => $this->getApiKey()
+                'key' => $this->getApiKey(),
             ];
         }
+
         return [];
     }
 

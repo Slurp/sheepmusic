@@ -106,7 +106,7 @@ class ArtistRepository extends AbstractRepository implements ArtistRepositoryInt
 
     public function getArtistsByGenre(GenreEntity $genre)
     {
-        return $this->createQueryBuilder("a")
+        return $this->createQueryBuilder('a')
             ->where(':genre MEMBER OF a.genres')
             ->setParameters(['genre' => $genre])->getQuery()->getResult();
     }

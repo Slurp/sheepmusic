@@ -3,9 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * Interface SongInterface
- *
- * @package BlackSheep\MusicLibraryBundle\Model
+ * Interface SongInterface.
  */
 interface SongInterface extends ApiInterface, PlayCountInterface, HasGenreInterface
 {
@@ -53,7 +51,7 @@ interface SongInterface extends ApiInterface, PlayCountInterface, HasGenreInterf
     public function setYear($year);
 
     /**
-     * @return integer
+     * @return int
      */
     public function getLength();
 
@@ -65,7 +63,7 @@ interface SongInterface extends ApiInterface, PlayCountInterface, HasGenreInterf
     public function setLength($length);
 
     /**
-     * @return integer
+     * @return int
      */
     public function getMTime();
 
@@ -126,7 +124,6 @@ interface SongInterface extends ApiInterface, PlayCountInterface, HasGenreInterf
      */
     public function removePlaylist(PlaylistInterface $playlist);
 
-
     /**
      * @return ArtistInterface
      */
@@ -160,5 +157,4 @@ interface SongInterface extends ApiInterface, PlayCountInterface, HasGenreInterf
      * @param SongAudioInfoInterface $audio
      */
     public function setAudio(SongAudioInfoInterface $audio);
-
 }

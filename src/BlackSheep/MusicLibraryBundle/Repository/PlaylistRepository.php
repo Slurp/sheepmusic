@@ -12,7 +12,7 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\Query;
 
 /**
- * SongsRepository
+ * SongsRepository.
  */
 class PlaylistRepository extends AbstractRepository implements PlaylistRepositoryInterface
 {
@@ -69,8 +69,10 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
             } catch (OptimisticLockException $e) {
                 return false;
             }
+
             return $playlist;
         }
+
         return false;
     }
 }

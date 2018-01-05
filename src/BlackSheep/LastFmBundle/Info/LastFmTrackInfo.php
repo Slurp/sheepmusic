@@ -8,7 +8,7 @@ use DateTimeZone;
 use LastFmApi\Api\TrackApi;
 
 /**
- * Api wrapper for BlackSheep
+ * Api wrapper for BlackSheep.
  */
 class LastFmTrackInfo extends AbstractLastFmInfo implements LastFmInfo
 {
@@ -43,12 +43,13 @@ class LastFmTrackInfo extends AbstractLastFmInfo implements LastFmInfo
     protected function getMethodVars(SongInterface $song)
     {
         $now = new DateTime('now', new DateTimeZone('UTC'));
+
         return [
             'artist' => $song->getArtist()->getName(),
             'trackNumber' => $song->getTrack(),
             'track' => $song->getTitle(),
             'timestamp' => $now->getTimestamp(),
-            'album' => $song->getAlbum()->getName()
+            'album' => $song->getAlbum()->getName(),
         ];
     }
 }

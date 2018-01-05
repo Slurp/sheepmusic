@@ -3,9 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
- * Class SongAudioInfo
- *
- * @package BlackSheep\MusicLibraryBundle\Model
+ * Class SongAudioInfo.
  */
 class SongAudioInfo implements SongAudioInfoInterface
 {
@@ -68,7 +66,7 @@ class SongAudioInfo implements SongAudioInfoInterface
             'bitrate_mode',
             'lossless',
             'encoder_options',
-            'compression_ratio'
+            'compression_ratio',
         ];
     }
 
@@ -95,6 +93,7 @@ class SongAudioInfo implements SongAudioInfoInterface
         foreach (static::getAllowedKeys() as $key) {
             $info[$key] = $this->$key;
         }
+
         return $info;
     }
 

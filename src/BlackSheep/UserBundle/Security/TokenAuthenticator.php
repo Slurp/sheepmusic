@@ -17,9 +17,7 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 use Symfony\Component\Security\Guard\AuthenticatorInterface;
 
 /**
- * Class TokenAuthenticator
- *
- * @package BlackSheep\UserBundle\Security
+ * Class TokenAuthenticator.
  */
 class TokenAuthenticator extends AbstractGuardAuthenticator implements AuthenticatorInterface
 {
@@ -35,7 +33,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator implements Authentic
 
     /**
      * @param JWTEncoderInterface $jwtEncoder
-     * @param EntityManager $em
+     * @param EntityManager       $em
      */
     public function __construct(JWTEncoderInterface $jwtEncoder, EntityManager $em)
     {
@@ -44,7 +42,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator implements Authentic
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getCredentials(Request $request)
     {
@@ -63,7 +61,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator implements Authentic
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
@@ -81,7 +79,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator implements Authentic
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function checkCredentials($credentials, UserInterface $user)
     {
@@ -89,7 +87,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator implements Authentic
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
@@ -97,7 +95,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator implements Authentic
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
@@ -112,7 +110,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator implements Authentic
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function supportsRememberMe()
     {
@@ -120,7 +118,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator implements Authentic
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {

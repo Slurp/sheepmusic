@@ -154,7 +154,7 @@ class SongEntity extends Song implements SongInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getApiData()
     {

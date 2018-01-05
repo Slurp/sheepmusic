@@ -33,7 +33,7 @@ class BlackSheepMusicLibraryExtension extends Extension
             'binary_timeout',
             'threads_count',
             'last_fm_api_key',
-            'last_fm_api_secret'
+            'last_fm_api_secret',
         ];
         foreach ($parameters as $attribute) {
             $container->setParameter('black_sheep_music_library.' . $attribute, $config[$attribute]);

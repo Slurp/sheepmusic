@@ -11,9 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class UpdaterCommand
- *
- * @package BlackSheep\MusicLibraryBundle\Command
+ * Class UpdaterCommand.
  */
 class UpdaterCommand extends ContainerAwareCommand
 {
@@ -28,7 +26,7 @@ class UpdaterCommand extends ContainerAwareCommand
     protected $progress;
 
     /**
-     * @var bool $debug
+     * @var bool
      */
     protected $debug;
 
@@ -50,7 +48,7 @@ class UpdaterCommand extends ContainerAwareCommand
         $this->setOutputInterface($output);
         $artistRepository = $this->getContainer()->get('black_sheep_music_library.repository.artists_repository');
         $artists = $this->getContainer()->get('black_sheep_music_library.repository.artists_repository')->findAll();
-        /** @var ArtistInterface $artist */
+        /* @var ArtistInterface $artist */
         $this->setupProgressBar(count($artists));
         foreach ($artists as $artist) {
             $this->getContainer()->get('event_dispatcher')->dispatch(
@@ -68,7 +66,7 @@ class UpdaterCommand extends ContainerAwareCommand
 
     /**
      * @param OutputInterface $output
-     * @param bool $debug
+     * @param bool            $debug
      */
     public function setOutputInterface(OutputInterface $output, $debug = true)
     {
@@ -101,7 +99,7 @@ class UpdaterCommand extends ContainerAwareCommand
     }
 
     /**
-     * @param integer $max
+     * @param int $max
      */
     protected function setupProgressBar($max)
     {
@@ -134,9 +132,6 @@ class UpdaterCommand extends ContainerAwareCommand
         }
     }
 
-    /**
-     *
-     */
     protected function debugEnd()
     {
         if ($this->progress !== null) {

@@ -3,9 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model\Media;
 
 /**
- * Class AbstractMediaClass
- *
- * @package BlackSheep\MusicLibraryBundle\Model\Media
+ * Class AbstractMediaClass.
  */
 abstract class AbstractMedia implements AbstractMediaInterface
 {
@@ -20,7 +18,7 @@ abstract class AbstractMedia implements AbstractMediaInterface
     protected $imageName;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $imageSize;
 
@@ -28,7 +26,6 @@ abstract class AbstractMedia implements AbstractMediaInterface
      * @var \DateTime
      */
     protected $updatedAt;
-
 
     /**
      * @param $imageName

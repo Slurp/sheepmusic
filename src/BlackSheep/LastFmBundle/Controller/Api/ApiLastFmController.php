@@ -8,9 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- *
- */
 class ApiLastFmController extends Controller
 {
     /**
@@ -43,6 +40,7 @@ class ApiLastFmController extends Controller
         if ($theUser instanceof LastFmUserEmbed && $theUser->getLastFm()->hasLastFmConnected() === false) {
             try {
                 $this->get('black_sheep.last_fm.auth')->sessionForUser($theUser);
+
                 return new JsonResponse(['connected' => true]);
             } catch (\Exception $e) {
                 return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_UNAUTHORIZED);
@@ -54,6 +52,7 @@ class ApiLastFmController extends Controller
 
     /**
      * @Route("/lastfm/disconnect/{token}", name="lastfm_disconnect")
+     *
      * @param $token
      *
      * @return Response

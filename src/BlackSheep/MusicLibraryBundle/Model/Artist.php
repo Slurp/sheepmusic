@@ -48,7 +48,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
     protected $biography;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $playCount;
 
@@ -239,6 +239,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
 
         return $this;
     }
+
     /**
      * @return array
      */
@@ -248,6 +249,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
         foreach ($this->getGenres() as $genre) {
             $genres[] = $genre->getApiData();
         }
+
         return [
             'name' => $this->getName(),
             'biography' => $this->getBiography(),
@@ -255,7 +257,7 @@ class Artist implements ArtistInterface, ArtworkSetInterface
             'albumArt' => $this->getAlbumArt(),
             'playCount' => $this->getPlayCount(),
             'mbId' => $this->getMusicBrainzId(),
-            'genres' => $genres
+            'genres' => $genres,
         ];
     }
 }

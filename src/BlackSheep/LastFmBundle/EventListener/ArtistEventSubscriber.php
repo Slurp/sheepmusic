@@ -6,13 +6,11 @@ use BlackSheep\LastFmBundle\Info\LastFmArtistInfo;
 use BlackSheep\MusicLibraryBundle\EventListener\ArtistEventListener;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
 use BlackSheep\MusicLibraryBundle\Repository\ArtistRepositoryInterface;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ConnectException;
 use LastFmApi\Exception\ApiFailedException;
 use LastFmApi\Exception\ConnectionException;
 
 /**
- * ArtistEventSubscriber
+ * ArtistEventSubscriber.
  */
 class ArtistEventSubscriber implements ArtistEventListener
 {
@@ -28,7 +26,7 @@ class ArtistEventSubscriber implements ArtistEventListener
 
     /**
      * @param ArtistRepositoryInterface $artistsRepository
-     * @param LastFmArtistInfo $client
+     * @param LastFmArtistInfo          $client
      */
     public function __construct(
         ArtistRepositoryInterface $artistsRepository,
@@ -39,20 +37,20 @@ class ArtistEventSubscriber implements ArtistEventListener
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents()
     {
         // return the subscribed events, their methods and priorities
         return [
-            ArtistEventInterface::ARTIST_EVENT_FETCHED => "fetchedArtist",
-            ArtistEventInterface::ARTIST_EVENT_CREATED => "createdArtist",
-            ArtistEventInterface::ARTIST_EVENT_UPDATED => "updatedArtist"
+            ArtistEventInterface::ARTIST_EVENT_FETCHED => 'fetchedArtist',
+            ArtistEventInterface::ARTIST_EVENT_CREATED => 'createdArtist',
+            ArtistEventInterface::ARTIST_EVENT_UPDATED => 'updatedArtist',
         ];
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function fetchedArtist(ArtistEventInterface $event)
     {
@@ -60,7 +58,7 @@ class ArtistEventSubscriber implements ArtistEventListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function updatedArtist(ArtistEventInterface $event)
     {
@@ -68,7 +66,7 @@ class ArtistEventSubscriber implements ArtistEventListener
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function createdArtist(ArtistEventInterface $event)
     {

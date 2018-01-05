@@ -1,10 +1,11 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use Doctrine\ORM\Query;
 
 /**
- * Interface AbstractRepositoryInterface
+ * Interface AbstractRepositoryInterface.
  */
 interface AbstractRepositoryInterface
 {
@@ -13,15 +14,10 @@ interface AbstractRepositoryInterface
      */
     public function queryAll();
 
-    /**
-     *
-     */
     public function getList();
 
     /**
      * @param $entity
-     *
-     * @return void
      */
     public function save($entity);
 }

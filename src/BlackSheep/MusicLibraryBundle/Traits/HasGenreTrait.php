@@ -3,16 +3,15 @@
  * Created by PhpStorm.
  * User: slangeweg
  * Date: 24/12/2017
- * Time: 01:22
+ * Time: 01:22.
  */
+
 namespace BlackSheep\MusicLibraryBundle\Traits;
 
 use BlackSheep\MusicLibraryBundle\Model\GenreInterface;
 
 /**
- * Trait GenreCollectionTrait
- *
- * @package BlackSheep\MusicLibraryBundle\Traits
+ * Trait GenreCollectionTrait.
  */
 trait HasGenreTrait
 {

@@ -9,14 +9,12 @@ use BlackSheep\MusicLibraryBundle\Model\ArtworkSetInterface;
 use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
 
 /**
- * Class ArtworkFactory
- *
- * @package BlackSheep\MusicLibraryBundle\Factory
+ * Class ArtworkFactory.
  */
 class ArtworkFactory extends AbstractMediaFactory
 {
     /**
-     * @param ArtistInterface $artist
+     * @param ArtistInterface     $artist
      * @param ArtworkSetInterface $artworkSet
      */
     public function addArtworkToArtist(ArtistInterface $artist, ArtworkSetInterface $artworkSet)
@@ -37,7 +35,7 @@ class ArtworkFactory extends AbstractMediaFactory
 
     /**
      * @param ArtistInterface $artist
-     * @param array $artworks
+     * @param array           $artworks
      * @param $type
      */
     protected function createArtwork(ArtistInterface $artist, $artworks, $type)
@@ -49,7 +47,7 @@ class ArtworkFactory extends AbstractMediaFactory
             if (is_object($artwork)) {
                 $media = new ArtworkEntity($type);
                 $media->setLikes($artwork->likes);
-                $this->copyExternalFile($media, $artwork->url, $artist->getSlug() . '-'.$type);
+                $this->copyExternalFile($media, $artwork->url, $artist->getSlug() . '-' . $type);
                 $artist->addArtwork($media);
             }
         }

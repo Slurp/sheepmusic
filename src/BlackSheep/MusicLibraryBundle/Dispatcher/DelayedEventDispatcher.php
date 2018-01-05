@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Dispatcher;
 
 use Symfony\Component\EventDispatcher\Event;
@@ -7,19 +8,19 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
- * Dispatch events on Kernel Terminate
+ * Dispatch events on Kernel Terminate.
  */
 class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscriberInterface
 {
     /**
-     *  Event Dispatcher
+     *  Event Dispatcher.
      *
      * @var EventDispatcherInterface
      */
     private $dispatcher;
 
     /**
-     * Queued events
+     * Queued events.
      *
      * @var array
      */
@@ -28,12 +29,12 @@ class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscribe
     /**
      * Is the dispatcher ready to dispatch events?
      *
-     * @var boolean
+     * @var bool
      */
     private $ready;
 
     /**
-     * The Deleyad event dispatcher wraps another dispatcher
+     * The Deleyad event dispatcher wraps another dispatcher.
      *
      * @param EventDispatcherInterface $dispatcher
      */
@@ -67,7 +68,7 @@ class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscribe
     }
 
     /**
-     * Set ready
+     * Set ready.
      */
     public function setReady()
     {
@@ -81,7 +82,7 @@ class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscribe
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function addListener($eventName, $listener, $priority = 0)
     {
@@ -89,7 +90,7 @@ class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscribe
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function addSubscriber(EventSubscriberInterface $subscriber)
     {
@@ -97,7 +98,7 @@ class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscribe
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function removeListener($eventName, $listener)
     {
@@ -105,7 +106,7 @@ class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscribe
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function removeSubscriber(EventSubscriberInterface $subscriber)
     {
@@ -113,7 +114,7 @@ class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscribe
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getListeners($eventName = null)
     {
@@ -121,7 +122,7 @@ class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscribe
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getListenerPriority($eventName, $listener)
     {
@@ -129,7 +130,7 @@ class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscribe
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function hasListeners($eventName = null)
     {

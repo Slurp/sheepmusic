@@ -6,12 +6,11 @@ class Inspector
 {
     /**
      * @param $file
-     *
      * @param $ffprobe
      *
      * @return float
      */
-    public static function getLength($file, $ffprobe = "/usr/local/bin/ffprobe")
+    public static function getLength($file, $ffprobe = '/usr/local/bin/ffprobe')
     {
         // fallback ffprobe
         if (file_exists($ffprobe) === false) {

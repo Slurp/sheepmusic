@@ -7,13 +7,7 @@ use BlackSheep\MusicLibraryBundle\MusicBrainz\MusicBrainzModelInterface;
 /**
  * Interface AlbumInterface.
  */
-interface ArtistInterface extends
-    ApiInterface,
-    MusicBrainzModelInterface,
-    SongCollectionInterface,
-    GenreCollectionInterface,
-    ArtworkCollectionInterface,
-    PlayCountInterface
+interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface, SongCollectionInterface, GenreCollectionInterface, ArtworkCollectionInterface, PlayCountInterface
 {
     /**
      * @param      $name
@@ -111,10 +105,10 @@ interface ArtistInterface extends
     /**
      * @param ArtistInterface $similarArtist
      */
-    public function addSimilarArtist(ArtistInterface $similarArtist);
+    public function addSimilarArtist(self $similarArtist);
 
     /**
      * @param ArtistInterface $similarArtist
      */
-    public function removeSimilarArtist(ArtistInterface $similarArtist);
+    public function removeSimilarArtist(self $similarArtist);
 }

@@ -18,7 +18,7 @@ class TagHelper
     protected $getID3;
 
     /**
-     * Get id3tag helper
+     * Get id3tag helper.
      */
     public function __construct()
     {
@@ -68,7 +68,6 @@ class TagHelper
         ];
     }
 
-
     /**
      * @param $info
      * @param $props
@@ -99,8 +98,6 @@ class TagHelper
 
     /**
      * @param $info
-     *
-     * @return null
      */
     private function getCover(&$info)
     {

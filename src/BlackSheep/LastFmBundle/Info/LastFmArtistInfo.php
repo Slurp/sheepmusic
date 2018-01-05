@@ -6,9 +6,7 @@ use LastFmApi\Api\ArtistApi;
 use LastFmApi\Exception\InvalidArgumentException;
 
 /**
- * Class LastFmArtistInfo
- *
- * @package BlackSheep\LastFmBundle\Info
+ * Class LastFmArtistInfo.
  */
 class LastFmArtistInfo extends AbstractLastFmInfo implements LastFmInfo
 {

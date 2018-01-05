@@ -7,9 +7,7 @@ use Lexik\Bundle\JWTAuthenticationBundle\Response\JWTAuthenticationFailureRespon
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 /**
- * Class JWTExpiredListener
- *
- * @package BlackSheep\UserBundle\EventListener
+ * Class JWTExpiredListener.
  */
 class JWTExpiredListener
 {

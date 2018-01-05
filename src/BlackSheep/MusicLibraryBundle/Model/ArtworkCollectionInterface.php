@@ -1,12 +1,11 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
 
 /**
- * Interface ArtworkCollectionInterface
- *
- * @package BlackSheep\MusicLibraryBundle\Model
+ * Interface ArtworkCollectionInterface.
  */
 interface ArtworkCollectionInterface
 {

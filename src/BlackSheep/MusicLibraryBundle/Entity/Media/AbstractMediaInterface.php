@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: slangeweg
  * Date: 26/12/2017
- * Time: 00:22
+ * Time: 00:22.
  */
 
 namespace BlackSheep\MusicLibraryBundle\Entity\Media;
@@ -12,9 +12,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use BlackSheep\MusicLibraryBundle\Model\Media\AbstractMediaInterface as Model;
 
 /**
- * Class AbstractMediaClass
- *
- * @package BlackSheep\MusicLibraryBundle\Entity\Media
+ * Class AbstractMediaClass.
  */
 interface AbstractMediaInterface extends Model
 {

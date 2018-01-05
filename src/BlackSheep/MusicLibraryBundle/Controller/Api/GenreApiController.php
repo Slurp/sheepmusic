@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Genre Api controller
+ * Genre Api controller.
  */
 class GenreApiController extends BaseApiController
 {
@@ -20,7 +20,7 @@ class GenreApiController extends BaseApiController
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function getApiDataModel()
     {

@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\ManagerRegistry;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
- * Imports a song based on array information
+ * Imports a song based on array information.
  */
 class SongImporter
 {
@@ -53,8 +53,8 @@ class SongImporter
 
     /**
      * @param ManagerRegistry $managerRegistry
-     * @param AlbumImporter $albumImporter
-     * @param ArtistImporter $artistImporter
+     * @param AlbumImporter   $albumImporter
+     * @param ArtistImporter  $artistImporter
      */
     public function __construct(
         ManagerRegistry $managerRegistry,
@@ -92,7 +92,6 @@ class SongImporter
      */
     protected function writeSong(&$songInfo)
     {
-
         $artist = $this->artistImporter->importArtist($songInfo);
         $album = $this->albumImporter->importAlbum($artist, $songInfo);
         $song = SongEntity::createFromArray($songInfo);

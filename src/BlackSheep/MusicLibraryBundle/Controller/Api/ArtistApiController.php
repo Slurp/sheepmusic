@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Artist Api controller
+ * Artist Api controller.
  */
 class ArtistApiController extends BaseApiController
 {
@@ -22,7 +22,7 @@ class ArtistApiController extends BaseApiController
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function getApiDataModel()
     {
@@ -64,6 +64,7 @@ class ArtistApiController extends BaseApiController
             ArtistEventInterface::ARTIST_EVENT_UPDATED,
             new ArtistEvent($artist)
         );
+
         return $this->getDetail($artist);
     }
 }

@@ -37,20 +37,18 @@ class PlaylistEntity extends Playlist
      */
     protected $cover;
 
-    /**
-     */
     public function __construct()
     {
         $this->songs = new ArrayCollection();
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function create($name = null)
     {
         $playlist = new static();
-        if ($name === "" || $name === null) {
+        if ($name === '' || $name === null) {
             $date = new \DateTime();
             $name = $date->format(DATE_W3C);
         }
@@ -72,7 +70,7 @@ class PlaylistEntity extends Playlist
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function setSongs($songs)
     {
@@ -85,7 +83,7 @@ class PlaylistEntity extends Playlist
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function addSong(PlaylistsSongsInterface $song)
     {
@@ -98,7 +96,7 @@ class PlaylistEntity extends Playlist
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function removeSong(PlaylistsSongsInterface $song)
     {
@@ -110,7 +108,7 @@ class PlaylistEntity extends Playlist
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getApiData()
     {

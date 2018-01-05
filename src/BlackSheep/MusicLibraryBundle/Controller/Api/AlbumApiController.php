@@ -7,7 +7,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Album api
+ * Album api.
  */
 class AlbumApiController extends BaseApiController
 {
@@ -20,7 +20,7 @@ class AlbumApiController extends BaseApiController
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function getApiDataModel()
     {

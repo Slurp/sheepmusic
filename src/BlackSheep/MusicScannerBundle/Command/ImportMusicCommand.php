@@ -26,7 +26,6 @@ class ImportMusicCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $importer = $this->getContainer()->get('black_sheep_music_scanner.services.media_importer');
         $importer->setOutputInterface($output, true);
         $importer->import('/Volumes/Data/Stack/Music');

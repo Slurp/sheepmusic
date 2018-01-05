@@ -1,17 +1,18 @@
 <?php
+
 namespace BlackSheep\MusicScannerBundle\Output;
 
 use Symfony\Component\Console\Output\Output;
 
 /**
- * Write buffers to a streamedResponse
+ * Write buffers to a streamedResponse.
  */
 class StreamedResponseOutput extends Output
 {
     /**
      * @var int
      */
-    static protected $bufferSizeApache = 4096;
+    protected static $bufferSizeApache = 4096;
 
     /**
      * @var mixed|null
@@ -19,7 +20,7 @@ class StreamedResponseOutput extends Output
     protected $bufferSize;
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function __construct($verbosity = self::VERBOSITY_NORMAL, $decorated = false, $formatter = null)
     {
@@ -36,7 +37,7 @@ class StreamedResponseOutput extends Output
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function doWrite($message, $newline)
     {

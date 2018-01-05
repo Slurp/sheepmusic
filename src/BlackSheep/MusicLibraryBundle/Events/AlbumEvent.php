@@ -1,4 +1,5 @@
 <?php
+
 namespace BlackSheep\MusicLibraryBundle\Events;
 
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
@@ -18,7 +19,7 @@ class AlbumEvent extends Event implements AlbumEventInterface
 
     /**
      * @param AlbumInterface $album
-     * @param null $value
+     * @param null           $value
      */
     public function __construct(AlbumInterface $album, $value = null)
     {

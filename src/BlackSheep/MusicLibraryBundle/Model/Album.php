@@ -57,12 +57,12 @@ class Album implements AlbumInterface
     protected $lastFmUrl;
 
     /**
-     * @var integer
+     * @var int
      */
     protected $playCount;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $lossless;
 
@@ -264,7 +264,7 @@ class Album implements AlbumInterface
             'cover' => $this->getCover(),
             'playCount' => $this->getPlayCount(),
             'mbId' => $this->getMusicBrainzId(),
-            'lossless' => $this->isLossless()
+            'lossless' => $this->isLossless(),
         ];
     }
 }

@@ -5,9 +5,7 @@ namespace BlackSheep\MusicLibraryBundle\Traits;
 use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
 
 /**
- * Trait ArtworkCollectionTrait
- *
- * @package BlackSheep\MusicLibraryBundle\Traits
+ * Trait ArtworkCollectionTrait.
  */
 trait ArtworkCollectionTrait
 {

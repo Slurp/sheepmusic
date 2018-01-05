@@ -26,8 +26,8 @@ abstract class AbstractLastFmInfo implements LastFmInfo
     protected $auth;
 
     /**
-     * @param string $apiKey
-     * @param string $apiSecret
+     * @param string                $apiKey
+     * @param string                $apiSecret
      * @param TokenStorageInterface $tokenStorage
      */
     public function __construct($apiKey, $apiSecret, TokenStorageInterface $tokenStorage)
@@ -39,7 +39,7 @@ abstract class AbstractLastFmInfo implements LastFmInfo
     }
 
     /**
-     * @param string $apiSecret
+     * @param string                $apiSecret
      * @param TokenStorageInterface $tokenStorage
      *
      * @return array

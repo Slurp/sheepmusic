@@ -24,7 +24,7 @@ class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, U
     protected $id;
 
     /**
-     * @var LastFmUser $lastFm
+     * @var LastFmUser
      * @ORM\Embedded(class = "BlackSheep\LastFmBundle\Entity\Embeddable\LastFmUserEmbeddable",columnPrefix = false)
      */
     protected $lastFm;
@@ -84,13 +84,13 @@ class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, U
             'user_name' => $this->getUsername(),
             'email' => $this->getEmail(),
             'last_fm' => $this->getLastFm()->getApiData(),
-            'settings' => $this->getSettings()->getApiData()
+            'settings' => $this->getSettings()->getApiData(),
         ];
     }
 
     /**
      * @param string $username
-     * @param array $payload
+     * @param array  $payload
      *
      * @return SheepUser
      */

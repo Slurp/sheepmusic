@@ -2,7 +2,6 @@
 
 namespace BlackSheep\UserBundle\Entity;
 
-use BlackSheep\MusicLibraryBundle\Entity\BaseEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -57,7 +56,7 @@ class Settings
     {
         return [
             'path' => $this->getPath(),
-            'last_import' => $this->getLastImport()
+            'last_import' => $this->getLastImport(),
         ];
     }
 }

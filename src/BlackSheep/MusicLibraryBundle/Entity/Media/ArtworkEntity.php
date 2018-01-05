@@ -10,9 +10,8 @@ use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * Class ArtworkEntity
+ * Class ArtworkEntity.
  *
- * @package BlackSheep\MusicLibraryBundle\Entity\Media
  * @ORM\Table()
  * @ORM\Entity()
  * @Vich\Uploadable
