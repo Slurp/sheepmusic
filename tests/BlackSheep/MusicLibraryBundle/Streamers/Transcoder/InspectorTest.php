@@ -38,6 +38,6 @@ class InspectorTest extends TestCase
     {
         $ffprobe = __DIR__ . '/../../../../../var/bin/ffprobe';
         self::assertEquals('554.891791', Inspector::getLength($this->flacPath, $ffprobe));
-        self::assertEquals('0.0', Inspector::getLength(''));
+        self::assertEquals('0.0', Inspector::getLength('',$ffprobe));
     }
 }
