@@ -1,14 +1,11 @@
 # Project language
 sudo: required
 dist: trusty
-matrix:
-    include:
-        - php: 7.0
-        - php: 7.1
-          env: deps=high
-        - php: 7.2
-          env: deps=low
-    fast_finish: true
+language: php
+php:
+  - 7.0
+  - 7.1
+
 # Start mysql service
 services:
   - mysql
@@ -38,7 +35,7 @@ install:
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - mkdir -p var/bin
   - cp node_modules/ffmpeg-binaries/bin/ffmpeg var/bin/
-  - cp node_modules/ffmpeg-binaries/bin/ffprobe var/bin/
+
   - php bin/console doctrine:database:create --env=test
   - php bin/console doctrine:schema:create --env=test
   - mkdir -p var/jwt # For Symfony3+, no need of the -p option
