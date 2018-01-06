@@ -13,6 +13,9 @@ class Inspector
     public static function getLength($file, $ffprobe = '/usr/local/bin/ffprobe')
     {
         // fallback ffprobe
+        if (file_exists($ffprobe) === false && $ffprobe !== '/usr/local/bin/ffprobe') {
+            $ffprobe = '/usr/local/bin/ffprobe';
+        }
         if (file_exists($ffprobe) === false) {
             $ffprobe = '/usr/bin/ffprobe';
         }
