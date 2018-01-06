@@ -23,13 +23,18 @@ before-install:
   - composer self-update
   - sudo apt-get -qq update
   - sudo apt-get install -y ffmpeg
+  - sudo apt-get install yarn
 
 
 # Install composer dependencies,
 # Create database, schema and fixtures
 install:
   - composer install
+  - yarn install
   - cp app/config/parameters.yml.dist app/config/parameters.yml
+  - mkdir -p var/bin
+  - cp node_modules/ffmpeg-binaries/bin/ffmpeg var/bin/
+  - cp node_modules/ffmpeg-binaries/bin/ffprobe var/bin/
   - php bin/console doctrine:database:create --env=test
   - php bin/console doctrine:schema:create --env=test
   - mkdir -p var/jwt # For Symfony3+, no need of the -p option
