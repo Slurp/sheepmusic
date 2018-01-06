@@ -18,8 +18,8 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
 
-    ffmpeg_path : /usr/bin/ffmpeg
-    ffprobe_path : /usr/bin/ffprobe
+    ffmpeg_path : "%kernel.root_dir%../var/bin/ffmpeg"
+    ffprobe_path : "%kernel.root_dir%../var/bin/ffprobe"
     last_fm_key: foo
     last_fm_secret: bar
     last_fm_app_name: sheepmusic

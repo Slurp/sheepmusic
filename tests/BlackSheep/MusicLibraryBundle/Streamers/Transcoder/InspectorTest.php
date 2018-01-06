@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\BlackSheep\MusicLibraryBundle\Streamers\Transcoder;
 
 use BlackSheep\MusicLibraryBundle\Streamers\Transcoder\Inspector;
@@ -35,7 +36,8 @@ class InspectorTest extends TestCase
      */
     public function testGetLength()
     {
-        self::assertEquals('554.891791', Inspector::getLength($this->flacPath));
+        $ffprobe = __DIR__ . '/../../../../../var/bin/ffprobe';
+        self::assertEquals('554.891791', Inspector::getLength($this->flacPath, $ffprobe));
         self::assertEquals('0.0', Inspector::getLength(''));
     }
 }
