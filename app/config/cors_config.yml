@@ -23,3 +23,9 @@ nelmio_cors:
         allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
         max_age: 3600
         hosts: ['^api\.']
+    '^/play':
+        origin_regex: true
+        allow_origin: ['*']
+        allow_headers: ['Access-Control-Allow-Origin']
+        allow_methods: ['POST', 'PUT', 'GET', 'DELETE']
+        max_age: 3600
