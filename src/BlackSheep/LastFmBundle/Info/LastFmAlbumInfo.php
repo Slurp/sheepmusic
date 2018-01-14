@@ -2,7 +2,7 @@
 
 namespace BlackSheep\LastFmBundle\Info;
 
-use LastFmApi\Api\AlbumApi;
+use BlackSheep\LastFmBundle\Api\AlbumApi;
 
 /**
  * Get the Correct API.

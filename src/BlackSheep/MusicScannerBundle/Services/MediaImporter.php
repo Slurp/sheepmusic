@@ -58,7 +58,7 @@ class MediaImporter
 
     /**
      * @param ManagerRegistry $managerRegistry
-     * @param SongImporter    $songImporter
+     * @param SongImporter $songImporter
      *
      * @internal param EntityManager $entityManager
      */
@@ -70,7 +70,7 @@ class MediaImporter
 
     /**
      * @param OutputInterface $output
-     * @param bool            $debug
+     * @param bool $debug
      */
     public function setOutputInterface(OutputInterface $output, $debug = true)
     {
@@ -84,11 +84,12 @@ class MediaImporter
     public function import($path)
     {
         $this->path = $path;
-        // Make service calls out of these
-        $this->songsRepository = $this->managerRegistry->getRepository(
-            SongEntity::class
+        $importingFiles = $this->gatherFiles(
+            $this->path,
+            $this->managerRegistry->getRepository(
+                SongEntity::class
+            )->lastImportDate()
         );
-        $importingFiles = $this->gatherFiles($this->path, $this->songsRepository->lastImportDate());
         if (count($importingFiles) > 0) {
             $this->setupProgressBar(count($importingFiles));
             /** @var SplFileInfo $file */
@@ -105,7 +106,7 @@ class MediaImporter
     /**
      * Gather all applicable files in a given directory.
      *
-     * @param string         $path           The directory's full path
+     * @param string $path The directory's full path
      * @param \DateTime|null $lastImportDate
      *
      * @return Finder An array of SplFileInfo objects

@@ -36,12 +36,33 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
      */
     public function addOrUpdateByArtistAndName(ArtistsEntity $artists, $albumName, $extraInfo)
     {
-        $album = $this->getArtistAlbumByName($artists, $albumName);
+        /** @var AlbumInterface $album */
+        $album = null;
+        if (isset($extraInfo['album_mbid'])) {
+            $album = $this->getArtistAlbumByMBID($extraInfo['album_mbid']);
+        }
+        if ($album !== null) {
+            $album = $this->getArtistAlbumByName($artists, $albumName);
+        }
+
         if ($album === null) {
             $album = AlbumEntity::createArtistAlbum($albumName, $artists, $extraInfo);
+        } else {
+            $this->checkSongsForAlbum($album);
         }
 
         return $album;
+    }
+
+    public function checkSongsForAlbum(AlbumInterface $album)
+    {
+        // remove songs that are not there
+        foreach ($album->getSongs() as $song) {
+            if (file_exists($song->getPath()) === false) {
+                $album->removeSong($song);
+                $this->getEntityManager()->remove($song);
+            }
+        }
     }
 
     /**
@@ -54,6 +75,19 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
     {
         return $this->findOneBy(
             ['artist' => $artist, 'name' => $albumName]
+        );
+    }
+
+    /**
+     * @param ArtistsEntity $artist
+     * @param $albumName
+     *
+     * @return null|object
+     */
+    public function getArtistAlbumByMBID($albumMdID)
+    {
+        return $this->findOneBy(
+            ['musicBrainzId' => $albumMdID]
         );
     }
 

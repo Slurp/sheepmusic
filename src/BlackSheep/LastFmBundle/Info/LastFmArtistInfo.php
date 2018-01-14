@@ -2,7 +2,7 @@
 
 namespace BlackSheep\LastFmBundle\Info;
 
-use LastFmApi\Api\ArtistApi;
+use BlackSheep\LastFmBundle\Api\ArtistApi;
 use LastFmApi\Exception\InvalidArgumentException;
 
 /**

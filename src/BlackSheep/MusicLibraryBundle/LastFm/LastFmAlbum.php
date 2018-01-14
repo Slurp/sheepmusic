@@ -6,6 +6,11 @@ use BlackSheep\LastFmBundle\Info\LastFmAlbumInfo;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
 use DateTime;
 
+/**
+ * Class LastFmAlbum
+ *
+ * @package BlackSheep\MusicLibraryBundle\LastFm
+ */
 class LastFmAlbum implements LastFmAlbumInterface
 {
     /**
@@ -31,7 +36,15 @@ class LastFmAlbum implements LastFmAlbumInterface
      */
     public function getLastFmInfoQuery()
     {
-        return ['album' => $this->album->getName(), 'artist' => $this->album->getArtist()->getName()];
+        if ($this->getMusicBrainzId() !== null) {
+            return ['mbid' => $this->getMusicBrainzId(), 'autocorrect' => '1'];
+        }
+
+        return [
+            'album' => $this->album->getName(),
+            'artist' => $this->album->getArtist()->getName(),
+            'autocorrect' => '1'
+        ];
     }
 
     /**
@@ -60,15 +73,14 @@ class LastFmAlbum implements LastFmAlbumInterface
             $this->album = $album;
             $lastFmInfo = $this->lastFmAlbumInfo->getInfo($this);
             if ($lastFmInfo !== false) {
+                $album->setName((string) $lastFmInfo->album->name);
+                $album->setLastFmId((string) $lastFmInfo->album->id);
+                $album->setLastFmUrl($lastFmInfo->album->url);
                 if (empty($album->getCover())) {
-                    $album->setCover($lastFmInfo['image']['large']);
+                    $album->setCover((string) $lastFmInfo->album->image[2]);
                 }
-                $album->setLastFmId($lastFmInfo['lastfmid']);
-                $album->setLastFmUrl($lastFmInfo['url']);
-                if ($lastFmInfo['releasedate']) {
-                    $date = new DateTime();
-                    $date->setTimestamp($lastFmInfo['releasedate']);
-                    $album->setReleaseDate($date);
+                if (empty((string) $lastFmInfo->album->releasedate) !== false) {
+                    $album->setReleaseDate(new DateTime((string) $lastFmInfo->album->releasedate));
                 }
             }
             unset($lastFmInfo);
