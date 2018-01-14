@@ -13,8 +13,8 @@ use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 /**
  * Interface ArtworkInterface.
  *
- * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Table
+ * @ORM\Entity
  */
 interface ArtworkInterface
 {

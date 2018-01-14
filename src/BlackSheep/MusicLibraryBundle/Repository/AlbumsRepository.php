@@ -5,6 +5,7 @@ namespace BlackSheep\MusicLibraryBundle\Repository;
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
+use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query;
 
@@ -13,6 +14,9 @@ use Doctrine\ORM\Query;
  */
 class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInterface
 {
+    /**
+     * @var array
+     */
     protected $listSelection = ['a.id', 'a.slug', 'a.name', 'a.createdAt', 'a.playCount', 'a.lossless'];
 
     /**
@@ -34,26 +38,27 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
      *
      * @return AlbumInterface|null
      */
-    public function addOrUpdateByArtistAndName(ArtistsEntity $artists, $albumName, $extraInfo)
+    public function addOrUpdateByArtistAndName(ArtistInterface $artists, $albumName, $extraInfo)
     {
         /** @var AlbumInterface $album */
         $album = null;
-        if (isset($extraInfo['album_mbid'])) {
+        if (isset($extraInfo['album_mbid']) && empty($extraInfo['album_mbid']) === false) {
             $album = $this->getArtistAlbumByMBID($extraInfo['album_mbid']);
         }
-        if ($album !== null) {
+        if ($album === null) {
             $album = $this->getArtistAlbumByName($artists, $albumName);
         }
 
         if ($album === null) {
             $album = AlbumEntity::createArtistAlbum($albumName, $artists, $extraInfo);
-        } else {
-            $this->checkSongsForAlbum($album);
         }
 
         return $album;
     }
 
+    /**
+     * @param AlbumInterface $album
+     */
     public function checkSongsForAlbum(AlbumInterface $album)
     {
         // remove songs that are not there
@@ -66,12 +71,12 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
     }
 
     /**
-     * @param ArtistsEntity $artist
+     * @param ArtistInterface $artist
      * @param $albumName
      *
      * @return null|object
      */
-    public function getArtistAlbumByName(ArtistsEntity $artist, $albumName)
+    public function getArtistAlbumByName(ArtistInterface $artist, $albumName)
     {
         return $this->findOneBy(
             ['artist' => $artist, 'name' => $albumName]
@@ -79,15 +84,14 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
     }
 
     /**
-     * @param ArtistsEntity $artist
-     * @param $albumName
+     * @param $mbId
      *
      * @return null|object
      */
-    public function getArtistAlbumByMBID($albumMdID)
+    public function getArtistAlbumByMBID($mbId)
     {
         return $this->findOneBy(
-            ['musicBrainzId' => $albumMdID]
+            ['musicBrainzId' => $mbId]
         );
     }
 

@@ -7,14 +7,7 @@ use BlackSheep\MusicLibraryBundle\MusicBrainz\MusicBrainzModelInterface;
 /**
  * Interface AlbumInterface.
  */
-interface ArtistInterface extends
-    ApiInterface,
-    MusicBrainzModelInterface,
-    SongCollectionInterface,
-    GenreCollectionInterface,
-    ArtworkCollectionInterface,
-    PlayCountInterface,
-    ArtworkSetInterface
+interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface, SongCollectionInterface, GenreCollectionInterface, ArtworkCollectionInterface, PlayCountInterface, ArtworkSetInterface
 {
     /**
      * @param      $name

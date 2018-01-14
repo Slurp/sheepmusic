@@ -2,8 +2,8 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model;
 
-use BlackSheep\MusicLibraryBundle\Traits\GenreCollectionTrait;
 use BlackSheep\MusicLibraryBundle\Traits\ArtworkCollectionTrait;
+use BlackSheep\MusicLibraryBundle\Traits\GenreCollectionTrait;
 use BlackSheep\MusicLibraryBundle\Traits\PlayCountTrait;
 use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
 
@@ -69,7 +69,9 @@ class Artist implements ArtistInterface
     {
         $artist = new static();
         $artist->setName($name);
-        $artist->setMusicBrainzId($musicBrainzId);
+        if ($musicBrainzId !== '') {
+            $artist->setMusicBrainzId($musicBrainzId);
+        }
         $artist->setPlayCount(0);
 
         return $artist;

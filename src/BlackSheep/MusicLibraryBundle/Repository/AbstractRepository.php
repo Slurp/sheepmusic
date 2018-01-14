@@ -3,6 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\Query;
 
 /**
@@ -39,7 +40,7 @@ class AbstractRepository extends EntityRepository implements AbstractRepositoryI
     /**
      * @param $entity
      *
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws OptimisticLockException
      */
     public function save($entity)
     {

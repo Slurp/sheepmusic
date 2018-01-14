@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Settings.
  *
- * @ORM\Embeddable()
+ * @ORM\Embeddable
  */
 class Settings
 {

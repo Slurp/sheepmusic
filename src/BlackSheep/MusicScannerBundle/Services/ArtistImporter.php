@@ -54,18 +54,37 @@ class ArtistImporter
         if ($this->artistCache === null ||
             (
                 $this->artistCache->getName() !== $songInfo['artist'] ||
-                $songInfo['artist_mbid'] !== $this->artistCache->getMusicBrainzId()
+                $songInfo['artist_mbid'] != $this->artistCache->getMusicBrainzId()
             )
         ) {
             $this->artistCache = $this->artistRepository->addOrUpdate($songInfo['artist'], $songInfo['artist_mbid']);
             if ($this->artistCache->getId() === null) {
                 try {
                     $this->lastFmArtist->updateLastFmInfo($this->artistCache);
+                    $artist = null;
+                    //Check if lastfm updated stuff is not already available
+                    if ($this->artistCache->getMusicBrainzId() !== null) {
+                        $artist = $this->artistRepository->getArtistByMusicBrainzId(
+                            $this->artistCache->getMusicBrainzId()
+                        );
+                    } else {
+                        $artist = $this->artistRepository->getArtistByName(
+                            $this->artistCache->getName()
+                        );
+                    }
+                    if ($artist !== null) {
+                        unset($this->artistCache);
+                        $this->artistCache = $artist;
+                        unset($artist);
+
+                        return $this->artistCache;
+                    }
                 } catch (\Exception $exception) {
                     error_log($exception->getFile() . $exception->getLine() . $exception->getMessage());
                 }
-                $this->artistRepository->save($this->artistCache);
             }
+
+            $this->artistRepository->save($this->artistCache);
         }
 
         return $this->artistCache;

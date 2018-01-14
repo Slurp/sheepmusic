@@ -25,13 +25,13 @@ class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, U
 
     /**
      * @var LastFmUser
-     * @ORM\Embedded(class = "BlackSheep\LastFmBundle\Entity\Embeddable\LastFmUserEmbeddable",columnPrefix = false)
+     * @ORM\Embedded(class="BlackSheep\LastFmBundle\Entity\Embeddable\LastFmUserEmbeddable", columnPrefix=false)
      */
     protected $lastFm;
 
     /**
      * @var UserSettings
-     * @ORM\Embedded(class = "BlackSheep\UserBundle\Entity\Settings",columnPrefix = false)
+     * @ORM\Embedded(class="BlackSheep\UserBundle\Entity\Settings", columnPrefix=false)
      */
     protected $settings;
 

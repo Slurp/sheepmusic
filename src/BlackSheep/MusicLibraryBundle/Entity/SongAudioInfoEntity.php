@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * SongAudioInfoEntity.
  *
- * @ORM\Embeddable()
+ * @ORM\Embeddable
  */
 class SongAudioInfoEntity extends SongAudioInfo
 {

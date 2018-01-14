@@ -81,7 +81,7 @@ class Album implements AlbumInterface
         if (isset($extraInfo['cover'])) {
             $album->setCover($extraInfo['cover']);
         }
-        if (isset($extraInfo['album_mbid'])) {
+        if (isset($extraInfo['album_mbid']) && empty($extraInfo['album_mbid']) === false) {
             $album->setMusicBrainzId($extraInfo['album_mbid']);
         }
 

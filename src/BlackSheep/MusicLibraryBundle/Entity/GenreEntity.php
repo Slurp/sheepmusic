@@ -20,7 +20,7 @@ class GenreEntity extends Genre implements GenreInterface
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(type="string" , unique=true)
+     * @ORM\Column(type="string", unique=true)
      */
     protected $slug;
 

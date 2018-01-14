@@ -53,7 +53,13 @@ class AlbumImporter
      */
     public function importAlbum(ArtistsEntity $artist, &$songInfo)
     {
-        if ($this->albumCache === null || $this->albumCache->getName() !== $songInfo['album']) {
+        if ($this->albumCache === null ||
+            $this->albumCache->getName() !== $songInfo['album'] ||
+            (
+                isset($songInfo['album_mbid']) && empty($songInfo['album_mbid']) === false &&
+                $this->albumCache->getMusicBrainzId() != $songInfo['album_mbid']
+            )
+        ) {
             $this->albumCache = $this->albumRepository->addOrUpdateByArtistAndName(
                 $artist,
                 $songInfo['album'],
@@ -62,11 +68,29 @@ class AlbumImporter
             if ($this->albumCache->getId() === null) {
                 try {
                     $this->lastFmAlbum->updateLastFmInfo($this->albumCache);
+                    $album = null;
+                    if ($this->albumCache->getMusicBrainzId() !== null) {
+                        $album = $this->albumRepository->getArtistAlbumByMBID(
+                            $this->albumCache->getMusicBrainzId()
+                        );
+                    } else {
+                        $album = $this->albumRepository->getArtistAlbumByName(
+                            $this->albumCache->getArtist(),
+                            $this->albumCache->getName()
+                        );
+                    }
+                    if ($album !== null) {
+                        $this->albumCache = $album;
+                        unset($album);
+
+                        return $this->albumCache;
+                    }
                 } catch (\Exception $exception) {
                     error_log($exception->getFile() . $exception->getLine() . $exception->getMessage());
                 }
-                $this->albumRepository->save($this->albumCache);
             }
+
+            $this->albumRepository->save($this->albumCache);
         }
 
         return $this->albumCache;

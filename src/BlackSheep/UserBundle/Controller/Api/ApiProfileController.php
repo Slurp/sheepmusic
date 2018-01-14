@@ -48,9 +48,9 @@ class ApiProfileController extends AbstractController
 
     /**
      * @param EventDispatcherInterface $eventDispatcher
-     * @param FactoryInterface $formFactory
-     * @param UserManagerInterface $userManager
-     * @param TranslatorInterface $translator
+     * @param FactoryInterface         $formFactory
+     * @param UserManagerInterface     $userManager
+     * @param TranslatorInterface      $translator
      */
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
@@ -90,7 +90,7 @@ class ApiProfileController extends AbstractController
 
     /**
      * @Route("/user/save/profile", name="save_user_profile")
-     * @Method({"PUT", "POST","PATCH"})
+     * @Method({"PUT", "POST", "PATCH"})
      *
      * @param Request $request
      *
@@ -132,10 +132,10 @@ class ApiProfileController extends AbstractController
     }
 
     /**
-     * @param FormInterface $form
-     * @param Request $request
+     * @param FormInterface            $form
+     * @param Request                  $request
      * @param EventDispatcherInterface $dispatcher
-     * @param UserInterface $user
+     * @param UserInterface            $user
      *
      * @return null|RedirectResponse|Response
      */

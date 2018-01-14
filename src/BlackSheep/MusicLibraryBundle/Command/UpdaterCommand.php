@@ -47,7 +47,7 @@ class UpdaterCommand extends ContainerAwareCommand
     {
         $this->setOutputInterface($output);
         $artistRepository = $this->getContainer()->get('black_sheep_music_library.repository.artists_repository');
-        $artists = $this->getContainer()->get('black_sheep_music_library.repository.artists_repository')->findAll();
+        $artists = $artistRepository->findAll();
         /* @var ArtistInterface $artist */
         $this->setupProgressBar(count($artists));
         foreach ($artists as $artist) {

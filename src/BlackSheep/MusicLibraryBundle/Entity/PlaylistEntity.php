@@ -27,8 +27,8 @@ class PlaylistEntity extends Playlist
      *     cascade={"all"},
      *     orphanRemoval=true
      * )
-     * @ORM\OrderBy({"position" = "ASC"})
-     * @Assert\Valid()
+     * @ORM\OrderBy({"position": "ASC"})
+     * @Assert\Valid
      */
     protected $songs;
 

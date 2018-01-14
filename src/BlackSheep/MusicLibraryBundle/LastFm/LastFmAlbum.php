@@ -7,9 +7,7 @@ use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
 use DateTime;
 
 /**
- * Class LastFmAlbum
- *
- * @package BlackSheep\MusicLibraryBundle\LastFm
+ * Class LastFmAlbum.
  */
 class LastFmAlbum implements LastFmAlbumInterface
 {
@@ -43,7 +41,7 @@ class LastFmAlbum implements LastFmAlbumInterface
         return [
             'album' => $this->album->getName(),
             'artist' => $this->album->getArtist()->getName(),
-            'autocorrect' => '1'
+            'autocorrect' => '1',
         ];
     }
 
@@ -79,7 +77,7 @@ class LastFmAlbum implements LastFmAlbumInterface
                 if (empty($album->getCover())) {
                     $album->setCover((string) $lastFmInfo->album->image[2]);
                 }
-                if (empty((string) $lastFmInfo->album->releasedate) !== false) {
+                if (empty($lastFmInfo->album->releasedate->__toString()) === false) {
                     $album->setReleaseDate(new DateTime((string) $lastFmInfo->album->releasedate));
                 }
             }
