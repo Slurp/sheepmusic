@@ -8,14 +8,16 @@ use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(indexes={
- *     @ORM\Index(name="index_artist_album", columns={"artist_id","name"}),
+ *     @ORM\Index(name="index_artist_album", columns={"artist_id", "name"}),
  *     @ORM\Index(name="index_create", columns={"created_at"}),
  *     @ORM\Index(name="index_update", columns={"updated_at"})
  * }))
  * @ORM\Entity(repositoryClass="BlackSheep\MusicLibraryBundle\Repository\AlbumsRepository")
+ * @UniqueEntity("musicBrainzId")
  */
 class AlbumEntity extends Album implements AlbumInterface
 {
@@ -23,11 +25,11 @@ class AlbumEntity extends Album implements AlbumInterface
 
     /**
      * @Gedmo\Slug(handlers={
-     *      @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\RelativeSlugHandler", options={
-     *          @Gedmo\SlugHandlerOption(name="relationField", value="artist"),
-     *          @Gedmo\SlugHandlerOption(name="relationSlugField", value="alias"),
-     *          @Gedmo\SlugHandlerOption(name="separator", value="/")
-     *      })
+     *     @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\RelativeSlugHandler", options={
+     *         @Gedmo\SlugHandlerOption(name="relationField", value="artist"),
+     *         @Gedmo\SlugHandlerOption(name="relationSlugField", value="alias"),
+     *         @Gedmo\SlugHandlerOption(name="separator", value="/")
+     *     })
      * }, separator="-", updatable=true, fields={"name"})
      * @ORM\Column(type="string", unique=true)
      */
@@ -49,18 +51,18 @@ class AlbumEntity extends Album implements AlbumInterface
     protected $cover;
 
     /**
-     * @ORM\OneToMany(targetEntity="SongEntity", mappedBy="album",cascade={"all"})
-     * @ORM\OrderBy({"track" = "ASC"})
+     * @ORM\OneToMany(targetEntity="SongEntity", mappedBy="album", cascade={"all"})
+     * @ORM\OrderBy({"track": "ASC"})
      */
     protected $songs;
 
     /**
-     * @ORM\ManyToOne(targetEntity="ArtistsEntity", inversedBy="albums",cascade={"all"})
+     * @ORM\ManyToOne(targetEntity="ArtistsEntity", inversedBy="albums", cascade={"all"})
      */
     protected $artist;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, unique=true)
      */
     protected $musicBrainzId;
 

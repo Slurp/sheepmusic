@@ -10,9 +10,11 @@ use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="BlackSheep\MusicLibraryBundle\Repository\ArtistRepository")
+ * @UniqueEntity("musicBrainzId")
  */
 class ArtistsEntity extends Artist implements ArtistInterface
 {
@@ -20,19 +22,19 @@ class ArtistsEntity extends Artist implements ArtistInterface
 
     /**
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(type="string" , unique=true)
+     * @ORM\Column(type="string", unique=true)
      */
     protected $slug;
 
     /**
      * @Gedmo\Slug(handlers={
-     *      @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\InversedRelativeSlugHandler", options={
-     *          @Gedmo\SlugHandlerOption(name="relationClass", value="Albums"),
-     *          @Gedmo\SlugHandlerOption(name="mappedBy", value="albums"),
-     *          @Gedmo\SlugHandlerOption(name="inverseSlugField", value="slug")
-     *      })
+     *     @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\InversedRelativeSlugHandler", options={
+     *         @Gedmo\SlugHandlerOption(name="relationClass", value="Albums"),
+     *         @Gedmo\SlugHandlerOption(name="mappedBy", value="albums"),
+     *         @Gedmo\SlugHandlerOption(name="inverseSlugField", value="slug")
+     *     })
      * }, fields={"name"})
-     * @ORM\Column(type="string" , unique=true)
+     * @ORM\Column(type="string", unique=true)
      */
     protected $alias;
 
@@ -42,7 +44,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     protected $name;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="string", nullable=true, unique=true)
      */
     protected $musicBrainzId;
 
@@ -62,25 +64,25 @@ class ArtistsEntity extends Artist implements ArtistInterface
     protected $playCount;
 
     /**
-     * @ORM\OneToMany(targetEntity="AlbumEntity", mappedBy="artist" , fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(targetEntity="AlbumEntity", mappedBy="artist", fetch="EXTRA_LAZY")
      */
     protected $albums;
 
     /**
-     * @ORM\ManyToMany(targetEntity="SongEntity", mappedBy="artists" , fetch="EXTRA_LAZY")
+     * @ORM\ManyToMany(targetEntity="SongEntity", mappedBy="artists", fetch="EXTRA_LAZY")
      */
     protected $songs;
 
     /**
      * @ORM\ManyToMany(targetEntity="GenreEntity", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(
-     *  name="artists_genres",
-     *  joinColumns={
-     *      @ORM\JoinColumn(name="artist_id", referencedColumnName="id")
-     *  },
-     *  inverseJoinColumns={
-     *      @ORM\JoinColumn(name="genre_id", referencedColumnName="id")
-     *  }
+     *     name="artists_genres",
+     *     joinColumns={
+     *         @ORM\JoinColumn(name="artist_id", referencedColumnName="id")
+     *     },
+     *     inverseJoinColumns={
+     *         @ORM\JoinColumn(name="genre_id", referencedColumnName="id")
+     *     }
      * )
      */
     protected $genres;
@@ -97,13 +99,13 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * @ORM\ManyToMany(targetEntity="BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(
-     *  name="artists_similar",
-     *  joinColumns={
-     *      @ORM\JoinColumn(name="artist_id", referencedColumnName="id")
-     *  },
-     *  inverseJoinColumns={
-     *      @ORM\JoinColumn(name="similar_id", referencedColumnName="id")
-     *  }
+     *     name="artists_similar",
+     *     joinColumns={
+     *         @ORM\JoinColumn(name="artist_id", referencedColumnName="id")
+     *     },
+     *     inverseJoinColumns={
+     *         @ORM\JoinColumn(name="similar_id", referencedColumnName="id")
+     *     }
      * )
      */
     protected $similarArtists;

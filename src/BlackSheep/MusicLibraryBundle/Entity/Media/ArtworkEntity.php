@@ -12,8 +12,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 /**
  * Class ArtworkEntity.
  *
- * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Table
+ * @ORM\Entity
  * @Vich\Uploadable
  */
 class ArtworkEntity extends Artwork implements AbstractMediaInterface

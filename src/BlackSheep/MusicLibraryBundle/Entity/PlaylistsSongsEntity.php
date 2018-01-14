@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity
  */
 class PlaylistsSongsEntity extends PlaylistsSongs
 {
@@ -17,7 +17,7 @@ class PlaylistsSongsEntity extends PlaylistsSongs
     /**
      * @var int
      * @ORM\Column(type="integer")
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\GreaterThanOrEqual(0);
      */
     protected $position;
@@ -25,7 +25,7 @@ class PlaylistsSongsEntity extends PlaylistsSongs
     /**
      * @var SongInterface
      * @ORM\ManyToOne(targetEntity="BlackSheep\MusicLibraryBundle\Entity\SongEntity")
-     * @Assert\NotNull()
+     * @Assert\NotNull
      */
     protected $song;
 
@@ -33,7 +33,7 @@ class PlaylistsSongsEntity extends PlaylistsSongs
      * @var ResearchGroupInterface
      * @ORM\ManyToOne(targetEntity="BlackSheep\MusicLibraryBundle\Entity\PlaylistEntity", inversedBy="songs")
      * @ORM\JoinColumn(name="playlist_id", referencedColumnName="id")
-     * @Assert\NotNull()
+     * @Assert\NotNull
      */
     protected $playlist;
 }
