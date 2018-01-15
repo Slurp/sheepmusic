@@ -37,7 +37,7 @@ class GenreEntity extends Genre implements GenreInterface
     /**
      * {@inheritdoc}
      */
-    public function getApiData()
+    public function getApiData(): array
     {
         $array = parent::getApiData();
         $array['id'] = $this->getId();

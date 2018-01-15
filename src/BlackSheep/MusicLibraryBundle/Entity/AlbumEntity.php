@@ -103,7 +103,7 @@ class AlbumEntity extends Album implements AlbumInterface
     /**
      * {@inheritdoc}
      */
-    public function addSong(SongInterface $song)
+    public function addSong(SongInterface $song): AlbumInterface
     {
         if ($this->songs->contains($song) === false) {
             $this->songs->add($song);
@@ -117,7 +117,7 @@ class AlbumEntity extends Album implements AlbumInterface
     /**
      * {@inheritdoc}
      */
-    public function getApiData()
+    public function getApiData(): array
     {
         $array = parent::getApiData();
         $array['id'] = $this->getId();

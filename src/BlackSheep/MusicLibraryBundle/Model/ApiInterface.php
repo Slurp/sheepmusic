@@ -10,5 +10,5 @@ interface ApiInterface
     /**
      * @return array
      */
-    public function getApiData();
+    public function getApiData(): array;
 }

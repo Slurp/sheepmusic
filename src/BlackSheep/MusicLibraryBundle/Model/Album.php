@@ -256,7 +256,7 @@ class Album implements AlbumInterface
     /**
      * @return array
      */
-    public function getApiData()
+    public function getApiData(): array
     {
         return [
             'slug' => $this->getSlug(),

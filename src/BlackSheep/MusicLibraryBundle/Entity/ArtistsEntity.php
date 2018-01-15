@@ -122,7 +122,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function addSong(SongInterface $song)
+    public function addSong(SongInterface $song): ArtistInterface
     {
         if ($this->songs->contains($song) === false) {
             $this->songs->add($song);
@@ -135,7 +135,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function removeSong(SongInterface $song)
+    public function removeSong(SongInterface $song): ArtistInterface
     {
         if ($this->songs->contains($song) === true) {
             $song->setAlbum(null);
@@ -148,7 +148,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function addGenre(GenreInterface $genre)
+    public function addGenre(GenreInterface $genre): ArtistInterface
     {
         if ($this->genres->contains($genre) === false) {
             $this->genres->add($genre);
@@ -160,7 +160,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function removeGenre(GenreInterface $genre)
+    public function removeGenre(GenreInterface $genre): ArtistInterface
     {
         if ($this->genres->contains($genre) === true) {
             $this->genres->remove($genre);
@@ -172,7 +172,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function addArtwork(ArtworkInterface $artwork)
+    public function addArtwork(ArtworkInterface $artwork): ArtistInterface
     {
         if ($this->artworks->contains($artwork) === false) {
             $this->artworks->add($artwork);
@@ -185,7 +185,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function addSimilarArtist(ArtistInterface $similarArtist)
+    public function addSimilarArtist(ArtistInterface $similarArtist): ArtistInterface
     {
         if ($this->similarArtists->contains($similarArtist) === false) {
             $this->similarArtists->add($similarArtist);
@@ -197,7 +197,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function removeSimilarArtist(ArtistInterface $similarArtist)
+    public function removeSimilarArtist(ArtistInterface $similarArtist): ArtistInterface
     {
         if ($this->similarArtists->contains($similarArtist) === true) {
             $this->similarArtists->remove($similarArtist);
@@ -209,7 +209,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function getApiData()
+    public function getApiData(): array
     {
         $array = parent::getApiData();
         $array['id'] = $this->getId();

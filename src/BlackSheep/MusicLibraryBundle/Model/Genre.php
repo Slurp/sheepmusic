@@ -68,7 +68,7 @@ class Genre implements GenreInterface
     /**
      * @return array
      */
-    public function getApiData()
+    public function getApiData(): array
     {
         return [
             'slug' => $this->getSlug(),

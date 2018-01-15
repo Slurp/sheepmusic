@@ -17,7 +17,7 @@ interface SongInterface extends ApiInterface, PlayCountInterface, HasGenreInterf
     /**
      * @return string
      */
-    public function getTrack();
+    public function getTrack(): string;
 
     /**
      * @param mixed $track

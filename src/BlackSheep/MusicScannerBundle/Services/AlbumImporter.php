@@ -66,33 +66,50 @@ class AlbumImporter
                 $songInfo
             );
             if ($this->albumCache->getId() === null) {
-                try {
-                    $this->lastFmAlbum->updateLastFmInfo($this->albumCache);
-                    $album = null;
-                    if ($this->albumCache->getMusicBrainzId() !== null) {
-                        $album = $this->albumRepository->getArtistAlbumByMBID(
-                            $this->albumCache->getMusicBrainzId()
-                        );
-                    } else {
-                        $album = $this->albumRepository->getArtistAlbumByName(
-                            $this->albumCache->getArtist(),
-                            $this->albumCache->getName()
-                        );
-                    }
-                    if ($album !== null) {
-                        $this->albumCache = $album;
-                        unset($album);
-
-                        return $this->albumCache;
-                    }
-                } catch (\Exception $exception) {
-                    error_log($exception->getFile() . $exception->getLine() . $exception->getMessage());
+                if ($this->addMetaDataToNewAlbum()) {
+                    $this->albumRepository->save($this->albumCache);
                 }
             }
-
+            if ($this->albumCache->getMusicBrainzId() === null && empty($songInfo['album_mbid']) === false) {
+                $this->albumCache->setMusicBrainzId($songInfo['album_mbid']);
+                $this->albumRepository->save($this->albumCache);
+            }
+        }
+        if ($this->albumCache->getMusicBrainzId() === null && empty($songInfo['album_mbid']) === false) {
+            $this->albumCache->setMusicBrainzId($songInfo['album_mbid']);
             $this->albumRepository->save($this->albumCache);
         }
 
         return $this->albumCache;
+    }
+
+    protected function addMetaDataToNewAlbum()
+    {
+        try {
+            $this->lastFmAlbum->updateLastFmInfo($this->albumCache);
+            $album = null;
+            if ($this->albumCache->getMusicBrainzId() !== null) {
+                $album = $this->albumRepository->getArtistAlbumByMBID(
+                    $this->albumCache->getMusicBrainzId()
+                );
+            } else {
+                $album = $this->albumRepository->getArtistAlbumByName(
+                    $this->albumCache->getArtist(),
+                    $this->albumCache->getName()
+                );
+            }
+            // already updated album..
+            if ($album !== null) {
+                unset($this->albumCache);
+                $this->albumCache = $album;
+                unset($album);
+
+                return false;
+            }
+        } catch (\Exception $exception) {
+            error_log($exception->getFile() . $exception->getLine() . $exception->getMessage());
+        }
+
+        return true;
     }
 }
