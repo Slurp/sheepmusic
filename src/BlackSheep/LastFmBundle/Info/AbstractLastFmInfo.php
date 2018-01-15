@@ -95,7 +95,7 @@ abstract class AbstractLastFmInfo implements LastFmInfo
     {
         try {
             $lastFmInfo = $this->getApi()->getInfo($lastFmInterface->getLastFmInfoQuery());
-            if ($lastFmInterface->getMusicBrainzId() !== null) {
+            if ($lastFmInterface->getMusicBrainzId() === null && empty((string) $lastFmInfo->mbid) === false) {
                 $lastFmInterface->setMusicBrainzId((string) $lastFmInfo->mbid);
             }
 

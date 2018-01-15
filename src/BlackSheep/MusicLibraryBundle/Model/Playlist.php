@@ -132,7 +132,7 @@ class Playlist implements PlaylistInterface, ApiInterface
     /**
      * {@inheritdoc}
      */
-    public function getApiData()
+    public function getApiData(): array
     {
         return [
             'cover' => $this->getCover(),

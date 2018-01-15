@@ -1,10 +1,4 @@
 <?php
-/**
- * @author    : Stephan Langeweg <stephan@zwartschaap.net>
- * @copyright 2016 Zwartschaap
- *
- * @version   1.0
- */
 
 namespace BlackSheep\MusicScannerBundle\Services;
 
@@ -47,9 +41,11 @@ class ArtistImporter
     /**
      * @param $songInfo
      *
-     * @return ArtistsEntity
+     * @return ArtistInterface
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function importArtist(&$songInfo)
+    public function importArtist(&$songInfo): ArtistInterface
     {
         if ($this->artistCache === null ||
             (
@@ -67,7 +63,8 @@ class ArtistImporter
                         $artist = $this->artistRepository->getArtistByMusicBrainzId(
                             $this->artistCache->getMusicBrainzId()
                         );
-                    } else {
+                    }
+                    if ($artist === null) {
                         $artist = $this->artistRepository->getArtistByName(
                             $this->artistCache->getName()
                         );
@@ -84,6 +81,10 @@ class ArtistImporter
                 }
             }
 
+            $this->artistRepository->save($this->artistCache);
+        }
+        if ($this->artistCache->getMusicBrainzId() === null && empty($songInfo['artist_mbid']) === false) {
+            $this->artistCache->setMusicBrainzId($songInfo['artist_mbid']);
             $this->artistRepository->save($this->artistCache);
         }
 

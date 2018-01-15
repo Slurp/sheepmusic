@@ -55,7 +55,7 @@ class SongAudioInfo implements SongAudioInfoInterface
     /**
      * @return array
      */
-    public static function getAllowedKeys()
+    public static function getAllowedKeys(): array
     {
         return [
             'dataformat',
@@ -87,7 +87,7 @@ class SongAudioInfo implements SongAudioInfoInterface
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $info = [];
         foreach (static::getAllowedKeys() as $key) {
@@ -98,73 +98,73 @@ class SongAudioInfo implements SongAudioInfoInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
-    public function getDataformat()
+    public function getDataformat(): string
     {
         return $this->dataformat;
     }
 
     /**
-     * {@inheritdoc}
+     * @return int
      */
-    public function getChannels()
+    public function getChannels(): int
     {
         return $this->channels;
     }
 
     /**
-     * {@inheritdoc}
+     * @return int
      */
-    public function getSampleRate()
+    public function getSampleRate(): int
     {
         return $this->sample_rate;
     }
 
     /**
-     * {@inheritdoc}
+     * @return float
      */
-    public function getBitrate()
+    public function getBitrate(): float
     {
         return $this->bitrate;
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
-    public function getChannelmode()
+    public function getChannelmode(): string
     {
         return $this->channelmode;
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
-    public function getBitrateMode()
+    public function getBitrateMode(): string
     {
         return $this->bitrate_mode;
     }
 
     /**
-     * {@inheritdoc}
+     * @return bool
      */
-    public function getLossless()
+    public function getLossless(): bool
     {
         return $this->lossless;
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
-    public function getEncoderOptions()
+    public function getEncoderOptions(): string
     {
         return $this->encoder_options;
     }
 
     /**
-     * {@inheritdoc}
+     * @return float
      */
-    public function getCompressionRatio()
+    public function getCompressionRatio(): float
     {
         return $this->compression_ratio;
     }

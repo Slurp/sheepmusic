@@ -3,6 +3,7 @@
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
 use BlackSheep\MusicLibraryBundle\Model\Playlist;
+use BlackSheep\MusicLibraryBundle\Model\PlaylistInterface;
 use BlackSheep\MusicLibraryBundle\Model\PlaylistsSongsInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -45,7 +46,7 @@ class PlaylistEntity extends Playlist
     /**
      * {@inheritdoc}
      */
-    public static function create($name = null)
+    public static function create($name = null): PlaylistInterface
     {
         $playlist = new static();
         if ($name === '' || $name === null) {
@@ -85,7 +86,7 @@ class PlaylistEntity extends Playlist
     /**
      * {@inheritdoc}
      */
-    public function addSong(PlaylistsSongsInterface $song)
+    public function addSong(PlaylistsSongsInterface $song): PlaylistInterface
     {
         if ($this->songs->contains($song) === false) {
             $this->songs->add($song);
@@ -98,7 +99,7 @@ class PlaylistEntity extends Playlist
     /**
      * {@inheritdoc}
      */
-    public function removeSong(PlaylistsSongsInterface $song)
+    public function removeSong(PlaylistsSongsInterface $song): PlaylistInterface
     {
         if ($this->songs->contains($song) === true) {
             $this->songs->removeElement($song);
@@ -110,7 +111,7 @@ class PlaylistEntity extends Playlist
     /**
      * {@inheritdoc}
      */
-    public function getApiData()
+    public function getApiData(): array
     {
         $array = parent::getApiData();
         $array['id'] = $this->getId();

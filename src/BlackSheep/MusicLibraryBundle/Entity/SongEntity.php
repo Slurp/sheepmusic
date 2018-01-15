@@ -156,7 +156,7 @@ class SongEntity extends Song implements SongInterface
     /**
      * {@inheritdoc}
      */
-    public function getApiData()
+    public function getApiData(): array
     {
         $array = parent::getApiData();
         $array['id'] = $this->getId();

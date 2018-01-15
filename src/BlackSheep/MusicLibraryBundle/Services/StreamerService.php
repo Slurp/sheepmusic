@@ -11,22 +11,22 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * Streamer service.
  */
-class StreamerService
+class StreamerService implements StreamerServiceInterface
 {
     /**
      * @var string
      */
-    private $ffmpegPath;
+    protected $ffmpegPath;
 
     /**
      * @var string
      */
-    private $bitrate;
+    protected $bitrate;
 
     /**
      * @var string
      */
-    private $ffprobePath;
+    protected $ffprobePath;
 
     /**
      * @param $ffmpegPath
@@ -50,7 +50,7 @@ class StreamerService
      *
      * @throws \Exception
      */
-    public function getStreamerForSong(SongInterface $song, $startTime = 0)
+    public function getStreamerForSong(SongInterface $song, $startTime = 0): Response
     {
         $songFile = new File($song->getPath());
         $streamer = new DefaultStreamer($song);

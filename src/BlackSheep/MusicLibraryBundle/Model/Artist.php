@@ -245,7 +245,7 @@ class Artist implements ArtistInterface
     /**
      * @return array
      */
-    public function getApiData()
+    public function getApiData(): array
     {
         $genres = [];
         foreach ($this->getGenres() as $genre) {

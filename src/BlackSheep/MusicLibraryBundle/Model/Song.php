@@ -97,7 +97,7 @@ class Song implements SongInterface
     /**
      * {@inheritdoc}
      */
-    public function getTrack()
+    public function getTrack(): string
     {
         return $this->track;
     }
@@ -299,7 +299,7 @@ class Song implements SongInterface
     /**
      * {@inheritdoc}
      */
-    public function getApiData()
+    public function getApiData(): array
     {
         $apiData = [
             'track' => $this->getTrack(),

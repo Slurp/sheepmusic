@@ -8,47 +8,57 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 interface SongAudioInfoInterface
 {
     /**
+     * @return array
+     */
+    public static function getAllowedKeys(): array;
+
+    /**
+     * @return array
+     */
+    public function toArray(): array;
+
+    /**
      * @return string
      */
-    public function getDataformat();
+    public function getDataformat(): string;
 
     /**
      * @return int
      */
-    public function getChannels();
+    public function getChannels(): int;
 
     /**
      * @return int
      */
-    public function getSampleRate();
+    public function getSampleRate(): int;
 
     /**
      * @return float
      */
-    public function getBitrate();
+    public function getBitrate(): float;
 
     /**
      * @return string
      */
-    public function getChannelmode();
+    public function getChannelmode(): string;
 
     /**
      * @return string
      */
-    public function getBitrateMode();
+    public function getBitrateMode(): string;
 
     /**
      * @return bool
      */
-    public function getLossless();
+    public function getLossless(): bool;
 
     /**
      * @return string
      */
-    public function getEncoderOptions();
+    public function getEncoderOptions(): string;
 
     /**
      * @return float
      */
-    public function getCompressionRatio();
+    public function getCompressionRatio(): float;
 }

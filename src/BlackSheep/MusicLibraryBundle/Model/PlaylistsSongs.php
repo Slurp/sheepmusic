@@ -2,6 +2,9 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model;
 
+/**
+ * Class PlaylistsSongs.
+ */
 class PlaylistsSongs implements PlaylistsSongsInterface
 {
     /**
@@ -22,7 +25,7 @@ class PlaylistsSongs implements PlaylistsSongsInterface
     /**
      * {@inheritdoc}
      */
-    public function getPosition()
+    public function getPosition(): int
     {
         return $this->position;
     }
@@ -30,7 +33,7 @@ class PlaylistsSongs implements PlaylistsSongsInterface
     /**
      * {@inheritdoc}
      */
-    public function setPosition($position)
+    public function setPosition($position): PlaylistsSongsInterface
     {
         $this->position = $position;
 
