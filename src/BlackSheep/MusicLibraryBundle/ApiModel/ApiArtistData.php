@@ -19,7 +19,11 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
             $artistData = $object->getApiData();
             $albums = [];
             foreach ($object->getAlbums() as $album) {
-                $albums[] = ['id' => $album->getId()];
+                $year = '0001';
+                if ($album->getSongs()->first()) {
+                    $year = $album->getSongs()->first()->getYear();
+                }
+                $albums[] = ['id' => $album->getId(),'year'=> $year];
             }
             $artistData = array_merge(
                 $artistData,
