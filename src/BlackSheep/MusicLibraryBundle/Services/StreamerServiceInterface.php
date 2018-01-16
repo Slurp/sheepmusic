@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: slangeweg
  * Date: 15/01/2018
- * Time: 20:45
+ * Time: 20:45.
  */
 
 namespace BlackSheep\MusicLibraryBundle\Services;
@@ -20,7 +20,7 @@ interface StreamerServiceInterface
      * Play a song.
      *
      * @param SongInterface $song
-     * @param int $startTime
+     * @param int           $startTime
      *
      * @return Response
      *
