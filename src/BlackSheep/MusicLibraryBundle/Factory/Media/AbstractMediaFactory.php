@@ -41,7 +41,7 @@ class AbstractMediaFactory
     /**
      * @param AbstractMediaInterface $entity
      * @param $url
-     * @param $name
+     * @param string $name
      */
     public function copyExternalFile(AbstractMediaInterface &$entity, $url, $name)
     {

@@ -24,6 +24,7 @@ interface AbstractMediaInterface extends Model
      * during Doctrine hydration.
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     * @return void
      */
     public function setImageFile(File $image = null);
 

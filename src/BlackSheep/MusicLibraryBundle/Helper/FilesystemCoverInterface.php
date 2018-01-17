@@ -9,6 +9,7 @@ interface FilesystemCoverInterface
 {
     /**
      * @param string|null $webDirectory
+     * @return void
      */
     public function __construct($webDirectory = null);
 

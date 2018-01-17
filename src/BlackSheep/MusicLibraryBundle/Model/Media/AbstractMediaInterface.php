@@ -9,6 +9,7 @@ interface AbstractMediaInterface
 {
     /**
      * @param $imageName
+     * @return void
      */
     public function setImageName($imageName);
 
@@ -19,6 +20,7 @@ interface AbstractMediaInterface
 
     /**
      * @param $imageSize
+     * @return void
      */
     public function setImageSize($imageSize);
 

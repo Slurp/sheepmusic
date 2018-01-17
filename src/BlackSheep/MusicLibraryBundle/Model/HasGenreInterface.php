@@ -14,6 +14,7 @@ interface HasGenreInterface
 
     /**
      * @param GenreInterface $genre
+     * @return void
      */
     public function setGenre(GenreInterface $genre);
 }

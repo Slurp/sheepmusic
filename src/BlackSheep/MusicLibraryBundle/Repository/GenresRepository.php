@@ -27,7 +27,7 @@ class GenresRepository extends AbstractRepository implements GenresRepositoryInt
     /**
      * @param   $genreName
      *
-     * @return GenreInterface|null
+     * @return GenreInterface
      */
     public function addOrUpdateByName($genreName)
     {

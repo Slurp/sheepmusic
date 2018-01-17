@@ -33,6 +33,9 @@ class JsonClient
         return new Client();
     }
 
+    /**
+     * @param string $endpoint
+     */
     protected function makeRequest($endpoint)
     {
         return new GuzzleRequest(

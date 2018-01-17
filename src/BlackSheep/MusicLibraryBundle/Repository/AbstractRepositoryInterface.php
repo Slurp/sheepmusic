@@ -18,6 +18,7 @@ interface AbstractRepositoryInterface
 
     /**
      * @param $entity
+     * @return void
      */
     public function save($entity);
 }

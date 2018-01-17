@@ -18,46 +18,46 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface, SongC
     public static function createNew($name, $musicBrainzId = null);
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSlug();
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getAlias();
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName();
 
     /**
-     * @param mixed $name
+     * @param string $name
      *
      * @return ArtistInterface
      */
     public function setName($name);
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getImage();
 
     /**
-     * @param mixed $image
+     * @param string $image
      *
      * @return ArtistInterface
      */
     public function setImage($image);
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getBiography();
 
     /**
-     * @param mixed $biography
+     * @param string $biography
      *
      * @return ArtistInterface
      */
@@ -76,7 +76,7 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface, SongC
     public function setAlbums($albums);
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getPlayCount();
 
@@ -99,16 +99,19 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface, SongC
 
     /**
      * @param ArtistInterface[] $similarArtists
+     * @return void
      */
     public function setSimilarArtists($similarArtists);
 
     /**
      * @param ArtistInterface $similarArtist
+     * @return Artist
      */
     public function addSimilarArtist(self $similarArtist);
 
     /**
      * @param ArtistInterface $similarArtist
+     * @return Artist
      */
     public function removeSimilarArtist(self $similarArtist);
 }

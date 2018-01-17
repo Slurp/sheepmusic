@@ -9,7 +9,7 @@ interface AlbumInterface extends ApiInterface, SongCollectionInterface, PlayCoun
 {
     /**
      * @param $name
-     * @param $artist
+     * @param ArtistInterface $artist
      * @param $extraInfo
      *
      * @return AlbumInterface
@@ -17,29 +17,29 @@ interface AlbumInterface extends ApiInterface, SongCollectionInterface, PlayCoun
     public static function createArtistAlbum($name, $artist, $extraInfo);
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getSlug();
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName();
 
     /**
-     * @param mixed $name
+     * @param string $name
      *
      * @return AlbumInterface
      */
     public function setName($name);
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getCover();
 
     /**
-     * @param mixed $cover
+     * @param string $cover
      *
      * @return AlbumInterface
      */
@@ -58,19 +58,19 @@ interface AlbumInterface extends ApiInterface, SongCollectionInterface, PlayCoun
     public function setArtist(ArtistInterface $artist);
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getReleaseDate();
 
     /**
-     * @param mixed $releaseDate
+     * @param \DateTime $releaseDate
      *
      * @return AlbumInterface
      */
     public function setReleaseDate($releaseDate);
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getMusicBrainzId();
 

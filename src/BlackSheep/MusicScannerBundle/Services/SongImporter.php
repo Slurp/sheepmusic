@@ -72,7 +72,7 @@ class SongImporter
     /**
      * @param SplFileInfo $file
      *
-     * @return SongEntity|array|null
+     * @return SongEntity|null
      */
     public function importSong(SplFileInfo $file)
     {
