@@ -155,6 +155,7 @@ interface SongInterface extends ApiInterface, PlayCountInterface, HasGenreInterf
 
     /**
      * @param SongAudioInfoInterface $audio
+     * @return void
      */
     public function setAudio(SongAudioInfoInterface $audio);
 }

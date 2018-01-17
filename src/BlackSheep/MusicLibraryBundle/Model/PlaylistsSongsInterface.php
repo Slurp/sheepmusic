@@ -10,8 +10,16 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 
 interface PlaylistsSongsInterface
 {
+    /**
+     * @return integer
+     */
     public function getPosition();
 
+    /**
+     * @param integer $position
+     *
+     * @return PlaylistsSongs
+     */
     public function setPosition($position);
 
     /**
@@ -21,6 +29,7 @@ interface PlaylistsSongsInterface
 
     /**
      * @param PlaylistInterface $playlist
+     * @return void
      */
     public function setPlaylist(PlaylistInterface $playlist);
 
@@ -31,6 +40,7 @@ interface PlaylistsSongsInterface
 
     /**
      * @param SongInterface $song
+     * @return void
      */
     public function setSong(SongInterface $song);
 }

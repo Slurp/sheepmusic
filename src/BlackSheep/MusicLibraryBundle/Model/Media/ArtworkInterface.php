@@ -27,6 +27,7 @@ interface ArtworkInterface
      * Artwork constructor.
      *
      * @param $type
+     * @return void
      */
     public function __construct($type);
 
@@ -54,6 +55,7 @@ interface ArtworkInterface
 
     /**
      * @param mixed $likes
+     * @return void
      */
     public function setLikes($likes);
 }

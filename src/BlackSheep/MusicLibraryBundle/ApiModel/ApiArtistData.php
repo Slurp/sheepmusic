@@ -23,7 +23,7 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                 if ($album->getSongs()->first()) {
                     $year = $album->getSongs()->first()->getYear();
                 }
-                $albums[] = ['id' => $album->getId(),'year'=> $year];
+                $albums[] = ['id' => $album->getId(), 'year'=> $year];
             }
             $artistData = array_merge(
                 $artistData,

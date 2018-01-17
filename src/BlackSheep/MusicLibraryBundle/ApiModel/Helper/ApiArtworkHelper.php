@@ -14,7 +14,7 @@ class ApiArtworkHelper
     /**
      * @param ArtistInterface $artworkSet
      * @param $uploadHelper
-     * @param $baseUrl
+     * @param string $baseUrl
      *
      * @return array
      */

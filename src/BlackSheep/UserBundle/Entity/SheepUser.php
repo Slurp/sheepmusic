@@ -56,7 +56,7 @@ class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, U
     }
 
     /**
-     * @return mixed
+     * @return UserSettings
      */
     public function getSettings()
     {
