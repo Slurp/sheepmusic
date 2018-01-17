@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\BlackSheep\MusicScannerBundle\Helper;
 
 use BlackSheep\MusicScannerBundle\Helper\TagHelper;
@@ -18,7 +27,7 @@ class TagHelperTest extends TestCase
     }
 
     /**
-     * @expectedException TypeError
+     * @expectedException \TypeError
      * @expectedExceptionMessage Argument 1 passed to BlackSheep\MusicScannerBundle\Helper\TagHelper::getInfo() must be
      *     an instance of SplFileInfo, string given
      */
@@ -47,7 +56,7 @@ class TagHelperTest extends TestCase
      * 'mTime' => $file->getMTime(),
      * 'track' => '',
      * 'artist_mbid' => '',
-     * 'album_mbid' => '',
+     * 'album_mbid' => '',.
      */
     public function testGetInfoWithFile()
     {
@@ -95,8 +104,8 @@ class TagHelperTest extends TestCase
                 'channelmode' => 'stereo',
                 'bitrate_mode' => 'vbr',
                 'lossless' => true,
-                'compression_ratio' => 0.5122119272463001582451624926761724054813385009765625
-            ]
+                'compression_ratio' => 0.5122119272463001582451624926761724054813385009765625,
+            ],
         ];
         self::assertEquals($props, $info);
     }

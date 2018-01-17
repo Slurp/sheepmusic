@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BlackSheep\MusicLibraryBundle\ApiModel;
 
 use BlackSheep\MusicLibraryBundle\ApiModel\Helper\ApiArtworkHelper;
@@ -23,7 +32,7 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                 if ($album->getSongs()->first()) {
                     $year = $album->getSongs()->first()->getYear();
                 }
-                $albums[] = ['id' => $album->getId(), 'year'=> $year];
+                $albums[] = ['id' => $album->getId(), 'year' => $year];
             }
             $artistData = array_merge(
                 $artistData,

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BlackSheep\UserBundle\Controller\Api;
 
 use FOS\UserBundle\Event\FilterUserResponseEvent;
@@ -119,7 +128,7 @@ class ApiProfileController extends AbstractController
             return $this->handleForm($form, $request, $dispatcher, $user);
         }
 
-        if ($form->isSubmitted() && $form->isValid() == false) {
+        if ($form->isSubmitted() && $form->isValid() === false) {
             $errors = [];
             foreach ($form->getErrors(true) as $error) {
                 $errors[$error->getOrigin()->getName()][] = $error->getMessage();

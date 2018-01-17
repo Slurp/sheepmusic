@@ -1,15 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: slangeweg
- * Date: 26/12/2017
- * Time: 00:22.
+
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace BlackSheep\MusicLibraryBundle\Entity\Media;
 
-use Symfony\Component\HttpFoundation\File\File;
 use BlackSheep\MusicLibraryBundle\Model\Media\AbstractMediaInterface as Model;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Class AbstractMediaClass.
@@ -24,7 +27,6 @@ interface AbstractMediaInterface extends Model
      * during Doctrine hydration.
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
-     * @return void
      */
     public function setImageFile(File $image = null);
 

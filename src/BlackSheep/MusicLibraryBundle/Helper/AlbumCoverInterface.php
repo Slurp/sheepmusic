@@ -1,12 +1,12 @@
 <?php
-/**
- * @author: @{USER} <stephan@bureaublauwgeel.nl>
- * Date: 01/05/17
- * Time: 22:35
+
+/*
+ * This file is part of the BlackSheep Music.
  *
- * @copyright 2017 Bureau Blauwgeel
+ * (c) Stephan Langeweg <slurpie@gmail.com>
  *
- * @version 1.0
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace BlackSheep\MusicLibraryBundle\Helper;

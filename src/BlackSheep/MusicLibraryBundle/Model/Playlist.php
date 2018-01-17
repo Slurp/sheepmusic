@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 class Playlist implements PlaylistInterface, ApiInterface
@@ -109,7 +118,7 @@ class Playlist implements PlaylistInterface, ApiInterface
      */
     public function addSong(PlaylistsSongsInterface $song)
     {
-        if (in_array($song, $this->songs) === false) {
+        if (in_array($song, $this->songs, true) === false) {
             $this->songs[] = $song;
         }
 

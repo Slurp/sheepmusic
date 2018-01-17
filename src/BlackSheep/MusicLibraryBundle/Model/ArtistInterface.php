@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 use BlackSheep\MusicLibraryBundle\MusicBrainz\MusicBrainzModelInterface;
@@ -76,7 +85,7 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface, SongC
     public function setAlbums($albums);
 
     /**
-     * @return integer
+     * @return int
      */
     public function getPlayCount();
 
@@ -99,18 +108,19 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface, SongC
 
     /**
      * @param ArtistInterface[] $similarArtists
-     * @return void
      */
     public function setSimilarArtists($similarArtists);
 
     /**
      * @param ArtistInterface $similarArtist
+     *
      * @return Artist
      */
     public function addSimilarArtist(self $similarArtist);
 
     /**
      * @param ArtistInterface $similarArtist
+     *
      * @return Artist
      */
     public function removeSimilarArtist(self $similarArtist);

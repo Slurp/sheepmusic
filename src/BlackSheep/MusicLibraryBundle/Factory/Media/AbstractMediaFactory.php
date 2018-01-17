@@ -1,9 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: slangeweg
- * Date: 26/12/2017
- * Time: 00:12.
+
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace BlackSheep\MusicLibraryBundle\Factory\Media;
@@ -45,7 +48,7 @@ class AbstractMediaFactory
      */
     public function copyExternalFile(AbstractMediaInterface &$entity, $url, $name)
     {
-        $ext = substr($url, strrpos($url, '.') + 1);
+        $ext = mb_substr($url, mb_strrpos($url, '.') + 1);
         $tempFile = $this->kernelRootDir . '/../web/uploads/_temp.' . $name . '.' . $ext;
         if (@copy($url, $tempFile)) {
             $entity->setImageFile(

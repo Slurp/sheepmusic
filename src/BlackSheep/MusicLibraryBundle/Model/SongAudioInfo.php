@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 /**
@@ -77,7 +86,7 @@ class SongAudioInfo implements SongAudioInfoInterface
     {
         if (is_array($info)) {
             foreach ($info as $key => $value) {
-                if (in_array($key, static::getAllowedKeys())) {
+                if (in_array($key, static::getAllowedKeys(), true)) {
                     $this->$key = $value;
                 }
             }

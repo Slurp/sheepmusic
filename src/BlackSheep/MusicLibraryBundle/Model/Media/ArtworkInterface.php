@@ -1,9 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: slangeweg
- * Date: 26/12/2017
- * Time: 01:13.
+
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace BlackSheep\MusicLibraryBundle\Model\Media;
@@ -27,7 +30,6 @@ interface ArtworkInterface
      * Artwork constructor.
      *
      * @param $type
-     * @return void
      */
     public function __construct($type);
 
@@ -55,7 +57,6 @@ interface ArtworkInterface
 
     /**
      * @param mixed $likes
-     * @return void
      */
     public function setLikes($likes);
 }

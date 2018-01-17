@@ -1,9 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: slangeweg
- * Date: 30/12/2017
- * Time: 00:35.
+
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace BlackSheep\MusicLibraryBundle\Model;
@@ -11,12 +14,12 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 interface PlaylistsSongsInterface
 {
     /**
-     * @return integer
+     * @return int
      */
     public function getPosition();
 
     /**
-     * @param integer $position
+     * @param int $position
      *
      * @return PlaylistsSongs
      */
@@ -29,7 +32,6 @@ interface PlaylistsSongsInterface
 
     /**
      * @param PlaylistInterface $playlist
-     * @return void
      */
     public function setPlaylist(PlaylistInterface $playlist);
 
@@ -40,7 +42,6 @@ interface PlaylistsSongsInterface
 
     /**
      * @param SongInterface $song
-     * @return void
      */
     public function setSong(SongInterface $song);
 }

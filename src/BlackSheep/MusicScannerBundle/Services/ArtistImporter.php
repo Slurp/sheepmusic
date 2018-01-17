@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BlackSheep\MusicScannerBundle\Services;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
@@ -41,16 +50,16 @@ class ArtistImporter
     /**
      * @param $songInfo
      *
-     * @return ArtistInterface
-     *
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @return ArtistInterface
      */
     public function importArtist(&$songInfo): ArtistInterface
     {
         if ($this->artistCache === null ||
             (
                 $this->artistCache->getName() !== $songInfo['artist'] ||
-                $songInfo['artist_mbid'] != $this->artistCache->getMusicBrainzId()
+                $songInfo['artist_mbid'] !== $this->artistCache->getMusicBrainzId()
             )
         ) {
             $this->artistCache = $this->artistRepository->addOrUpdate($songInfo['artist'], $songInfo['artist_mbid']);

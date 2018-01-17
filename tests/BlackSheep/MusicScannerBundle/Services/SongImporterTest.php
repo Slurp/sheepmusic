@@ -1,17 +1,18 @@
 <?php
-/**
- * @author: @{USER} <stephan@bureaublauwgeel.nl>
- * Date: 20/03/17
- * Time: 00:18
- * @copyright 2017 Bureau Blauwgeel
- * @version 1.0
+
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Tests\BlackSheep\MusicScannerBundle\Services;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Finder\Finder;
-use Symfony\Component\Finder\SplFileInfo;
 
 class SongImporterTest extends KernelTestCase
 {

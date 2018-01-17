@@ -1,9 +1,12 @@
 <?php
-/**
- * @author    : Stephan Langeweg <stephan@zwartschaap.net>
- * @copyright 2016 Zwartschaap
+
+/*
+ * This file is part of the BlackSheep Music.
  *
- * @version   1.0
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace BlackSheep\MusicScannerBundle\Services;

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BlackSheep\MusicLibraryBundle\Helper;
 
 use BlackSheep\MusicLibraryBundle\Model\PlaylistInterface;
@@ -38,7 +47,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
 
             $columns = min(static::COVER_GRID_NUMBER, $numberOfCovers);
             $rows = (int) max(($numberOfCovers / $columns), 1);
-            if (static::COVER_DIRECTION_PRIORITY == 'rows') {
+            if (static::COVER_DIRECTION_PRIORITY === 'rows') {
                 $rows = $columns;
                 $columns = (int) max(($numberOfCovers / $rows), 1);
             }
@@ -62,7 +71,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
         $covers = [];
         foreach ($playlist->getAlbums() as $album) {
             $cover = $album->getCover();
-            if (strpos($cover, 'http') !== 0 && $cover !== null) {
+            if (mb_strpos($cover, 'http') !== 0 && $cover !== null) {
                 $cover = $this->getWebDirectory() . $cover;
             }
             $covers[] = $cover;

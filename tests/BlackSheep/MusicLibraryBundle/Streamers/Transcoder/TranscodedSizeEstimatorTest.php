@@ -1,30 +1,30 @@
 <?php
-/**
- * @author: @{USER} <stephan@bureaublauwgeel.nl>
- * Date: 03/03/17
- * Time: 16:26
- * @copyright 2017 Bureau Blauwgeel
- * @version 1.0
+
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
+
 namespace Tests\BlackSheep\MusicLibraryBundle\Streamers\Transcoder;
 
 use BlackSheep\MusicLibraryBundle\Streamers\Transcoder\TranscodedSizeEstimator;
 use PHPUnit\Framework\TestCase;
 
 /**
- *TranscodedSizeEstimatorTest
+ *TranscodedSizeEstimatorTest.
  */
 class TranscodedSizeEstimatorTest extends TestCase
 {
-    /**
-     *
-     */
     protected function setUp()
     {
     }
 
     /**
-     * testEstimatedBytes
+     * testEstimatedBytes.
      */
     public function testEstimatedBytes()
     {

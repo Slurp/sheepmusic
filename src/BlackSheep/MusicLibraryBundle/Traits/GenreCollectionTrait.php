@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BlackSheep\MusicLibraryBundle\Traits;
 
 use BlackSheep\MusicLibraryBundle\Model\GenreInterface;
@@ -37,7 +46,7 @@ trait GenreCollectionTrait
      */
     public function addGenre(GenreInterface $genre)
     {
-        if (in_array($genre, $this->genres) === false) {
+        if (in_array($genre, $this->genres, true) === false) {
             $this->genres[] = $genre;
         }
 

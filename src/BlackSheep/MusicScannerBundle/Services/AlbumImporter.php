@@ -1,9 +1,12 @@
 <?php
-/**
- * @author    : Stephan Langeweg <stephan@zwartschaap.net>
- * @copyright 2016 Zwartschaap
+
+/*
+ * This file is part of the BlackSheep Music.
  *
- * @version   1.0
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace BlackSheep\MusicScannerBundle\Services;
@@ -57,7 +60,7 @@ class AlbumImporter
             $this->albumCache->getName() !== $songInfo['album'] ||
             (
                 isset($songInfo['album_mbid']) && empty($songInfo['album_mbid']) === false &&
-                $this->albumCache->getMusicBrainzId() != $songInfo['album_mbid']
+                $this->albumCache->getMusicBrainzId() !== $songInfo['album_mbid']
             )
         ) {
             $this->albumCache = $this->albumRepository->addOrUpdateByArtistAndName(

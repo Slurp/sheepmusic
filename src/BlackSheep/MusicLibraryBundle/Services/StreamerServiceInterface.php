@@ -1,9 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: slangeweg
- * Date: 15/01/2018
- * Time: 20:45.
+
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace BlackSheep\MusicLibraryBundle\Services;
@@ -22,9 +25,9 @@ interface StreamerServiceInterface
      * @param SongInterface $song
      * @param int           $startTime
      *
-     * @return Response
-     *
      * @throws \Exception
+     *
+     * @return Response
      */
     public function getStreamerForSong(SongInterface $song, $startTime = 0): Response;
 }

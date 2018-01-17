@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Tests\BlackSheep\UserBundle\Controller;
 
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
@@ -9,18 +18,15 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 class ApiTestCaseBase extends WebTestCase
 {
     /**
-     * @var $staticClient Client
+     * @var Client
      */
     protected static $staticClient;
 
     /**
-     * @var $staticClient Client
+     * @var Client
      */
     protected $client;
 
-    /**
-     *
-     */
     public static function setUpBeforeClass()
     {
         self::$staticClient = static::createClient(['environment' => 'test']);
@@ -29,18 +35,12 @@ class ApiTestCaseBase extends WebTestCase
         self::bootKernel();
     }
 
-    /**
-     *
-     */
     protected function setUp()
     {
         $this->client = self::$staticClient;
         $this->purgeDatabase();
     }
 
-    /**
-     *
-     */
     protected function tearDown()
     {
         // purposefully not calling parent class, which shuts down the kernel
@@ -148,9 +148,6 @@ class ApiTestCaseBase extends WebTestCase
         return $refreshData['token'];
     }
 
-    /**
-     *
-     */
     private function purgeDatabase()
     {
         $purger = new ORMPurger($this->getService('doctrine')->getManager());
