@@ -4,20 +4,25 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/Slurp/sheepmusic/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/Slurp/sheepmusic/?branch=develop)
 [![Build Status](https://scrutinizer-ci.com/g/Slurp/sheepmusic/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/Slurp/sheepmusic/build-status/develop)
 
-# Frontend
- The frontend is now removed and this is used only for the backend.
- Because Vuejs is a nice frontend framework but but also wanted other users to use this backend but create there own frontend.
- You know something about taste and stuff.
+A music library written in Php. 
+Mainly to collect al lot of meta data for your music in one place.
+Also to try out Vue.js look in my other repo the find the web application.
+
 
 # Why another webbased library player?
- - Because i can. (I think add a issue if you think i can't)
- - There wasn't a Symfony based one? (Let me know if there is one.)
- - The challenge to create one that can handle a big ass collection. (90000 songs and lots of artists and albums)
- - Collect artwork from all kinds of places. Not just lastfm.
+ - Because i can. I think. Add a issue if you think i can't
+ - There wan't a Symfony based one? Let me know if there is one.
+ - The challenge to create one that can handle a big collections.
+ - Collect artwork and metadata from all kinds of places. Not just lastfm.
  
 Furthermore:
  - In the future there is going to be a app.
  - Use native flac files for html5 audio.
+ 
+# Frontend
+ The frontend is now removed and this is used only for the backend.
+ Because Vuejs is a nice frontend framework but but also wanted other users to use this backend but create there own frontend.
+ You know something about taste and stuff.
 
 # The Black Sheep thanks:
  - Koel for the idea.
@@ -25,11 +30,21 @@ Furthermore:
  - Symfony for a nice php framework
  - Materialize and Bootstrap material design for the css tricks
  - Plyr.io for the audio player.
+ - FanartTV for their artwork.
+ - LastFm for all their info.
+ - ElasticSearch for their efforts with search.
+ - All other bundles that i use.
 
 
 # The Black Sheep Todo list
-Settings
-Implement https://github.com/katspaugh/wavesurfer.js
+- Settings
+    - Path
+    - Frontend settings
+    - Import settings
+- Different filesystems
+- Implement something https://github.com/katspaugh/wavesurfer.js
+- Importer written in C++
+- Musicbrainz meta data.
 
 
 #Installation

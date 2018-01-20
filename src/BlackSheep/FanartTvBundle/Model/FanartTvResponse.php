@@ -86,7 +86,7 @@ class FanartTvResponse implements ArtistArtworkSetInterface, AlbumArtworkSetInte
     /**
      * @return array
      */
-    public function getLogos(): array
+    public function getLogos()
     {
         return $this->logos;
     }
@@ -94,7 +94,7 @@ class FanartTvResponse implements ArtistArtworkSetInterface, AlbumArtworkSetInte
     /**
      * @return array
      */
-    public function getBanners(): array
+    public function getBanners()
     {
         return $this->banners;
     }
@@ -102,7 +102,7 @@ class FanartTvResponse implements ArtistArtworkSetInterface, AlbumArtworkSetInte
     /**
      * @return array
      */
-    public function getBackgrounds(): array
+    public function getBackgrounds()
     {
         return $this->backgrounds;
     }
@@ -110,7 +110,7 @@ class FanartTvResponse implements ArtistArtworkSetInterface, AlbumArtworkSetInte
     /**
      * @return array
      */
-    public function getThumbs(): array
+    public function getThumbs()
     {
         return $this->thumbs;
     }
@@ -118,7 +118,7 @@ class FanartTvResponse implements ArtistArtworkSetInterface, AlbumArtworkSetInte
     /**
      * @return array
      */
-    public function getCdart(): array
+    public function getCdart()
     {
         return $this->cdart;
     }
@@ -126,7 +126,7 @@ class FanartTvResponse implements ArtistArtworkSetInterface, AlbumArtworkSetInte
     /**
      * @return array
      */
-    public function getArtworkCover(): array
+    public function getArtworkCover()
     {
         return $this->albumcover;
     }

@@ -93,7 +93,7 @@ class AbstractArtworkEntity extends Artwork implements AbstractMediaInterface
     /**
      * @return File
      */
-    public function getImageFile(): File
+    public function getImageFile()
     {
         return $this->imageFile;
     }

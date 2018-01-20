@@ -19,10 +19,10 @@ interface AlbumArtworkSetInterface
     /**
      * @return array
      */
-    public function getArtworkCover(): array;
+    public function getArtworkCover();
 
     /**
      * @return array
      */
-    public function getCdArt(): array;
+    public function getCdArt();
 }
