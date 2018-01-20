@@ -11,6 +11,7 @@
 
 namespace BlackSheep\MusicLibraryBundle\Command;
 
+use BlackSheep\MusicLibraryBundle\Events\AlbumEvent;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEvent;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
@@ -87,11 +88,16 @@ class UpdaterCommand extends ContainerAwareCommand
      * @param ArtistInterface $artist
      *
      * @return array
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     protected function updateAlbumGenre(ArtistInterface $artist)
     {
         $genres = [];
         foreach ($artist->getAlbums() as $album) {
+            $this->getContainer()->get('event_dispatcher')->dispatch(
+                AlbumEvent::ALBUM_EVENT_FETCHED,
+                new AlbumEvent($album)
+            );
             if ($album->getSongs() &&
                 $album->getSongs()->first() !== false) {
                 $album->setLossless($album->getSongs()->first()->getAudio()->getLossless());
