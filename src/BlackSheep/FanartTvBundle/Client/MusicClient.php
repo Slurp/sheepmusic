@@ -27,4 +27,14 @@ class MusicClient extends JsonClient
     {
         return $this->getClient()->send($this->makeRequest(static::END_POINT . $mbId));
     }
+
+    /**
+     * @param $mbId
+     *
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function loadAlbum($mbId)
+    {
+        return $this->getClient()->send($this->makeRequest(static::END_POINT . 'albums/' . $mbId));
+    }
 }

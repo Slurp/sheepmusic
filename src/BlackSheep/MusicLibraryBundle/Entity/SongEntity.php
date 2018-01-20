@@ -84,7 +84,7 @@ class SongEntity extends Song implements SongInterface
     /**
      * @ORM\ManyToMany(targetEntity="ArtistsEntity", inversedBy="songs", fetch="EXTRA_LAZY")
      * @ORM\JoinTable(
-     *     name="ArtistSongs",
+     *     name="song_artists",
      *     joinColumns={@ORM\JoinColumn(name="songs_id", referencedColumnName="id", nullable=true)},
      *     inverseJoinColumns={@ORM\JoinColumn(name="artists_id", referencedColumnName="id", nullable=true)}
      * )

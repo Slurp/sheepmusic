@@ -11,8 +11,6 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model\Media;
 
-use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
-
 /**
  * Interface ArtworkInterface.
  *
@@ -25,6 +23,8 @@ interface ArtworkInterface
     const TYPE_BANNER = 'banner';
     const TYPE_BACKGROUND = 'background';
     const TYPE_THUMBS = 'thumbs';
+    const TYPE_COVER = 'cover';
+    const TYPE_CDART = 'cdart';
 
     /**
      * Artwork constructor.
@@ -37,18 +37,6 @@ interface ArtworkInterface
      * @return string
      */
     public function getType();
-
-    /**
-     * @return ArtistInterface
-     */
-    public function getArtist();
-
-    /**
-     * @param ArtistInterface $artist
-     *
-     * @return $this
-     */
-    public function setArtist(ArtistInterface $artist);
 
     /**
      * @return int

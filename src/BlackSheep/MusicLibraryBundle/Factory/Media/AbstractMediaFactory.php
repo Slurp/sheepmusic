@@ -43,10 +43,10 @@ class AbstractMediaFactory
 
     /**
      * @param AbstractMediaInterface $entity
-     * @param $url
-     * @param string $name
+     * @param string                 $url
+     * @param string                 $name
      */
-    public function copyExternalFile(AbstractMediaInterface &$entity, $url, $name)
+    public function copyExternalFile(AbstractMediaInterface &$entity, string $url, string $name)
     {
         $ext = mb_substr($url, mb_strrpos($url, '.') + 1);
         $tempFile = $this->kernelRootDir . '/../web/uploads/_temp.' . $name . '.' . $ext;

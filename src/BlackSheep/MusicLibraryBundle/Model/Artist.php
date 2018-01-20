@@ -11,6 +11,7 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model;
 
+use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
 use BlackSheep\MusicLibraryBundle\Traits\ArtworkCollectionTrait;
 use BlackSheep\MusicLibraryBundle\Traits\GenreCollectionTrait;
 use BlackSheep\MusicLibraryBundle\Traits\PlayCountTrait;
@@ -249,6 +250,38 @@ class Artist implements ArtistInterface
         }
 
         return $this;
+    }
+
+    /**
+     * @return array|ArtworkInterface[]
+     */
+    public function getLogos()
+    {
+        return $this->filterArtwork(ArtworkInterface::TYPE_LOGO);
+    }
+
+    /**
+     * @return array|ArtworkInterface[]
+     */
+    public function getBanners()
+    {
+        return $this->filterArtwork(ArtworkInterface::TYPE_BANNER);
+    }
+
+    /**
+     * @return array|ArtworkInterface[]
+     */
+    public function getBackgrounds()
+    {
+        return $this->filterArtwork(ArtworkInterface::TYPE_BACKGROUND);
+    }
+
+    /**
+     * @return array|ArtworkInterface[]
+     */
+    public function getThumbs()
+    {
+        return $this->filterArtwork(ArtworkInterface::TYPE_THUMBS);
     }
 
     /**

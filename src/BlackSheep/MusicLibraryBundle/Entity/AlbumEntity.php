@@ -11,8 +11,10 @@
 
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
+use BlackSheep\MusicLibraryBundle\Entity\Media\AlbumArtworkEntityInterface;
 use BlackSheep\MusicLibraryBundle\Model\Album;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
+use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
 use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -101,11 +103,21 @@ class AlbumEntity extends Album implements AlbumInterface
     protected $lossless = true;
 
     /**
+     * @ORM\OneToMany(
+     *     targetEntity="BlackSheep\MusicLibraryBundle\Entity\Media\AlbumArtworkEntity",
+     *     mappedBy="album",
+     *     cascade={"all"}
+     * )
+     */
+    protected $artworks;
+
+    /**
      * Constructs this object with a array collection.
      */
     public function __construct()
     {
         $this->songs = new ArrayCollection();
+        $this->artworks = new ArrayCollection();
         $this->lossless = true;
     }
 
@@ -118,6 +130,21 @@ class AlbumEntity extends Album implements AlbumInterface
             $this->songs->add($song);
             $this->lossless = ($song->getAudio()->getLossless() === true && $this->lossless === true);
             $song->setAlbum($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addArtwork(ArtworkInterface $artwork): AlbumInterface
+    {
+        if ($this->artworks->contains($artwork) === false) {
+            $this->artworks->add($artwork);
+            if ($artwork instanceof AlbumArtworkEntityInterface) {
+                $artwork->setAlbum($this);
+            }
         }
 
         return $this;

@@ -9,16 +9,12 @@
  * file that was distributed with this source code.
  */
 
-namespace BlackSheep\FanartTvBundle\EventListener;
+namespace BlackSheep\LastFmBundle\EventListener;
 
-use BlackSheep\FanartTvBundle\Client\MusicClient;
-use BlackSheep\FanartTvBundle\Model\FanartTvResponse;
+use BlackSheep\LastFmBundle\Info\LastFmAlbumInfo;
 use BlackSheep\MusicLibraryBundle\EventListener\AlbumEventListener;
 use BlackSheep\MusicLibraryBundle\Events\AlbumEventInterface;
-use BlackSheep\MusicLibraryBundle\Factory\ArtworkFactory;
 use BlackSheep\MusicLibraryBundle\Repository\AlbumsRepositoryInterface;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ConnectException;
 
 /**
  * AlbumEventSubscriber.
@@ -31,28 +27,20 @@ class AlbumEventSubscriber implements AlbumEventListener
     protected $albumsRepository;
 
     /**
-     * @var MusicClient
+     * @var LastFmAlbumInfo
      */
     protected $client;
 
     /**
-     * @var ArtworkFactory
-     */
-    private $artworkFactory;
-
-    /**
      * @param AlbumsRepositoryInterface $albumsRepository
-     * @param MusicClient               $client
-     * @param ArtworkFactory            $logoFactory
+     * @param LastFmAlbumInfo           $client
      */
     public function __construct(
         AlbumsRepositoryInterface $albumsRepository,
-        MusicClient $client,
-        ArtworkFactory $logoFactory
+        LastFmAlbumInfo $client
     ) {
         $this->albumsRepository = $albumsRepository;
         $this->client = $client;
-        $this->artworkFactory = $logoFactory;
     }
 
     /**
@@ -73,7 +61,7 @@ class AlbumEventSubscriber implements AlbumEventListener
      */
     public function fetchedAlbum(AlbumEventInterface $event)
     {
-        $this->updateArtWork($event);
+        // TODO: Implement fetchedAlbum() method.
     }
 
     /**
@@ -81,7 +69,7 @@ class AlbumEventSubscriber implements AlbumEventListener
      */
     public function updatedAlbum(AlbumEventInterface $event)
     {
-        $this->updateArtWork($event);
+        // TODO: Implement updatedAlbum() method.
     }
 
     /**
@@ -89,29 +77,6 @@ class AlbumEventSubscriber implements AlbumEventListener
      */
     public function createdAlbum(AlbumEventInterface $event)
     {
-        $this->updateArtWork($event);
-    }
-
-    /**
-     * @param AlbumEventInterface $albumEvent
-     */
-    protected function updateArtWork(AlbumEventInterface $albumEvent)
-    {
-        $album = $albumEvent->getAlbum();
-        if (empty($album->getMusicBrainzId()) === false && empty($album->getCover()) === false) {
-            try {
-                $fanart = new FanartTvResponse(
-                    json_decode(
-                        $this->client->loadAlbum($album->getMusicBrainzId())->getBody()
-                    )
-                );
-                $this->artworkFactory->addArtworkToAlbum($album, $fanart);
-                $this->albumsRepository->save($album);
-            } catch (ClientException $e) {
-                error_log($e->getMessage());
-            } catch (ConnectException $e) {
-                error_log($e->getMessage());
-            }
-        }
+        // TODO: Implement createdAlbum() method.
     }
 }

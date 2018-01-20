@@ -16,37 +16,20 @@ use BlackSheep\MusicLibraryBundle\Model\Media\Artwork;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
- * Class ArtworkEntity.
+ * Class AbstractArtworkEntity.
  *
- * @ORM\Table
- * @ORM\Entity
- * @Vich\Uploadable
+ * @ORM\MappedSuperclass
  */
-class ArtworkEntity extends Artwork implements AbstractMediaInterface
+class AbstractArtworkEntity extends Artwork implements AbstractMediaInterface
 {
     use BaseEntity;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity", inversedBy="artworks")
-     */
-    protected $artist;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $likes;
-
-    /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     *
-     * @Vich\UploadableField(mapping="artist_image", fileNameProperty="image.name", size="image.size", mimeType="image.mimeType", originalName="image.originalName")
-     *
-     * @var File
-     */
-    protected $imageFile;
 
     /**
      * @ORM\Embedded(class="Vich\UploaderBundle\Entity\File")
@@ -61,7 +44,7 @@ class ArtworkEntity extends Artwork implements AbstractMediaInterface
     protected $type;
 
     /**
-     * ArtworkEntity constructor.
+     * ArtistArtworkEntity constructor.
      *
      * @param $type
      */
@@ -74,7 +57,7 @@ class ArtworkEntity extends Artwork implements AbstractMediaInterface
     /**
      * @return int
      */
-    public function getLikes()
+    public function getLikes(): int
     {
         return $this->likes;
     }
@@ -110,7 +93,7 @@ class ArtworkEntity extends Artwork implements AbstractMediaInterface
     /**
      * @return File
      */
-    public function getImageFile()
+    public function getImageFile(): File
     {
         return $this->imageFile;
     }
@@ -126,7 +109,7 @@ class ArtworkEntity extends Artwork implements AbstractMediaInterface
     /**
      * @return EmbeddedFile
      */
-    public function getImage()
+    public function getImage(): EmbeddedFile
     {
         return $this->image;
     }

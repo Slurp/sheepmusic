@@ -14,25 +14,15 @@ namespace BlackSheep\MusicLibraryBundle\Model;
 /**
  * Class ArtworkResponseInterface.
  */
-interface ArtworkSetInterface
+interface AlbumArtworkSetInterface
 {
     /**
      * @return array
      */
-    public function getLogos();
+    public function getArtworkCover(): array;
 
     /**
      * @return array
      */
-    public function getBanners();
-
-    /**
-     * @return array
-     */
-    public function getBackgrounds();
-
-    /**
-     * @return array
-     */
-    public function getThumbs();
+    public function getCdArt(): array;
 }

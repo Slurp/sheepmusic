@@ -11,12 +11,13 @@
 
 namespace BlackSheep\FanartTvBundle\Model;
 
-use BlackSheep\MusicLibraryBundle\Model\ArtworkSetInterface;
+use BlackSheep\MusicLibraryBundle\Model\AlbumArtworkSetInterface;
+use BlackSheep\MusicLibraryBundle\Model\ArtistArtworkSetInterface;
 
 /**
  * Class FanartTvResponse.
  */
-class FanartTvResponse implements ArtworkSetInterface
+class FanartTvResponse implements ArtistArtworkSetInterface, AlbumArtworkSetInterface
 {
     /**
      * @var array
@@ -37,6 +38,16 @@ class FanartTvResponse implements ArtworkSetInterface
      * @var array
      */
     protected $thumbs;
+
+    /**
+     * @var array
+     */
+    protected $cdart;
+
+    /**
+     * @var array
+     */
+    protected $albumcover;
 
     /**
      * FanartTvResponse constructor.
@@ -61,12 +72,21 @@ class FanartTvResponse implements ArtworkSetInterface
         if (isset($json->artistthumb) && is_array($json->artistthumb)) {
             $this->thumbs = $json->artistthumb;
         }
+        if (isset($json->artistthumb) && is_array($json->artistthumb)) {
+            $this->thumbs = $json->artistthumb;
+        }
+        if (isset($json->cdart) && is_array($json->cdart)) {
+            $this->cdart = $json->cdart;
+        }
+        if (isset($json->albumcover) && is_array($json->albumcover)) {
+            $this->albumcover = $json->albumcover;
+        }
     }
 
     /**
      * @return array
      */
-    public function getLogos()
+    public function getLogos(): array
     {
         return $this->logos;
     }
@@ -74,7 +94,7 @@ class FanartTvResponse implements ArtworkSetInterface
     /**
      * @return array
      */
-    public function getBanners()
+    public function getBanners(): array
     {
         return $this->banners;
     }
@@ -82,7 +102,7 @@ class FanartTvResponse implements ArtworkSetInterface
     /**
      * @return array
      */
-    public function getBackgrounds()
+    public function getBackgrounds(): array
     {
         return $this->backgrounds;
     }
@@ -90,8 +110,24 @@ class FanartTvResponse implements ArtworkSetInterface
     /**
      * @return array
      */
-    public function getThumbs()
+    public function getThumbs(): array
     {
         return $this->thumbs;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCdart(): array
+    {
+        return $this->cdart;
+    }
+
+    /**
+     * @return array
+     */
+    public function getArtworkCover(): array
+    {
+        return $this->albumcover;
     }
 }

@@ -11,6 +11,7 @@
 
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
+use BlackSheep\MusicLibraryBundle\Entity\Media\ArtistArtworkEntityInterface;
 use BlackSheep\MusicLibraryBundle\Model\Artist;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use BlackSheep\MusicLibraryBundle\Model\GenreInterface;
@@ -98,7 +99,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
 
     /**
      * @ORM\OneToMany(
-     *     targetEntity="BlackSheep\MusicLibraryBundle\Entity\Media\ArtworkEntity",
+     *     targetEntity="BlackSheep\MusicLibraryBundle\Entity\Media\ArtistArtworkEntity",
      *     mappedBy="artist",
      *     cascade={"all"}
      * )
@@ -185,7 +186,9 @@ class ArtistsEntity extends Artist implements ArtistInterface
     {
         if ($this->artworks->contains($artwork) === false) {
             $this->artworks->add($artwork);
-            $artwork->setArtist($this);
+            if ($artwork instanceof ArtistArtworkEntityInterface) {
+                $artwork->setArtist($this);
+            }
         }
 
         return $this;

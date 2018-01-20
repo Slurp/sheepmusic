@@ -12,6 +12,8 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 use BlackSheep\MusicLibraryBundle\Helper\AlbumCoverHelper;
+use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
+use BlackSheep\MusicLibraryBundle\Traits\ArtworkCollectionTrait;
 use BlackSheep\MusicLibraryBundle\Traits\HasGenreTrait;
 use BlackSheep\MusicLibraryBundle\Traits\PlayCountTrait;
 use BlackSheep\MusicLibraryBundle\Traits\SongCollectionTrait;
@@ -24,6 +26,7 @@ class Album implements AlbumInterface
     use SongCollectionTrait;
     use PlayCountTrait;
     use HasGenreTrait;
+    use ArtworkCollectionTrait;
 
     /**
      * @var string
@@ -260,6 +263,22 @@ class Album implements AlbumInterface
     public function setLossless($lossless)
     {
         $this->lossless = $lossless;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCdArt(): array
+    {
+        return $this->filterArtwork(ArtworkInterface::TYPE_CDART);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getArtworkCover(): array
+    {
+        return $this->filterArtwork(ArtworkInterface::TYPE_COVER);
     }
 
     /**

@@ -12,11 +12,12 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
+use Gedmo\Sluggable\Sluggable;
 
 /**
  * Interface ArtworkCollectionInterface.
  */
-interface ArtworkCollectionInterface
+interface ArtworkCollectionInterface extends Sluggable
 {
     /**
      * @return ArtworkInterface[]

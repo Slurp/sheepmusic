@@ -17,6 +17,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class ApiLastFmController.
+ */
 class ApiLastFmController extends Controller
 {
     /**
@@ -26,7 +29,7 @@ class ApiLastFmController extends Controller
      *
      * @return Response
      */
-    public function getTokenAction($refresh = false)
+    public function getToken($refresh = false): Response
     {
         $theUser = $this->getUser();
         if ($theUser instanceof LastFmUserEmbed) {
@@ -43,7 +46,7 @@ class ApiLastFmController extends Controller
      *
      * @return Response
      */
-    public function connectAction()
+    public function connect(): Response
     {
         $theUser = $this->getUser();
         if ($theUser instanceof LastFmUserEmbed && $theUser->getLastFm()->hasLastFmConnected() === false) {
@@ -66,7 +69,7 @@ class ApiLastFmController extends Controller
      *
      * @return Response
      */
-    public function disconnectAction($token)
+    public function disconnect($token): Response
     {
         $theUser = $this->getUser();
         if ($theUser instanceof LastFmUserEmbed) {

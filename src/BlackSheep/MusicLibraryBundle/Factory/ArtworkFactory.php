@@ -11,10 +11,14 @@
 
 namespace BlackSheep\MusicLibraryBundle\Factory;
 
-use BlackSheep\MusicLibraryBundle\Entity\Media\ArtworkEntity;
+use BlackSheep\MusicLibraryBundle\Entity\Media\AlbumArtworkEntity;
+use BlackSheep\MusicLibraryBundle\Entity\Media\ArtistArtworkEntity;
 use BlackSheep\MusicLibraryBundle\Factory\Media\AbstractMediaFactory;
+use BlackSheep\MusicLibraryBundle\Model\AlbumArtworkSetInterface;
+use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
+use BlackSheep\MusicLibraryBundle\Model\ArtistArtworkSetInterface;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
-use BlackSheep\MusicLibraryBundle\Model\ArtworkSetInterface;
+use BlackSheep\MusicLibraryBundle\Model\ArtworkCollectionInterface;
 use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
 
 /**
@@ -23,10 +27,10 @@ use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
 class ArtworkFactory extends AbstractMediaFactory
 {
     /**
-     * @param ArtistInterface     $artist
-     * @param ArtworkSetInterface $artworkSet
+     * @param ArtistInterface           $artist
+     * @param ArtistArtworkSetInterface $artworkSet
      */
-    public function addArtworkToArtist(ArtistInterface $artist, ArtworkSetInterface $artworkSet)
+    public function addArtworkToArtist(ArtistInterface $artist, ArtistArtworkSetInterface $artworkSet)
     {
         if ($artworkSet->getLogos() !== null) {
             $this->createArtwork($artist, $artworkSet->getLogos(), ArtworkInterface::TYPE_LOGO);
@@ -43,22 +47,53 @@ class ArtworkFactory extends AbstractMediaFactory
     }
 
     /**
-     * @param ArtistInterface $artist
-     * @param array           $artworks
-     * @param $type
+     * @param AlbumInterface           $album
+     * @param AlbumArtworkSetInterface $artworkSet
      */
-    protected function createArtwork(ArtistInterface $artist, $artworks, $type)
+    public function addArtworkToAlbum(AlbumInterface $album, AlbumArtworkSetInterface $artworkSet)
+    {
+        if ($artworkSet->getArtworkCover() !== null) {
+            $this->createArtwork($album, $artworkSet->getArtworkCover(), ArtworkInterface::TYPE_COVER);
+        }
+
+        if ($artworkSet->getCdArt() !== null) {
+            $this->createArtwork($album, $artworkSet->getArtworkCover(), ArtworkInterface::TYPE_CDART);
+        }
+    }
+
+    /**
+     * @param ArtworkCollectionInterface $artworkCollectionEntity
+     * @param array                      $artworks
+     * @param string                     $type
+     */
+    protected function createArtwork(ArtworkCollectionInterface $artworkCollectionEntity, $artworks, $type)
     {
         foreach ($artworks as $artwork) {
             if (is_array($artwork)) {
-                $this->createArtwork($artist, $artwork, $type);
+                $this->createArtwork($artworkCollectionEntity, $artwork, $type);
             }
             if (is_object($artwork)) {
-                $media = new ArtworkEntity($type);
+                $media = $this->getArtworkEntity($artworkCollectionEntity, $type);
                 $media->setLikes($artwork->likes);
-                $this->copyExternalFile($media, $artwork->url, $artist->getSlug() . '-' . $type);
-                $artist->addArtwork($media);
+                $this->copyExternalFile($media, $artwork->url, $artworkCollectionEntity->getSlug() . '-' . $type);
+                $artworkCollectionEntity->addArtwork($media);
             }
+        }
+    }
+
+    /**
+     * @param ArtworkCollectionInterface $artworkCollectionEntity
+     * @param string                     $type
+     *
+     * @return AlbumArtworkEntity|ArtistArtworkEntity
+     */
+    private function getArtworkEntity(ArtworkCollectionInterface $artworkCollectionEntity, $type)
+    {
+        if ($artworkCollectionEntity instanceof ArtistInterface) {
+            return new ArtistArtworkEntity($type);
+        }
+        if ($artworkCollectionEntity instanceof AlbumInterface) {
+            return new AlbumArtworkEntity($type);
         }
     }
 }

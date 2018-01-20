@@ -11,18 +11,11 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model\Media;
 
-use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
-
 /**
  * Class Artwork.
  */
 class Artwork extends AbstractMedia implements ArtworkInterface
 {
-    /**
-     * @var ArtistInterface
-     */
-    protected $artist;
-
     /**
      * @var int
      */
@@ -46,33 +39,15 @@ class Artwork extends AbstractMedia implements ArtworkInterface
     /**
      * {@inheritdoc}
      */
-    public function getType()
+    public function getType(): string
     {
         return $this->type;
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function getArtist()
-    {
-        return $this->artist;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setArtist(ArtistInterface $artist)
-    {
-        $this->artist = $artist;
-
-        return $this;
-    }
-
-    /**
      * @return int
      */
-    public function getLikes()
+    public function getLikes(): int
     {
         return $this->likes;
     }
