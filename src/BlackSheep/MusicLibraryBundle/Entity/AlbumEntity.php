@@ -12,6 +12,7 @@
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
 use BlackSheep\MusicLibraryBundle\Entity\Media\AlbumArtworkEntityInterface;
+use BlackSheep\MusicLibraryBundle\Entity\Traits\ArtworkCollectionEntityTrait;
 use BlackSheep\MusicLibraryBundle\Model\Album;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
 use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
@@ -33,6 +34,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class AlbumEntity extends Album implements AlbumInterface
 {
     use BaseEntity;
+    use ArtworkCollectionEntityTrait;
 
     /**
      * @Gedmo\Slug(handlers={
@@ -169,4 +171,6 @@ class AlbumEntity extends Album implements AlbumInterface
 
         return $array;
     }
+
+
 }

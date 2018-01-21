@@ -138,8 +138,12 @@ class Album implements AlbumInterface
     {
         if (mb_strpos($this->cover, 'http') !== 0 && $this->cover !== null) {
             return 'http://music.zwartschaap.net.develop' .
-                    AlbumCoverHelper::getUploadDirectory() .
-                    $this->getArtist()->getSlug() . '/' . $this->cover;
+                AlbumCoverHelper::getUploadDirectory() .
+                $this->getArtist()->getSlug() . '/' . $this->cover;
+        }
+
+        if (count($this->getArtworkCover()) !== 0) {
+            return $this->getArtworkCover()[0];
         }
 
         return $this->cover;
