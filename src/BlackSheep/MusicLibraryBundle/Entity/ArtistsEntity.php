@@ -12,6 +12,7 @@
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
 use BlackSheep\MusicLibraryBundle\Entity\Media\ArtistArtworkEntityInterface;
+use BlackSheep\MusicLibraryBundle\Entity\Traits\ArtworkCollectionEntityTrait;
 use BlackSheep\MusicLibraryBundle\Model\Artist;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use BlackSheep\MusicLibraryBundle\Model\GenreInterface;
@@ -29,6 +30,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 class ArtistsEntity extends Artist implements ArtistInterface
 {
     use BaseEntity;
+    use ArtworkCollectionEntityTrait;
 
     /**
      * @Gedmo\Slug(fields={"name"})
