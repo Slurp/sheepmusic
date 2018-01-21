@@ -63,6 +63,6 @@ openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
 bin/console fos:user:create admin admin@gmail.com test
 -
 ```
-after that you could try bin/console music:import --env=dev -vvv but at the moment it is not yet in a nice congiuration.
-Shame on me
+after that you could try bin/console music:import --env=dev -vvv but at the moment it is not yet in a nice config.
+Shame on me... ;(
 

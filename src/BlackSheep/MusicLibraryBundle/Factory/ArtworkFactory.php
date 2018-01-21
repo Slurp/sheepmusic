@@ -11,12 +11,12 @@
 
 namespace BlackSheep\MusicLibraryBundle\Factory;
 
+use BlackSheep\FanartTvBundle\Model\FanartTvResponse;
 use BlackSheep\MusicLibraryBundle\Entity\Media\AlbumArtworkEntity;
 use BlackSheep\MusicLibraryBundle\Entity\Media\ArtistArtworkEntity;
 use BlackSheep\MusicLibraryBundle\Factory\Media\AbstractMediaFactory;
 use BlackSheep\MusicLibraryBundle\Model\AlbumArtworkSetInterface;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
-use BlackSheep\MusicLibraryBundle\Model\ArtistArtworkSetInterface;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use BlackSheep\MusicLibraryBundle\Model\ArtworkCollectionInterface;
 use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
@@ -27,10 +27,10 @@ use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
 class ArtworkFactory extends AbstractMediaFactory
 {
     /**
-     * @param ArtistInterface           $artist
-     * @param ArtistArtworkSetInterface $artworkSet
+     * @param ArtistInterface  $artist
+     * @param FanartTvResponse $artworkSet
      */
-    public function addArtworkToArtist(ArtistInterface $artist, ArtistArtworkSetInterface $artworkSet)
+    public function addArtworkToArtist(ArtistInterface $artist, FanartTvResponse $artworkSet)
     {
         if ($artworkSet->getLogos() !== null) {
             $this->createArtwork($artist, $artworkSet->getLogos(), ArtworkInterface::TYPE_LOGO);
@@ -43,6 +43,26 @@ class ArtworkFactory extends AbstractMediaFactory
         }
         if ($artworkSet->getThumbs() !== null) {
             $this->createArtwork($artist, $artworkSet->getThumbs(), ArtworkInterface::TYPE_THUMBS);
+        }
+        if ($artworkSet->getArtworkCover() !== null || $artworkSet->getCdArt() !== null) {
+            foreach ($artist->getAlbums() as $album) {
+                if ($album->getMusicBrainzId() !== null) {
+                    if (isset($artworkSet->getArtworkCover()[$album->getMusicBrainzReleaseGroupId()])) {
+                        $this->createArtwork(
+                            $album,
+                            $artworkSet->getArtworkCover()[$album->getMusicBrainzReleaseGroupId()],
+                            ArtworkInterface::TYPE_COVER
+                        );
+                    }
+                    if (isset($artworkSet->getCdArt()[$album->getMusicBrainzReleaseGroupId()])) {
+                        $this->createArtwork(
+                            $album,
+                            $artworkSet->getCdArt()[$album->getMusicBrainzReleaseGroupId()],
+                            ArtworkInterface::TYPE_CDART
+                        );
+                    }
+                }
+            }
         }
     }
 

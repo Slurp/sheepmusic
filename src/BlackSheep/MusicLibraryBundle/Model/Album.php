@@ -61,6 +61,11 @@ class Album implements AlbumInterface
     /**
      * @var string
      */
+    protected $musicBrainzReleaseGroupId;
+
+    /**
+     * @var string
+     */
     protected $lastFmId;
 
     /**
@@ -211,6 +216,22 @@ class Album implements AlbumInterface
         $this->musicBrainzId = $musicBrainzId;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMusicBrainzReleaseGroupId()
+    {
+        return $this->musicBrainzReleaseGroupId;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setMusicBrainzReleaseGroupId(string $musicBrainzReleaseGroupId)
+    {
+        $this->musicBrainzReleaseGroupId = $musicBrainzReleaseGroupId;
     }
 
     /**

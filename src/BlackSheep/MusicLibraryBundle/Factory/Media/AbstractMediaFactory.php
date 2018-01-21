@@ -49,7 +49,7 @@ class AbstractMediaFactory
     public function copyExternalFile(AbstractMediaInterface &$entity, string $url, string $name)
     {
         $ext = mb_substr($url, mb_strrpos($url, '.') + 1);
-        $tempFile = $this->kernelRootDir . '/../web/uploads/_temp.' . $name . '.' . $ext;
+        $tempFile = $this->kernelRootDir . '/../web/uploads/_temp/' . str_replace('/', '_', $name) . '.' . $ext;
         if (@copy($url, $tempFile)) {
             $entity->setImageFile(
                 new UploadedFile(

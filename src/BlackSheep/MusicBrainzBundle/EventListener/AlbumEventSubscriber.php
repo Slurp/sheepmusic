@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace BlackSheep\FanartTvBundle\EventListener;
+namespace BlackSheep\MusicBrainzBundle\EventListener;
 
-use BlackSheep\FanartTvBundle\Updater\AlbumUpdater;
+use BlackSheep\MusicBrainzBundle\Updater\AlbumUpdater;
 use BlackSheep\MusicLibraryBundle\EventListener\AlbumEventListener;
 use BlackSheep\MusicLibraryBundle\Events\AlbumEventInterface;
 
@@ -26,8 +26,6 @@ class AlbumEventSubscriber implements AlbumEventListener
     private $albumUpdater;
 
     /**
-     * AlbumEventSubscriber constructor.
-     *
      * @param AlbumUpdater $albumUpdater
      */
     public function __construct(AlbumUpdater $albumUpdater)
@@ -51,9 +49,17 @@ class AlbumEventSubscriber implements AlbumEventListener
     /**
      * {@inheritdoc}
      */
+    public function createdAlbum(AlbumEventInterface $event)
+    {
+        $this->albumUpdater->updateReleaseGroup($event->getAlbum());
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function fetchedAlbum(AlbumEventInterface $event)
     {
-        $this->albumUpdater->updateArtWork($event->getAlbum());
+        $this->albumUpdater->updateReleaseGroup($event->getAlbum());
     }
 
     /**
@@ -61,14 +67,6 @@ class AlbumEventSubscriber implements AlbumEventListener
      */
     public function updatedAlbum(AlbumEventInterface $event)
     {
-        $this->albumUpdater->updateArtWork($event->getAlbum());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createdAlbum(AlbumEventInterface $event)
-    {
-        $this->albumUpdater->updateArtWork($event->getAlbum());
+        $this->albumUpdater->updateReleaseGroup($event->getAlbum());
     }
 }

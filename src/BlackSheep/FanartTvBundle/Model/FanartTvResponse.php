@@ -75,10 +75,21 @@ class FanartTvResponse implements ArtistArtworkSetInterface, AlbumArtworkSetInte
         if (isset($json->artistthumb) && is_array($json->artistthumb)) {
             $this->thumbs = $json->artistthumb;
         }
-        if (isset($json->cdart) && is_array($json->cdart)) {
+
+        if (isset($json->albums)) {
+            foreach ($json->albums as $mbid => $album) {
+                if (isset($album->cdart)) {
+                    $this->cdart[$mbid] = $album->cdart;
+                }
+                if (isset($album->albumcover)) {
+                    $this->albumcover[$mbid] = $album->albumcover;
+                }
+            }
+        }
+        if (isset($json->cdart)) {
             $this->cdart = $json->cdart;
         }
-        if (isset($json->albumcover) && is_array($json->albumcover)) {
+        if (isset($json->albumcover)) {
             $this->albumcover = $json->albumcover;
         }
     }

@@ -93,6 +93,16 @@ interface AlbumInterface extends ApiInterface, SongCollectionInterface, PlayCoun
     /**
      * @return string
      */
+    public function getMusicBrainzReleaseGroupId();
+
+    /**
+     * @param string $musicBrainzReleaseGroupId
+     */
+    public function setMusicBrainzReleaseGroupId(string $musicBrainzReleaseGroupId);
+
+    /**
+     * @return string
+     */
     public function getLastFmId();
 
     /**

@@ -80,6 +80,11 @@ class AlbumEntity extends Album implements AlbumInterface
     /**
      * @ORM\Column(type="string", nullable=true)
      */
+    protected $musicBrainzReleaseGroupId;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
     protected $lastFmId;
 
     /**

@@ -57,21 +57,21 @@ class UpdaterCommand extends ContainerAwareCommand
     {
         $this->setOutputInterface($output);
         $artistRepository = $this->getContainer()->get('black_sheep_music_library.repository.artists_repository');
-        $artists = $artistRepository->findAll();
+        $artist = $artistRepository->find(2837);
         /* @var ArtistInterface $artist */
-        $this->setupProgressBar(count($artists));
-        foreach ($artists as $artist) {
-            $this->getContainer()->get('event_dispatcher')->dispatch(
-                ArtistEventInterface::ARTIST_EVENT_FETCHED,
+        $this->setupProgressBar(count($artist));
+        // foreach ($artists as $artist) {
+        $genres = $this->updateAlbumGenre($artist);
+        if (count($genres) > 0) {
+            $artist->setGenres($genres);
+        }
+        $this->getContainer()->get('event_dispatcher')->dispatch(
+                ArtistEventInterface::ARTIST_EVENT_UPDATED,
                 new ArtistEvent($artist)
             );
-            $genres = $this->updateAlbumGenre($artist);
-            if (count($genres) > 0) {
-                $artist->setGenres($genres);
-            }
-            $artistRepository->save($artist);
-            $this->debugStep('updated', $artist->getName());
-        }
+        $artistRepository->save($artist);
+        $this->debugStep('updated', $artist->getName());
+        // }
     }
 
     /**
@@ -87,17 +87,14 @@ class UpdaterCommand extends ContainerAwareCommand
     /**
      * @param ArtistInterface $artist
      *
-     * @return array
      * @throws \Doctrine\ORM\OptimisticLockException
+     *
+     * @return array
      */
     protected function updateAlbumGenre(ArtistInterface $artist)
     {
         $genres = [];
         foreach ($artist->getAlbums() as $album) {
-            $this->getContainer()->get('event_dispatcher')->dispatch(
-                AlbumEvent::ALBUM_EVENT_FETCHED,
-                new AlbumEvent($album)
-            );
             if ($album->getSongs() &&
                 $album->getSongs()->first() !== false) {
                 $album->setLossless($album->getSongs()->first()->getAudio()->getLossless());
@@ -106,8 +103,12 @@ class UpdaterCommand extends ContainerAwareCommand
                     $album->setGenre($album->getSongs()->first()->getGenre());
                     $genres[$album->getGenre()->getSlug()] = $album->getGenre();
                 }
-                $this->getContainer()->get('doctrine.orm.default_entity_manager')->flush($album);
             }
+            $this->getContainer()->get('event_dispatcher')->dispatch(
+                AlbumEvent::ALBUM_EVENT_UPDATED,
+                new AlbumEvent($album)
+            );
+            $this->getContainer()->get('doctrine.orm.default_entity_manager')->flush($album);
         }
 
         return $genres;

@@ -11,14 +11,9 @@
 
 namespace BlackSheep\FanartTvBundle\EventListener;
 
-use BlackSheep\FanartTvBundle\Client\MusicClient;
-use BlackSheep\FanartTvBundle\Model\FanartTvResponse;
+use BlackSheep\FanartTvBundle\Updater\ArtistUpdater;
 use BlackSheep\MusicLibraryBundle\EventListener\ArtistEventListener;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
-use BlackSheep\MusicLibraryBundle\Factory\ArtworkFactory;
-use BlackSheep\MusicLibraryBundle\Repository\ArtistRepositoryInterface;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\ConnectException;
 
 /**
  * ArtistEventSubscriber.
@@ -26,33 +21,16 @@ use GuzzleHttp\Exception\ConnectException;
 class ArtistEventSubscriber implements ArtistEventListener
 {
     /**
-     * @var ArtistRepositoryInterface
+     * @var ArtistUpdater
      */
-    protected $artistsRepository;
+    private $artistUpdater;
 
     /**
-     * @var MusicClient
+     * @param ArtistUpdater $artistUpdater
      */
-    protected $client;
-
-    /**
-     * @var ArtworkFactory
-     */
-    private $artworkFactory;
-
-    /**
-     * @param ArtistRepositoryInterface $artistsRepository
-     * @param MusicClient               $client
-     * @param ArtworkFactory            $artworkFactory
-     */
-    public function __construct(
-        ArtistRepositoryInterface $artistsRepository,
-        MusicClient $client,
-        ArtworkFactory $artworkFactory
-    ) {
-        $this->artistsRepository = $artistsRepository;
-        $this->client = $client;
-        $this->artworkFactory = $artworkFactory;
+    public function __construct(ArtistUpdater $artistUpdater)
+    {
+        $this->artistUpdater = $artistUpdater;
     }
 
     /**
@@ -73,7 +51,7 @@ class ArtistEventSubscriber implements ArtistEventListener
      */
     public function fetchedArtist(ArtistEventInterface $event)
     {
-        $this->updateArtWork($event);
+        $this->artistUpdater->updateArtWork($event->getArtist());
     }
 
     /**
@@ -81,7 +59,7 @@ class ArtistEventSubscriber implements ArtistEventListener
      */
     public function updatedArtist(ArtistEventInterface $event)
     {
-        $this->updateArtWork($event);
+        $this->artistUpdater->updateArtWork($event->getArtist());
     }
 
     /**
@@ -89,29 +67,6 @@ class ArtistEventSubscriber implements ArtistEventListener
      */
     public function createdArtist(ArtistEventInterface $event)
     {
-        $this->updateArtWork($event);
-    }
-
-    /**
-     * @param ArtistEventInterface $artistEvent
-     */
-    protected function updateArtWork(ArtistEventInterface $artistEvent)
-    {
-        $artist = $artistEvent->getArtist();
-        if (empty($artist->getMusicBrainzId()) === false && count($artist->getArtworks()) === 0) {
-            try {
-                $fanart = new FanartTvResponse(
-                    json_decode(
-                        $this->client->loadArtist($artist->getMusicBrainzId())->getBody()
-                    )
-                );
-                $this->artworkFactory->addArtworkToArtist($artist, $fanart);
-                $this->artistsRepository->save($artist);
-            } catch (ClientException $e) {
-                error_log($e->getMessage());
-            } catch (ConnectException $e) {
-                error_log($e->getMessage());
-            }
-        }
+        $this->artistUpdater->updateArtWork($event->getArtist());
     }
 }

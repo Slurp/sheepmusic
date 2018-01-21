@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new BlackSheep\MusicLibraryBundle\BlackSheepMusicLibraryBundle(),
             new BlackSheep\LastFmBundle\BlackSheepLastFmBundle(),
             new BlackSheep\UserBundle\BlackSheepUserBundle(),
+            new BlackSheep\MusicBrainzBundle\BlackSheepMusicBrainzBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
