@@ -289,19 +289,12 @@ class Artist implements ArtistInterface
      */
     public function getApiData(): array
     {
-        $genres = [];
-        foreach ($this->getGenres() as $genre) {
-            $genres[] = $genre->getApiData();
-        }
-
         return [
             'name' => $this->getName(),
-            'biography' => $this->getBiography(),
             'image' => $this->getImage(),
             'albumArt' => $this->getAlbumArt(),
             'playCount' => $this->getPlayCount(),
             'mbId' => $this->getMusicBrainzId(),
-            'genres' => $genres,
         ];
     }
 }

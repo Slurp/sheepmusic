@@ -26,14 +26,6 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
     {
         if ($object instanceof ArtistInterface) {
             $artistData = $object->getApiData();
-            $albums = [];
-            foreach ($object->getAlbums() as $album) {
-                $year = '0001';
-                if ($album->getSongs()->first()) {
-                    $year = $album->getSongs()->first()->getYear();
-                }
-                $albums[] = ['id' => $album->getId(), 'year' => $year];
-            }
             $artistData = array_merge(
                 $artistData,
                 ApiArtworkHelper::prefixArtworkSetWithUrl(
@@ -49,12 +41,50 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                     'slug' => $object->getSlug(),
                     'createdAt' => $object->getCreatedAt(),
                     'updatedAt' => $object->getUpdatedAt(),
-                    'albums' => $albums,
+                    'image' => $object->getImage(),
+                    'albumArt' => $object->getAlbumArt(),
+                    'biography' => $object->getBiography(),
+                    'albums' => $this->getAlbums($object),
+                    'genres' => $this->getGenres($object),
                 ],
                 $artistData
             );
         }
 
         return null;
+    }
+
+    /**
+     * @param ArtistInterface $artist
+     *
+     * @return array
+     */
+    protected function getAlbums(ArtistInterface $artist): array
+    {
+        $albums = [];
+        foreach ($artist->getAlbums() as $album) {
+            $year = '0001';
+            if ($album->getSongs()->first()) {
+                $year = $album->getSongs()->first()->getYear();
+            }
+            $albums[] = ['id' => $album->getId(), 'year' => $year];
+        }
+
+        return $albums;
+    }
+
+    /**
+     * @param ArtistInterface $artist
+     *
+     * @return array
+     */
+    protected function getGenres(ArtistInterface $artist): array
+    {
+        $genres = [];
+        foreach ($artist->getGenres() as $genre) {
+            $genres[] = $genre->getApiData();
+        }
+
+        return $genres;
     }
 }

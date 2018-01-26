@@ -150,8 +150,8 @@ class ArtistsEntity extends Artist implements ArtistInterface
     public function removeSong(SongInterface $song): ArtistInterface
     {
         if ($this->songs->contains($song) === true) {
+            $this->songs->removeElement($song);
             $song->setAlbum(null);
-            $this->songs->remove($song);
         }
 
         return $this;
@@ -175,7 +175,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     public function removeGenre(GenreInterface $genre): ArtistInterface
     {
         if ($this->genres->contains($genre) === true) {
-            $this->genres->remove($genre);
+            $this->genres->removeElement($genre);
         }
 
         return $this;
@@ -214,7 +214,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     public function removeSimilarArtist(ArtistInterface $similarArtist): ArtistInterface
     {
         if ($this->similarArtists->contains($similarArtist) === true) {
-            $this->similarArtists->remove($similarArtist);
+            $this->similarArtists->removeElement($similarArtist);
         }
 
         return $this;

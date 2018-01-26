@@ -145,6 +145,19 @@ class AlbumEntity extends Album implements AlbumInterface
     /**
      * {@inheritdoc}
      */
+    public function removeSong(SongInterface $song): AlbumInterface
+    {
+        if ($this->songs->contains($song)) {
+            $this->songs->removeElement($song);
+            $song->setAlbum(null);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function addArtwork(ArtworkInterface $artwork): AlbumInterface
     {
         if ($this->artworks->contains($artwork) === false) {
@@ -171,6 +184,4 @@ class AlbumEntity extends Album implements AlbumInterface
 
         return $array;
     }
-
-
 }

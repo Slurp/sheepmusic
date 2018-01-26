@@ -1,9 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: slangeweg
- * Date: 22/01/2018
- * Time: 00:29
+
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace BlackSheep\MusicLibraryBundle\Entity\Traits;
@@ -11,9 +14,7 @@ namespace BlackSheep\MusicLibraryBundle\Entity\Traits;
 use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
 
 /**
- * Class ArtworkCollectionEntityTrait
- *
- * @package BlackSheep\MusicLibraryBundle\Entity\Traits
+ * Class ArtworkCollectionEntityTrait.
  */
 trait ArtworkCollectionEntityTrait
 {

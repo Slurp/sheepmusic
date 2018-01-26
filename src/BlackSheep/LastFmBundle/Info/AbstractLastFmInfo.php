@@ -35,9 +35,16 @@ abstract class AbstractLastFmInfo implements LastFmInfo
     protected $auth;
 
     /**
+     * @var bool
+     */
+    protected $isUserAuth = false;
+
+    /**
      * @param string                $apiKey
      * @param string                $apiSecret
      * @param TokenStorageInterface $tokenStorage
+     *
+     * @throws \LastFmApi\Exception\InvalidArgumentException
      */
     public function __construct($apiKey, $apiSecret, TokenStorageInterface $tokenStorage)
     {
@@ -65,6 +72,7 @@ abstract class AbstractLastFmInfo implements LastFmInfo
             $authArray['username'] = $user->getLastFm()->getLastFmUserName();
             $authArray['sessionKey'] = $user->getLastFm()->getLastFmKey();
             $authArray['subscriber'] = $user->getLastFm()->isLastFmSubscriber();
+            $this->isUserAuth = true;
         }
 
         return $authArray;

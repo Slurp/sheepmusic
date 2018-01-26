@@ -14,6 +14,7 @@ namespace BlackSheep\MusicLibraryBundle\Controller;
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,13 +29,21 @@ class SongController extends Controller
      * @param SongEntity $song
      * @param Request    $request
      *
+     * @throws \Exception
+     *
      * @return Response
      */
     public function playAction(SongEntity $song, Request $request)
     {
-        return $this->get('black_sheep_music_library.services.streamer_service')->getStreamerForSong(
-            $song,
-            $request->get('time', 0)
-        );
+        try {
+            return $this->get('black_sheep_music_library.services.streamer_service')->getStreamerForSong(
+                $song,
+                $request->get('time', 0)
+            );
+        } catch (FileNotFoundException $exception) {
+            return new Response('song is not available:' . $exception->getMessage(), 404);
+        } catch (\Exception $exception) {
+            return new Response('streaming failed:' . $exception->getMessage(), 500);
+        }
     }
 }

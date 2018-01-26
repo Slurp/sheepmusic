@@ -22,6 +22,11 @@ class SongEventSubscriber implements SongEventListener
      */
     protected $lastFmTrackInfo;
 
+    /**
+     * SongEventSubscriber constructor.
+     *
+     * @param LastFmTrackInfo $lastFmTrackInfo
+     */
     public function __construct(LastFmTrackInfo $lastFmTrackInfo)
     {
         $this->lastFmTrackInfo = $lastFmTrackInfo;
@@ -36,8 +41,6 @@ class SongEventSubscriber implements SongEventListener
         return [
             SongEventInterface::SONG_EVENT_PLAYING => 'playingSong',
             SongEventInterface::SONG_EVENT_PLAYED => 'playedSong',
-            SongEventInterface::SONG_EVENT_LOVED => 'lovedSong',
-            SongEventInterface::SONG_EVENT_RATED => 'ratedSong',
         ];
     }
 
@@ -60,21 +63,5 @@ class SongEventSubscriber implements SongEventListener
             // do nothing for now
             error_log($e->getMessage());
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function lovedSong(SongEventInterface $songEvent)
-    {
-        // TODO: Implement playedSong() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function ratedSong(SongEventInterface $songEvent)
-    {
-        // TODO: Implement playedSong() method.
     }
 }

@@ -23,6 +23,12 @@ services:
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - BlackSheep\MusicLibraryBundle\Entity\PlaylistEntity
+    black_sheep_music_library.repository.playlist_song_repository:
+            public: true
+            class: BlackSheep\MusicLibraryBundle\Repository\PlaylistsSongsRepository
+            factory: ['@doctrine.orm.default_entity_manager', getRepository]
+            arguments:
+                - BlackSheep\MusicLibraryBundle\Entity\PlaylistsSongsEntity
     black_sheep_music_library.repository.genre_repository:
         public: true
         class: BlackSheep\MusicLibraryBundle\Repository\GenresRepository

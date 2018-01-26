@@ -40,8 +40,6 @@ class ArtistEventSubscriber implements ArtistEventListener
     {
         // return the subscribed events, their methods and priorities
         return [
-            ArtistEventInterface::ARTIST_EVENT_FETCHED => 'fetchedArtist',
-            ArtistEventInterface::ARTIST_EVENT_CREATED => 'createdArtist',
             ArtistEventInterface::ARTIST_EVENT_UPDATED => 'updatedArtist',
         ];
     }
@@ -49,23 +47,7 @@ class ArtistEventSubscriber implements ArtistEventListener
     /**
      * {@inheritdoc}
      */
-    public function fetchedArtist(ArtistEventInterface $event)
-    {
-        $this->artistUpdater->updateArtWork($event->getArtist());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function updatedArtist(ArtistEventInterface $event)
-    {
-        $this->artistUpdater->updateArtWork($event->getArtist());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createdArtist(ArtistEventInterface $event)
     {
         $this->artistUpdater->updateArtWork($event->getArtist());
     }

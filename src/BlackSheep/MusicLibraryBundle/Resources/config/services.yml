@@ -4,6 +4,15 @@ services:
         arguments: ['@black_sheep_music_library.repository.songs_repository']
         tags:
             - { name: kernel.event_subscriber }
+    black_sheep_music_library.album_event_subscriber:
+            class: BlackSheep\MusicLibraryBundle\EventListener\AlbumEventSubscriber
+            arguments:
+                - '@black_sheep_music_library.repository.albums_repository'
+                - '@black_sheep_music_library.repository.playlist_repository'
+                - '@black_sheep_music_library.repository.playlist_song_repository'
+                - '@black_sheep_music_library.repository.songs_repository'
+            tags:
+                - { name: kernel.event_subscriber }
     delayed_event_dispatcher:
         class: BlackSheep\MusicLibraryBundle\Dispatcher\DelayedEventDispatcher
         arguments:

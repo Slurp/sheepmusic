@@ -56,4 +56,15 @@ class AbstractRepository extends EntityRepository implements AbstractRepositoryI
         $this->getEntityManager()->persist($entity);
         $this->getEntityManager()->flush($entity);
     }
+
+    /**
+     * @param $entity
+     *
+     * @throws OptimisticLockException
+     */
+    public function remove($entity)
+    {
+        $this->getEntityManager()->remove($entity);
+        $this->getEntityManager()->flush($entity);
+    }
 }

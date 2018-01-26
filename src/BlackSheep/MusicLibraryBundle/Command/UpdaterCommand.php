@@ -76,7 +76,7 @@ class UpdaterCommand extends ContainerAwareCommand
 
     /**
      * @param OutputInterface $output
-     * @param bool $debug
+     * @param bool            $debug
      */
     public function setOutputInterface(OutputInterface $output, $debug = true)
     {

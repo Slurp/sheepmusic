@@ -29,4 +29,9 @@ interface AbstractRepositoryInterface
      * @param $entity
      */
     public function save($entity);
+
+    /**
+     * @param $entity
+     */
+    public function remove($entity);
 }

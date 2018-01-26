@@ -40,22 +40,12 @@ class SongEventSubscriber implements SongEventListener
     {
         // return the subscribed events, their methods and priorities
         return [
-            SongEventInterface::SONG_EVENT_PLAYING => 'playingSong',
             SongEventInterface::SONG_EVENT_PLAYED => 'playedSong',
-            SongEventInterface::SONG_EVENT_LOVED => 'lovedSong',
-            SongEventInterface::SONG_EVENT_RATED => 'ratedSong',
         ];
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function playingSong(SongEventInterface $songEvent)
-    {
-    }
-
-    /**
-     * {@inheritdoc}
+     * @param SongEventInterface $songEvent
      */
     public function playedSong(SongEventInterface $songEvent)
     {
@@ -72,21 +62,5 @@ class SongEventSubscriber implements SongEventListener
         if ($song->getArtist() instanceof PlayCountInterface) {
             $this->songsRepository->save($song->getArtist()->updatePlayCount());
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function lovedSong(SongEventInterface $songEvent)
-    {
-        // TODO: Implement playedSong() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function ratedSong(SongEventInterface $songEvent)
-    {
-        // TODO: Implement playedSong() method.
     }
 }

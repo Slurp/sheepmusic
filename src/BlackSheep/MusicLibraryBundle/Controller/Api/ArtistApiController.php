@@ -12,6 +12,7 @@
 namespace BlackSheep\MusicLibraryBundle\Controller\Api;
 
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
+use BlackSheep\MusicLibraryBundle\Events\AlbumEvent;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEvent;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -69,6 +70,16 @@ class ArtistApiController extends BaseApiController
      */
     public function updateMetaData(ArtistsEntity $artist)
     {
+        foreach ($artist->getAlbums() as $album) {
+            $this->get('event_dispatcher')->dispatch(
+                AlbumEvent::ALBUM_EVENT_UPDATED,
+                new AlbumEvent($album)
+            );
+            $this->get('event_dispatcher')->dispatch(
+                AlbumEvent::ALBUM_EVENT_VALIDATE_SONGS,
+                new AlbumEvent($album)
+            );
+        }
         $this->get('event_dispatcher')->dispatch(
             ArtistEventInterface::ARTIST_EVENT_UPDATED,
             new ArtistEvent($artist)

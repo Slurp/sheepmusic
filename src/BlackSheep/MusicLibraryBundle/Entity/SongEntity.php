@@ -67,7 +67,12 @@ class SongEntity extends Song implements SongInterface
     protected $playCount;
 
     /**
-     * @ORM\ManyToMany(targetEntity="PlaylistEntity", mappedBy="songs", fetch="EXTRA_LAZY", cascade={"persist"})
+     * @ORM\OneToMany(
+     *     targetEntity="BlackSheep\MusicLibraryBundle\Entity\PlaylistsSongsEntity",
+     *     mappedBy="song",
+     *     fetch="EXTRA_LAZY",
+     *     cascade={"persist"}
+     * )
      */
     protected $playlists;
 

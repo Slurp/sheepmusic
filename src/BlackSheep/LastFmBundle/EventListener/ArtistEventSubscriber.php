@@ -52,40 +52,14 @@ class ArtistEventSubscriber implements ArtistEventListener
     {
         // return the subscribed events, their methods and priorities
         return [
-            ArtistEventInterface::ARTIST_EVENT_FETCHED => 'fetchedArtist',
-            ArtistEventInterface::ARTIST_EVENT_CREATED => 'createdArtist',
-            ArtistEventInterface::ARTIST_EVENT_UPDATED => 'updatedArtist',
+            ArtistEventInterface::ARTIST_EVENT_UPDATED => 'addSimilar',
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function fetchedArtist(ArtistEventInterface $event)
-    {
-        $this->addSimilar($event);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function updatedArtist(ArtistEventInterface $event)
-    {
-        $this->addSimilar($event);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createdArtist(ArtistEventInterface $event)
-    {
-        $this->addSimilar($event);
     }
 
     /**
      * @param ArtistEventInterface $artistEvent
      */
-    protected function addSimilar(ArtistEventInterface $artistEvent)
+    public function addSimilar(ArtistEventInterface $artistEvent)
     {
         $artist = $artistEvent->getArtist();
         if (empty($artist->getMusicBrainzId()) === false && count($artist->getSimilarArtists()) === 0) {

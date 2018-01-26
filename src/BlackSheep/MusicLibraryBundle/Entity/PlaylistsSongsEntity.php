@@ -11,13 +11,14 @@
 
 namespace BlackSheep\MusicLibraryBundle\Entity;
 
+use BlackSheep\MusicLibraryBundle\Model\PlaylistInterface;
 use BlackSheep\MusicLibraryBundle\Model\PlaylistsSongs;
 use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="BlackSheep\MusicLibraryBundle\Repository\PlaylistsSongsRepository")
  */
 class PlaylistsSongsEntity extends PlaylistsSongs
 {
@@ -33,13 +34,13 @@ class PlaylistsSongsEntity extends PlaylistsSongs
 
     /**
      * @var SongInterface
-     * @ORM\ManyToOne(targetEntity="BlackSheep\MusicLibraryBundle\Entity\SongEntity")
+     * @ORM\ManyToOne(targetEntity="BlackSheep\MusicLibraryBundle\Entity\SongEntity", inversedBy="playlists")
      * @Assert\NotNull
      */
     protected $song;
 
     /**
-     * @var ResearchGroupInterface
+     * @var PlaylistInterface
      * @ORM\ManyToOne(targetEntity="BlackSheep\MusicLibraryBundle\Entity\PlaylistEntity", inversedBy="songs")
      * @ORM\JoinColumn(name="playlist_id", referencedColumnName="id")
      * @Assert\NotNull

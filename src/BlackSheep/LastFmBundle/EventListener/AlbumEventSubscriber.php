@@ -13,7 +13,6 @@ namespace BlackSheep\LastFmBundle\EventListener;
 
 use BlackSheep\LastFmBundle\Info\LastFmAlbumInfo;
 use BlackSheep\MusicLibraryBundle\EventListener\AlbumEventListener;
-use BlackSheep\MusicLibraryBundle\Events\AlbumEventInterface;
 use BlackSheep\MusicLibraryBundle\Repository\AlbumsRepositoryInterface;
 
 /**
@@ -50,33 +49,6 @@ class AlbumEventSubscriber implements AlbumEventListener
     {
         // return the subscribed events, their methods and priorities
         return [
-            AlbumEventInterface::ALBUM_EVENT_FETCHED => 'fetchedAlbum',
-            AlbumEventInterface::ALBUM_EVENT_CREATED => 'createdAlbum',
-            AlbumEventInterface::ALBUM_EVENT_UPDATED => 'updatedAlbum',
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function fetchedAlbum(AlbumEventInterface $event)
-    {
-        // TODO: Implement fetchedAlbum() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function updatedAlbum(AlbumEventInterface $event)
-    {
-        // TODO: Implement updatedAlbum() method.
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createdAlbum(AlbumEventInterface $event)
-    {
-        // TODO: Implement createdAlbum() method.
     }
 }

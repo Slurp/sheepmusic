@@ -30,6 +30,11 @@ abstract class AbstractApiData
     protected $uploaderHelper;
 
     /**
+     * @var string
+     */
+    protected $baseUrl;
+
+    /**
      * @param RouterInterface $router
      * @param UploaderHelper  $uploaderHelper
      */
@@ -37,6 +42,7 @@ abstract class AbstractApiData
     {
         $this->router = $router;
         $this->uploaderHelper = $uploaderHelper;
+        $this->baseUrl = '//' . $this->router->getContext()->getHost();
     }
 
     /**

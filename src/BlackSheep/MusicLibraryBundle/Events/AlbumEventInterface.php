@@ -18,9 +18,11 @@ use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
  */
 interface AlbumEventInterface
 {
-    const ALBUM_EVENT_FETCHED = 'album_event_fetched';
-    const ALBUM_EVENT_CREATED = 'album_event_created';
-    const ALBUM_EVENT_UPDATED = 'album_event_updated';
+    const ALBUM_EVENT_FETCHED = 'album_fetched';
+    const ALBUM_EVENT_CREATED = 'album_created';
+    const ALBUM_EVENT_UPDATED = 'album_updated';
+    const ALBUM_EVENT_UPDATE_ARTWORK = 'album_update_artwork';
+    const ALBUM_EVENT_VALIDATE_SONGS = 'album_validate_songs';
 
     /**
      * @return AlbumInterface

@@ -67,6 +67,9 @@ class TranscodingStreamer extends AbstractStreamer implements AudioStreamInterfa
         if (is_executable($this->ffmpeg) === false) {
             throw new Exception('Transcoding requires valid ffmpeg settings.');
         }
+        if (is_executable($this->ffprobe) === false) {
+            throw new Exception('Transcoding requires valid ffprobe settings.');
+        }
         $bitRate = filter_var($this->bitrate, FILTER_SANITIZE_NUMBER_INT);
         $length = Inspector::getLength($this->song->getPath(), $this->ffprobe) - $this->startTime;
         HeaderBuilder::putHeader(

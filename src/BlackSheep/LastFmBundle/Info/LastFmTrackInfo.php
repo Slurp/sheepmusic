@@ -15,6 +15,8 @@ use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use DateTime;
 use DateTimeZone;
 use LastFmApi\Api\TrackApi;
+use LastFmApi\Exception\InvalidArgumentException;
+use LastFmApi\Exception\NotAuthenticatedException;
 
 /**
  * Api wrapper for BlackSheep.
@@ -22,6 +24,8 @@ use LastFmApi\Api\TrackApi;
 class LastFmTrackInfo extends AbstractLastFmInfo implements LastFmInfo
 {
     /**
+     * @throws InvalidArgumentException
+     *
      * @return TrackApi
      */
     protected function getApi()
@@ -38,17 +42,36 @@ class LastFmTrackInfo extends AbstractLastFmInfo implements LastFmInfo
      */
     public function nowPlayingTrack(SongInterface $song)
     {
-        $this->getApi()->updateNowPlaying($this->getMethodVars($song));
+        try {
+            if ($this->isUserAuth) {
+                $this->getApi()->updateNowPlaying($this->getMethodVars($song));
+            }
+        } catch (InvalidArgumentException $connectionException) {
+        } catch (NotAuthenticatedException $apiFailedException) {
+        }
     }
 
     /**
+     * Only scrobble when a userAuth is available.
+     *
      * @param SongInterface $song
      */
     public function scrobbleTrack(SongInterface $song)
     {
-        $this->getApi()->scrobble($this->getMethodVars($song));
+        try {
+            if ($this->isUserAuth) {
+                $this->getApi()->scrobble($this->getMethodVars($song));
+            }
+        } catch (InvalidArgumentException $connectionException) {
+        } catch (NotAuthenticatedException $apiFailedException) {
+        }
     }
 
+    /**
+     * @param SongInterface $song
+     *
+     * @return array
+     */
     protected function getMethodVars(SongInterface $song)
     {
         $now = new DateTime('now', new DateTimeZone('UTC'));

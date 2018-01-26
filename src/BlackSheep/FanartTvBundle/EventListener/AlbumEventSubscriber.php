@@ -42,8 +42,6 @@ class AlbumEventSubscriber implements AlbumEventListener
     {
         // return the subscribed events, their methods and priorities
         return [
-            AlbumEventInterface::ALBUM_EVENT_FETCHED => 'fetchedAlbum',
-            AlbumEventInterface::ALBUM_EVENT_CREATED => 'createdAlbum',
             AlbumEventInterface::ALBUM_EVENT_UPDATED => 'updatedAlbum',
         ];
     }
@@ -51,23 +49,7 @@ class AlbumEventSubscriber implements AlbumEventListener
     /**
      * {@inheritdoc}
      */
-    public function fetchedAlbum(AlbumEventInterface $event)
-    {
-        $this->albumUpdater->updateArtWork($event->getAlbum());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function updatedAlbum(AlbumEventInterface $event)
-    {
-        $this->albumUpdater->updateArtWork($event->getAlbum());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function createdAlbum(AlbumEventInterface $event)
     {
         $this->albumUpdater->updateArtWork($event->getAlbum());
     }
