@@ -142,10 +142,6 @@ class Album implements AlbumInterface
                 $this->getArtist()->getSlug() . '/' . $this->cover;
         }
 
-        if (count($this->getArtworkCover()) !== 0) {
-            return $this->getArtworkCover()[0];
-        }
-
         return $this->cover;
     }
 

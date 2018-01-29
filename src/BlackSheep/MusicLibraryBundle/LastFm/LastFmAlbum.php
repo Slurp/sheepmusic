@@ -79,7 +79,7 @@ class LastFmAlbum implements LastFmAlbumInterface
             unset($this->album);
             $this->album = $album;
             $lastFmInfo = $this->lastFmAlbumInfo->getInfo($this);
-            if ($lastFmInfo !== false) {
+            if ($lastFmInfo !== null && $lastFmInfo->album !== null) {
                 $album->setName((string) $lastFmInfo->album->name);
                 $album->setLastFmId((string) $lastFmInfo->album->id);
                 $album->setLastFmUrl($lastFmInfo->album->url);
