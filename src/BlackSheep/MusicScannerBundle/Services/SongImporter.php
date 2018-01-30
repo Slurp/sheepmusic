@@ -97,6 +97,9 @@ class SongImporter
     {
         $artist = $this->artistImporter->importArtist($songInfo);
         $album = $this->albumImporter->importAlbum($artist, $songInfo);
+        if(empty($songInfo['track'])) {
+            $songInfo['track'] = count($album->getSongs());
+        }
         $song = SongEntity::createFromArray($songInfo);
         $album->addSong($song);
         $song->addArtist($artist);

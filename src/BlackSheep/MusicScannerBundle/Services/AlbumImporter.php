@@ -15,6 +15,7 @@ use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\LastFm\LastFmAlbum;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
+use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use BlackSheep\MusicLibraryBundle\Repository\AlbumsRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -49,12 +50,12 @@ class AlbumImporter
     }
 
     /**
-     * @param ArtistsEntity $artist
+     * @param ArtistInterface $artist
      * @param $songInfo
      *
      * @return AlbumInterface
      */
-    public function importAlbum(ArtistsEntity $artist, &$songInfo)
+    public function importAlbum(ArtistInterface $artist, &$songInfo)
     {
         if ($this->albumCache === null ||
             $this->albumCache->getName() !== $songInfo['album'] ||
@@ -72,10 +73,6 @@ class AlbumImporter
                 if ($this->addMetaDataToNewAlbum()) {
                     $this->albumRepository->save($this->albumCache);
                 }
-            }
-            if ($this->albumCache->getMusicBrainzId() === null && empty($songInfo['album_mbid']) === false) {
-                $this->albumCache->setMusicBrainzId($songInfo['album_mbid']);
-                $this->albumRepository->save($this->albumCache);
             }
         }
         if ($this->albumCache->getMusicBrainzId() === null && empty($songInfo['album_mbid']) === false) {
