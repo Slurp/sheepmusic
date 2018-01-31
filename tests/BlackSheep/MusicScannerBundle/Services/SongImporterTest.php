@@ -51,7 +51,7 @@ class SongImporterTest extends KernelTestCase
             self::assertEquals($song->getArtist()->getName(), $this->songInfo['artist']);
             self::assertEquals($song->getLength(), $this->songInfo['length']);
             self::assertEquals($song->getTitle(), $this->songInfo['title']);
-            self::assertEquals($song->getTrack(), $this->songInfo['track']);
+            self::assertEquals($song->getTrack(), 0);
         }
     }
 }
