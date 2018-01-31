@@ -43,8 +43,8 @@ class LastFmAuth
     private $entityManager;
 
     /**
-     * @param string        $apiKey
-     * @param string        $apiSecret
+     * @param string $apiKey
+     * @param string $apiSecret
      * @param EntityManager $entityManager
      */
     public function __construct($apiKey, $apiSecret, EntityManager $entityManager)
@@ -64,7 +64,7 @@ class LastFmAuth
 
     /**
      * @param LastFmUserEmbed $user
-     * @param bool            $refresh
+     * @param bool $refresh
      *
      * @return array
      */
