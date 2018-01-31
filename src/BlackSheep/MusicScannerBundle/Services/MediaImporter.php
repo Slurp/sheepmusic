@@ -87,13 +87,18 @@ class MediaImporter
     public function import($path)
     {
         $this->path = $path;
+	if ($this->output !== null) {
+	    $this->output->writeln('importing:'.$this->path);
+	}
         $importingFiles = $this->gatherFiles(
             $this->path,
             $this->managerRegistry->getRepository(
                 SongEntity::class
             )->lastImportDate()
         );
+	$this->output->writeln('start of importing:'.$this->path);
         if (count($importingFiles) > 0) {
+	    $this->output->writeln('start of importing:'.$this->path);
             $this->setupProgressBar(count($importingFiles));
             /** @var SplFileInfo $file */
             foreach ($importingFiles as $file) {
@@ -124,7 +129,7 @@ class MediaImporter
         if ($lastImportDate !== null) {
             $finder->date('>=' . $lastImportDate->format('Y-m-d'));
         }
-
+	$this->output->writeln('created finder');
         return $finder;
     }
 
