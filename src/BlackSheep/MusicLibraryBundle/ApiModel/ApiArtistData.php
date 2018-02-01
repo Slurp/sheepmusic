@@ -31,8 +31,7 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                 ApiArtworkHelper::prefixArtworkSetWithUrl(
                     $object,
                     $this->uploaderHelper,
-                    '//' . $this->router->getContext()->getHost()
-                )
+                    $this->baseUrl
             );
 
             return array_merge(
@@ -41,8 +40,8 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                     'slug' => $object->getSlug(),
                     'createdAt' => $object->getCreatedAt(),
                     'updatedAt' => $object->getUpdatedAt(),
-                    'image' => $object->getImage(),
-                    'albumArt' => $object->getAlbumArt(),
+                    'image' => $this->baseUrl.$object->getImage(),
+                    'albumArt' => $this->baseUrl.$object->getAlbumArt(),
                     'biography' => $object->getBiography(),
                     'albums' => $this->getAlbums($object),
                     'genres' => $this->getGenres($object),
