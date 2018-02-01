@@ -11,6 +11,7 @@
 
 namespace BlackSheep\MusicLibraryBundle\Repository;
 
+use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\Query;
 
 /**
@@ -23,7 +24,15 @@ interface AbstractRepositoryInterface
      */
     public function queryAll();
 
+    /**
+     * @return array
+     */
     public function getList();
+
+    /**
+     * @param $entity
+     */
+    public function update($entity = null);
 
     /**
      * @param $entity

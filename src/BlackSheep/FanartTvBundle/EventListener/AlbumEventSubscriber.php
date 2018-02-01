@@ -42,7 +42,7 @@ class AlbumEventSubscriber implements AlbumEventListener
     {
         // return the subscribed events, their methods and priorities
         return [
-            AlbumEventInterface::ALBUM_EVENT_UPDATED => 'updatedAlbum',
+            // AlbumEventInterface::ALBUM_EVENT_UPDATED => 'updatedAlbum', do it by artist for the momement
         ];
     }
 

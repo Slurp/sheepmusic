@@ -27,7 +27,7 @@ use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
 class ArtworkFactory extends AbstractMediaFactory
 {
     /**
-     * @param ArtistInterface  $artist
+     * @param ArtistInterface $artist
      * @param FanartTvResponse $artworkSet
      */
     public function addArtworkToArtist(ArtistInterface $artist, FanartTvResponse $artworkSet)
@@ -44,17 +44,32 @@ class ArtworkFactory extends AbstractMediaFactory
         if ($artworkSet->getThumbs() !== null) {
             $this->createArtwork($artist, $artworkSet->getThumbs(), ArtworkInterface::TYPE_THUMBS);
         }
+        $this->updateAlbumsForArtist($artist, $artworkSet);
+    }
+
+    /**
+     * @param ArtistInterface $artist
+     * @param FanartTvResponse $artworkSet
+     */
+    protected function updateAlbumsForArtist(ArtistInterface $artist, FanartTvResponse $artworkSet)
+    {
         if ($artworkSet->getArtworkCover() !== null || $artworkSet->getCdArt() !== null) {
             foreach ($artist->getAlbums() as $album) {
-                if ($album->getMusicBrainzId() !== null) {
-                    if (isset($artworkSet->getArtworkCover()[$album->getMusicBrainzReleaseGroupId()])) {
+                if ($album->getMusicBrainzId() !== null &&
+                    (count($album->getArtworkCover()) === 0 || count($album->getArtworkCover()) === 0)
+                ) {
+                    if (isset($artworkSet->getArtworkCover()[$album->getMusicBrainzReleaseGroupId()]) &&
+                        count($album->getArtworkCover()) === 0
+                    ) {
                         $this->createArtwork(
                             $album,
                             $artworkSet->getArtworkCover()[$album->getMusicBrainzReleaseGroupId()],
                             ArtworkInterface::TYPE_COVER
                         );
                     }
-                    if (isset($artworkSet->getCdArt()[$album->getMusicBrainzReleaseGroupId()])) {
+                    if (isset($artworkSet->getCdArt()[$album->getMusicBrainzReleaseGroupId()]) &&
+                        count($album->getCdArt()) === 0
+                    ) {
                         $this->createArtwork(
                             $album,
                             $artworkSet->getCdArt()[$album->getMusicBrainzReleaseGroupId()],
@@ -67,7 +82,7 @@ class ArtworkFactory extends AbstractMediaFactory
     }
 
     /**
-     * @param AlbumInterface           $album
+     * @param AlbumInterface $album
      * @param AlbumArtworkSetInterface $artworkSet
      */
     public function addArtworkToAlbum(AlbumInterface $album, AlbumArtworkSetInterface $artworkSet)
@@ -83,8 +98,8 @@ class ArtworkFactory extends AbstractMediaFactory
 
     /**
      * @param ArtworkCollectionInterface $artworkCollectionEntity
-     * @param array                      $artworks
-     * @param string                     $type
+     * @param array $artworks
+     * @param string $type
      */
     protected function createArtwork(ArtworkCollectionInterface $artworkCollectionEntity, $artworks, $type)
     {
@@ -103,7 +118,7 @@ class ArtworkFactory extends AbstractMediaFactory
 
     /**
      * @param ArtworkCollectionInterface $artworkCollectionEntity
-     * @param string                     $type
+     * @param string $type
      *
      * @return AlbumArtworkEntity|ArtistArtworkEntity
      */

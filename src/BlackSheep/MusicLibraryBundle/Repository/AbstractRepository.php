@@ -34,7 +34,7 @@ class AbstractRepository extends EntityRepository implements AbstractRepositoryI
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getList()
     {
@@ -54,6 +54,16 @@ class AbstractRepository extends EntityRepository implements AbstractRepositoryI
     public function save($entity)
     {
         $this->getEntityManager()->persist($entity);
+        $this->getEntityManager()->flush($entity);
+    }
+
+    /**
+     * @param $entity
+     *
+     * @throws OptimisticLockException
+     */
+    public function update($entity = null)
+    {
         $this->getEntityManager()->flush($entity);
     }
 
