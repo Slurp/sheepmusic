@@ -32,6 +32,7 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                     $object,
                     $this->uploaderHelper,
                     $this->baseUrl
+                )
             );
 
             return array_merge(
