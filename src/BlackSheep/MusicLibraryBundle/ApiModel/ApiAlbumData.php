@@ -34,6 +34,9 @@ class ApiAlbumData extends ApiSongData implements ApiDataInterface
                     );
             }
 
+            if (mb_strpos($albumData['cover'], 'http') !== 0) {
+                $albumData['cover'] = $this->baseUrl .$albumData['cover'];
+            }
             return array_merge(
                 [
                     'id' => $object->getId(),
