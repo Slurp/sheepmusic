@@ -57,8 +57,8 @@ class ArtworkFactory extends AbstractMediaFactory
                     ) {
                         $this->createArtwork(
                             $album,
-                            $artworkSet->getArtworkCover()[$album->getMusicBrainzReleaseGroupId()],
-                            ArtworkInterface::TYPE_COVER
+                            ArtworkInterface::TYPE_COVER,
+                            $artworkSet->getArtworkCover()[$album->getMusicBrainzReleaseGroupId()]
                         );
                     }
                     if (isset($artworkSet->getCdArt()[$album->getMusicBrainzReleaseGroupId()]) &&
@@ -66,8 +66,8 @@ class ArtworkFactory extends AbstractMediaFactory
                     ) {
                         $this->createArtwork(
                             $album,
-                            $artworkSet->getCdArt()[$album->getMusicBrainzReleaseGroupId()],
-                            ArtworkInterface::TYPE_CDART
+                            ArtworkInterface::TYPE_CDART,
+                            $artworkSet->getCdArt()[$album->getMusicBrainzReleaseGroupId()]
                         );
                     }
                 }
