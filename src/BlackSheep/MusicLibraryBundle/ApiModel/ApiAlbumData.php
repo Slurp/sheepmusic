@@ -26,6 +26,10 @@ class ApiAlbumData extends ApiSongData implements ApiDataInterface
         if ($object instanceof AlbumInterface) {
             $albumData = $object->getApiData();
 
+            if (mb_strpos($albumData['cover'], 'http') !== 0) {
+                $albumData['cover'] = $this->baseUrl .$albumData['cover'];
+            }
+
             if (count($object->getArtworkCover()) !== 0) {
                 $albumData['cover'] = $this->baseUrl .
                     $this->uploaderHelper->asset(
@@ -33,10 +37,7 @@ class ApiAlbumData extends ApiSongData implements ApiDataInterface
                         'imageFile'
                     );
             }
-
-            if (mb_strpos($albumData['cover'], 'http') !== 0) {
-                $albumData['cover'] = $this->baseUrl .$albumData['cover'];
-            }
+            
             return array_merge(
                 [
                     'id' => $object->getId(),
