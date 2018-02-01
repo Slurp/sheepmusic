@@ -32,17 +32,11 @@ class ArtworkFactory extends AbstractMediaFactory
      */
     public function addArtworkToArtist(ArtistInterface $artist, FanartTvResponse $artworkSet)
     {
-        if ($artworkSet->getLogos() !== null) {
-            $this->createArtwork($artist, $artworkSet->getLogos(), ArtworkInterface::TYPE_LOGO);
-        }
-        if ($artworkSet->getBackgrounds() !== null) {
-            $this->createArtwork($artist, $artworkSet->getBackgrounds(), ArtworkInterface::TYPE_BACKGROUND);
-        }
-        if ($artworkSet->getBanners() !== null) {
-            $this->createArtwork($artist, $artworkSet->getBanners(), ArtworkInterface::TYPE_BANNER);
-        }
-        if ($artworkSet->getThumbs() !== null) {
-            $this->createArtwork($artist, $artworkSet->getThumbs(), ArtworkInterface::TYPE_THUMBS);
+        if (count($artist->getArtworks()) === 0) {
+            $this->createArtwork($artist, ArtworkInterface::TYPE_LOGO, $artworkSet->getLogos());
+            $this->createArtwork($artist, ArtworkInterface::TYPE_BACKGROUND, $artworkSet->getBackgrounds());
+            $this->createArtwork($artist, ArtworkInterface::TYPE_BANNER, $artworkSet->getBanners());
+            $this->createArtwork($artist, ArtworkInterface::TYPE_THUMBS, $artworkSet->getThumbs());
         }
         $this->updateAlbumsForArtist($artist, $artworkSet);
     }
@@ -88,30 +82,35 @@ class ArtworkFactory extends AbstractMediaFactory
     public function addArtworkToAlbum(AlbumInterface $album, AlbumArtworkSetInterface $artworkSet)
     {
         if ($artworkSet->getArtworkCover() !== null) {
-            $this->createArtwork($album, $artworkSet->getArtworkCover(), ArtworkInterface::TYPE_COVER);
+            $this->createArtwork($album, ArtworkInterface::TYPE_COVER, $artworkSet->getArtworkCover());
         }
 
         if ($artworkSet->getCdArt() !== null) {
-            $this->createArtwork($album, $artworkSet->getArtworkCover(), ArtworkInterface::TYPE_CDART);
+            $this->createArtwork($album, ArtworkInterface::TYPE_CDART, $artworkSet->getCdArt());
         }
     }
 
     /**
      * @param ArtworkCollectionInterface $artworkCollectionEntity
-     * @param array $artworks
      * @param string $type
+     * @param array $artworks
      */
-    protected function createArtwork(ArtworkCollectionInterface $artworkCollectionEntity, $artworks, $type)
-    {
-        foreach ($artworks as $artwork) {
-            if (is_array($artwork)) {
-                $this->createArtwork($artworkCollectionEntity, $artwork, $type);
-            }
-            if (is_object($artwork)) {
-                $media = $this->getArtworkEntity($artworkCollectionEntity, $type);
-                $media->setLikes($artwork->likes);
-                $this->copyExternalFile($media, $artwork->url, $artworkCollectionEntity->getSlug() . '-' . $type);
-                $artworkCollectionEntity->addArtwork($media);
+    protected function createArtwork(
+        ArtworkCollectionInterface $artworkCollectionEntity,
+        string $type,
+        $artworks = null
+    ) {
+        if ($artworks !== null) {
+            foreach ($artworks as $artwork) {
+                if (is_array($artwork)) {
+                    $this->createArtwork($artworkCollectionEntity, $type, $artwork);
+                }
+                if (is_object($artwork)) {
+                    $media = $this->getArtworkEntity($artworkCollectionEntity, $type);
+                    $media->setLikes($artwork->likes);
+                    $this->copyExternalFile($media, $artwork->url, $artworkCollectionEntity->getSlug() . '-' . $type);
+                    $artworkCollectionEntity->addArtwork($media);
+                }
             }
         }
     }
