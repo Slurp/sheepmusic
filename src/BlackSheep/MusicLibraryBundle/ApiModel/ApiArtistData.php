@@ -34,6 +34,12 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                     $this->baseUrl
                 )
             );
+            $albumArt = $object->getAlbumArt();
+            if (empty($albumArt) === false &&
+                mb_strpos($albumArt, 'http') !== 0
+            ) {
+                $albumArt = $this->baseUrl . $albumArt;
+            }
 
             return array_merge(
                 [
@@ -41,8 +47,8 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                     'slug' => $object->getSlug(),
                     'createdAt' => $object->getCreatedAt(),
                     'updatedAt' => $object->getUpdatedAt(),
-                    'image' => $this->baseUrl.$object->getImage(),
-                    'albumArt' => $this->baseUrl.$object->getAlbumArt(),
+                    'image' => $object->getImage(),
+                    'albumArt' => $albumArt,
                     'biography' => $object->getBiography(),
                     'albums' => $this->getAlbums($object),
                     'genres' => $this->getGenres($object),
