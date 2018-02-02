@@ -292,7 +292,6 @@ class Artist implements ArtistInterface
         return [
             'name' => $this->getName(),
             'image' => $this->getImage(),
-            'albumArt' => $this->getAlbumArt(),
             'playCount' => $this->getPlayCount(),
             'mbId' => $this->getMusicBrainzId(),
         ];
