@@ -16,6 +16,7 @@ use BlackSheep\MusicLibraryBundle\Events\AlbumEvent;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEvent;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -47,6 +48,18 @@ class ArtistApiController extends BaseApiController
     public function getAlbumListAction()
     {
         return $this->getList();
+    }
+
+    /**
+     * @Route("/artist_collection", name="get_artist_collection")
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function getArtistCollectionAction(Request $request)
+    {
+        return $this->getCollection($request->get('objects'));
     }
 
     /**

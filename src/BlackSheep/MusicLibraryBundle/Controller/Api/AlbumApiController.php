@@ -13,6 +13,7 @@ namespace BlackSheep\MusicLibraryBundle\Controller\Api;
 
 use BlackSheep\MusicLibraryBundle\Entity\AlbumEntity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -44,6 +45,18 @@ class AlbumApiController extends BaseApiController
     public function getAlbumListAction()
     {
         return $this->getList();
+    }
+
+    /**
+     * @Route("/album_collection", name="get_album_collection")
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function getAlbumCollectionAction(Request $request)
+    {
+        return $this->getCollection($request->get('objects'));
     }
 
     /**

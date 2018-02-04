@@ -40,6 +40,16 @@ abstract class BaseApiController extends Controller
         return $this->json($this->getRepository()->getList());
     }
 
+    protected function getCollection($ids)
+    {
+        $collection = [];
+
+        foreach($this->getRepository()->findById($ids) as $object) {
+            $collection[] = $this->getApiDataModel()->getApiData($object);
+        }
+        return $this->json($collection);
+    }
+
     /**
      * @param ApiInterface $object
      *
