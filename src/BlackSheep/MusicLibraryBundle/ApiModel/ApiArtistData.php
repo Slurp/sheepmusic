@@ -12,6 +12,7 @@
 namespace BlackSheep\MusicLibraryBundle\ApiModel;
 
 use BlackSheep\MusicLibraryBundle\ApiModel\Helper\ApiArtworkHelper;
+use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 
 /**
@@ -52,6 +53,7 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                     'biography' => $object->getBiography(),
                     'albums' => $this->getAlbums($object),
                     'genres' => $this->getGenres($object),
+                    'similar' => $this->getSimilar($object)
                 ],
                 $artistData
             );
@@ -92,5 +94,28 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
         }
 
         return $genres;
+    }
+
+    /**
+     * @param ArtistInterface $artist
+     *
+     * @return array
+     */
+    protected function getSimilar(ArtistInterface $artist): array
+    {
+        if (count($artist->getSimilarArtists()) > 0) {
+            return array_slice(
+                array_map(
+                    function (ArtistsEntity $artist) {
+                        return $artist->getId();
+                    },
+                    $artist->getSimilarArtists()
+                ),
+                0,
+                5
+            );
+        }
+
+        return [];
     }
 }
