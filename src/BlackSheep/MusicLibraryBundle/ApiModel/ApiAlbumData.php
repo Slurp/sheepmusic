@@ -57,13 +57,6 @@ class ApiAlbumData extends ApiSongData implements ApiDataInterface
         ) {
             $albumData['cover'] = $this->baseUrl . $albumData['cover'];
         }
-        if (count($object->getArtworkCover()) !== 0) {
-            $albumData['cover'] = $this->baseUrl .
-                $this->uploaderHelper->asset(
-                    $object->getArtworkCover()[0],
-                    'imageFile'
-                );
-        }
     }
 
     /**
