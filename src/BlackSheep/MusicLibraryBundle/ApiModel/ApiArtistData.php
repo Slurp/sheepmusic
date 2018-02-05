@@ -109,7 +109,7 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
                     function (ArtistsEntity $artist) {
                         return $artist->getId();
                     },
-                    $artist->getSimilarArtists()
+                    $artist->getSimilarArtists()->toArray()
                 ),
                 0,
                 5
