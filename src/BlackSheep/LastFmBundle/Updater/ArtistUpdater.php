@@ -1,28 +1,19 @@
 <?php
 
-/*
- * This file is part of the BlackSheep Music.
- *
- * (c) Stephan Langeweg <slurpie@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-namespace BlackSheep\LastFmBundle\EventListener;
+namespace BlackSheep\LastFmBundle\Updater;
 
 use BlackSheep\LastFmBundle\Info\LastFmArtistInfo;
-use BlackSheep\MusicLibraryBundle\Entity\SimilarArtist\SimilarArtistEntity;
-use BlackSheep\MusicLibraryBundle\EventListener\ArtistEventListener;
-use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
+use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use BlackSheep\MusicLibraryBundle\Repository\ArtistRepositoryInterface;
 use LastFmApi\Exception\ApiFailedException;
 use LastFmApi\Exception\ConnectionException;
 
 /**
- * ArtistEventSubscriber.
+ * Class ArtistUpdater
+ *
+ * @package BlackSheep\LastFmBundle\Updater
  */
-class ArtistEventSubscriber implements ArtistEventListener
+class ArtistUpdater
 {
     /**
      * @var ArtistRepositoryInterface
@@ -47,22 +38,10 @@ class ArtistEventSubscriber implements ArtistEventListener
     }
 
     /**
-     * {@inheritdoc}
+     * @param ArtistInterface $artist
      */
-    public static function getSubscribedEvents()
+    public function addSimilar(ArtistInterface $artist)
     {
-        // return the subscribed events, their methods and priorities
-        return [
-            ArtistEventInterface::ARTIST_EVENT_UPDATED => 'addSimilar',
-        ];
-    }
-
-    /**
-     * @param ArtistEventInterface $artistEvent
-     */
-    public function addSimilar(ArtistEventInterface $artistEvent)
-    {
-        $artist = $artistEvent->getArtist();
         if (empty($artist->getMusicBrainzId()) === false && count($artist->getSimilarArtists()) === 0) {
             try {
                 $similarArtists = $this->client->getSimilarByMusicBrainzId($artist->getMusicBrainzId());

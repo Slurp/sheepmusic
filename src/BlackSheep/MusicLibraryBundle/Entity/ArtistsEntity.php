@@ -17,6 +17,7 @@ use BlackSheep\MusicLibraryBundle\Model\Artist;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use BlackSheep\MusicLibraryBundle\Model\GenreInterface;
 use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
+use BlackSheep\MusicLibraryBundle\Model\SimilarArtist\SimilarArtistsInterface;
 use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -109,16 +110,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     protected $artworks;
 
     /**
-     * @ORM\ManyToMany(targetEntity="BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity", fetch="EXTRA_LAZY")
-     * @ORM\JoinTable(
-     *     name="artists_similar",
-     *     joinColumns={
-     *         @ORM\JoinColumn(name="artist_id", referencedColumnName="id")
-     *     },
-     *     inverseJoinColumns={
-     *         @ORM\JoinColumn(name="similar_id", referencedColumnName="id")
-     *     }
-     * )
+     * @ORM\OneToMany(targetEntity="BlackSheep\MusicLibraryBundle\Entity\SimilarArtist\SimilarArtistEntity", mappedBy="artist", fetch="EXTRA_LAZY")
      */
     protected $similarArtists;
 
@@ -199,7 +191,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function addSimilarArtist(ArtistInterface $similarArtist): ArtistInterface
+    public function addSimilarArtist(SimilarArtistsInterface $similarArtist): ArtistInterface
     {
         if ($this->similarArtists->contains($similarArtist) === false) {
             $this->similarArtists->add($similarArtist);
@@ -211,7 +203,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function removeSimilarArtist(ArtistInterface $similarArtist): ArtistInterface
+    public function removeSimilarArtist(SimilarArtistsInterface $similarArtist): ArtistInterface
     {
         if ($this->similarArtists->contains($similarArtist) === true) {
             $this->similarArtists->removeElement($similarArtist);

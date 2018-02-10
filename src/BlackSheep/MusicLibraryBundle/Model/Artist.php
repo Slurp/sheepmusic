@@ -12,6 +12,7 @@
 namespace BlackSheep\MusicLibraryBundle\Model;
 
 use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
+use BlackSheep\MusicLibraryBundle\Model\SimilarArtist\SimilarArtistsInterface;
 use BlackSheep\MusicLibraryBundle\Traits\ArtworkCollectionTrait;
 use BlackSheep\MusicLibraryBundle\Traits\GenreCollectionTrait;
 use BlackSheep\MusicLibraryBundle\Traits\PlayCountTrait;
@@ -230,7 +231,7 @@ class Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function addSimilarArtist(ArtistInterface $similarArtist)
+    public function addSimilarArtist(SimilarArtistsInterface $similarArtist)
     {
         if (in_array($similarArtist, $this->similarArtists, true) === false) {
             $this->similarArtists[] = $similarArtist;
@@ -242,7 +243,7 @@ class Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function removeSimilarArtist(ArtistInterface $similarArtist)
+    public function removeSimilarArtist(SimilarArtistsInterface $similarArtist)
     {
         if (($key = array_search($similarArtist, $this->similarArtists, true)) !== false) {
             unset($this->similarArtists[$key]);
