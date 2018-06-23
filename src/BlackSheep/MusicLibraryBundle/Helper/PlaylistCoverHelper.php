@@ -19,8 +19,17 @@ use BlackSheep\MusicLibraryBundle\Model\PlaylistInterface;
 class PlaylistCoverHelper extends AbstractUploadHelper
 {
     const COVER_DIRECTION_PRIORITY = 'columns';
-
     const COVER_GRID_NUMBER = 3;
+
+    /**
+     * @var int
+     */
+    protected $coverMaxWidth = 900;
+
+    /**
+     * @var int
+     */
+    protected $coverMaxHeight = 900;
 
     /**
      * @var int
@@ -34,7 +43,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
 
     /**
      * @param PlaylistInterface $playlist
-     * @param bool              $useCache
+     * @param bool $useCache
      *
      * @return string
      */
@@ -51,6 +60,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
                 $rows = $columns;
                 $columns = (int) max(($numberOfCovers / $rows), 1);
             }
+            $this->calculateThumbSize($rows, $columns);
             $cover = $this->getBackground($rows, $columns);
             $this->mergeCovers($cover, $this->getImageObjects($covers, $rows, $columns), $rows, $columns);
 
@@ -88,10 +98,24 @@ class PlaylistCoverHelper extends AbstractUploadHelper
      */
     protected function getBackground($rows, $columns)
     {
-        $bgWidth = (int) $this->coverThumbWidth * $columns;
-        $bgHeight = (int) $this->coverThumbHeight * $rows;
+        $bgWidth = max((int) $this->coverThumbWidth * $columns, $this->coverMaxWidth);
+        $bgHeight = max((int) $this->coverThumbHeight * $rows, $this->coverMaxHeight);
 
         return imagecreatetruecolor($bgWidth, $bgHeight); // setting canvas size
+    }
+
+    /**
+     * @param $rows
+     * @param $columns
+     */
+    protected function calculateThumbSize($rows, $columns)
+    {
+        if ($this->coverThumbWidth * $columns > $this->coverMaxWidth) {
+            $this->coverThumbWidth = $this->coverMaxWidth / $columns;
+        }
+        if ($this->coverThumbHeight * $rows > $this->coverMaxHeight) {
+            $this->coverThumbHeight = $this->coverMaxHeight / $rows;
+        }
     }
 
     /**
