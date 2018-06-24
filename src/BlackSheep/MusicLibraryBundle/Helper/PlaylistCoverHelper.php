@@ -19,7 +19,7 @@ use BlackSheep\MusicLibraryBundle\Model\PlaylistInterface;
 class PlaylistCoverHelper extends AbstractUploadHelper
 {
     const COVER_DIRECTION_PRIORITY = 'columns';
-    const COVER_GRID_NUMBER = 3;
+    const COVER_GRID_NUMBER        = 3;
 
     /**
      * @var int
@@ -52,23 +52,40 @@ class PlaylistCoverHelper extends AbstractUploadHelper
         $fileName = $this->getUploadRootDirectory() . $playlist->getName() . '.jpg';
         if (file_exists($fileName) === false || $useCache === false) {
             $covers = $this->collectAllAlbumCovers($playlist);
-            $numberOfCovers = count($covers);
+            $grid = $this->calculateColumnsAndRows($covers);
+            $this->calculateThumbSize($grid['rows'], $grid['columns']);
+            $background = $this->getBackground($grid['rows'], $grid['columns']);
+            $this->mergeCovers(
+                $background,
+                $this->getImageObjects($covers, $grid['rows'], $grid['columns']),
+                $grid['rows'],
+                $grid['columns']
+            );
 
-            $columns = min(static::COVER_GRID_NUMBER, $numberOfCovers);
-            $rows = (int) max(($numberOfCovers / $columns), 1);
-            if (static::COVER_DIRECTION_PRIORITY === 'rows') {
-                $rows = $columns;
-                $columns = (int) max(($numberOfCovers / $rows), 1);
-            }
-            $this->calculateThumbSize($rows, $columns);
-            $cover = $this->getBackground($rows, $columns);
-            $this->mergeCovers($cover, $this->getImageObjects($covers, $rows, $columns), $rows, $columns);
-
-            imagejpeg($cover, $fileName);
-            imagedestroy($cover);
+            imagejpeg($background, $fileName);
+            imagedestroy($background);
         }
 
         return static::getUploadDirectory() . $playlist->getName() . '.jpg';
+    }
+
+    /**
+     * @param $covers
+     *
+     * @return array
+     */
+    public function calculateColumnsAndRows($covers)
+    {
+        $sqrRoot = sqrt(count($covers));
+        $rows = $columns = round($sqrRoot, 0, PHP_ROUND_HALF_UP);
+        if ($columns < $sqrRoot) {
+            if (static::COVER_DIRECTION_PRIORITY === 'rows') {
+                $columns += 1;
+            } else {
+                $rows += 1;
+            }
+        }
+        return ['columns' => intval($columns), 'rows' => intval($rows)];
     }
 
     /**
