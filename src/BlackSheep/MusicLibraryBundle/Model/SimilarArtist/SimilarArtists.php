@@ -39,17 +39,17 @@ class SimilarArtists implements SimilarArtistsInterface
     protected $similar;
 
     /**
-     * @return int
+     * @return float
      */
-    public function getMatch(): int
+    public function getMatch(): float
     {
         return $this->match;
     }
 
     /**
-     * @param int $match
+     * @param float $match
      */
-    public function setMatch(int $match)
+    public function setMatch(float $match)
     {
         $this->match = $match;
     }

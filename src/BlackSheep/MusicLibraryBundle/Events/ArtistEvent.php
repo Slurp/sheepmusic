@@ -14,6 +14,11 @@ namespace BlackSheep\MusicLibraryBundle\Events;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use Symfony\Component\EventDispatcher\Event;
 
+/**
+ * Class ArtistEvent
+ *
+ * @package BlackSheep\MusicLibraryBundle\Events
+ */
 class ArtistEvent extends Event implements ArtistEventInterface
 {
     /**
@@ -39,7 +44,7 @@ class ArtistEvent extends Event implements ArtistEventInterface
     /**
      * {@inheritdoc}
      */
-    public function getArtist()
+    public function getArtist(): ArtistInterface
     {
         return $this->artist;
     }

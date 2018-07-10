@@ -225,7 +225,11 @@ class Artist implements ArtistInterface
      */
     public function setSimilarArtists($similarArtists)
     {
-        $this->similarArtists = $similarArtists;
+        foreach ($similarArtists as $similarArtist) {
+            if ($similarArtist instanceof SimilarArtistsInterface) {
+                $this->addSimilarArtist($similarArtist);
+            }
+        }
     }
 
     /**

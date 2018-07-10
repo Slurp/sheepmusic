@@ -3,6 +3,7 @@
 namespace BlackSheep\LastFmBundle\Updater;
 
 use BlackSheep\LastFmBundle\Info\LastFmArtistInfo;
+use BlackSheep\MusicLibraryBundle\Entity\SimilarArtist\SimilarArtistEntity;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
 use BlackSheep\MusicLibraryBundle\Repository\ArtistRepositoryInterface;
 use LastFmApi\Exception\ApiFailedException;
@@ -49,17 +50,22 @@ class ArtistUpdater
                     $artist->setSimilarArtists(
                         array_map(
                             function ($similarArtist) use ($artist) {
-                                return SimilarArtistEntity::createNew(
-                                    $artist,
-                                    $this->artistsRepository->getArtistByMusicBrainzId(
-                                        $similarArtist['mbid']
-                                    ),
-                                    $similarArtist['match']
+                                $similar = $this->artistsRepository->getArtistByMusicBrainzId(
+                                    $similarArtist['mbid']
                                 );
+                                if ($similar) {
+                                    return SimilarArtistEntity::createNew(
+                                        $artist,
+                                        $similar,
+                                        $similarArtist['match']
+                                    );
+                                }
+                                return null;
                             },
                             $similarArtists
                         )
                     );
+                    $this->artistsRepository->save($artist);
                 }
             } catch (ConnectionException $connectionException) {
             } catch (ApiFailedException $apiFailedException) {

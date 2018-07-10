@@ -110,7 +110,12 @@ class ArtistsEntity extends Artist implements ArtistInterface
     protected $artworks;
 
     /**
-     * @ORM\OneToMany(targetEntity="BlackSheep\MusicLibraryBundle\Entity\SimilarArtist\SimilarArtistEntity", mappedBy="artist", fetch="EXTRA_LAZY")
+     * @ORM\OneToMany(
+     *     targetEntity="BlackSheep\MusicLibraryBundle\Entity\SimilarArtist\SimilarArtistEntity",
+     *     mappedBy="artist",
+     *     fetch="EXTRA_LAZY",
+     *     cascade={"all"}
+     * )
      */
     protected $similarArtists;
 

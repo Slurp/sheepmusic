@@ -21,6 +21,7 @@ class LastFmArtistInfo extends AbstractLastFmInfo implements LastFmInfo
 {
     /**
      * @return ArtistApi
+     * @throws InvalidArgumentException
      */
     protected function getApi()
     {
@@ -28,7 +29,7 @@ class LastFmArtistInfo extends AbstractLastFmInfo implements LastFmInfo
     }
 
     /**
-     * @param $mdid
+     * @param $mbid
      *
      * @return array
      */

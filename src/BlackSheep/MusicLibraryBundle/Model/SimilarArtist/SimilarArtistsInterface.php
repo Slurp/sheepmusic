@@ -22,14 +22,14 @@ interface SimilarArtistsInterface
 
 
     /**
-     * @return int
+     * @return float
      */
-    public function getMatch(): int;
+    public function getMatch(): float;
 
     /**
-     * @param int $match
+     * @param float $match
      */
-    public function setMatch(int $match);
+    public function setMatch(float $match);
 
     /**
      * @return ArtistInterface

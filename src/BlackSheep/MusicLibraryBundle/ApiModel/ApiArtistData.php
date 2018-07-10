@@ -14,6 +14,7 @@ namespace BlackSheep\MusicLibraryBundle\ApiModel;
 use BlackSheep\MusicLibraryBundle\ApiModel\Helper\ApiArtworkHelper;
 use BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
+use BlackSheep\MusicLibraryBundle\Model\SimilarArtist\SimilarArtistsInterface;
 
 /**
  * Generates a array for the API.
@@ -106,13 +107,13 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
         if (count($artist->getSimilarArtists()) > 0) {
             return array_slice(
                 array_map(
-                    function (ArtistsEntity $artist) {
-                        return $artist->getId();
+                    function (SimilarArtistsInterface $artist) {
+                        return $artist->getSimilar()->getId();
                     },
                     $artist->getSimilarArtists()->toArray()
                 ),
                 0,
-                5
+                12
             );
         }
 

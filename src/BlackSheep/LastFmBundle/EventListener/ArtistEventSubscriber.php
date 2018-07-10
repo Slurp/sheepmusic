@@ -11,11 +11,10 @@
 
 namespace BlackSheep\LastFmBundle\EventListener;
 
-use BlackSheep\LastFmBundle\Info\LastFmArtistInfo;
+use BlackSheep\LastFmBundle\Updater\ArtistUpdater;
 use BlackSheep\MusicLibraryBundle\Entity\SimilarArtist\SimilarArtistEntity;
 use BlackSheep\MusicLibraryBundle\EventListener\ArtistEventListener;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
-use BlackSheep\MusicLibraryBundle\Repository\ArtistRepositoryInterface;
 use LastFmApi\Exception\ApiFailedException;
 use LastFmApi\Exception\ConnectionException;
 
@@ -25,25 +24,16 @@ use LastFmApi\Exception\ConnectionException;
 class ArtistEventSubscriber implements ArtistEventListener
 {
     /**
-     * @var ArtistRepositoryInterface
+     * @var ArtistUpdater
      */
-    protected $artistsRepository;
+    protected $artistUpdater;
 
     /**
-     * @var LastFmArtistInfo
+     * @param ArtistUpdater $artistUpdater
      */
-    protected $client;
-
-    /**
-     * @param ArtistRepositoryInterface $artistsRepository
-     * @param LastFmArtistInfo $client
-     */
-    public function __construct(
-        ArtistRepositoryInterface $artistsRepository,
-        LastFmArtistInfo $client
-    ) {
-        $this->artistsRepository = $artistsRepository;
-        $this->client = $client;
+    public function __construct(ArtistUpdater $artistUpdater)
+    {
+        $this->artistUpdater = $artistUpdater;
     }
 
     /**
@@ -62,29 +52,6 @@ class ArtistEventSubscriber implements ArtistEventListener
      */
     public function addSimilar(ArtistEventInterface $artistEvent)
     {
-        $artist = $artistEvent->getArtist();
-        if (empty($artist->getMusicBrainzId()) === false && count($artist->getSimilarArtists()) === 0) {
-            try {
-                $similarArtists = $this->client->getSimilarByMusicBrainzId($artist->getMusicBrainzId());
-                if ($similarArtists) {
-                    $artist->setSimilarArtists(
-                        array_map(
-                            function ($similarArtist) use ($artist) {
-                                return SimilarArtistEntity::createNew(
-                                    $artist,
-                                    $this->artistsRepository->getArtistByMusicBrainzId(
-                                        $similarArtist['mbid']
-                                    ),
-                                    $similarArtist['match']
-                                );
-                            },
-                            $similarArtists
-                        )
-                    );
-                }
-            } catch (ConnectionException $connectionException) {
-            } catch (ApiFailedException $apiFailedException) {
-            }
-        }
+        $this->artistUpdater->addSimilar($artistEvent->getArtist());
     }
 }

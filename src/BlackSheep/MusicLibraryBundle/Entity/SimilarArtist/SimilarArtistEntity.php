@@ -17,8 +17,8 @@ class SimilarArtistEntity extends SimilarArtists
     use BaseEntity;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer")
+     * @var float
+     * @ORM\Column(type="float", name="similar_match")
      * @Assert\NotNull
      * @Assert\GreaterThanOrEqual(0);
      */

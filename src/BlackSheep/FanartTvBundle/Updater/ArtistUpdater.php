@@ -61,14 +61,14 @@ class ArtistUpdater
     {
         if (empty($artist->getMusicBrainzId()) === false) {
             try {
-                $fanart = new FanartTvResponse(
+                $fanArt = new FanartTvResponse(
                     json_decode(
                         $this->client->loadArtist($artist->getMusicBrainzId())->getBody()
                     )
                 );
-                $this->artworkFactory->addArtworkToArtist($artist, $fanart);
+                $this->artworkFactory->addArtworkToArtist($artist, $fanArt);
                 $this->artistsRepository->update();
-                unset($fanart);
+                unset($fanArt);
             } catch (ClientException $e) {
                 error_log($e->getMessage());
             } catch (ConnectException $e) {

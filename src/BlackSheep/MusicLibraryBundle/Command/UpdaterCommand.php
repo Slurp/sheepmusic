@@ -15,6 +15,7 @@ use BlackSheep\MusicLibraryBundle\Events\AlbumEvent;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEvent;
 use BlackSheep\MusicLibraryBundle\Events\ArtistEventInterface;
 use BlackSheep\MusicLibraryBundle\Model\ArtistInterface;
+use Doctrine\ORM\OptimisticLockException;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -61,22 +62,25 @@ class UpdaterCommand extends ContainerAwareCommand
         /* @var ArtistInterface $artist */
         $this->setupProgressBar(count($artists));
         foreach ($artists as $artist) {
-            $genres = $this->updateAlbumGenre($artist);
-            if (count($genres) > 0) {
-                $artist->setGenres($genres);
+            try {
+                $genres = $this->updateAlbumGenre($artist);
+                if (count($genres) > 0) {
+                    $artist->setGenres($genres);
+                }
+                $this->getContainer()->get('event_dispatcher')->dispatch(
+                    ArtistEventInterface::ARTIST_EVENT_UPDATED,
+                    new ArtistEvent($artist)
+                );
+                $artistRepository->save($artist);
+                $this->debugStep('updated', $artist->getName());
+            } catch (OptimisticLockException $e) {
             }
-            $this->getContainer()->get('event_dispatcher')->dispatch(
-                ArtistEventInterface::ARTIST_EVENT_UPDATED,
-                new ArtistEvent($artist)
-            );
-            $artistRepository->save($artist);
-            $this->debugStep('updated', $artist->getName());
         }
     }
 
     /**
      * @param OutputInterface $output
-     * @param bool            $debug
+     * @param bool $debug
      */
     public function setOutputInterface(OutputInterface $output, $debug = true)
     {
