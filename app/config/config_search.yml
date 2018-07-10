@@ -11,7 +11,7 @@ fos_elastica:
                           custom_analyzer :
                             type     :    custom
                             tokenizer:    nGram
-                            filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+                            filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter, ngram]
                           custom_search_analyzer :
                             type     :    custom
                             tokenizer:    standard
@@ -20,7 +20,7 @@ fos_elastica:
                           nGram:
                             type:     nGram
                             min_gram: 2
-                            max_gram: 20
+                            max_gram: 3
                         filter:
                           snowball:
                             type:     snowball
