@@ -85,6 +85,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
                 $rows += 1;
             }
         }
+
         return ['columns' => intval($columns), 'rows' => intval($rows)];
     }
 
@@ -147,11 +148,13 @@ class PlaylistCoverHelper extends AbstractUploadHelper
         // Creating image objects
         $coverObjects = [];
         for ($i = 0; $i < ($rows * $columns); ++$i) {
-            $coverObjects[$i] = imagescale(
-                imagecreatefromstring(file_get_contents($covers[$i])),
-                $this->coverThumbWidth,
-                $this->coverThumbHeight
-            );
+            if (!empty($covers[$i])) {
+                $coverObjects[$i] = imagescale(
+                    imagecreatefromstring(file_get_contents($covers[$i])),
+                    $this->coverThumbWidth,
+                    $this->coverThumbHeight
+                );
+            }
         }
 
         return $coverObjects;
@@ -167,20 +170,22 @@ class PlaylistCoverHelper extends AbstractUploadHelper
     {
         // Merge Images
         $step = 0;
-        for ($x = 0; $x < $columns; ++$x) {
-            for ($y = 0; $y < $rows; ++$y) {
-                imagecopymerge(
-                    $background,
-                    $covers[$step],
-                    ($this->coverThumbWidth * $x),
-                    ($this->coverThumbHeight * $y),
-                    0,
-                    0,
-                    $this->coverThumbWidth,
-                    $this->coverThumbHeight,
-                    100
-                );
-                ++$step; // steps through the $coverObjects array
+        if (count($covers) > 0) {
+            for ($x = 0; $x < $columns; ++$x) {
+                for ($y = 0; $y < $rows; ++$y) {
+                    imagecopymerge(
+                        $background,
+                        $covers[$step],
+                        ($this->coverThumbWidth * $x),
+                        ($this->coverThumbHeight * $y),
+                        0,
+                        0,
+                        $this->coverThumbWidth,
+                        $this->coverThumbHeight,
+                        100
+                    );
+                    ++$step; // steps through the $coverObjects array
+                }
             }
         }
     }
