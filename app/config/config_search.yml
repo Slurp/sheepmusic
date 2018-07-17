@@ -35,8 +35,8 @@ fos_elastica:
                           worddelimiter :
                             type:      word_delimiter
                           my_metaphone :
-                            type: "phonetic"
-                            encoder: "metaphone"
+                            type: phonetic
+                            encoder: metaphone
                             replace: false
             types:
                 artist:
