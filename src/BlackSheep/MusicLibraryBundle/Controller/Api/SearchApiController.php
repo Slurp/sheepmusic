@@ -77,7 +77,7 @@ class SearchApiController extends Controller
         $nameQuery = new Query\Match();
 
         $nameQuery->setFieldQuery('name', $searchTerm);
-        $nameQuery->setFieldFuzziness('name', 0.7);
+        $nameQuery->setFieldFuzziness('name', 'AUTO');
         $nameQuery->setFieldMinimumShouldMatch('name', '80%');
 
         return $nameQuery;
@@ -93,7 +93,7 @@ class SearchApiController extends Controller
         $titleQuery = new Query\Match();
 
         $titleQuery->setFieldQuery('title', $searchTerm);
-        $titleQuery->setFieldFuzziness('title', 0.7);
+        $titleQuery->setFieldFuzziness('title', 'AUTO');
         $titleQuery->setFieldMinimumShouldMatch('title', '80%');
 
         return $titleQuery;

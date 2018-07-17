@@ -11,7 +11,7 @@ fos_elastica:
                           custom_analyzer :
                             type     :    custom
                             tokenizer:    nGram
-                            filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter, ngram]
+                            filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter, ngram, my_metaphone]
                           custom_search_analyzer :
                             type     :    custom
                             tokenizer:    standard
@@ -34,6 +34,10 @@ fos_elastica:
                             ignore_case : true
                           worddelimiter :
                             type:      word_delimiter
+                          my_metaphone :
+                            type: "phonetic"
+                            encoder: "metaphone"
+                            replace: false
             types:
                 artist:
                     properties:
