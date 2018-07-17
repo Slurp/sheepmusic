@@ -11,7 +11,7 @@ fos_elastica:
                           custom_analyzer :
                             type     :    custom
                             tokenizer:    nGram
-                            filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+                            filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter, ngram]
                           custom_search_analyzer :
                             type     :    custom
                             tokenizer:    standard
@@ -20,7 +20,7 @@ fos_elastica:
                           nGram:
                             type:     nGram
                             min_gram: 2
-                            max_gram: 20
+                            max_gram: 3
                         filter:
                           snowball:
                             type:     snowball
@@ -41,7 +41,7 @@ fos_elastica:
                             type: text
                             boost: 6
                             analyzer : custom_analyzer
-                            search_analyzer: custom_search_analyzer
+                            search_analyzer: custom_analyzer
                     persistence:
                         driver: orm
                         model: BlackSheep\MusicLibraryBundle\Entity\ArtistsEntity
@@ -55,7 +55,7 @@ fos_elastica:
                             type: text
                             boost: 6
                             analyzer : custom_analyzer
-                            search_analyzer: custom_search_analyzer
+                            search_analyzer: custom_analyzer
                     persistence:
                         driver: orm
                         model: BlackSheep\MusicLibraryBundle\Entity\AlbumEntity
@@ -69,7 +69,7 @@ fos_elastica:
                             type: text
                             boost: 10
                             analyzer : custom_analyzer
-                            search_analyzer: custom_search_analyzer
+                            search_analyzer: custom_analyzer
                     persistence:
                         driver: orm
                         model: BlackSheep\MusicLibraryBundle\Entity\SongEntity

@@ -12,6 +12,7 @@
 namespace BlackSheep\MusicLibraryBundle\ApiModel;
 
 use BlackSheep\MusicLibraryBundle\Entity\SongEntity;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Generates a array for the API.
@@ -25,11 +26,23 @@ class ApiSongData extends AbstractApiData implements ApiDataInterface
     {
         if ($object instanceof SongEntity) {
             $apiData = $object->getApiData();
-            $apiData['src'] = $this->router->generate('song_play', ['song' => $object->getId()]);
+            $apiData['src'] = $this->router->generate(
+                'song_play',
+                ['song' => $object->getId()],
+                RouterInterface::ABSOLUTE_URL
+            );
             $apiData['events'] =
                 [
-                    'now_playing' => $this->router->generate('post_announce_song', ['song' => $object->getId()]),
-                    'played' => $this->router->generate('post_played_song', ['song' => $object->getId()]),
+                    'now_playing' => $this->router->generate(
+                        'post_announce_song',
+                        ['song' => $object->getId()],
+                        RouterInterface::ABSOLUTE_URL
+                    ),
+                    'played' => $this->router->generate(
+                        'post_played_song',
+                        ['song' => $object->getId()],
+                        RouterInterface::ABSOLUTE_URL
+                    ),
                 ];
 
             return $apiData;

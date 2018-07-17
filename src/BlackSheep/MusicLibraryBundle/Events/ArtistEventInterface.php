@@ -25,5 +25,5 @@ interface ArtistEventInterface
     /**
      * @return ArtistInterface
      */
-    public function getArtist();
+    public function getArtist(): ArtistInterface;
 }

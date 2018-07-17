@@ -11,12 +11,20 @@
 
 namespace BlackSheep\MusicLibraryBundle\Model;
 
+use BlackSheep\MusicLibraryBundle\Model\SimilarArtist\SimilarArtistsInterface;
 use BlackSheep\MusicLibraryBundle\MusicBrainz\MusicBrainzModelInterface;
 
 /**
  * Interface AlbumInterface.
  */
-interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface, SongCollectionInterface, GenreCollectionInterface, ArtworkCollectionInterface, PlayCountInterface, ArtistArtworkSetInterface
+interface ArtistInterface extends
+    ApiInterface,
+    MusicBrainzModelInterface,
+    SongCollectionInterface,
+    GenreCollectionInterface,
+    ArtworkCollectionInterface,
+    PlayCountInterface,
+    ArtistArtworkSetInterface
 {
     /**
      * @param      $name
@@ -102,26 +110,26 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface, SongC
     public function getAlbumArt();
 
     /**
-     * @return ArtistInterface[]
+     * @return SimilarArtistsInterface[]
      */
     public function getSimilarArtists();
 
     /**
-     * @param ArtistInterface[] $similarArtists
+     * @param SimilarArtistsInterface[] $similarArtists
      */
     public function setSimilarArtists($similarArtists);
 
     /**
-     * @param ArtistInterface $similarArtist
+     * @param SimilarArtistsInterface $similarArtist
      *
-     * @return Artist
+     * @return ArtistInterface
      */
-    public function addSimilarArtist(self $similarArtist);
+    public function addSimilarArtist(SimilarArtistsInterface $similarArtist);
 
     /**
-     * @param ArtistInterface $similarArtist
+     * @param SimilarArtistsInterface $similarArtist
      *
-     * @return Artist
+     * @return ArtistInterface
      */
-    public function removeSimilarArtist(self $similarArtist);
+    public function removeSimilarArtist(SimilarArtistsInterface $similarArtist);
 }
