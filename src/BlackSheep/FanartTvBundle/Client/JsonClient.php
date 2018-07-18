@@ -25,6 +25,11 @@ class JsonClient
     const BASE_URL = 'https://webservice.fanart.tv/v3/';
 
     /**
+     * @var string
+     */
+    protected $apiKey;
+
+    /**
      * JsonClient constructor.
      *
      * @param string $apiKey

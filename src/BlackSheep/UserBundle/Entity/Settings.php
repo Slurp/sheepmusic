@@ -35,14 +35,6 @@ class Settings
     protected $lastImport;
 
     /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * @return string
      */
     public function getPath()
