@@ -129,10 +129,10 @@ class PlaylistCoverHelper extends AbstractUploadHelper
     protected function calculateThumbSize($rows, $columns)
     {
         if ($this->coverThumbWidth * $columns > $this->coverMaxWidth) {
-            $this->coverThumbWidth = $this->coverMaxWidth / $columns;
+            $this->coverThumbWidth = (int) $this->coverMaxWidth / $columns;
         }
         if ($this->coverThumbHeight * $rows > $this->coverMaxHeight) {
-            $this->coverThumbHeight = $this->coverMaxHeight / $rows;
+            $this->coverThumbHeight = (int) $this->coverMaxHeight / $rows;
         }
     }
 

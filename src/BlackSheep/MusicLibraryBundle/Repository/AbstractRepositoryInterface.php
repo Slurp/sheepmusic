@@ -30,6 +30,13 @@ interface AbstractRepositoryInterface
     public function getList();
 
     /**
+     * @param mixed $ids
+     *
+     * @return array
+     */
+    public function findById($ids);
+
+    /**
      * @param $entity
      */
     public function update($entity = null);

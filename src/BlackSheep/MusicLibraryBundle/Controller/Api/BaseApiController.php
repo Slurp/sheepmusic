@@ -44,9 +44,10 @@ abstract class BaseApiController extends Controller
     {
         $collection = [];
 
-        foreach($this->getRepository()->findById($ids) as $object) {
+        foreach ($this->getRepository()->findById($ids) as $object) {
             $collection[] = $this->getApiDataModel()->getApiData($object);
         }
+
         return $this->json($collection);
     }
 

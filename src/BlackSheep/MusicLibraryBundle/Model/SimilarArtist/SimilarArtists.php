@@ -24,7 +24,7 @@ class SimilarArtists implements SimilarArtistsInterface
     }
 
     /**
-     * @var int
+     * @var float
      */
     protected $match;
 

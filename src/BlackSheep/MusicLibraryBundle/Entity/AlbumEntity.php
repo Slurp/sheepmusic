@@ -16,6 +16,7 @@ use BlackSheep\MusicLibraryBundle\Entity\Traits\ArtworkCollectionEntityTrait;
 use BlackSheep\MusicLibraryBundle\Model\Album;
 use BlackSheep\MusicLibraryBundle\Model\AlbumInterface;
 use BlackSheep\MusicLibraryBundle\Model\Media\ArtworkInterface;
+use BlackSheep\MusicLibraryBundle\Model\SongCollectionInterface;
 use BlackSheep\MusicLibraryBundle\Model\SongInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
@@ -131,7 +132,7 @@ class AlbumEntity extends Album implements AlbumInterface
     /**
      * {@inheritdoc}
      */
-    public function addSong(SongInterface $song): AlbumInterface
+    public function addSong(SongInterface $song): SongCollectionInterface
     {
         if ($this->songs->contains($song) === false) {
             $this->songs->add($song);
@@ -145,7 +146,7 @@ class AlbumEntity extends Album implements AlbumInterface
     /**
      * {@inheritdoc}
      */
-    public function removeSong(SongInterface $song): AlbumInterface
+    public function removeSong(SongInterface $song): SongCollectionInterface
     {
         if ($this->songs->contains($song)) {
             $this->songs->removeElement($song);

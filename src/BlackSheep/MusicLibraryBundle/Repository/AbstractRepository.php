@@ -47,6 +47,14 @@ class AbstractRepository extends EntityRepository implements AbstractRepositoryI
     }
 
     /**
+     * @inheritDoc
+     */
+    public function findById($ids)
+    {
+        return $this->findBy(['id' => $ids]);
+    }
+
+    /**
      * @param $entity
      *
      * @throws OptimisticLockException
