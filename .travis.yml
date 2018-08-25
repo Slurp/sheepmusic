@@ -31,7 +31,7 @@ before-install:
 install:
   - composer install
   - yarn install
-#  - cp app/config/parameters.yml.dist app/config/parameters.yml
+  - cp .env.dist .env
   - mkdir -p var/bin
   - cp node_modules/ffmpeg-binaries/bin/ffmpeg var/bin/
   - cp node_modules/ffmpeg-binaries/bin/ffprobe var/bin/
