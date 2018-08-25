@@ -3,7 +3,7 @@ sudo: required
 dist: trusty
 language: php
 php:
-  - 7.0
+  - 7.2
 
 # Start mysql service
 services:
@@ -16,7 +16,7 @@ cache:
 
 # Define an environment variable
 env:
-  - SYMFONY_VERSION="3.4.*" DB=mysql
+  - SYMFONY_VERSION="4.1.*" DB=mysql
 
 # Update composer
 before-install:

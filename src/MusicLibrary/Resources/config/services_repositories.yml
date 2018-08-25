@@ -1,0 +1,19 @@
+services:
+    black_sheep_music_library.repository.songs_repository:
+        alias: BlackSheep\MusicLibrary\Repository\SongsRepository
+        public: true
+    black_sheep_music_library.repository.albums_repository:
+        alias: BlackSheep\MusicLibrary\Repository\AlbumsRepository
+        public: true
+    black_sheep_music_library.repository.artists_repository:
+        alias: BlackSheep\MusicLibrary\Repository\ArtistRepository
+        public: true
+    black_sheep_music_library.repository.playlist_repository:
+        alias: BlackSheep\MusicLibrary\Repository\PlaylistRepository
+        public: true
+    black_sheep_music_library.repository.playlist_song_repository:
+        alias: BlackSheep\MusicLibrary\Repository\PlaylistsSongsRepository
+        public: true
+    black_sheep_music_library.repository.genre_repository:
+        alias: BlackSheep\MusicLibrary\Repository\GenresRepository
+        public: true

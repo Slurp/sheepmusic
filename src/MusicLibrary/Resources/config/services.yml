@@ -1,0 +1,67 @@
+services:
+    black_sheep_music_library.song_event_subscriber:
+        class: BlackSheep\MusicLibrary\EventListener\SongEventSubscriber
+        public: true
+        arguments: ['@black_sheep_music_library.repository.songs_repository']
+        tags:
+            - { name: kernel.event_subscriber }
+    black_sheep_music_library.album_event_subscriber:
+        class: BlackSheep\MusicLibrary\EventListener\AlbumEventSubscriber
+        public: true
+        arguments:
+            - '@black_sheep_music_library.repository.albums_repository'
+            - '@black_sheep_music_library.repository.playlist_repository'
+            - '@black_sheep_music_library.repository.playlist_song_repository'
+            - '@black_sheep_music_library.repository.songs_repository'
+        tags:
+            - { name: kernel.event_subscriber }
+    delayed_event_dispatcher:
+        class: BlackSheep\MusicLibrary\Dispatcher\DelayedEventDispatcher
+        public: true
+        arguments:
+            - '@event_dispatcher'
+        tags:
+            - { name: "kernel.event_subscriber" }
+    black_sheep_music_library.services.streamer_service:
+        class: BlackSheep\MusicLibrary\Services\StreamerService
+        public: true
+        arguments: ["%black_sheep_music_library.ffmpeg_path%","%black_sheep_music_library.ffprobe_path%", "%black_sheep_music_library.bitrate%"]
+    black_sheep.music_library.api_model.api_artist_data:
+        class: BlackSheep\MusicLibrary\ApiModel\ApiArtistData
+        public: true
+        arguments:
+        - '@router'
+        - '@vich_uploader.templating.helper.uploader_helper'
+    black_sheep.music_library.api_model.api_song_data:
+        class: BlackSheep\MusicLibrary\ApiModel\ApiSongData
+        public: true
+        arguments:
+        - '@router'
+        - '@vich_uploader.templating.helper.uploader_helper'
+    black_sheep.music_library.api_model.api_album_data:
+        class: BlackSheep\MusicLibrary\ApiModel\ApiAlbumData
+        public: true
+        arguments:
+        - '@router'
+        - '@vich_uploader.templating.helper.uploader_helper'
+    black_sheep.music_library.api_model.api_playlist_data:
+        class: BlackSheep\MusicLibrary\ApiModel\ApiPlaylistData
+        public: true
+        arguments:
+        - '@router'
+        - '@vich_uploader.templating.helper.uploader_helper'
+    black_sheep.music_library.api_model.api_genre_data:
+        class: BlackSheep\MusicLibrary\ApiModel\ApiGenreData
+        public: true
+        arguments:
+        - '@router'
+        - '@vich_uploader.templating.helper.uploader_helper'
+        - '@doctrine'
+    black_sheep_music_library.naming.slug_directory_namer:
+        class: BlackSheep\MusicLibrary\Naming\SluggableDirectoryNamer
+        public: true
+
+
+
+
+

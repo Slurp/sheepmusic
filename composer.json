@@ -1,84 +1,82 @@
 {
-    "name": "slangeweg/sheepmusic",
-    "license": "proprietary",
     "type": "project",
+    "license": "MIT",
+    "require": {
+        "php": "^7.2.1",
+        "ext-ctype": "*",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-iconv": "*",
+        "ext-json": "*",
+        "api-platform/api-pack": "^1.1",
+        "friendsofsymfony/elastica-bundle": "^5.0",
+        "friendsofsymfony/user-bundle": "^2.1",
+        "gedmo/doctrine-extensions": "^2.4",
+        "gesdinet/jwt-refresh-token-bundle": "^0.4.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "james-heinrich/getid3": "^1.9",
+        "lexik/jwt-authentication-bundle": "^2.5",
+        "matto1990/lastfm-api": "^1.5",
+        "ruflin/elastica": "^6.0",
+        "sensio/framework-extra-bundle": "^5.2",
+        "stof/doctrine-extensions-bundle": "^1.3",
+        "symfony/console": "^4.1",
+        "symfony/flex": "^1.0",
+        "symfony/framework-bundle": "^4.1",
+        "symfony/lts": "^4@dev",
+        "symfony/swiftmailer-bundle": "^3.2",
+        "symfony/yaml": "^4.1",
+        "vich/uploader-bundle": "^1.8"
+    },
+    "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "symfony/dotenv": "^4.1",
+        "symfony/phpunit-bridge": "^4.1",
+        "symfony/profiler-pack": "^1.0",
+        "symfony/test-pack": "^1.0",
+        "symfony/web-server-bundle": "^4.1"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
     "autoload": {
         "psr-4": {
-            "": "src/"
-        },
-        "classmap": [
-            "app/AppKernel.php",
-            "app/AppCache.php"
-        ]
+            "BlackSheep\\": "src/"
+        }
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "BlackSheep\\Tests\\": "tests/"
         }
     },
-    "config": {
-        "optimize-autoloader": true
-    },
-    "require": {
-        "php": "^7.0.0",
-        "symfony/symfony": "^3.0",
-        "doctrine/orm": "^2.5",
-        "doctrine/doctrine-bundle": "^1.6",
-        "doctrine/doctrine-cache-bundle": "^1.2",
-        "symfony/swiftmailer-bundle": "^2.3",
-        "symfony/monolog-bundle": "^3.0.2",
-        "sensio/distribution-bundle": "^5.0",
-        "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "^2.0",
-        "doctrine/doctrine-migrations-bundle": "^1.0",
-        "gedmo/doctrine-extensions": "^2.4",
-        "james-heinrich/getid3": "^1.9",
-        "stof/doctrine-extensions-bundle": "^1.2",
-        "friendsofsymfony/user-bundle": "~2.0@dev",
-        "white-october/pagerfanta-bundle": "^1.0",
-        "vich/uploader-bundle": "^1.7",
-        "matto1990/lastfm-api": "^1.5",
-        "ruflin/elastica": "^5.2.0",
-        "friendsofsymfony/elastica-bundle": "~5.0",
-        "nelmio/cors-bundle": "^1.5",
-        "jms/serializer-bundle": "^2.2",
-        "lexik/jwt-authentication-bundle": "^2.4",
-        "gesdinet/jwt-refresh-token-bundle": "^0.2.1",
-        "guzzlehttp/guzzle": "^6.3"
-    },
-    "require-dev": {
-        "sensio/generator-bundle": "^3.0",
-        "symfony/phpunit-bridge": "^3.0",
-        "phpunit/phpunit": "^6.0",
-        "doctrine/doctrine-fixtures-bundle": "^2.4"
+    "replace": {
+        "symfony/polyfill-ctype": "*",
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
     },
     "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
         "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+            "@auto-scripts"
         ],
         "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+            "@auto-scripts"
         ]
     },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
     "extra": {
-        "symfony-app-dir": "app",
-        "symfony-bin-dir": "bin",
-        "symfony-var-dir": "var",
-        "symfony-web-dir": "web",
-        "symfony-tests-dir": "tests",
-        "symfony-assets-install": "relative",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+        "symfony": {
+            "allow-contrib": false
         }
     }
 }

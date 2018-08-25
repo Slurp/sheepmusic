@@ -1,7 +1,0 @@
-black_sheep_music_library_song:
-    resource: "@BlackSheepMusicLibraryBundle/Controller/SongController.php"
-    type:     annotation
-black_sheep_music_library_api:
-    resource: '@BlackSheepMusicLibraryBundle/Controller/Api'
-    type:     annotation
-    prefix:   /api/

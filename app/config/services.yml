@@ -1,9 +1,0 @@
-# Learn more about services, parameters and containers at
-# http://symfony.com/doc/current/book/service_container.html
-services:
-    black_sheep.jwt_token_authenticator:
-        class: BlackSheep\UserBundle\Security\Guard\JWTTokenAuthenticator
-        parent: lexik_jwt_authentication.security.guard.jwt_token_authenticator
-    token_authenticator:
-            class: BlackSheep\UserBundle\Security\TokenAuthenticator
-            arguments: ['@lexik_jwt_authentication.encoder', '@doctrine.orm.entity_manager']

@@ -1,0 +1,17 @@
+#services:
+#    BlackSheep\LastFm\Info\LastFmArtistInfo:
+#    arguments: ['@parameter_bag', '@security.token_storage']
+#
+#    black_sheep_lastfm.artist_event_subscriber:
+#        class: BlackSheep\LastFm\EventListener\ArtistEventSubscriber
+#        arguments:
+#        - '@black_sheep_lastfm.artist_updater'
+#        tags:
+#        - { name: kernel.event_subscriber }
+#    black_sheep_lastfm.artist_updater:
+#        class: BlackSheep\LastFm\Updater\ArtistUpdater
+#        arguments:
+#        - '@black_sheep_music_library.repository.artists_repository'
+#        - '@black_sheep_music_library.last_fm.last_fm_artist'
+#    black_sheep_lastfm.client.release_client:
+#        class: BlackSheep\MusicBrainz\Client\ReleaseClient

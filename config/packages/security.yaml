@@ -1,0 +1,59 @@
+# To get started with security, check out the documentation:
+# http://symfony.com/doc/current/book/security.html
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: bcrypt
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+        jwt:
+            lexik_jwt:
+                class: BlackSheep\User\Entity\SheepUser
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        refresh:
+            pattern:  ^/api/token/refresh
+            stateless: true
+            anonymous: true
+            provider: jwt
+        login:
+            provider: fos_userbundle
+            pattern:  ^/api/login
+            stateless: true
+            anonymous: true
+            json_login:
+                check_path:               /api/login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+        api:
+            logout: true
+            pattern:  ^/api
+            stateless: true
+            anonymous: false
+            provider: fos_userbundle
+            guard:
+                authenticators:
+                    - BlackSheep\User\Security\Guard\JWTTokenAuthenticator
+        song:
+            pattern:  ^/song
+            stateless: true
+            anonymous: false
+            provider: jwt
+            guard:
+                authenticators:
+                    - BlackSheep\User\Security\Guard\JWTTokenAuthenticator
+
+    access_control:
+        - { path: ^/song/*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/token/refresh, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/*, role: ROLE_USER }
+        - { path: ^/, role: ROLE_USER }

@@ -1,9 +1,0 @@
-services:
-    black_sheep_music_library.last_fm.last_fm_artist:
-        class: BlackSheep\MusicLibraryBundle\LastFm\LastFmArtist
-        arguments:
-            - '@black_sheep.last_fm.last_fm_artist_info'
-    black_sheep_music_library.last_fm.last_fm_album:
-        class: BlackSheep\MusicLibraryBundle\LastFm\LastFmAlbum
-        arguments:
-            - '@black_sheep.last_fm.last_fm_album_info'

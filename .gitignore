@@ -1,25 +1,24 @@
-/app/Resources/vue
-/app/Resources/public/vendor
-/app/config/parameters.yml
-/build/
-/phpunit.xml
-/var/*
-!/var/cache
-/var/cache/*
-!var/cache/.gitkeep
-!/var/logs
-/var/logs/*
-!var/logs/.gitkeep
-!/var/sessions
-/var/sessions/*
-!var/sessions/.gitkeep
-!var/SymfonyRequirements.php
+###> symfony/framework-bundle ###
+/.env
+/bin
+/public/bundles/
+/var/
 /vendor/
-/web/bundles/
-/node_modules/
-/web/frontend/
-/web/uploads/
+###< symfony/framework-bundle ###
 
-web/frontend/css/style.css
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
 
-web/frontend/css/style.min.css
+###> symfony/web-server-bundle ###
+/.web-server-pid
+###< symfony/web-server-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> node ###
+/node_modules
+###> node ###
