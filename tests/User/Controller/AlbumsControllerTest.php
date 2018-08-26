@@ -22,8 +22,7 @@ class AlbumsControllerTest extends ApiTestCaseBase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json',
-            'HTTP_AUTHORIZATION' => 'Bearer ' . $token, ],
-            []
+            'HTTP_AUTHORIZATION' => 'Bearer ' . $token, ]
         );
 
         $content = $this->client->getResponse()->getContent();
@@ -41,8 +40,7 @@ class AlbumsControllerTest extends ApiTestCaseBase
             [],
             [],
             ['CONTENT_TYPE' => 'application/json',
-                'HTTP_AUTHORIZATION' => 'Bearer ' . $token, ],
-            []
+                'HTTP_AUTHORIZATION' => 'Bearer ' . $token, ]
         );
 
         $content = $this->client->getResponse()->getContent();
@@ -57,8 +55,7 @@ class AlbumsControllerTest extends ApiTestCaseBase
             '/api/album_list',
             [],
             [],
-            ['CONTENT_TYPE' => 'application/json'],
-            []
+            ['CONTENT_TYPE' => 'application/json']
         );
 
         $this->assertSame(403, $this->client->getResponse()->getStatusCode());
