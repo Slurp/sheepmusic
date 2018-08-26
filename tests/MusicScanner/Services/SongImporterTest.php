@@ -44,7 +44,7 @@ class SongImporterTest extends KernelTestCase
         $finder = Finder::create()
             ->files()
             ->name('/\.(mp3|ogg|m4a|flac)$/i')
-            ->in(__DIR__ . '/../../../../');
+            ->in(__DIR__ . '/../../../');
         foreach ($finder as $file) {
             $song = $songImporter->importSong($file);
             self::assertEquals($song->getAlbum()->getName(), $this->songInfo['album']);

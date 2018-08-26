@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "099f7fef687e0ca31a2919362849c65d",
+    "content-hash": "da694d2124e424f79ec1fcb7724a2d08",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -3258,6 +3258,63 @@
             "time": "2018-07-26T09:10:45+00:00"
         },
         {
+            "name": "symfony/browser-kit",
+            "version": "v4.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/browser-kit.git",
+                "reference": "c55fe9257003b2d95c0211b3f6941e8dfd26dffd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/c55fe9257003b2d95c0211b3f6941e8dfd26dffd",
+                "reference": "c55fe9257003b2d95c0211b3f6941e8dfd26dffd",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/dom-crawler": "~3.4|~4.0"
+            },
+            "require-dev": {
+                "symfony/css-selector": "~3.4|~4.0",
+                "symfony/process": "~3.4|~4.0"
+            },
+            "suggest": {
+                "symfony/process": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\BrowserKit\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony BrowserKit Component",
+            "homepage": "https://symfony.com",
+            "time": "2018-07-26T09:10:45+00:00"
+        },
+        {
             "name": "symfony/cache",
             "version": "v4.1.3",
             "source": {
@@ -3456,6 +3513,59 @@
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
             "time": "2018-07-26T11:24:31+00:00"
+        },
+        {
+            "name": "symfony/css-selector",
+            "version": "v4.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/css-selector.git",
+                "reference": "2a4df7618f869b456f9096781e78c57b509d76c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/2a4df7618f869b456f9096781e78c57b509d76c7",
+                "reference": "2a4df7618f869b456f9096781e78c57b509d76c7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\CssSelector\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jean-François Simon",
+                    "email": "jeanfrancois.simon@sensiolabs.com"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony CssSelector Component",
+            "homepage": "https://symfony.com",
+            "time": "2018-07-26T09:10:45+00:00"
         },
         {
             "name": "symfony/debug",
@@ -3663,6 +3773,63 @@
             "description": "Symfony Doctrine Bridge",
             "homepage": "https://symfony.com",
             "time": "2018-07-26T11:24:31+00:00"
+        },
+        {
+            "name": "symfony/dom-crawler",
+            "version": "v4.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dom-crawler.git",
+                "reference": "1c4519d257e652404c3aa550207ccd8ada66b38e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/1c4519d257e652404c3aa550207ccd8ada66b38e",
+                "reference": "1c4519d257e652404c3aa550207ccd8ada66b38e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/polyfill-ctype": "~1.8",
+                "symfony/polyfill-mbstring": "~1.0"
+            },
+            "require-dev": {
+                "symfony/css-selector": "~3.4|~4.0"
+            },
+            "suggest": {
+                "symfony/css-selector": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\DomCrawler\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony DomCrawler Component",
+            "homepage": "https://symfony.com",
+            "time": "2018-07-26T11:00:49+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -4542,6 +4709,72 @@
             "time": "2018-07-26T08:55:25+00:00"
         },
         {
+            "name": "symfony/phpunit-bridge",
+            "version": "v4.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/phpunit-bridge.git",
+                "reference": "3c30714807f34b7de710cc33eb612cd42cf683b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/3c30714807f34b7de710cc33eb612cd42cf683b0",
+                "reference": "3c30714807f34b7de710cc33eb612cd42cf683b0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0"
+            },
+            "suggest": {
+                "ext-zip": "Zip support is required when using bin/simple-phpunit",
+                "symfony/debug": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
+            },
+            "bin": [
+                "bin/simple-phpunit"
+            ],
+            "type": "symfony-bridge",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
+                },
+                "thanks": {
+                    "name": "phpunit/phpunit",
+                    "url": "https://github.com/sebastianbergmann/phpunit"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Bridge\\PhpUnit\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony PHPUnit Bridge",
+            "homepage": "https://symfony.com",
+            "time": "2018-07-26T08:55:25+00:00"
+        },
+        {
             "name": "symfony/polyfill-intl-icu",
             "version": "v1.8.0",
             "source": {
@@ -5232,6 +5465,34 @@
             "description": "Symfony Templating Component",
             "homepage": "https://symfony.com",
             "time": "2018-07-26T11:24:31+00:00"
+        },
+        {
+            "name": "symfony/test-pack",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/test-pack.git",
+                "reference": "958d23627214f5268d211c25031650d0dd6bdf60"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/test-pack/zipball/958d23627214f5268d211c25031650d0dd6bdf60",
+                "reference": "958d23627214f5268d211c25031650d0dd6bdf60",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0",
+                "symfony/browser-kit": "^3.3|^4.0",
+                "symfony/css-selector": "^3.3|^4.0",
+                "symfony/phpunit-bridge": "*"
+            },
+            "type": "symfony-pack",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "A pack for functional testing within a Symfony app",
+            "time": "2018-04-30T06:17:59+00:00"
         },
         {
             "name": "symfony/translation",
@@ -5997,173 +6258,6 @@
             "time": "2017-12-04T20:26:38+00:00"
         },
         {
-            "name": "symfony/browser-kit",
-            "version": "v4.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/browser-kit.git",
-                "reference": "c55fe9257003b2d95c0211b3f6941e8dfd26dffd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/c55fe9257003b2d95c0211b3f6941e8dfd26dffd",
-                "reference": "c55fe9257003b2d95c0211b3f6941e8dfd26dffd",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1.3",
-                "symfony/dom-crawler": "~3.4|~4.0"
-            },
-            "require-dev": {
-                "symfony/css-selector": "~3.4|~4.0",
-                "symfony/process": "~3.4|~4.0"
-            },
-            "suggest": {
-                "symfony/process": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\BrowserKit\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony BrowserKit Component",
-            "homepage": "https://symfony.com",
-            "time": "2018-07-26T09:10:45+00:00"
-        },
-        {
-            "name": "symfony/css-selector",
-            "version": "v4.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/css-selector.git",
-                "reference": "2a4df7618f869b456f9096781e78c57b509d76c7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/2a4df7618f869b456f9096781e78c57b509d76c7",
-                "reference": "2a4df7618f869b456f9096781e78c57b509d76c7",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\CssSelector\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jean-François Simon",
-                    "email": "jeanfrancois.simon@sensiolabs.com"
-                },
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony CssSelector Component",
-            "homepage": "https://symfony.com",
-            "time": "2018-07-26T09:10:45+00:00"
-        },
-        {
-            "name": "symfony/dom-crawler",
-            "version": "v4.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/dom-crawler.git",
-                "reference": "1c4519d257e652404c3aa550207ccd8ada66b38e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/1c4519d257e652404c3aa550207ccd8ada66b38e",
-                "reference": "1c4519d257e652404c3aa550207ccd8ada66b38e",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1.3",
-                "symfony/polyfill-ctype": "~1.8",
-                "symfony/polyfill-mbstring": "~1.0"
-            },
-            "require-dev": {
-                "symfony/css-selector": "~3.4|~4.0"
-            },
-            "suggest": {
-                "symfony/css-selector": ""
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.1-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\DomCrawler\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony DomCrawler Component",
-            "homepage": "https://symfony.com",
-            "time": "2018-07-26T11:00:49+00:00"
-        },
-        {
             "name": "symfony/dotenv",
             "version": "v4.1.3",
             "source": {
@@ -6219,72 +6313,6 @@
                 "environment"
             ],
             "time": "2018-07-26T11:24:31+00:00"
-        },
-        {
-            "name": "symfony/phpunit-bridge",
-            "version": "v4.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/phpunit-bridge.git",
-                "reference": "3c30714807f34b7de710cc33eb612cd42cf683b0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/3c30714807f34b7de710cc33eb612cd42cf683b0",
-                "reference": "3c30714807f34b7de710cc33eb612cd42cf683b0",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "conflict": {
-                "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0"
-            },
-            "suggest": {
-                "ext-zip": "Zip support is required when using bin/simple-phpunit",
-                "symfony/debug": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
-            },
-            "bin": [
-                "bin/simple-phpunit"
-            ],
-            "type": "symfony-bridge",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "4.1-dev"
-                },
-                "thanks": {
-                    "name": "phpunit/phpunit",
-                    "url": "https://github.com/sebastianbergmann/phpunit"
-                }
-            },
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ],
-                "psr-4": {
-                    "Symfony\\Bridge\\PhpUnit\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony PHPUnit Bridge",
-            "homepage": "https://symfony.com",
-            "time": "2018-07-26T08:55:25+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -6466,34 +6494,6 @@
             "description": "Symfony Stopwatch Component",
             "homepage": "https://symfony.com",
             "time": "2018-07-26T11:00:49+00:00"
-        },
-        {
-            "name": "symfony/test-pack",
-            "version": "v1.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/test-pack.git",
-                "reference": "958d23627214f5268d211c25031650d0dd6bdf60"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/test-pack/zipball/958d23627214f5268d211c25031650d0dd6bdf60",
-                "reference": "958d23627214f5268d211c25031650d0dd6bdf60",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.0",
-                "symfony/browser-kit": "^3.3|^4.0",
-                "symfony/css-selector": "^3.3|^4.0",
-                "symfony/phpunit-bridge": "*"
-            },
-            "type": "symfony-pack",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A pack for functional testing within a Symfony app",
-            "time": "2018-04-30T06:17:59+00:00"
         },
         {
             "name": "symfony/var-dumper",

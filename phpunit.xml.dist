@@ -19,8 +19,8 @@
         <env name="last_fm_secret" value="911e80b3fa95d9394aa98a525c05c986" />
         <env name="last_fm_key" value="7c5a1e33a929f805e23cf54d2b7c0576" />
         <env name="CORS_ALLOW_ORIGIN" value="^https?://localhost(:[0-9]+)?$" />
-        <env name="JWT_SECRET_KEY" value="%kernel.project_dir%/config/jwt/private.pem" />
-        <env name="JWT_PUBLIC_KEY" value="%kernel.project_dir%/config/jwt/public.pem" />
+        <env name="JWT_SECRET_KEY" value="%kernel.project_dir%/config/jwt/test/private.pem" />
+        <env name="JWT_PUBLIC_KEY" value="%kernel.project_dir%/config/jwt/test/public.pem" />
         <env name="JWT_PASSPHRASE" value="" />
 
     </php>

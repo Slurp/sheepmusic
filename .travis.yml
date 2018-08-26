@@ -37,9 +37,9 @@ install:
   - cp node_modules/ffmpeg-binaries/bin/ffprobe var/bin/
   - php bin/console doctrine:database:create --env=test
   - php bin/console doctrine:schema:create --env=test
-  - mkdir -p var/jwt # For Symfony3+, no need of the -p option
-  - openssl genrsa -out var/jwt/private.pem
-  - openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+  - mkdir -p config/jwt/test # For Symfony3+, no need of the -p option
+  - openssl genrsa -out config/jwt/test/private.pem
+  - openssl rsa -pubout -in config/jwt/test/private.pem -out config/jwt/test/public.pem
 
 # Run script
 script:
