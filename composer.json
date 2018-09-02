@@ -2,7 +2,7 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": "^7.2.1",
+        "php": "^7.2.0",
         "ext-ctype": "*",
         "ext-curl": "*",
         "ext-dom": "*",
