@@ -31,6 +31,8 @@
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "phpstan/phpstan": "^0.10.3",
+        "phpstan/phpstan-symfony": "^0.10.1",
         "symfony/dotenv": "^4.1",
         "symfony/phpunit-bridge": "^4.1",
         "symfony/profiler-pack": "^1.0",
@@ -40,7 +42,8 @@
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "optimize-autoloader": true
     },
     "autoload": {
         "psr-4": {
@@ -69,6 +72,12 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "test": [
+            "@phpunit --colors=always"
+        ],
+        "analyze": [
+            "phpstan analyse src"
         ]
     },
     "conflict": {
