@@ -76,7 +76,7 @@ class ArtistImporter
                         );
                     }
                     if ($artist === null) {
-                        $this->artistCache = $this->artistRepository->getArtistByName(
+                        $artist = $this->artistRepository->getArtistByName(
                             $this->artistCache->getName()
                         );
                     }
@@ -91,7 +91,6 @@ class ArtistImporter
                     error_log($exception->getFile() . $exception->getLine() . $exception->getMessage());
                 }
             }
-
             $this->artistRepository->save($this->artistCache);
         }
         if ($this->artistCache->getMusicBrainzId() === null && empty($songInfo['artist_mbid']) === false) {
