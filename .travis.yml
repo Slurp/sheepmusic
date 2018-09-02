@@ -40,6 +40,7 @@ install:
   - mkdir -p config/jwt/test # For Symfony3+, no need of the -p option
   - openssl genrsa -out config/jwt/test/private.pem
   - openssl rsa -pubout -in config/jwt/test/private.pem -out config/jwt/test/public.pem
+  - export SYMFONY_DEPRECATIONS_HELPER=weak
 
 # Run script
 script:
