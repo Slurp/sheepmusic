@@ -22,19 +22,17 @@ trait PlayCountTrait
     protected $playCount;
 
     /**
-     * @return $this
+     * @return void
      */
     public function updatePlayCount()
     {
         $this->setPlayCount($this->getPlayCount() + 1);
-
-        return $this;
     }
 
     /**
      * @return int
      */
-    public function getPlayCount()
+    public function getPlayCount(): int
     {
         if ($this->playCount !== null) {
             return $this->playCount;
@@ -44,14 +42,10 @@ trait PlayCountTrait
     }
 
     /**
-     * @param $playCount
-     *
-     * @return $this
+     * @param int $playCount
      */
     public function setPlayCount($playCount)
     {
         $this->playCount = $playCount;
-
-        return $this;
     }
 }

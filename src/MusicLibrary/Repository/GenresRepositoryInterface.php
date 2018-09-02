@@ -12,6 +12,7 @@
 namespace BlackSheep\MusicLibrary\Repository;
 
 use BlackSheep\MusicLibrary\Model\GenreInterface;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * Interface GenresRepositoryInterface.
@@ -19,21 +20,21 @@ use BlackSheep\MusicLibrary\Model\GenreInterface;
 interface GenresRepositoryInterface extends AbstractRepositoryInterface
 {
     /**
-     * @param   $genreName
+     * @param string $genreName
      *
      * @return GenreInterface|null
      */
     public function addOrUpdateByName($genreName);
 
     /**
-     * @param   $genreName
+     * @param string $genreName
      *
      * @return null|GenreInterface
      */
     public function getByName($genreName);
 
     /**
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
     public function getRecentGenres();
 }

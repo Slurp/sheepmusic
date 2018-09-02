@@ -12,6 +12,7 @@
 namespace BlackSheep\MusicLibrary\Controller\Api;
 
 use BlackSheep\MusicLibrary\Entity\PlaylistEntity;
+use BlackSheep\MusicLibrary\Repository\PlaylistRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ use Symfony\Component\HttpFoundation\Response;
 class PlaylistApiController extends BaseApiController
 {
     /**
-     * {@inheritdoc}
+     * @return PlaylistRepository
      */
     protected function getRepository()
     {

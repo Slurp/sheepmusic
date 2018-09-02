@@ -62,4 +62,15 @@ class UserSettings implements UserSettingsInterface
     {
         return $this->lastImport;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getApiData()
+    {
+        return [
+            'lastImport' => $this->getLastImport(),
+            'path' => $this->getPath()
+        ];
+    }
 }

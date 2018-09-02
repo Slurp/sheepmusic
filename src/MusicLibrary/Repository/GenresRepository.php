@@ -42,7 +42,7 @@ class GenresRepository extends AbstractRepository implements GenresRepositoryInt
     }
 
     /**
-     * @param   $genreName
+     * @param string $genreName
      *
      * @return GenreInterface
      */
@@ -58,7 +58,7 @@ class GenresRepository extends AbstractRepository implements GenresRepositoryInt
     }
 
     /**
-     * @param $genreName
+     * @param string $genreName
      *
      * @return null|object
      */
@@ -70,7 +70,7 @@ class GenresRepository extends AbstractRepository implements GenresRepositoryInt
     }
 
     /**
-     * @return \Doctrine\ORM\Query
+     * @return Query
      */
     public function getRecentGenres()
     {

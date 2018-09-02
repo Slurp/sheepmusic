@@ -32,29 +32,25 @@ trait ArtworkCollectionTrait
     }
 
     /**
-     * {@inheritdoc}
+     * @param ArtworkInterface[]
      */
     public function setArtworks($artworks)
     {
         $this->artworks = $artworks;
-
-        return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * @param ArtworkInterface $artwork
      */
     public function addArtwork(ArtworkInterface $artwork)
     {
         if (in_array($artwork, $this->artworks, true) === false) {
             $this->artworks[] = $artwork;
         }
-
-        return $this;
     }
 
     /**
-     * {@inheritdoc}
+     * @param ArtworkInterface $artwork
      */
     public function removeArtwork(ArtworkInterface $artwork)
     {
@@ -62,12 +58,10 @@ trait ArtworkCollectionTrait
             unset($this->artworks[$key]);
             $this->artworks = array_values($this->artworks);
         }
-
-        return $this;
     }
 
     /**
-     * @param $type
+     * @param string $type
      *
      * @return array|ArtworkInterface[]
      */

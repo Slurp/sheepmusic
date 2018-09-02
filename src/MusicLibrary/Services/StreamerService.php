@@ -38,11 +38,11 @@ class StreamerService implements StreamerServiceInterface
     protected $ffprobePath;
 
     /**
-     * @param $ffmpegPath
-     * @param $ffprobePath
-     * @param $bitrate
+     * @param string $ffmpegPath
+     * @param string $ffprobePath
+     * @param string $bitrate
      */
-    public function __construct($ffmpegPath, $ffprobePath, $bitrate)
+    public function __construct(string $ffmpegPath, string $ffprobePath, string $bitrate)
     {
         $this->ffmpegPath = $ffmpegPath;
         $this->bitrate = $bitrate;

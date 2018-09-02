@@ -19,7 +19,7 @@ use BlackSheep\MusicLibrary\Entity\SongEntity;
 interface SongsRepositoryInterface extends AbstractRepositoryInterface
 {
     /**
-     * @param $songInfo
+     * @param array $songInfo
      *
      * @return null|SongEntity
      */

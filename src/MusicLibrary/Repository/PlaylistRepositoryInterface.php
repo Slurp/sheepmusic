@@ -19,7 +19,7 @@ use BlackSheep\MusicLibrary\Model\PlaylistInterface;
 interface PlaylistRepositoryInterface extends AbstractRepositoryInterface
 {
     /**
-     * @param $name
+     * @param string $name
      *
      * @return PlaylistInterface
      */

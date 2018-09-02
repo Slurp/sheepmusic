@@ -17,8 +17,8 @@ namespace BlackSheep\MusicLibrary\Streamers\Transcoder;
 interface ArgumentBuilder
 {
     /**
-     * @param $path
-     * @param $startTime
+     * @param string $path
+     * @param string $startTime
      */
     public static function getArguments($path, $startTime);
 }

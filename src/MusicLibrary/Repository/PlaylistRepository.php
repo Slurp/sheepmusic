@@ -34,7 +34,7 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
     }
 
     /**
-     * @param $name
+     * @param string$name
      *
      * @return PlaylistInterface
      */
@@ -65,7 +65,7 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
      * @param $name
      * @param SongInterface[] $songs
      *
-     * @return PlaylistInterface|bool
+     * @return PlaylistEntity|bool
      */
     public function savePlaylistWithSongs($name, $songs)
     {

@@ -17,8 +17,9 @@ namespace BlackSheep\MusicLibrary\Streamers\Transcoder;
 class FfmpegArgumentBuilder
 {
     /**
-     * @param $path
+     * @param string $path
      * @param int $startTime
+     * @param int $bitRate
      *
      * @return string
      */

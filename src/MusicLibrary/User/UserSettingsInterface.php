@@ -11,6 +11,11 @@
 
 namespace BlackSheep\MusicLibrary\User;
 
+/**
+ * Interface UserSettingsInterface
+ *
+ * @package BlackSheep\MusicLibrary\User
+ */
 interface UserSettingsInterface
 {
     /**
@@ -44,4 +49,9 @@ interface UserSettingsInterface
      * @return \DateTime
      */
     public function getLastImport();
+
+    /**
+     * @return array
+     */
+    public function getApiData();
 }

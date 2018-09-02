@@ -29,7 +29,7 @@ class Artwork extends AbstractMedia implements ArtworkInterface
     /**
      * Artwork constructor.
      *
-     * @param $type
+     * @param string $type
      */
     public function __construct($type)
     {

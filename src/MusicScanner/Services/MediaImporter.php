@@ -75,16 +75,16 @@ class MediaImporter
      * @param OutputInterface $output
      * @param bool $debug
      */
-    public function setOutputInterface(OutputInterface $output, $debug = true)
+    public function setOutputInterface(OutputInterface $output, bool $debug = true)
     {
         $this->debug = $debug;
         $this->output = $output;
     }
 
     /**
-     * @param $path
+     * @param string $path
      */
-    public function import($path)
+    public function import(string $path)
     {
         $this->path = $path;
         if ($this->output !== null) {
@@ -119,7 +119,7 @@ class MediaImporter
      *
      * @return Finder An array of SplFileInfo objects
      */
-    public function gatherFiles($path, \DateTime $lastImportDate = null)
+    public function gatherFiles($path, \DateTime $lastImportDate = null) : Finder
     {
         $finder = Finder::create()
             ->files()

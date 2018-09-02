@@ -41,7 +41,7 @@ class TagHelper
      *
      * @return array|null
      */
-    public function getInfo(SplFileInfo $file)
+    public function getInfo(SplFileInfo $file): ?array
     {
         $info = $this->getID3->analyze($file->getPathname());
 
@@ -53,12 +53,12 @@ class TagHelper
     }
 
     /**
-     * @param $file
-     * @param $info
+     * @param SplFileInfo $file
+     * @param array $info
      *
      * @return array
      */
-    private function getDefaultArray(SplFileInfo $file, $info)
+    private function getDefaultArray(SplFileInfo $file, $info): array
     {
         return [
             'artist' => '',
@@ -78,12 +78,12 @@ class TagHelper
     }
 
     /**
-     * @param $info
-     * @param $props
+     * @param array $info
+     * @param array $props
      *
      * @return array
      */
-    private function getPropsFromTags(&$info, $props)
+    private function getPropsFromTags(&$info, $props): array
     {
         // Copy the available tags over to comment.
         // This is a helper from getID3, though it doesn't really work well.
@@ -94,7 +94,7 @@ class TagHelper
             if (isset($info['comments_html']['track'][0])) {
                 $props['track'] = $info['comments_html']['track'][0];
             }
-            foreach ($info['tags'] as $tagName => $value) {
+            foreach (array_keys($info['tags']) as $tagName) {
                 $this->getPropsForTags($info, $props, $tagName);
             }
             $this->getPropsForTags($info, $props);
@@ -106,7 +106,9 @@ class TagHelper
     }
 
     /**
-     * @param $info
+     * @param array $info
+     *
+     * @return null
      */
     private function getCover(&$info)
     {
@@ -120,8 +122,8 @@ class TagHelper
     }
 
     /**
-     * @param        $info
-     * @param        $props
+     * @param array $info
+     * @param array $props
      * @param string $tagName
      */
     private function getPropsForTags(&$info, &$props, $tagName = 'id3v2')
@@ -143,8 +145,8 @@ class TagHelper
     }
 
     /**
-     * @param $props
-     * @param $tags
+     * @param array $props
+     * @param array $tags
      * @param string $propertyName
      * @param string $tagName
      */
@@ -164,8 +166,8 @@ class TagHelper
     }
 
     /**
-     * @param $info
-     * @param $props
+     * @param array $info
+     * @param array $props
      */
     private function handleAudioInfo(&$info, &$props)
     {
@@ -181,7 +183,7 @@ class TagHelper
     /**
      * Generate a unique hash for a file path.
      *
-     * @param $path
+     * @param string $path
      *
      * @return string
      */
@@ -207,24 +209,30 @@ class TagHelper
 
     /**
      * @param getID3 $getID3
+     *
+     * @return null
      */
     public function setGetID3($getID3 = null)
     {
         if ($getID3 !== null) {
             $this->getID3 = $getID3;
         } else {
-            $this->getID3 = new getID3();
-            // don't need this yet so don't parse.
-            // waste of time and memory
-            $this->getID3->setOption(
-                [
-                    'option_tag_lyrics3' => false,
-                    'option_tag_apetag' => false,
-                    'option_tags_process' => true,
-                    'option_tags_html' => true,
-                    'option_extra_info' => true,
-                ]
-            );
+            try {
+                $this->getID3 = new getID3();
+                // don't need this yet so don't parse.
+                // waste of time and memory
+                $this->getID3->setOption(
+                    [
+                        'option_tag_lyrics3' => false,
+                        'option_tag_apetag' => false,
+                        'option_tags_process' => true,
+                        'option_tags_html' => true,
+                        'option_extra_info' => true,
+                    ]
+                );
+            } catch (\getid3_exception $e) {
+                error_log($e->getMessage());
+            }
         }
     }
 }

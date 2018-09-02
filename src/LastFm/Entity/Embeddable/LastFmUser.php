@@ -75,4 +75,9 @@ interface LastFmUser
      * @return bool
      */
     public function disconnect($token);
+
+    /**
+     * @return array
+     */
+    public function getApiData();
 }

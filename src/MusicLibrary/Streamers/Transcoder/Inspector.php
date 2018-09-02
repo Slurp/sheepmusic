@@ -14,8 +14,8 @@ namespace BlackSheep\MusicLibrary\Streamers\Transcoder;
 class Inspector
 {
     /**
-     * @param $file
-     * @param $ffprobe
+     * @param string $file
+     * @param string $ffprobe
      *
      * @return float
      */
@@ -28,7 +28,6 @@ class Inspector
         if (file_exists($ffprobe) === false) {
             $ffprobe = '/usr/bin/ffprobe';
         }
-        var_dump($ffprobe);
         $json = static::probe($file, $ffprobe);
         if (isset($json->streams) && isset($json->streams[0])) {
             return $json->streams[0]->duration;
@@ -38,7 +37,7 @@ class Inspector
     }
 
     /**
-     * @param $file
+     * @param string $file
      * @param string $ffprobe
      *
      * @return mixed
@@ -48,8 +47,7 @@ class Inspector
         $file = escapeshellarg($file);
         $cmd = $ffprobe . " -v quiet -print_format json -show_format -show_streams {$file}";
         exec($cmd, $outputLines);
-        $json = implode("\n", $outputLines);
 
-        return json_decode($json);
+        return json_decode(implode("\n", $outputLines));
     }
 }

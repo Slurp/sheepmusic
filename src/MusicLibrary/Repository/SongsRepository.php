@@ -12,6 +12,7 @@
 namespace BlackSheep\MusicLibrary\Repository;
 
 use BlackSheep\MusicLibrary\Entity\SongEntity;
+use DateTime;
 
 /**
  * SongsRepository.
@@ -30,24 +31,24 @@ class SongsRepository extends AbstractRepository implements SongsRepositoryInter
     }
 
     /**
-     * @param $songInfo
+     * @param array $songInfo
      *
      * @return null|SongEntity
      */
-    public function needsImporting($songInfo)
+    public function needsImporting($songInfo): ?SongEntity
     {
         return $this->findOneBy(['mTime' => $songInfo['mTime'], 'path' => $songInfo['path']]);
     }
 
     /**
-     * @return null|\DateTime
+     * @return null|DateTime
      */
-    public function lastImportDate()
+    public function lastImportDate(): ?DateTime
     {
         $lastCall = $this->findOneBy([], ['mTime' => 'DESC']);
         $lastImportDate = null;
         if ($lastCall !== null) {
-            $lastImportDate = new \DateTime();
+            $lastImportDate = new DateTime();
             $lastImportDate->setTimestamp($lastCall->getMTime())->modify('-3 hours');
             unset($lastCall);
         }

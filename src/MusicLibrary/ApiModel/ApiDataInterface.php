@@ -11,6 +11,7 @@
 
 namespace BlackSheep\MusicLibrary\ApiModel;
 
+use BlackSheep\MusicLibrary\Model\ApiInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
@@ -26,8 +27,7 @@ interface ApiDataInterface
     public function __construct(RouterInterface $router, UploaderHelper $uploaderHelper);
 
     /**
-     * @param mixed
-     * @param \BlackSheep\MusicLibrary\Model\ApiInterface $object
+     * @param ApiInterface $object
      *
      * @return array|null
      */

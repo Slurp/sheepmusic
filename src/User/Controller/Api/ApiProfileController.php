@@ -100,7 +100,6 @@ class ApiProfileController extends AbstractController
     public function editAction(Request $request)
     {
         $user = $this->getUser();
-        /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 
         $event = new GetResponseUserEvent($user, $request);
@@ -142,7 +141,6 @@ class ApiProfileController extends AbstractController
      */
     protected function handleForm(FormInterface $form, Request $request, EventDispatcherInterface $dispatcher, $user)
     {
-        /** @var $userManager UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
 
         $event = new FormEvent($form, $request);

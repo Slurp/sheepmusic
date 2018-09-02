@@ -20,7 +20,7 @@ use BlackSheep\MusicLibrary\Model\ArtistInterface;
 interface ArtistRepositoryInterface extends AbstractRepositoryInterface
 {
     /**
-     * @param      $artistName
+     * @param string $artistName
      * @param null $musicBrainzId
      *
      * @return ArtistsEntity|null
@@ -28,22 +28,22 @@ interface ArtistRepositoryInterface extends AbstractRepositoryInterface
     public function addOrUpdate($artistName, $musicBrainzId = null);
 
     /**
-     * @param $artistName
+     * @param string $artistName
      *
      * @return ArtistInterface|null
      */
     public function getArtistByName($artistName);
 
     /**
-     * @param $musicBrainzId
+     * @param string|null $musicBrainzId
      *
      * @return ArtistInterface|null
      */
     public function getArtistByMusicBrainzId($musicBrainzId = null);
 
     /**
-     * @param  $artist
-     * @param  $albumName
+     * @param  ArtistInterface $artist
+     * @param  string $albumName
      *
      * @return object|null
      */

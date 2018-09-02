@@ -27,7 +27,7 @@ class SearchApiController extends Controller
     /**
      * @Route("/search/{query}", name="search")
      *
-     * @param $query
+     * @param string $query
      *
      * @return Response
      */
@@ -68,7 +68,7 @@ class SearchApiController extends Controller
     }
 
     /**
-     * @param $searchTerm
+     * @param string $searchTerm
      *
      * @return Query\Match
      */
@@ -84,7 +84,7 @@ class SearchApiController extends Controller
     }
 
     /**
-     * @param $searchTerm
+     * @param string $searchTerm
      *
      * @return Query\Match
      */

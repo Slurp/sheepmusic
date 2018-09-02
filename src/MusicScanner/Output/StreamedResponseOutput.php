@@ -11,6 +11,7 @@
 
 namespace BlackSheep\MusicScanner\Output;
 
+use InvalidArgumentException;
 use Symfony\Component\Console\Output\Output;
 
 /**
@@ -60,8 +61,8 @@ class StreamedResponseOutput extends Output
     }
 
     /**
-     * @param $output
-     * @param $htmlSelector
+     * @param string $output
+     * @param string $htmlSelector
      */
     public function outPlaceholder($output, $htmlSelector)
     {

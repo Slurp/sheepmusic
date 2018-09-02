@@ -11,10 +11,13 @@
 
 namespace BlackSheep\MusicLibrary\Streamers;
 
+/**
+ *
+ */
 class HeaderBuilder
 {
     /**
-     * @param $filename
+     * @param string $filename
      * @param float $size
      */
     public static function putHeader($filename, $size)

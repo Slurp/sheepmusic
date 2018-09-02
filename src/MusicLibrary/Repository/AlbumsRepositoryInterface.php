@@ -21,8 +21,8 @@ interface AlbumsRepositoryInterface extends AbstractRepositoryInterface
 {
     /**
      * @param ArtistInterface $artists
-     * @param                 $albumName
-     * @param                 $extraInfo
+     * @param string $albumName
+     * @param array $extraInfo
      *
      * @return AlbumInterface|null
      */
@@ -30,7 +30,7 @@ interface AlbumsRepositoryInterface extends AbstractRepositoryInterface
 
     /**
      * @param ArtistInterface $artist
-     * @param                 $albumName
+     * @param string $albumName
      *
      * @return null|AlbumInterface
      */

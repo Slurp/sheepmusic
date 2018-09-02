@@ -46,7 +46,7 @@ abstract class AbstractArtworkEntity extends Artwork implements AbstractMediaInt
     /**
      * ArtistArtworkEntity constructor.
      *
-     * @param $type
+     * @param string $type
      */
     public function __construct($type)
     {
@@ -63,7 +63,7 @@ abstract class AbstractArtworkEntity extends Artwork implements AbstractMediaInt
     }
 
     /**
-     * @param mixed $likes
+     * @param int $likes
      */
     public function setLikes($likes)
     {

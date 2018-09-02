@@ -12,7 +12,6 @@
 namespace BlackSheep\MusicScanner\Services;
 
 use BlackSheep\MusicLibrary\Entity\AlbumEntity;
-use BlackSheep\MusicLibrary\Entity\ArtistsEntity;
 use BlackSheep\MusicLibrary\LastFm\LastFmAlbum;
 use BlackSheep\MusicLibrary\Model\AlbumInterface;
 use BlackSheep\MusicLibrary\Model\ArtistInterface;
@@ -24,7 +23,9 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class AlbumImporter
 {
-    /** @var LastFmAlbum */
+    /**
+     * @var LastFmAlbum
+     */
     protected $lastFmAlbum;
 
     /**
@@ -39,7 +40,7 @@ class AlbumImporter
 
     /**
      * @param ManagerRegistry $managerRegistry
-     * @param LastFmAlbum     $lastFmAlbum
+     * @param LastFmAlbum $lastFmAlbum
      */
     public function __construct(ManagerRegistry $managerRegistry, LastFmAlbum $lastFmAlbum)
     {
@@ -51,11 +52,12 @@ class AlbumImporter
 
     /**
      * @param ArtistInterface $artist
-     * @param $songInfo
+     * @param array $songInfo
      *
      * @return AlbumInterface
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function importAlbum(ArtistInterface $artist, &$songInfo)
+    public function importAlbum(ArtistInterface $artist, &$songInfo): AlbumInterface
     {
         if ($this->albumCache === null ||
             $this->albumCache->getName() !== $songInfo['album'] ||
@@ -83,7 +85,10 @@ class AlbumImporter
         return $this->albumCache;
     }
 
-    protected function addMetaDataToNewAlbum()
+    /**
+     * @return bool
+     */
+    protected function addMetaDataToNewAlbum(): bool
     {
         try {
             $this->lastFmAlbum->updateLastFmInfo($this->albumCache);

@@ -69,7 +69,6 @@ class ProfileController extends BaseController
     public function editAction(Request $request)
     {
         $user = $this->getUser();
-        /** @var $dispatcher EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
 
         $event = new GetResponseUserEvent($user, $request);

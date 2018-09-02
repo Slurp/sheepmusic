@@ -13,6 +13,7 @@ namespace BlackSheep\MusicLibrary\Repository;
 
 use BlackSheep\MusicLibrary\Entity\ArtistsEntity;
 use BlackSheep\MusicLibrary\Entity\GenreEntity;
+use BlackSheep\MusicLibrary\Model\ArtistInterface;
 use Doctrine\ORM\Query;
 
 /**
@@ -121,6 +122,11 @@ class ArtistRepository extends AbstractRepository implements ArtistRepositoryInt
         );
     }
 
+    /**
+     * @param GenreEntity $genre
+     *
+     * @return ArtistsEntity[]
+     */
     public function getArtistsByGenre(GenreEntity $genre)
     {
         return $this->createQueryBuilder('a')

@@ -22,7 +22,9 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  */
 class ArtistImporter
 {
-    /** @var LastFmArtist */
+    /**
+     * @var LastFmArtist
+     */
     protected $lastFmArtist;
 
     /**
@@ -37,7 +39,7 @@ class ArtistImporter
 
     /**
      * @param ManagerRegistry $managerRegistry
-     * @param LastFmArtist    $lastFmArtist
+     * @param LastFmArtist $lastFmArtist
      */
     public function __construct(ManagerRegistry $managerRegistry, LastFmArtist $lastFmArtist)
     {
@@ -48,7 +50,7 @@ class ArtistImporter
     }
 
     /**
-     * @param $songInfo
+     * @param array $songInfo
      *
      * @throws \Doctrine\ORM\OptimisticLockException
      *
@@ -74,7 +76,7 @@ class ArtistImporter
                         );
                     }
                     if ($artist === null) {
-                        $artist = $this->artistRepository->getArtistByName(
+                        $this->artistCache = $this->artistRepository->getArtistByName(
                             $this->artistCache->getName()
                         );
                     }

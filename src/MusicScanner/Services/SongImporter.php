@@ -13,10 +13,14 @@ namespace BlackSheep\MusicScanner\Services;
 
 use BlackSheep\MusicLibrary\Entity\GenreEntity;
 use BlackSheep\MusicLibrary\Entity\SongEntity;
+use BlackSheep\MusicLibrary\Model\SongInterface;
 use BlackSheep\MusicLibrary\Repository\GenresRepository;
 use BlackSheep\MusicLibrary\Repository\SongsRepository;
 use BlackSheep\MusicScanner\Helper\TagHelper;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
@@ -40,7 +44,7 @@ class SongImporter
     protected $songRepository;
 
     /**
-     * @var \Doctrine\Common\Persistence\ObjectManager|null|object
+     * @var EntityManager
      */
     protected $entitymanager;
 
@@ -50,7 +54,7 @@ class SongImporter
     protected $tagHelper;
 
     /**
-     * @var GenresRepository|\Doctrine\Common\Persistence\ObjectRepository
+     * @var GenresRepository
      */
     protected $genreRepository;
 
@@ -67,31 +71,39 @@ class SongImporter
         $this->albumImporter = $albumImporter;
         $this->artistImporter = $artistImporter;
         $this->songRepository = $managerRegistry->getRepository(SongEntity::class);
-        $this->entitymanager = $managerRegistry->getManagerForClass(SongEntity::class);
         $this->genreRepository = $managerRegistry->getRepository(GenreEntity::class);
+        $this->entitymanager = $managerRegistry->getManager();
+
         $this->tagHelper = new TagHelper();
     }
 
     /**
      * @param SplFileInfo $file
      *
-     * @return SongEntity|null
+     * @return SongInterface
+     * @throws ORMException
      */
     public function importSong(SplFileInfo $file)
     {
         $songInfo = $this->tagHelper->getInfo($file);
         $songEntity = $this->songRepository->needsImporting($songInfo);
         if ($songEntity === null && empty($songInfo['artist']) === false) {
-            return $this->writeSong($songInfo);
+            try {
+                return $this->writeSong($songInfo);
+            } catch (OptimisticLockException $e) {
+                error_log($e->getMessage());
+                return null;
+            }
         }
-
         return null;
     }
 
     /**
-     * @param $songInfo
+     * @param array $songInfo
      *
-     * @return SongEntity
+     * @return SongInterface
+     * @throws OptimisticLockException
+     * @throws ORMException
      */
     protected function writeSong(&$songInfo)
     {

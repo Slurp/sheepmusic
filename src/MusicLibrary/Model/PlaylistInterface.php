@@ -11,6 +11,8 @@
 
 namespace BlackSheep\MusicLibrary\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
+
 interface PlaylistInterface
 {
     /**
@@ -55,7 +57,7 @@ interface PlaylistInterface
     public function getSongs();
 
     /**
-     * @param PlaylistsSongsInterface[] $songs
+     * @param PlaylistsSongsInterface[]|ArrayCollection $songs
      *
      * @return array
      */
