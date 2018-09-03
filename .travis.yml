@@ -2,8 +2,13 @@
 sudo: required
 dist: trusty
 language: php
-php:
-  - 7.2
+matrix:
+  fast_finish: true
+  include:
+  - php: 7.2
+  - php: nightly
+  allow_failures:
+  - php: nightly
 
 # Start mysql service
 services:
@@ -13,6 +18,7 @@ services:
 cache:
   directories:
     - $HOME/.composer/cache/files
+    - ./bin/.phpunit
 
 # Define an environment variable
 env:
@@ -45,6 +51,20 @@ install:
 # Run script
 script:
   - phpunit --configuration phpunit.xml.dist
+  # this checks that the source code follows the Symfony Code Syntax rules
+  - '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || ./vendor/bin/php-cs-fixer fix --diff --dry-run -v'
+  # this checks that the YAML config files contain no syntax errors
+  - ./bin/console lint:yaml config
+  # this checks that the Twig template files contain no syntax errors
+  - ./bin/console lint:twig templates
+  # this checks that the XLIFF translations contain no syntax errors
+  - ./bin/console lint:xliff translations
+  # this checks that the application doesn't use dependencies with known security vulnerabilities
+  - ./bin/console security:check --end-point=http://security.sensiolabs.org/check_lock
+  # this checks that the composer.json and composer.lock files are valid
+  - composer validate --strict
+  # this checks that Doctrine's mapping configurations are valid
+  - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
 
 # After a build, send email notification with the build results
 notifications:
