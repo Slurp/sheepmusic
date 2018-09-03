@@ -1,4 +1,3 @@
-# Project language
 sudo: required
 dist: trusty
 language: php
@@ -9,63 +8,63 @@ matrix:
   - php: nightly
   allow_failures:
   - php: nightly
-
-# Start mysql service
 services:
-  - mysql
-
-# Cache composer packages so "composer install" is faster
+- mysql
 cache:
   directories:
-    - $HOME/.composer/cache/files
-    - ./bin/.phpunit
-
-# Define an environment variable
+  - "$HOME/.composer/cache/files"
+  - "./bin/.phpunit"
 env:
+  global:
+    -  secure: "JY81EUnnj8qIoBfQKThNLoXN5jjW2qVQPXGyDyLol6Qkjyu/SRUX+rPHfkIW523VldoDPXHhuQx1rhtDceXZUb4GUoEjffLCWs/90OTB8c11lgwzlR4E6KOpq662Mu06kqnQo9jqAqx9YohV+UGr0uyVPVG8YygmGRAdCjdzfTr2SVn+SRnpjHnmTLpRxquBAnsANYnISkadIuoMiaBbjA3Wts90KaN907nNnzQiEK2Hfy0bAJnfXUpyHCsX12BnMOaz3e1ycKyy2KLdAwiOSyQPol7zUT72TPf+6z/gbtcJAEN3tnPar1m4ocSuQzFaBsmy9rmuTHpvV7PlVM5vTLAt9Ggfu53noKZD0snzM7FJZVHRmSaf06FawAQg51zOVblexH3O8Ln10XXoTy8FnuKgh3vP36rbiX9//rWhBpOnvEMF17Q0BZFwzhdRRcXfDWZQitrSHsg95yipQ4Loj8XHsDndxRofLhF7HMUUkYuerXGkywk6ta75/Al2HVFcdESbHR3/HIkavSbREl89hHtQrx1pTRZ/2cQ55TqLFDEotR3Oyp21DFsm0pkzfYXkzv4xi0/IdEiQkMPFvDXbXKT0ZdmRXoX8tyDPmEbSgilTFuik3IYkTt661hksoVG45LkWfftab/cuGZxjYG7mObYMJXkOI9Uo8K0+E8c8U5A="
+    -  secure: "tVBc5+SburGUveNAH+nQi/jNRn4J2qpjnDpNDkq1cNjUB85ojY0Tno45Tnss+NqxMKR8GIa+dJQ64Q4GNfWUUae26eAxrCNZOh14PQYhtDhwOu+Xa9oriqc+2JKKzpUdNRKgyzXiZaKTPmx2N1UX1Q4t7zcZuU8uhpgONHEZbW1bif7GiYX/onxtrUZ9FPtodDuxfY+LHtf7iWmBtPjqMELUVdqIontyP31aIWsXYmsvhbbBp+9tY0wF+8WSukLRUY37S9wlcpj2LlEFEpp6XEyLWuJOCUAj+EHMYm86bj3Aiq4bDb3RhkGjfGVYOfL73Asmm2uvoRyJWvSGMVKBqcCJm6/BXLg8vwRMre5QKEf5hH8hPR8EED+0gwy+wBD6YGzGeZONmd2QWZ94drq8Nxw9MdpISWZQrVFiivHuhjt0e6Zg7J0MItwSFBldX4UyR9qJjskV4kqP6qNACI4jKP6Kg17FimSQoXvG1BYivkJWBic+nVWovIuwW74Z9WOTE3hv3vobb+nO8gB2Dh0jYpyFYN92Xu7sfgKQF0MJfi0Erm/dnckPpfmXVlvAKRsFZV8KekqS3+zKbrUhyamMWlIZYKco2kYEr0LZbEHSXVv5RaRwIuWHJn0wXQ1I72jqclZ1tdmaSKE2aNhY3oiKVUxSHlEkOsIdYnsy/pB0L0M="
   - SYMFONY_VERSION="4.1.*" DB=mysql
-
-# Update composer
 before-install:
-  - composer self-update
-  - sudo apt-get -qq update
-  - sudo apt-get install -y ffmpeg
-  - sudo apt-get install yarn
+- openssl aes-256-cbc -K $encrypted_9e00e552d115_key -iv $encrypted_9e00e552d115_iv
+  -in travis_rsa.enc -out travis_rsa -d
+- chmod 600 travis_rsa
+- mv travis_rsa ~/.ssh/id_rsa
+- composer self-update
+- sudo apt-get -qq update
+- sudo apt-get install -y ffmpeg
+- sudo apt-get install yarn
 
-
-# Install composer dependencies,
-# Create database, schema and fixtures
 install:
-  - composer install
-  - yarn install
-  - cp .env.dist .env
-  - mkdir -p var/bin
-  - cp node_modules/ffmpeg-binaries/bin/ffmpeg var/bin/
-  - cp node_modules/ffmpeg-binaries/bin/ffprobe var/bin/
-  - php bin/console doctrine:database:create --env=test
-  - php bin/console doctrine:schema:create --env=test
-  - mkdir -p config/jwt/test # For Symfony3+, no need of the -p option
-  - openssl genrsa -out config/jwt/test/private.pem
-  - openssl rsa -pubout -in config/jwt/test/private.pem -out config/jwt/test/public.pem
-  - export SYMFONY_DEPRECATIONS_HELPER=weak
-
-# Run script
+- composer install
+- yarn install
+- cp .env.dist .env
+- mkdir -p var/bin
+- cp node_modules/ffmpeg-binaries/bin/ffmpeg var/bin/
+- cp node_modules/ffmpeg-binaries/bin/ffprobe var/bin/
+- php bin/console doctrine:database:create --env=test
+- php bin/console doctrine:schema:create --env=test
+- mkdir -p config/jwt/test
+- openssl genrsa -out config/jwt/test/private.pem
+- openssl rsa -pubout -in config/jwt/test/private.pem -out config/jwt/test/public.pem
+- export SYMFONY_DEPRECATIONS_HELPER=weak
 script:
-  - phpunit --configuration phpunit.xml.dist
-  # this checks that the source code follows the Symfony Code Syntax rules
-  - '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || ./vendor/bin/php-cs-fixer fix --diff --dry-run -v'
-  # this checks that the YAML config files contain no syntax errors
-  - ./bin/console lint:yaml config
-  # this checks that the Twig template files contain no syntax errors
-  - ./bin/console lint:twig templates
-  # this checks that the XLIFF translations contain no syntax errors
-  - ./bin/console lint:xliff translations
-  # this checks that the application doesn't use dependencies with known security vulnerabilities
-  - ./bin/console security:check --end-point=http://security.sensiolabs.org/check_lock
-  # this checks that the composer.json and composer.lock files are valid
-  - composer validate --strict
-  # this checks that Doctrine's mapping configurations are valid
-  - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
-
-# After a build, send email notification with the build results
+- phpunit --configuration phpunit.xml.dist
+- '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || ./vendor/bin/php-cs-fixer fix --diff
+  --dry-run -v'
+- "./bin/console lint:yaml config"
+- "./bin/console lint:twig templates"
+- "./bin/console lint:xliff translations"
+- "./bin/console security:check --end-point=http://security.sensiolabs.org/check_lock"
+- composer validate --strict
+- "./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction"
+after_success:
+- export SYMFONY_ENV=prod && composer install --no-dev -o
+- mkdir build
+- mv * build
+- tar -czf package.tgz build
+- scp package.tgz travis@$DEPLOY_HOST:$DEPLOY_PATH
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: shell/deploy.sh
+  on:
+    all_branches: true
 notifications:
   email: slurpie@gmail.com
+
+
