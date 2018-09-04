@@ -25,3 +25,4 @@
 config/jwt/test/private.pem
 config/jwt/test/public.pem
 public/uploads/artist/marianne-thorsen/cover-mozart-violin-concertos-cd-resolution.jpg
+travis_rsa

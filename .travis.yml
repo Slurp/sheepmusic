@@ -1,62 +1,54 @@
-# Project language
 sudo: required
 dist: trusty
 language: php
 php:
 - 7.2
-
-# Start mysql service
 services:
 - mysql
-
 cache:
   directories:
   - "$HOME/.composer/cache/files"
   - "./bin/.phpunit"
-
 env:
   global:
-    - secure: "JY81EUnnj8qIoBfQKThNLoXN5jjW2qVQPXGyDyLol6Qkjyu/SRUX+rPHfkIW523VldoDPXHhuQx1rhtDceXZUb4GUoEjffLCWs/90OTB8c11lgwzlR4E6KOpq662Mu06kqnQo9jqAqx9YohV+UGr0uyVPVG8YygmGRAdCjdzfTr2SVn+SRnpjHnmTLpRxquBAnsANYnISkadIuoMiaBbjA3Wts90KaN907nNnzQiEK2Hfy0bAJnfXUpyHCsX12BnMOaz3e1ycKyy2KLdAwiOSyQPol7zUT72TPf+6z/gbtcJAEN3tnPar1m4ocSuQzFaBsmy9rmuTHpvV7PlVM5vTLAt9Ggfu53noKZD0snzM7FJZVHRmSaf06FawAQg51zOVblexH3O8Ln10XXoTy8FnuKgh3vP36rbiX9//rWhBpOnvEMF17Q0BZFwzhdRRcXfDWZQitrSHsg95yipQ4Loj8XHsDndxRofLhF7HMUUkYuerXGkywk6ta75/Al2HVFcdESbHR3/HIkavSbREl89hHtQrx1pTRZ/2cQ55TqLFDEotR3Oyp21DFsm0pkzfYXkzv4xi0/IdEiQkMPFvDXbXKT0ZdmRXoX8tyDPmEbSgilTFuik3IYkTt661hksoVG45LkWfftab/cuGZxjYG7mObYMJXkOI9Uo8K0+E8c8U5A="
-    - secure: "tVBc5+SburGUveNAH+nQi/jNRn4J2qpjnDpNDkq1cNjUB85ojY0Tno45Tnss+NqxMKR8GIa+dJQ64Q4GNfWUUae26eAxrCNZOh14PQYhtDhwOu+Xa9oriqc+2JKKzpUdNRKgyzXiZaKTPmx2N1UX1Q4t7zcZuU8uhpgONHEZbW1bif7GiYX/onxtrUZ9FPtodDuxfY+LHtf7iWmBtPjqMELUVdqIontyP31aIWsXYmsvhbbBp+9tY0wF+8WSukLRUY37S9wlcpj2LlEFEpp6XEyLWuJOCUAj+EHMYm86bj3Aiq4bDb3RhkGjfGVYOfL73Asmm2uvoRyJWvSGMVKBqcCJm6/BXLg8vwRMre5QKEf5hH8hPR8EED+0gwy+wBD6YGzGeZONmd2QWZ94drq8Nxw9MdpISWZQrVFiivHuhjt0e6Zg7J0MItwSFBldX4UyR9qJjskV4kqP6qNACI4jKP6Kg17FimSQoXvG1BYivkJWBic+nVWovIuwW74Z9WOTE3hv3vobb+nO8gB2Dh0jYpyFYN92Xu7sfgKQF0MJfi0Erm/dnckPpfmXVlvAKRsFZV8KekqS3+zKbrUhyamMWlIZYKco2kYEr0LZbEHSXVv5RaRwIuWHJn0wXQ1I72jqclZ1tdmaSKE2aNhY3oiKVUxSHlEkOsIdYnsy/pB0L0M="
+  - secure: JY81EUnnj8qIoBfQKThNLoXN5jjW2qVQPXGyDyLol6Qkjyu/SRUX+rPHfkIW523VldoDPXHhuQx1rhtDceXZUb4GUoEjffLCWs/90OTB8c11lgwzlR4E6KOpq662Mu06kqnQo9jqAqx9YohV+UGr0uyVPVG8YygmGRAdCjdzfTr2SVn+SRnpjHnmTLpRxquBAnsANYnISkadIuoMiaBbjA3Wts90KaN907nNnzQiEK2Hfy0bAJnfXUpyHCsX12BnMOaz3e1ycKyy2KLdAwiOSyQPol7zUT72TPf+6z/gbtcJAEN3tnPar1m4ocSuQzFaBsmy9rmuTHpvV7PlVM5vTLAt9Ggfu53noKZD0snzM7FJZVHRmSaf06FawAQg51zOVblexH3O8Ln10XXoTy8FnuKgh3vP36rbiX9//rWhBpOnvEMF17Q0BZFwzhdRRcXfDWZQitrSHsg95yipQ4Loj8XHsDndxRofLhF7HMUUkYuerXGkywk6ta75/Al2HVFcdESbHR3/HIkavSbREl89hHtQrx1pTRZ/2cQ55TqLFDEotR3Oyp21DFsm0pkzfYXkzv4xi0/IdEiQkMPFvDXbXKT0ZdmRXoX8tyDPmEbSgilTFuik3IYkTt661hksoVG45LkWfftab/cuGZxjYG7mObYMJXkOI9Uo8K0+E8c8U5A=
+  - secure: tVBc5+SburGUveNAH+nQi/jNRn4J2qpjnDpNDkq1cNjUB85ojY0Tno45Tnss+NqxMKR8GIa+dJQ64Q4GNfWUUae26eAxrCNZOh14PQYhtDhwOu+Xa9oriqc+2JKKzpUdNRKgyzXiZaKTPmx2N1UX1Q4t7zcZuU8uhpgONHEZbW1bif7GiYX/onxtrUZ9FPtodDuxfY+LHtf7iWmBtPjqMELUVdqIontyP31aIWsXYmsvhbbBp+9tY0wF+8WSukLRUY37S9wlcpj2LlEFEpp6XEyLWuJOCUAj+EHMYm86bj3Aiq4bDb3RhkGjfGVYOfL73Asmm2uvoRyJWvSGMVKBqcCJm6/BXLg8vwRMre5QKEf5hH8hPR8EED+0gwy+wBD6YGzGeZONmd2QWZ94drq8Nxw9MdpISWZQrVFiivHuhjt0e6Zg7J0MItwSFBldX4UyR9qJjskV4kqP6qNACI4jKP6Kg17FimSQoXvG1BYivkJWBic+nVWovIuwW74Z9WOTE3hv3vobb+nO8gB2Dh0jYpyFYN92Xu7sfgKQF0MJfi0Erm/dnckPpfmXVlvAKRsFZV8KekqS3+zKbrUhyamMWlIZYKco2kYEr0LZbEHSXVv5RaRwIuWHJn0wXQ1I72jqclZ1tdmaSKE2aNhY3oiKVUxSHlEkOsIdYnsy/pB0L0M=
   matrix:
-    - SYMFONY_VERSION="4.1.*" DB=mysql
-
-before-install:
-  - openssl aes-256-cbc -K $encrypted_9e00e552d115_key -iv $encrypted_9e00e552d115_iv
-    -in travis_rsa.enc -out travis_rsa -d
-  - chmod 600 travis_rsa
-  - mv travis_rsa ~/.ssh/id_rsa
-  - composer self-update
-  - sudo apt-get -qq update
-  - sudo apt-get install -y ffmpeg
-  - sudo apt-get install yarn
-
+  - SYMFONY_VERSION="4.1.*" DB=mysql
+before_install:
+- openssl aes-256-cbc -K $encrypted_9e00e552d115_key -iv $encrypted_9e00e552d115_iv
+  -in travis_rsa.enc -out travis_rsa -d
+- chmod 600 travis_rsa
+- mv travis_rsa ~/.ssh/id_rsa
+- composer self-update
+- sudo apt-get -qq update
+- sudo apt-get install -y ffmpeg
+- sudo apt-get install yarn
 install:
-  - composer install
-  - yarn install
-  - cp .env.dist .env
-  - mkdir -p var/bin
-  - cp node_modules/ffmpeg-binaries/bin/ffmpeg var/bin/
-  - cp node_modules/ffmpeg-binaries/bin/ffprobe var/bin/
-  - php bin/console doctrine:database:create --env=test
-  - php bin/console doctrine:schema:create --env=test
-  - mkdir -p config/jwt/test
-  - openssl genrsa -out config/jwt/test/private.pem
-  - openssl rsa -pubout -in config/jwt/test/private.pem -out config/jwt/test/public.pem
-  - export SYMFONY_DEPRECATIONS_HELPER=weak
+- composer install
+- yarn install
+- cp .env.dist .env
+- mkdir -p var/bin
+- cp node_modules/ffmpeg-binaries/bin/ffmpeg var/bin/
+- cp node_modules/ffmpeg-binaries/bin/ffprobe var/bin/
+- php bin/console doctrine:database:create --env=test
+- php bin/console doctrine:schema:create --env=test
+- mkdir -p config/jwt/test
+- openssl genrsa -out config/jwt/test/private.pem
+- openssl rsa -pubout -in config/jwt/test/private.pem -out config/jwt/test/public.pem
+- export SYMFONY_DEPRECATIONS_HELPER=weak
 script:
-  - phpunit --configuration phpunit.xml.dist
-  - "./bin/console lint:yaml config"
-  - "./bin/console lint:twig templates"
-  - "./bin/console lint:xliff translations"
-  - composer validate --strict
-  - "./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction"
+- phpunit --configuration phpunit.xml.dist
+- "./bin/console lint:yaml config"
+- "./bin/console lint:twig templates"
+- "./bin/console lint:xliff translations"
+- composer validate --strict
+- "./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction"
 after_success:
-#  - export APP_ENV=prod && composer install --no-dev -o
-  - mkdir release
-  - mv * release
-  - tar -czf package.tgz build
-  - scp package.tgz travis@zwartschaap.net:/home/travis
+- mkdir release
+- mv * release
+- tar -czf package.tgz build
+- scp package.tgz travis@zwartschaap.net:/home/travis
 deploy:
   skip_cleanup: true
   provider: script
@@ -65,5 +57,4 @@ deploy:
     all_branches: true
 notifications:
   email: slurpie@gmail.com
-
 
