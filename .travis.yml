@@ -46,8 +46,6 @@ install:
   - export SYMFONY_DEPRECATIONS_HELPER=weak
 script:
   - phpunit --configuration phpunit.xml.dist
-  - '[[ "$TRAVIS_PHP_VERSION" == "nightly" ]] || ./vendor/bin/php-cs-fixer fix --diff
-    --dry-run -v'
   - "./bin/console lint:yaml config"
   - "./bin/console lint:twig templates"
   - "./bin/console lint:xliff translations"
