@@ -52,9 +52,7 @@ script:
   - composer validate --strict
   - "./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction"
 after_success:
-  - export SYMFONY_ENV=prod && composer install --no-dev -o
-  - mkdir build
-  - mv * build
+  - export APP_ENV=prod && composer install --no-dev -o
   - tar -czf package.tgz build
   - scp package.tgz travis@$DEPLOY_HOST:$DEPLOY_PATH
 deploy:
