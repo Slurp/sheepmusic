@@ -1,4 +1,6 @@
 {
+    "name": "blacksheep/sheepmusic",
+    "description" : " a DIY Musicserver: Stream like a boss not like a sheep.",
     "type": "project",
     "license": "MIT",
     "require": {
