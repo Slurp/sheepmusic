@@ -51,7 +51,7 @@ after_success:
 - mkdir release
 - mv * release
 - tar -czf package.tgz build
-- scp package.tgz travis@zwartschaap.net:/home/travis
+- scp -o StrictHostKeyChecking=no package.tgz travis@$DEPLOY_HOST:$DEPLOY_PATH
 deploy:
   skip_cleanup: true
   provider: script
