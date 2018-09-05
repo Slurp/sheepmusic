@@ -22,9 +22,11 @@ before_install:
 - mv travis_rsa ~/.ssh/id_rsa
 - composer self-update
 - sudo add-apt-repository -y ppa:mc3man/trusty-media
+- curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+- curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+- echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 - sudo apt-get -qq update
-- sudo apt-get install -y ffmpeg
-- sudo apt-get install yarn
+- sudo apt-get install -y ffmpeg nodejs yarn
 install:
 - composer install
 - yarn install
