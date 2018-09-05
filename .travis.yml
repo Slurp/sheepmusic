@@ -21,6 +21,7 @@ before_install:
 - chmod 600 travis_rsa
 - mv travis_rsa ~/.ssh/id_rsa
 - composer self-update
+- sudo add-apt-repository -y ppa:mc3man/trusty-media
 - sudo apt-get -qq update
 - sudo apt-get install -y ffmpeg
 - sudo apt-get install yarn
