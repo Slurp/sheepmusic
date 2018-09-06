@@ -1,0 +1,2 @@
+black_sheep_music_scanner:
+     import_path: "%env(string:import_path)%"

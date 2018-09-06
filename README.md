@@ -4,7 +4,7 @@
 [![Code Coverage](https://scrutinizer-ci.com/g/Slurp/sheepmusic/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/Slurp/sheepmusic/?branch=develop)
 [![Build Status](https://scrutinizer-ci.com/g/Slurp/sheepmusic/badges/build.png?b=develop)](https://scrutinizer-ci.com/g/Slurp/sheepmusic/build-status/develop)
 
-A music library written in Php. 
+A music library written in Symfony4. 
 Mainly to collect al lot of meta data for your music in one place.
 Also to try out Vue.js look in my other repo the find the web application.
 
@@ -29,7 +29,7 @@ Furthermore:
  - Bootstrap for a nice css framework.
  - Symfony for a nice php framework
  - Materialize and Bootstrap material design for the css tricks
- - Plyr.io for the audio player.
+ - Howler for the audio player.
  - FanartTV for their artwork.
  - LastFm for all their info.
  - ElasticSearch for their efforts with search.
@@ -38,13 +38,11 @@ Furthermore:
 
 # The Black Sheep Todo list
 - Settings
-    - Path
     - Frontend settings
     - Import settings
 - Different filesystems
 - Implement something https://github.com/katspaugh/wavesurfer.js
 - Importer written in C++
-- Musicbrainz meta data.
 
 
 #Installation
@@ -63,6 +61,5 @@ openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
 bin/console fos:user:create admin admin@gmail.com test
 -
 ```
-after that you could try bin/console music:import --env=dev -vvv but at the moment it is not yet in a nice config.
-Shame on me... ;(
+after that you could try bin/console music:import --env=dev -vvv
 

@@ -1,0 +1,83 @@
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            index_name: app_%kernel.environment%
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                          custom_analyzer :
+                            type     :    custom
+                            tokenizer:    nGram
+                            filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter, ngram, my_metaphone]
+                          custom_search_analyzer :
+                            type     :    custom
+                            tokenizer:    standard
+                            filter   :    [stopwords, asciifolding ,lowercase, snowball, elision, worddelimiter]
+                        tokenizer:
+                          nGram:
+                            type:     nGram
+                            min_gram: 2
+                            max_gram: 3
+                        filter:
+                          snowball:
+                            type:     snowball
+                            language: English
+        #                  elision:
+        #                    type:     elision
+        #                    articles: [l, m, t, qu, n, s, j, d]
+                          stopwords:
+                            type:      stop
+                            stopwords: [_english_]
+                            ignore_case : true
+                          worddelimiter :
+                            type:      word_delimiter
+                          my_metaphone :
+                            type: phonetic
+                            encoder: metaphone
+                            replace: false
+            types:
+                artist:
+                    properties:
+                        name:
+                            type: text
+                            boost: 6
+                            analyzer : custom_analyzer
+                            search_analyzer: custom_analyzer
+                    persistence:
+                        driver: orm
+                        model: BlackSheep\MusicLibrary\Entity\ArtistsEntity
+                        finder: ~
+                        provider: ~
+                        listener:
+                            defer: true
+                album:
+                    properties:
+                        name:
+                            type: text
+                            boost: 6
+                            analyzer : custom_analyzer
+                            search_analyzer: custom_analyzer
+                    persistence:
+                        driver: orm
+                        model: BlackSheep\MusicLibrary\Entity\AlbumEntity
+                        finder: ~
+                        provider: ~
+                        listener:
+                            defer: true
+                song:
+                    properties:
+                        title:
+                            type: text
+                            boost: 10
+                            analyzer : custom_analyzer
+                            search_analyzer: custom_analyzer
+                    persistence:
+                        driver: orm
+                        model: BlackSheep\MusicLibrary\Entity\SongEntity
+                        finder: ~
+                        provider: ~
+                        listener:
+                            defer: true

@@ -1,0 +1,5 @@
+black_sheep_music_library:
+    ffmpeg_path: "%env(string:ffmpeg_path)%"
+    ffprobe_path: "%env(string:ffprobe_path)%"
+    last_fm_api_key: "%env(string:last_fm_key)%"
+    last_fm_api_secret: "%env(string:last_fm_secret)%"

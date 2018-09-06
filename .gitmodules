@@ -1,3 +1,0 @@
-[submodule "app/Resources/Public/vendor/material-design-lite"]
-	path = app/Resources/Public/vendor/material-design-lite
-	url = https://github.com/google/material-design-lite.git

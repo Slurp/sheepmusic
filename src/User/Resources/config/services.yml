@@ -1,0 +1,17 @@
+services:
+    BlackSheep\User\Controller\Api\ApiProfileController:
+        autowire: false
+        autoconfigure: false
+        arguments: ['@event_dispatcher', '@fos_user.user_manager', '@translator']
+
+    BlackSheep\User\Controller\ProfileController:
+        arguments: ['@service_container']
+        public: true
+
+    blacksheep_user.event.jwt_expired_listener:
+        autowire: false
+        class: BlackSheep\User\EventListener\JWTExpiredListener
+        tags:
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_expired, method: onJWTExpired }
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_invalid, method: onJWTInvalid }
+            - { name: kernel.event_listener, event: lexik_jwt_authentication.on_jwt_not_found, method: onJWTNotFound }

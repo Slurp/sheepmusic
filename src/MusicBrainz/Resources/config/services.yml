@@ -1,0 +1,17 @@
+services:
+    black_sheep_musicbrainz.album_event_subscriber:
+        class: BlackSheep\MusicBrainz\EventListener\AlbumEventSubscriber
+        arguments:
+            - '@black_sheep_musicbrainz.album_updater'
+        tags:
+            - { name: kernel.event_subscriber }
+    black_sheep_musicbrainz.album_updater:
+            class: BlackSheep\MusicBrainz\Updater\AlbumUpdater
+            arguments:
+                - '@black_sheep_music_library.repository.albums_repository'
+                - '@black_sheep_musicbrainz.client.release_client'
+                - '@black_sheep_musicbrainz.client.cover_artclient'
+    black_sheep_musicbrainz.client.release_client:
+            class: BlackSheep\MusicBrainz\Client\ReleaseClient
+    black_sheep_musicbrainz.client.cover_artclient:
+        class: BlackSheep\MusicBrainz\Client\CoverartClient

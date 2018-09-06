@@ -1,0 +1,23 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+api_login_check:
+    path: /api/login_check
+black_sheep_music_scanner_library:
+    resource: "@BlackSheepMusicScanner/Controller"
+    type:     annotation
+black_sheep_music_library:
+    resource: '@BlackSheepMusicLibrary/Resources/config/routing.yml'
+black_sheep_user:
+    resource: "@BlackSheepUser/Resources/config/routing.yml"
+black_sheep_last_fm:
+    resource: "@BlackSheepLastFm/Resources/config/routing.yml"
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+gesdinet_jwt_refresh_token:
+    path:     /api/token/refresh
+    defaults: { _controller: gesdinet.jwtrefreshtoken:refresh }
+
+
+
+

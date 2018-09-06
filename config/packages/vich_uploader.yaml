@@ -1,0 +1,11 @@
+vich_uploader:
+    db_driver: orm
+    mappings:
+        artist_image:
+            uri_prefix: '/uploads/artist'
+            upload_destination: '%kernel.root_dir%/../public/uploads/artist'
+            directory_namer: black_sheep_music_library.naming.slug_directory_namer
+        album_image:
+            uri_prefix: '/uploads/album'
+            upload_destination: '%kernel.root_dir%/../public/uploads/album'
+            directory_namer: black_sheep_music_library.naming.slug_directory_namer
