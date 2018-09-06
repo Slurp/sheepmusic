@@ -7,6 +7,8 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     mv * release
     tar -czf package.tgz build
     scp -o StrictHostKeyChecking=no package.tgz travis@$DEPLOY_HOST:$DEPLOY_PATH
+    tar -xzf package.tgz
+    rm package.tgz
 
     set -e
     # declare associative array with persistent source and desintation paths
@@ -14,7 +16,7 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     PERSISTENT_PATH_MAPPING["uploads"]="public/uploads"
 
     # figure out relevant paths
-    BUILD_PATH="$( cd "$( dirname $DEPLOY_PATH )" && pwd )"
+    BUILD_PATH="${DEPLOY_PATH}/package"
     ROOT_PATH="`dirname $BUILD_PATH`"
     PERSISTENT_PATH="${ROOT_PATH}/persistent"
     BUILDS_PATH="${ROOT_PATH}/builds"
