@@ -49,7 +49,7 @@ class ArtistUpdater
                 if ($similarArtists) {
                     $artist->setSimilarArtists(
                         array_map(
-                            function ($similarArtist) use ($artist) {
+                            function($similarArtist) use ($artist) {
                                 $similar = $this->artistsRepository->getArtistByMusicBrainzId(
                                     $similarArtist['mbid']
                                 );

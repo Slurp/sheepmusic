@@ -36,7 +36,7 @@ class AbstractMediaFactory
      * @param UploadHandler $uploadHandler
      * @param $projectDir
      */
-    public function __construct(UploadHandler $uploadHandler,string $projectDir)
+    public function __construct(UploadHandler $uploadHandler, string $projectDir)
     {
         $this->uploadHandler = $uploadHandler;
         $this->kernelRootDir = $projectDir;
