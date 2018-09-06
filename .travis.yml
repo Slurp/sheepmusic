@@ -55,7 +55,7 @@ after_success:
 deploy:
   skip_cleanup: true
   provider: script
-  script: shell/deploy.sh
+  script: bash shell/deploy.sh
   on:
     all_branches: true
 notifications:
