@@ -107,7 +107,7 @@ class ApiArtistData extends ApiAlbumData implements ApiDataInterface
         if (count($artist->getSimilarArtists()) > 0) {
             return array_slice(
                 array_map(
-                    function (SimilarArtistsInterface $artist) {
+                    function(SimilarArtistsInterface $artist) {
                         return $artist->getSimilar()->getId();
                     },
                     $artist->getSimilarArtists()->toArray()

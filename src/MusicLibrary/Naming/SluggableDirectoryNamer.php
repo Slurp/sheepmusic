@@ -32,6 +32,6 @@ class SluggableDirectoryNamer implements DirectoryNamerInterface
         if ($object instanceof AbstractMediaInterface) {
             return $object->getSlug();
         }
-        throw new InvalidArgumentException('$object: '. get_class($object) . ' is not a AbstractMedia implementation');
+        throw new InvalidArgumentException('$object: ' . get_class($object) . ' is not a AbstractMedia implementation');
     }
 }

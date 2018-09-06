@@ -69,7 +69,7 @@ trait ArtworkCollectionTrait
     {
         return array_filter(
             $this->artworks,
-            function (ArtworkInterface $artwork) use ($type) {
+            function(ArtworkInterface $artwork) use ($type) {
                 return $artwork->getType() === $type;
             }
         );

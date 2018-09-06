@@ -31,7 +31,7 @@ class BlackSheepMusicLibraryExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
         $this->loadServices($container);
-        $this->loadParameters($container,$config);
+        $this->loadParameters($container, $config);
         $this->loadAnnotations();
 
     }
