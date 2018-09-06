@@ -50,7 +50,7 @@ script:
 deploy:
   skip_cleanup: true
   provider: script
-  script: bash release/shell/deploy.sh
+  script: bash shell/deploy.sh
   on:
     all_branches: true
 notifications:
