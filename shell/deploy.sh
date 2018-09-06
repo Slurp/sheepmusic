@@ -1,15 +1,20 @@
 #!/bin/bash
 if [ $TRAVIS_BRANCH == 'master' ] ; then
     # make sure the script fails on error
-    set -e
-    echo -e "# Publish build #\n"
 
+    echo -e "# Publish build #\n"
+    mkdir release
+    mv * release
+    tar -czf package.tgz build
+    scp -o StrictHostKeyChecking=no package.tgz travis@$DEPLOY_HOST:$DEPLOY_PATH
+
+    set -e
     # declare associative array with persistent source and desintation paths
     declare -A PERSISTENT_PATH_MAPPING
     PERSISTENT_PATH_MAPPING["uploads"]="public/uploads"
 
     # figure out relevant paths
-    BUILD_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    BUILD_PATH="$( cd "$( dirname $DEPLOY_PATH )" && pwd )"
     ROOT_PATH="`dirname $BUILD_PATH`"
     PERSISTENT_PATH="${ROOT_PATH}/persistent"
     BUILDS_PATH="${ROOT_PATH}/builds"

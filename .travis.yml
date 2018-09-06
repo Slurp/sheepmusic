@@ -47,11 +47,6 @@ script:
 - "./bin/console lint:xliff translations"
 - composer validate --strict
 - "./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction"
-after_success:
-- mkdir release
-- mv * release
-- tar -czf package.tgz build
-- scp -o StrictHostKeyChecking=no package.tgz travis@$DEPLOY_HOST:$DEPLOY_PATH
 deploy:
   skip_cleanup: true
   provider: script
