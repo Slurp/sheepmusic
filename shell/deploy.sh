@@ -36,9 +36,6 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     # Symfony2: install node modules with yarn
     yarn install --cwd ${WORK_PATH} --non-interactive
 
-    # Symfony2: install ruby gems with bundler
-    bundle install --gemfile=${WORK_PATH}/Gemfile
-
     # Symfony2: install the latest version of composer from the web
     curl -sS https://getcomposer.org/installer | php -- --install-dir=${WORK_PATH}
 
@@ -46,12 +43,11 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     SYMFONY_ENV=prod php ${WORK_PATH}/composer.phar install --no-interaction --no-ansi --no-dev --optimize-autoloader --working-dir $WORK_PATH
 
     # fix file permissions
-    setfacl -Rn -m u:www-data:rwX -m u:deployment:rwX ${WORK_PATH}/var/cache ${WORK_PATH}/var/logs
-    setfacl -dRn -m u:www-data:rwX -m u:deployment:rwX ${WORK_PATH}/var/cache ${WORK_PATH}/var/logs
+    setfacl -Rn -m u:www-data:rwX -m u:travis:rwX ${WORK_PATH}/var/cache ${WORK_PATH}/var/logs
+    setfacl -dRn -m u:www-data:rwX -m u:travis:rwX ${WORK_PATH}/var/cache ${WORK_PATH}/var/logs
 
     # Symfony2: update database schema by performing migrations (THIS MAY BE DANGEROUS)
     php ${WORK_PATH}/bin/console doctrine:migrations:migrate --no-interaction --env=prod
-
 
     # Symfony2: clean and warm-up cache
     php ${WORK_PATH}/bin/console cache:clear --no-interaction --env=prod --no-debug
