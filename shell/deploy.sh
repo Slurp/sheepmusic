@@ -71,7 +71,7 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     ln -sfn $HTTP_PATH ${ROOT_PATH}/http
     # remove old versions, keep the last 3 builds
     find ${BUILDS_PATH} -mindepth 1 -maxdepth 1 -type d | sort -rn | tail -n+4 | xargs -I % rm -rf "%"
-    EOF
+EOF
     exit 0
 else
   echo -e "Not deploying, since this branch isn't master."
