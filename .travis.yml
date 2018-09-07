@@ -48,7 +48,11 @@ script:
 - composer validate --strict
 - "./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction"
 after_success:
-- scp -o StrictHostKeyChecking=no -rp * travis@$DEPLOY_HOST:$DEPLOY_PATH/build/
+- mkdir build
+- mv * build
+- tar -czf build.tgz build
+#- scp -o StrictHostKeyChecking=no build.tgz travis@$DEPLOY_HOST:$DEPLOY_PATH
+- pv build.tgz| ssh -o StrictHostKeyChecking=no travis@$DEPLOY_HOST 'cat | tar xz -C $DEPLOY_PATH'
 deploy:
   skip_cleanup: true
   provider: script
