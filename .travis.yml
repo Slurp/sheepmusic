@@ -47,17 +47,10 @@ script:
 - "./bin/console lint:xliff translations"
 - composer validate --strict
 - "./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction"
-after_success:
-- mkdir build
-- mv * build
-- tar -czf build.tgz build
-#- scp -o StrictHostKeyChecking=no build.tgz travis@$DEPLOY_HOST:$DEPLOY_PATH
-- pv build.tgz| ssh -o StrictHostKeyChecking=no travis@$DEPLOY_HOST 'cat | tar xz -C $DEPLOY_PATH'
-- ssh -o StrictHostKeyChecking=no travis@$DEPLOY_HOST 'chmod +x $DEPLOY_PATH/build/shell/deploy.sh'
 deploy:
   skip_cleanup: true
   provider: script
-  script: ssh travis@$DEPLOY_HOST 'sh $DEPLOY_PATH/build/shell/deploy.sh $TRAVIS_BUILD_NUMBER'
+  script: bash .travis/deploy.sh
   on:
     branch: master
 notifications:
