@@ -47,12 +47,14 @@ script:
 - "./bin/console lint:xliff translations"
 - composer validate --strict
 - "./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction"
+after_success:
+- scp -o StrictHostKeyChecking=no * travis@$DEPLOY_HOST:$DEPLOY_PATH/build/
 deploy:
   skip_cleanup: true
   provider: script
-  script: bash shell/deploy.sh
+  script: ssh travis@$DEPLOY_HOST:$DEPLOY_PATH/build/shell/deploy.sh $TRAVIS_BUILD_NUMBER
   on:
-    all_branches: true
+    branch: master
 notifications:
   email: slurpie@gmail.com
 
