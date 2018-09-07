@@ -16,7 +16,7 @@ env:
   matrix:
   - SYMFONY_VERSION="4.1.*" DB=mysql
 addons:
-  ssh_known_hosts: $DEPLOY_HOST
+  ssh_known_hosts: zwartschaap.net
 before_install:
 - openssl aes-256-cbc -K $encrypted_9e00e552d115_key -iv $encrypted_9e00e552d115_iv
   -in travis_rsa.enc -out travis_rsa -d
