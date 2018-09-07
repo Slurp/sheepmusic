@@ -53,6 +53,7 @@ after_success:
 - tar -czf build.tgz build
 #- scp -o StrictHostKeyChecking=no build.tgz travis@$DEPLOY_HOST:$DEPLOY_PATH
 - pv build.tgz| ssh -o StrictHostKeyChecking=no travis@$DEPLOY_HOST 'cat | tar xz -C $DEPLOY_PATH'
+- ssh -o StrictHostKeyChecking=no travis@$DEPLOY_HOST 'chmod +x $DEPLOY_PATH/build/shell/deploy.sh'
 deploy:
   skip_cleanup: true
   provider: script
