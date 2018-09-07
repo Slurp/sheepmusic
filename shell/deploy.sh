@@ -7,14 +7,14 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     mv * release
     tar -czf package.tgz build
     scp -o StrictHostKeyChecking=no package.tgz travis@$DEPLOY_HOST:$DEPLOY_PATH
-    tar -xzf package.tgz
-    rm package.tgz
     ssh travis@$DEPLOY_HOST: << EOF
     set -e
     # declare associative array with persistent source and desintation paths
     declare -A PERSISTENT_PATH_MAPPING
     PERSISTENT_PATH_MAPPING["uploads"]="public/uploads"
 
+    tar -xzf "${DEPLOY_PATH}/package.tgz"
+    rm "${DEPLOY_PATH}/package.tgz"
     # figure out relevant paths
     BUILD_PATH="${DEPLOY_PATH}/package"
     ROOT_PATH="`dirname $DEPLOY_PATH`"
@@ -24,8 +24,6 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
     WORK_PATH="${DEST_PATH}"
     HTTP_PATH="${WORK_PATH}/web"
 
-    # move new build into place
-    mkdir -p $BUILDS_PATH
 
     # Symfony2: create as symlink for the app/ folder for populating the search index via cron
     rm -rf $BUILDS_PATH/current
