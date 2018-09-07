@@ -48,7 +48,7 @@ script:
 - composer validate --strict
 - "./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction"
 after_success:
-- scp -o StrictHostKeyChecking=no * travis@$DEPLOY_HOST:$DEPLOY_PATH/build/
+- scp -orp StrictHostKeyChecking=no * travis@$DEPLOY_HOST:$DEPLOY_PATH/build/
 deploy:
   skip_cleanup: true
   provider: script
