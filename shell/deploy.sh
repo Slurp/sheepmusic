@@ -17,7 +17,7 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
 
     # figure out relevant paths
     BUILD_PATH="${DEPLOY_PATH}/package"
-    ROOT_PATH="`dirname $BUILD_PATH`"
+    ROOT_PATH="`dirname $DEPLOY_PATH`"
     PERSISTENT_PATH="${ROOT_PATH}/persistent"
     BUILDS_PATH="${ROOT_PATH}/builds"
     DEST_PATH="${BUILDS_PATH}/build-${TRAVIS_BUILD_NUMBER}"
@@ -66,7 +66,7 @@ if [ $TRAVIS_BRANCH == 'master' ] ; then
         fi
     done
     # remove deploy script itself
-    rm ${DEST_PATH}/"`basename "${BASH_SOURCE[0]}"`"
+    rm -rf $BUILD_PATH
     # symlink HTTP document root
     ln -sfn $HTTP_PATH ${ROOT_PATH}/http
     # remove old versions, keep the last 3 builds
