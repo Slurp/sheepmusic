@@ -15,6 +15,8 @@ env:
   - secure: tVBc5+SburGUveNAH+nQi/jNRn4J2qpjnDpNDkq1cNjUB85ojY0Tno45Tnss+NqxMKR8GIa+dJQ64Q4GNfWUUae26eAxrCNZOh14PQYhtDhwOu+Xa9oriqc+2JKKzpUdNRKgyzXiZaKTPmx2N1UX1Q4t7zcZuU8uhpgONHEZbW1bif7GiYX/onxtrUZ9FPtodDuxfY+LHtf7iWmBtPjqMELUVdqIontyP31aIWsXYmsvhbbBp+9tY0wF+8WSukLRUY37S9wlcpj2LlEFEpp6XEyLWuJOCUAj+EHMYm86bj3Aiq4bDb3RhkGjfGVYOfL73Asmm2uvoRyJWvSGMVKBqcCJm6/BXLg8vwRMre5QKEf5hH8hPR8EED+0gwy+wBD6YGzGeZONmd2QWZ94drq8Nxw9MdpISWZQrVFiivHuhjt0e6Zg7J0MItwSFBldX4UyR9qJjskV4kqP6qNACI4jKP6Kg17FimSQoXvG1BYivkJWBic+nVWovIuwW74Z9WOTE3hv3vobb+nO8gB2Dh0jYpyFYN92Xu7sfgKQF0MJfi0Erm/dnckPpfmXVlvAKRsFZV8KekqS3+zKbrUhyamMWlIZYKco2kYEr0LZbEHSXVv5RaRwIuWHJn0wXQ1I72jqclZ1tdmaSKE2aNhY3oiKVUxSHlEkOsIdYnsy/pB0L0M=
   matrix:
   - SYMFONY_VERSION="4.1.*" DB=mysql
+addons:
+  ssh_known_hosts: $DEPLOY_HOST
 before_install:
 - openssl aes-256-cbc -K $encrypted_9e00e552d115_key -iv $encrypted_9e00e552d115_iv
   -in travis_rsa.enc -out travis_rsa -d
