@@ -57,7 +57,7 @@ after_success:
 deploy:
   skip_cleanup: true
   provider: script
-  script: ssh travis@$DEPLOY_HOST '$DEPLOY_PATH/build/shell/deploy.sh $TRAVIS_BUILD_NUMBER'
+  script: ssh travis@$DEPLOY_HOST 'sh $DEPLOY_PATH/build/shell/deploy.sh $TRAVIS_BUILD_NUMBER'
   on:
     branch: master
 notifications:
