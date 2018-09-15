@@ -90,7 +90,7 @@ class SongImporter
         if ($songEntity === null && empty($songInfo['artist']) === false) {
             try {
                 return $this->writeSong($songInfo);
-            } catch (OptimisticLockException $e) {
+            } catch (\Exception $e) {
                 error_log($e->getMessage());
                 return null;
             }

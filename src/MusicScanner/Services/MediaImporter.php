@@ -123,11 +123,13 @@ class MediaImporter
     {
         $finder = Finder::create()
             ->files()
+            ->ignoreUnreadableDirs()
+            ->ignoreDotFiles(true)
             ->name('/\.(mp3|ogg|m4a|flac)$/i')
-            ->in($path)
-            ->sortByModifiedTime();
+            ->in($path);
         if ($lastImportDate !== null) {
             $finder->date('>=' . $lastImportDate->format('Y-m-d'));
+            $finder->sortByModifiedTime();
         }
         $this->output->writeln('created finder');
 
