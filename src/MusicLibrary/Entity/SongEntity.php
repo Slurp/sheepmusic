@@ -161,6 +161,7 @@ class SongEntity extends Song implements SongInterface
         $song->setMTime($songInfo['mTime']);
         $song->setPath($songInfo['path']);
         $song->setYear($songInfo['year']);
+        $song->setCreatedAt(new \DateTime($songInfo['mTime']));
         if (isset($songInfo['audio'])) {
             $song->setAudio(new SongAudioInfoEntity($songInfo['audio']));
         }

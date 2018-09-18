@@ -14,6 +14,7 @@ namespace BlackSheep\MusicScanner\Services;
 use BlackSheep\MusicLibrary\Entity\SongEntity;
 use BlackSheep\MusicLibrary\Repository\SongsRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\ORMException;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
@@ -102,8 +103,14 @@ class MediaImporter
             $this->setupProgressBar($importingFiles->count());
             /** @var SplFileInfo $file */
             foreach ($importingFiles as $file) {
+              try {
                 $this->songImporter->importSong($file);
-                $this->debugStep('imported', $file->getFilename());
+              } catch (\Exception $exception) {
+                $this->output->writeln([$exception->getMessage(), $exception->getLine(),$exception->getFile()]);
+                $this->output->write($exception->getTraceAsString());
+                die();
+              }
+              $this->debugStep('imported', $file->getFilename());
                 unset($file);
             }
             $this->managerRegistry->getManager()->flush();

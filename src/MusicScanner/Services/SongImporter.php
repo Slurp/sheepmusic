@@ -88,12 +88,7 @@ class SongImporter
         $songInfo = $this->tagHelper->getInfo($file);
         $songEntity = $this->songRepository->needsImporting($songInfo);
         if ($songEntity === null && empty($songInfo['artist']) === false) {
-            try {
-                return $this->writeSong($songInfo);
-            } catch (\Exception $e) {
-                error_log($e->getMessage());
-                return null;
-            }
+           return $this->writeSong($songInfo);
         }
         return null;
     }
@@ -119,7 +114,7 @@ class SongImporter
             $genre = $this->genreRepository->addOrUpdateByName($songInfo['genre']);
             $song->setGenre($genre);
         }
-        $this->entitymanager->persist($song);
+        $this->songRepository->save($song);
 
         return $song;
     }
