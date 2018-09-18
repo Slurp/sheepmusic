@@ -16,6 +16,7 @@ use BlackSheep\MusicLibrary\Model\ArtistInterface;
 use BlackSheep\MusicLibrary\Model\PlaylistInterface;
 use BlackSheep\MusicLibrary\Model\Song;
 use BlackSheep\MusicLibrary\Model\SongInterface;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -161,7 +162,7 @@ class SongEntity extends Song implements SongInterface
         $song->setMTime($songInfo['mTime']);
         $song->setPath($songInfo['path']);
         $song->setYear($songInfo['year']);
-        $song->setCreatedAt(new \DateTime($songInfo['mTime']));
+        $song->setCreatedAt(DateTime::createFromFormat('U', $songInfo['mTime']));
         if (isset($songInfo['audio'])) {
             $song->setAudio(new SongAudioInfoEntity($songInfo['audio']));
         }
