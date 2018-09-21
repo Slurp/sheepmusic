@@ -23,7 +23,7 @@ class PlayerSettings
     /**
      * @var bool
      *
-     * @ORM\Column(name="has_flac_support", type="boolean", options={"default" = 0})
+     * @ORM\Column(name="has_flac_support", type="boolean", nullable=true)
      */
     protected $hasFlacSupport;
 
@@ -49,7 +49,7 @@ class PlayerSettings
     public function getApiData()
     {
         return [
-      'flac' => $this->hasFlacSupport(),
-    ];
+          'flac' => $this->hasFlacSupport(),
+        ];
     }
 }
