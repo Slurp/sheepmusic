@@ -44,6 +44,6 @@ class InspectorTest extends TestCase
             $ffprobe = null;
         }
         self::assertSame('554.891791', Inspector::getLength($this->flacPath, $ffprobe));
-        self::assertSame('0.0', Inspector::getLength('', $ffprobe));
+        self::assertSame(0.0, Inspector::getLength('', $ffprobe));
     }
 }
