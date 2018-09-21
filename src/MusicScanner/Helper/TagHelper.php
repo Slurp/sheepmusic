@@ -155,10 +155,10 @@ class TagHelper
         }
         if (isset($tags[$tagName]) && empty($tags[$tagName]) === false) {
             if (\is_string($tags[$tagName])) {
-                $props[$propertyName] = trim($tags[$tagName]);
+                $props[$propertyName] = utf8_encode(trim($tags[$tagName]));
             }
             if (\is_array($tags[$tagName])) {
-                $props[$propertyName] = trim($tags[$tagName][0]);
+                $props[$propertyName] = utf8_encode(trim($tags[$tagName][0]));
             }
         }
     }
@@ -172,7 +172,7 @@ class TagHelper
         if (isset($info['audio'])) {
             foreach (SongAudioInfo::getAllowedKeys() as $key) {
                 if (isset($info['audio'][$key])) {
-                    $props['audio'][$key] = $info['audio'][$key];
+                    $props['audio'][$key] = utf8_encode($info['audio'][$key]);
                 }
             }
         }
