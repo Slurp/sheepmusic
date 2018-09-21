@@ -67,11 +67,14 @@ trait ArtworkCollectionTrait
      */
     protected function filterArtwork($type)
     {
-        return array_filter(
-            $this->artworks,
-            function (ArtworkInterface $artwork) use ($type) {
-                return $artwork->getType() === $type;
-            }
-        );
+        if($this->artworks !== null) {
+            return array_filter(
+                $this->artworks,
+                function (ArtworkInterface $artwork) use ($type) {
+                    return $artwork->getType() === $type;
+                }
+            );
+        }
+        return [];
     }
 }
