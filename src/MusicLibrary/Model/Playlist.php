@@ -118,7 +118,7 @@ class Playlist implements PlaylistInterface, ApiInterface
      */
     public function addSong(PlaylistsSongsInterface $song)
     {
-        if (in_array($song, $this->songs, true) === false) {
+        if (\in_array($song, $this->songs, true) === false) {
             $this->songs[] = $song;
         }
 

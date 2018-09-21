@@ -41,7 +41,7 @@ class GenreApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getGenreListAction()
+    public function getGenreList()
     {
         return $this->getList();
     }
@@ -53,7 +53,7 @@ class GenreApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getGenreAction(GenreEntity $genre)
+    public function getGenre(GenreEntity $genre)
     {
         return $this->getDetail($genre);
     }

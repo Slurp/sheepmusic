@@ -33,7 +33,7 @@ class SongController extends Controller
      *
      * @return Response
      */
-    public function playAction(SongEntity $song, Request $request)
+    public function play(SongEntity $song, Request $request)
     {
         try {
             return $this->get('black_sheep_music_library.services.streamer_service')->getStreamerForSong(

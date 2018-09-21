@@ -32,7 +32,7 @@ class AlbumEventSubscriber implements AlbumEventListener
 
     /**
      * @param AlbumsRepository $albumsRepository
-     * @param LastFmAlbumInfo           $client
+     * @param LastFmAlbumInfo  $client
      */
     public function __construct(
         AlbumsRepository $albumsRepository,

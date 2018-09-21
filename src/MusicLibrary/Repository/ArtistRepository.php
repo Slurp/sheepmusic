@@ -13,7 +13,6 @@ namespace BlackSheep\MusicLibrary\Repository;
 
 use BlackSheep\MusicLibrary\Entity\ArtistsEntity;
 use BlackSheep\MusicLibrary\Entity\GenreEntity;
-use BlackSheep\MusicLibrary\Model\ArtistInterface;
 use Doctrine\ORM\Query;
 
 /**

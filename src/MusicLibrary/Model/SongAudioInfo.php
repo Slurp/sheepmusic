@@ -84,9 +84,9 @@ class SongAudioInfo implements SongAudioInfoInterface
      */
     public function __construct($info)
     {
-        if (is_array($info)) {
+        if (\is_array($info)) {
             foreach ($info as $key => $value) {
-                if (in_array($key, static::getAllowedKeys(), true)) {
+                if (\in_array($key, static::getAllowedKeys(), true)) {
                     $this->$key = $value;
                 }
             }

@@ -22,7 +22,7 @@ interface AlbumCoverInterface extends FilesystemCoverInterface
      * Generate a cover from provided data.
      *
      * @param AlbumInterface $album
-     * @param array $cover The cover data in array format, extracted by getID3.
+     * @param array          $cover the cover data in array format, extracted by getID3.
      *                              For example:
      *                              [
      *                              'data' => '<binary data>',
@@ -41,7 +41,7 @@ interface AlbumCoverInterface extends FilesystemCoverInterface
      * Generate a cover from provided data.
      *
      * @param AlbumInterface $album
-     * @param string $url
+     * @param string         $url
      */
     public function downloadCover(AlbumInterface $album, string $url);
 }

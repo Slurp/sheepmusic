@@ -39,7 +39,7 @@ class ArtistImporter
 
     /**
      * @param ManagerRegistry $managerRegistry
-     * @param LastFmArtist $lastFmArtist
+     * @param LastFmArtist    $lastFmArtist
      */
     public function __construct(ManagerRegistry $managerRegistry, LastFmArtist $lastFmArtist)
     {

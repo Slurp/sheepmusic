@@ -24,8 +24,9 @@ class CoverartClient extends JsonClient
     /**
      * @param $mbId
      *
-     * @return ResponseInterface
      * @throws \GuzzleHttp\Exception\GuzzleException
+     *
+     * @return ResponseInterface
      */
     public function getCover($mbId): ResponseInterface
     {

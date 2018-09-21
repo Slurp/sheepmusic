@@ -33,7 +33,7 @@ class BlackSheepMusicScannerExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
         $parameters = [
-            'import_path'
+            'import_path',
         ];
         foreach ($parameters as $attribute) {
             $container->setParameter('black_sheep_music_library.' . $attribute, $config[$attribute]);

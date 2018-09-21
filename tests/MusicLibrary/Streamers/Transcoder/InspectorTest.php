@@ -43,7 +43,7 @@ class InspectorTest extends TestCase
         if (is_readable($ffprobe) === false || is_executable($ffprobe) === false) {
             $ffprobe = null;
         }
-        self::assertEquals('554.891791', Inspector::getLength($this->flacPath, $ffprobe));
-        self::assertEquals('0.0', Inspector::getLength('', $ffprobe));
+        self::assertSame('554.891791', Inspector::getLength($this->flacPath, $ffprobe));
+        self::assertSame('0.0', Inspector::getLength('', $ffprobe));
     }
 }

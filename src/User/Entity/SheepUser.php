@@ -45,6 +45,12 @@ class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, U
     protected $settings;
 
     /**
+     * @var PlayerSettings
+     * @ORM\Embedded(class="BlackSheep\User\Entity\PlayerSettings", columnPrefix=false)
+     */
+    protected $playerSettings;
+
+    /**
      * @return LastFmUser
      */
     public function getLastFm()
@@ -85,16 +91,33 @@ class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, U
     }
 
     /**
+     * @return PlayerSettings
+     */
+    public function getPlayerSettings(): PlayerSettings
+    {
+        return $this->playerSettings;
+    }
+
+    /**
+     * @param PlayerSettings $playerSettings
+     */
+    public function setPlayerSettings(PlayerSettings $playerSettings): void
+    {
+        $this->playerSettings = $playerSettings;
+    }
+
+    /**
      * @return array
      */
     public function getApiData()
     {
         return [
-            'user_name' => $this->getUsername(),
-            'email' => $this->getEmail(),
-            'last_fm' => $this->getLastFm()->getApiData(),
-            'settings' => $this->getSettings()->getApiData(),
-        ];
+      'user_name' => $this->getUsername(),
+      'email' => $this->getEmail(),
+      'last_fm' => $this->getLastFm()->getApiData(),
+      'settings' => $this->getSettings()->getApiData(),
+      'player' => $this->getPlayerSettings()->getApiData(),
+    ];
     }
 
     /**

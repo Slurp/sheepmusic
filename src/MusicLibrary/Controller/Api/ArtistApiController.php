@@ -45,7 +45,7 @@ class ArtistApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getAlbumListAction()
+    public function getAlbumList()
     {
         return $this->getList();
     }
@@ -57,7 +57,7 @@ class ArtistApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getArtistCollectionAction(Request $request)
+    public function getArtistCollection(Request $request)
     {
         return $this->getCollection($request->get('objects'));
     }
@@ -69,7 +69,7 @@ class ArtistApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getArtistAction(ArtistsEntity $artist)
+    public function getArtist(ArtistsEntity $artist)
     {
         return $this->getDetail($artist);
     }

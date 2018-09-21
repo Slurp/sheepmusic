@@ -70,7 +70,7 @@ class UserSettings implements UserSettingsInterface
     {
         return [
             'lastImport' => $this->getLastImport(),
-            'path' => $this->getPath()
+            'path' => $this->getPath(),
         ];
     }
 }

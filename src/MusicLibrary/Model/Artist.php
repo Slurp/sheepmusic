@@ -135,7 +135,7 @@ class Artist implements ArtistInterface
      */
     public function setMusicBrainzId($musicBrainzId)
     {
-        if (is_array($musicBrainzId)) {
+        if (\is_array($musicBrainzId)) {
             $musicBrainzId = $musicBrainzId[0];
         }
         $this->musicBrainzId = $musicBrainzId;
@@ -237,7 +237,7 @@ class Artist implements ArtistInterface
      */
     public function addSimilarArtist(SimilarArtistsInterface $similarArtist)
     {
-        if (in_array($similarArtist, $this->similarArtists, true) === false) {
+        if (\in_array($similarArtist, $this->similarArtists, true) === false) {
             $this->similarArtists[] = $similarArtist;
         }
 

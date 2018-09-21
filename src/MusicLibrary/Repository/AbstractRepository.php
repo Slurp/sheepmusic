@@ -21,7 +21,6 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 abstract class AbstractRepository extends ServiceEntityRepository implements AbstractRepositoryInterface
 {
-
     /**
      * @var array
      */
@@ -39,7 +38,6 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
      * @return string
      */
     abstract protected static function getEntityClass(): string;
-
 
     /**
      * {@inheritdoc}
@@ -63,7 +61,7 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function findById($ids)
     {

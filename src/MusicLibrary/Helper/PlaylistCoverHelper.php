@@ -19,7 +19,7 @@ use BlackSheep\MusicLibrary\Model\PlaylistInterface;
 class PlaylistCoverHelper extends AbstractUploadHelper
 {
     const COVER_DIRECTION_PRIORITY = 'columns';
-    const COVER_GRID_NUMBER        = 3;
+    const COVER_GRID_NUMBER = 3;
 
     /**
      * @var int
@@ -43,7 +43,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
 
     /**
      * @param PlaylistInterface $playlist
-     * @param bool $useCache
+     * @param bool              $useCache
      *
      * @return string
      */
@@ -76,17 +76,17 @@ class PlaylistCoverHelper extends AbstractUploadHelper
      */
     public function calculateColumnsAndRows($covers)
     {
-        $sqrRoot = sqrt(count($covers));
+        $sqrRoot = sqrt(\count($covers));
         $rows = $columns = round($sqrRoot, 0, PHP_ROUND_HALF_UP);
         if ($columns < $sqrRoot) {
             if (static::COVER_DIRECTION_PRIORITY === 'rows') {
-                $columns += 1;
+                ++$columns;
             } else {
-                $rows += 1;
+                ++$rows;
             }
         }
 
-        return ['columns' => intval($columns), 'rows' => intval($rows)];
+        return ['columns' => (int) $columns, 'rows' => (int) $rows];
     }
 
     /**
@@ -170,7 +170,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
     {
         // Merge Images
         $step = 0;
-        if (count($covers) > 0) {
+        if (\count($covers) > 0) {
             for ($x = 0; $x < $columns; ++$x) {
                 for ($y = 0; $y < $rows; ++$y) {
                     imagecopymerge(

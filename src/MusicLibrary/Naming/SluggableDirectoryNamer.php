@@ -11,10 +11,7 @@
 
 namespace BlackSheep\MusicLibrary\Naming;
 
-use BlackSheep\MusicLibrary\Model\ArtworkCollectionInterface;
 use BlackSheep\MusicLibrary\Model\Media\AbstractMediaInterface;
-use Gedmo\Sluggable\Sluggable;
-use function GuzzleHttp\debug_resource;
 use Psr\Log\InvalidArgumentException;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
 use Vich\UploaderBundle\Naming\DirectoryNamerInterface;
@@ -32,6 +29,6 @@ class SluggableDirectoryNamer implements DirectoryNamerInterface
         if ($object instanceof AbstractMediaInterface) {
             return $object->getSlug();
         }
-        throw new InvalidArgumentException('$object: ' . get_class($object) . ' is not a AbstractMedia implementation');
+        throw new InvalidArgumentException('$object: ' . \get_class($object) . ' is not a AbstractMedia implementation');
     }
 }

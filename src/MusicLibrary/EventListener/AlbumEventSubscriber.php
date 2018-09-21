@@ -43,10 +43,10 @@ class AlbumEventSubscriber implements AlbumEventListener
     protected $playlistsSongsRepo;
 
     /**
-     * @param AlbumsRepository $albumsRepository
-     * @param PlaylistRepository $playlistRepository
+     * @param AlbumsRepository         $albumsRepository
+     * @param PlaylistRepository       $playlistRepository
      * @param PlaylistsSongsRepository $playlistsSongsRepo
-     * @param SongsRepository $songsRepository
+     * @param SongsRepository          $songsRepository
      */
     public function __construct(
         AlbumsRepository $albumsRepository,
@@ -86,7 +86,7 @@ class AlbumEventSubscriber implements AlbumEventListener
                 $this->songsRepository->remove($song);
             }
         }
-        if (count($album->getSongs()) === 0) {
+        if (\count($album->getSongs()) === 0) {
             $this->albumsRepository->remove($album);
         } else {
             $this->albumsRepository->save($album);

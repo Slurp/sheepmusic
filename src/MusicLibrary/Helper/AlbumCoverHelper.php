@@ -15,9 +15,6 @@ use BlackSheep\MusicLibrary\Model\AlbumInterface;
 use Gedmo\Sluggable\Util\Urlizer;
 use Symfony\Component\Filesystem\Filesystem;
 
-/**
- *
- */
 class AlbumCoverHelper extends AbstractUploadHelper implements AlbumCoverInterface
 {
     /**
@@ -61,8 +58,8 @@ class AlbumCoverHelper extends AbstractUploadHelper implements AlbumCoverInterfa
      * Write a cover image file with binary data and update the Album with the new cover file.
      *
      * @param AlbumInterface $album
-     * @param string $binaryData
-     * @param string $filename
+     * @param string         $binaryData
+     * @param string         $filename
      *
      * @return string
      */

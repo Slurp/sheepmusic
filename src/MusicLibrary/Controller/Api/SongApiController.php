@@ -30,7 +30,7 @@ class SongApiController extends Controller
      *
      * @return Response
      */
-    public function postAnnounceSongAction(SongEntity $song)
+    public function postAnnounceSong(SongEntity $song)
     {
         $this->get('delayed_event_dispatcher')->dispatch(SongEventInterface::SONG_EVENT_PLAYING, new SongEvent($song));
 
@@ -44,7 +44,7 @@ class SongApiController extends Controller
      *
      * @return Response
      */
-    public function postPlayedSongAction(SongEntity $song)
+    public function postPlayedSong(SongEntity $song)
     {
         $this->get('event_dispatcher')->dispatch(SongEventInterface::SONG_EVENT_PLAYED, new SongEvent($song));
 
@@ -58,7 +58,7 @@ class SongApiController extends Controller
      *
      * @return Response
      */
-    public function getSongInfoAction(SongEntity $song)
+    public function getSongInfo(SongEntity $song)
     {
         return $this->json($this->get('black_sheep.music_library.api_model.api_song_data')->getApiData($song));
     }

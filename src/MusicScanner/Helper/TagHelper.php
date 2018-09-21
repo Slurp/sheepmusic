@@ -54,7 +54,7 @@ class TagHelper
 
     /**
      * @param SplFileInfo $file
-     * @param array $info
+     * @param array       $info
      *
      * @return array
      */
@@ -107,8 +107,6 @@ class TagHelper
 
     /**
      * @param array $info
-     *
-     * @return null
      */
     private function getCover(&$info)
     {
@@ -122,8 +120,8 @@ class TagHelper
     }
 
     /**
-     * @param array $info
-     * @param array $props
+     * @param array  $info
+     * @param array  $props
      * @param string $tagName
      */
     private function getPropsForTags(&$info, &$props, $tagName = 'id3v2')
@@ -145,8 +143,8 @@ class TagHelper
     }
 
     /**
-     * @param array $props
-     * @param array $tags
+     * @param array  $props
+     * @param array  $tags
      * @param string $propertyName
      * @param string $tagName
      */
@@ -156,11 +154,11 @@ class TagHelper
             $tagName = $propertyName;
         }
         if (isset($tags[$tagName]) && empty($tags[$tagName]) === false) {
-            if (is_string($tags[$tagName])) {
-                $props[$propertyName] = trim($tags[$tagName]);
+            if (\is_string($tags[$tagName])) {
+                $props[$propertyName] = utf8_encode(trim($tags[$tagName]));
             }
-            if (is_array($tags[$tagName])) {
-                $props[$propertyName] = trim($tags[$tagName][0]);
+            if (\is_array($tags[$tagName])) {
+                $props[$propertyName] = utf8_encode(trim($tags[$tagName][0]));
             }
         }
     }
@@ -174,7 +172,7 @@ class TagHelper
         if (isset($info['audio'])) {
             foreach (SongAudioInfo::getAllowedKeys() as $key) {
                 if (isset($info['audio'][$key])) {
-                    $props['audio'][$key] = $info['audio'][$key];
+                    $props['audio'][$key] = utf8_encode($info['audio'][$key]);
                 }
             }
         }
@@ -209,8 +207,6 @@ class TagHelper
 
     /**
      * @param getID3 $getID3
-     *
-     * @return null
      */
     public function setGetID3($getID3 = null)
     {

@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * BlackSheepMusicScanner
+ * BlackSheepMusicScanner.
  */
 class BlackSheepMusicScanner extends Bundle
 {

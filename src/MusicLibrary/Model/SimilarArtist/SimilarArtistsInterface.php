@@ -1,13 +1,20 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BlackSheep\MusicLibrary\Model\SimilarArtist;
 
 use BlackSheep\MusicLibrary\Model\ArtistInterface;
 
 /**
- * Interface SimilarArtistsInterface
- *
- * @package BlackSheep\MusicLibrary\Model\SimilarArtist
+ * Interface SimilarArtistsInterface.
  */
 interface SimilarArtistsInterface
 {
@@ -19,7 +26,6 @@ interface SimilarArtistsInterface
      * @return mixed
      */
     public static function createNew(ArtistInterface $artist, ArtistInterface $similar, $match);
-
 
     /**
      * @return float

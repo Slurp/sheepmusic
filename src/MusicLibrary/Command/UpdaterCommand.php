@@ -60,11 +60,11 @@ class UpdaterCommand extends ContainerAwareCommand
         $artistRepository = $this->getContainer()->get('black_sheep_music_library.repository.artists_repository');
         $artists = $artistRepository->findAll();
         /* @var ArtistInterface $artist */
-        $this->setupProgressBar(count($artists));
+        $this->setupProgressBar(\count($artists));
         foreach ($artists as $artist) {
             try {
                 $genres = $this->updateAlbumGenre($artist);
-                if (count($genres) > 0) {
+                if (\count($genres) > 0) {
                     $artist->setGenres($genres);
                 }
                 $this->getContainer()->get('event_dispatcher')->dispatch(
@@ -80,7 +80,7 @@ class UpdaterCommand extends ContainerAwareCommand
 
     /**
      * @param OutputInterface $output
-     * @param bool $debug
+     * @param bool            $debug
      */
     public function setOutputInterface(OutputInterface $output, $debug = true)
     {

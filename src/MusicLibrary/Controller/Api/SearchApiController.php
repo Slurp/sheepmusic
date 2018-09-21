@@ -31,11 +31,11 @@ class SearchApiController extends Controller
      *
      * @return Response
      */
-    public function searchAction($query)
+    public function search($query)
     {
         $results = [];
         $results['albums'] = array_map(
-            function(AlbumEntity $album) {
+            function (AlbumEntity $album) {
                 return $album->getApiData();
             },
             $this->container->get('fos_elastica.finder.app.album')->find(
@@ -44,7 +44,7 @@ class SearchApiController extends Controller
         );
 
         $results['artists'] = array_map(
-            function(ArtistsEntity $artist) {
+            function (ArtistsEntity $artist) {
                 return $artist->getApiData();
             },
             $this->container->get('fos_elastica.finder.app.artist')->find(
@@ -53,7 +53,7 @@ class SearchApiController extends Controller
         );
 
         $results['songs'] = array_map(
-            function(SongEntity $song) {
+            function (SongEntity $song) {
                 return $song->getApiData();
             },
             $this->container->get('fos_elastica.finder.app.song')->find(

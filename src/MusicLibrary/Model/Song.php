@@ -77,7 +77,7 @@ class Song implements SongInterface
      */
     public function addArtist(ArtistInterface $artist)
     {
-        if (in_array($artist, $this->artists, true) === false) {
+        if (\in_array($artist, $this->artists, true) === false) {
             $this->artists[] = $artist;
         }
 

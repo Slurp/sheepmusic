@@ -11,7 +11,6 @@
 
 namespace BlackSheep\MusicLibrary\Repository;
 
-use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\Query;
 
 /**
