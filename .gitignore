@@ -2,6 +2,7 @@
 /.idea
 /.env
 /bin
+!/bin/console
 /public/bundles/
 /var/
 /vendor/
