@@ -172,7 +172,7 @@ class TagHelper
         if (isset($info['audio'])) {
             foreach (SongAudioInfo::getAllowedKeys() as $key) {
                 if (isset($info['audio'][$key])) {
-                    $props['audio'][$key] = utf8_encode($info['audio'][$key]);
+                    $props['audio'][$key] = $info['audio'][$key];
                 }
             }
         }
