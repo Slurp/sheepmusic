@@ -43,7 +43,7 @@ class PlaylistApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getListAction()
+    public function getList()
     {
         return $this->getList();
     }
@@ -55,7 +55,7 @@ class PlaylistApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getPlaylistAction(PlaylistEntity $playlist)
+    public function getPlaylist(PlaylistEntity $playlist)
     {
         return $this->getDetail($playlist);
     }

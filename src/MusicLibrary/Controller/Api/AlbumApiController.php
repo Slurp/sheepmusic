@@ -42,7 +42,7 @@ class AlbumApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getAlbumListAction()
+    public function getAlbumList()
     {
         return $this->getList();
     }
@@ -54,7 +54,7 @@ class AlbumApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getAlbumCollectionAction(Request $request)
+    public function getAlbumCollection(Request $request)
     {
         return $this->getCollection($request->get('objects'));
     }
@@ -66,7 +66,7 @@ class AlbumApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getAlbumAction(AlbumEntity $album)
+    public function getAlbum(AlbumEntity $album)
     {
         return $this->getDetail($album);
     }

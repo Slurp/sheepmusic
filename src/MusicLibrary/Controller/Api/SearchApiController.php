@@ -31,7 +31,7 @@ class SearchApiController extends Controller
      *
      * @return Response
      */
-    public function searchAction($query)
+    public function search($query)
     {
         $results = [];
         $results['albums'] = array_map(
