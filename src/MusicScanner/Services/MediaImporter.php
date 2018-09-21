@@ -83,8 +83,9 @@ class MediaImporter
 
     /**
      * @param string $path
+     * @param boolean $fullImport
      */
-    public function import(string $path)
+    public function import(string $path, $fullImport)
     {
         $this->path = $path;
         if ($this->output !== null) {
@@ -92,7 +93,7 @@ class MediaImporter
         }
         $importingFiles = $this->gatherFiles(
             $this->path,
-            $this->managerRegistry->getRepository(
+            $fullImport ? null : $this->managerRegistry->getRepository(
                 SongEntity::class
             )->lastImportDate()
         );
