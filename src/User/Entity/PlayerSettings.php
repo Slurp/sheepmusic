@@ -23,7 +23,7 @@ class PlayerSettings
     /**
      * @var bool
      *
-     * @ORM\Column(name="has_flac_support", type="boolean", options={default:false})
+     * @ORM\Column(name="has_flac_support", type="boolean", options={"default" = 0})
      */
     protected $hasFlacSupport;
 
