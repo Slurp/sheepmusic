@@ -15,9 +15,7 @@ use BlackSheep\MusicLibrary\Model\ArtistInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class ArtistEvent
- *
- * @package BlackSheep\MusicLibrary\Events
+ * Class ArtistEvent.
  */
 class ArtistEvent extends Event implements ArtistEventInterface
 {

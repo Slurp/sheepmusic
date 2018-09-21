@@ -12,9 +12,7 @@
 namespace BlackSheep\MusicLibrary\User;
 
 /**
- * Interface UserSettingsInterface
- *
- * @package BlackSheep\MusicLibrary\User
+ * Interface UserSettingsInterface.
  */
 interface UserSettingsInterface
 {

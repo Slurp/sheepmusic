@@ -42,7 +42,7 @@ class TagHelperTest extends TestCase
         $file = new \SplFileInfo(__DIR__ . '/../../../flac-file.flac');
         $tagHelper = new TagHelper();
         $info = $tagHelper->getInfo($file);
-        self::assertEquals(null, $info);
+        self::assertNull($info);
     }
 
     /**
@@ -107,6 +107,6 @@ class TagHelperTest extends TestCase
                 'compression_ratio' => 0.5122119272463001582451624926761724054813385009765625,
             ],
         ];
-        self::assertEquals($props, $info);
+        self::assertSame($props, $info);
     }
 }

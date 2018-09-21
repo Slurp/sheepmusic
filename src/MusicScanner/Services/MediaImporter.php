@@ -14,7 +14,6 @@ namespace BlackSheep\MusicScanner\Services;
 use BlackSheep\MusicLibrary\Entity\SongEntity;
 use BlackSheep\MusicLibrary\Repository\SongsRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\ORMException;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Finder\Finder;
@@ -62,7 +61,7 @@ class MediaImporter
 
     /**
      * @param ManagerRegistry $managerRegistry
-     * @param SongImporter $songImporter
+     * @param SongImporter    $songImporter
      *
      * @internal param EntityManager $entityManager
      */
@@ -74,7 +73,7 @@ class MediaImporter
 
     /**
      * @param OutputInterface $output
-     * @param bool $debug
+     * @param bool            $debug
      */
     public function setOutputInterface(OutputInterface $output, bool $debug = true)
     {
@@ -103,14 +102,14 @@ class MediaImporter
             $this->setupProgressBar($importingFiles->count());
             /** @var SplFileInfo $file */
             foreach ($importingFiles as $file) {
-              try {
-                $this->songImporter->importSong($file);
-              } catch (\Exception $exception) {
-                $this->output->writeln([$exception->getMessage(), $exception->getLine(),$exception->getFile()]);
-                $this->output->write($exception->getTraceAsString());
-                die();
-              }
-              $this->debugStep('imported', $file->getFilename());
+                try {
+                    $this->songImporter->importSong($file);
+                } catch (\Exception $exception) {
+                    $this->output->writeln([$exception->getMessage(), $exception->getLine(), $exception->getFile()]);
+                    $this->output->write($exception->getTraceAsString());
+                    die();
+                }
+                $this->debugStep('imported', $file->getFilename());
                 unset($file);
             }
             $this->managerRegistry->getManager()->flush();
@@ -121,12 +120,12 @@ class MediaImporter
     /**
      * Gather all applicable files in a given directory.
      *
-     * @param string $path The directory's full path
+     * @param string         $path           The directory's full path
      * @param \DateTime|null $lastImportDate
      *
      * @return Finder An array of SplFileInfo objects
      */
-    public function gatherFiles($path, \DateTime $lastImportDate = null) : Finder
+    public function gatherFiles($path, \DateTime $lastImportDate = null): Finder
     {
         $finder = Finder::create()
             ->files()

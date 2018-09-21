@@ -44,7 +44,7 @@ trait ArtworkCollectionTrait
      */
     public function addArtwork(ArtworkInterface $artwork)
     {
-        if (in_array($artwork, $this->artworks, true) === false) {
+        if (\in_array($artwork, $this->artworks, true) === false) {
             $this->artworks[] = $artwork;
         }
     }
@@ -69,7 +69,7 @@ trait ArtworkCollectionTrait
     {
         return array_filter(
             $this->artworks,
-            function(ArtworkInterface $artwork) use ($type) {
+            function (ArtworkInterface $artwork) use ($type) {
                 return $artwork->getType() === $type;
             }
         );

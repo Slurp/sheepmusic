@@ -60,8 +60,8 @@ class SongImporter
 
     /**
      * @param ManagerRegistry $managerRegistry
-     * @param AlbumImporter $albumImporter
-     * @param ArtistImporter $artistImporter
+     * @param AlbumImporter   $albumImporter
+     * @param ArtistImporter  $artistImporter
      */
     public function __construct(
         ManagerRegistry $managerRegistry,
@@ -80,32 +80,35 @@ class SongImporter
     /**
      * @param SplFileInfo $file
      *
-     * @return SongInterface
      * @throws ORMException
+     *
+     * @return SongInterface
      */
     public function importSong(SplFileInfo $file)
     {
         $songInfo = $this->tagHelper->getInfo($file);
         $songEntity = $this->songRepository->needsImporting($songInfo);
         if ($songEntity === null && empty($songInfo['artist']) === false) {
-           return $this->writeSong($songInfo);
+            return $this->writeSong($songInfo);
         }
+
         return null;
     }
 
     /**
      * @param array $songInfo
      *
-     * @return SongInterface
      * @throws OptimisticLockException
      * @throws ORMException
+     *
+     * @return SongInterface
      */
     protected function writeSong(&$songInfo)
     {
         $artist = $this->artistImporter->importArtist($songInfo);
         $album = $this->albumImporter->importAlbum($artist, $songInfo);
         if (empty($songInfo['track'])) {
-            $songInfo['track'] = count($album->getSongs());
+            $songInfo['track'] = \count($album->getSongs());
         }
         $song = SongEntity::createFromArray($songInfo);
         $album->addSong($song);

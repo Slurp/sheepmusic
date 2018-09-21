@@ -48,7 +48,7 @@ trait SongCollectionTrait
      */
     public function addSong(SongInterface $song)
     {
-        if (in_array($song, $this->songs, true) === false) {
+        if (\in_array($song, $this->songs, true) === false) {
             $this->songs[] = $song;
         }
 

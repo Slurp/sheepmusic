@@ -33,7 +33,6 @@ class BlackSheepMusicLibraryExtension extends Extension
         $this->loadServices($container);
         $this->loadParameters($container, $config);
         $this->loadAnnotations();
-
     }
 
     /**
@@ -53,7 +52,7 @@ class BlackSheepMusicLibraryExtension extends Extension
 
     /**
      * @param ContainerBuilder $container
-     * @param array $config
+     * @param array            $config
      */
     protected function loadParameters(ContainerBuilder $container, array &$config)
     {
@@ -71,14 +70,11 @@ class BlackSheepMusicLibraryExtension extends Extension
         }
     }
 
-    /**
-     *
-     */
     protected function loadAnnotations()
     {
         $this->addAnnotatedClassesToCompile(
             [
-                'MusicLibrary\\Controller\\'
+                'MusicLibrary\\Controller\\',
             ]
         );
     }

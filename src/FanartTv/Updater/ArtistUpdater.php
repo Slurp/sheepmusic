@@ -41,8 +41,8 @@ class ArtistUpdater
 
     /**
      * @param ArtistRepository $artistsRepository
-     * @param MusicClient               $client
-     * @param ArtworkFactory            $artworkFactory
+     * @param MusicClient      $client
+     * @param ArtworkFactory   $artworkFactory
      */
     public function __construct(
         ArtistRepository $artistsRepository,

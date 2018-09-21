@@ -27,7 +27,7 @@ trait ArtworkCollectionEntityTrait
     {
         return array_filter(
             $this->artworks->toArray(),
-            function(ArtworkInterface $artwork) use ($type) {
+            function (ArtworkInterface $artwork) use ($type) {
                 return $artwork->getType() === $type;
             }
         );

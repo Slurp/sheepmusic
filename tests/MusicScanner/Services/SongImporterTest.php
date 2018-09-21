@@ -47,11 +47,11 @@ class SongImporterTest extends KernelTestCase
             ->in(__DIR__ . '/../../../');
         foreach ($finder as $file) {
             $song = $songImporter->importSong($file);
-            self::assertEquals($song->getAlbum()->getName(), $this->songInfo['album']);
-            self::assertEquals($song->getArtist()->getName(), $this->songInfo['artist']);
-            self::assertEquals($song->getLength(), $this->songInfo['length']);
-            self::assertEquals($song->getTitle(), $this->songInfo['title']);
-            self::assertEquals($song->getTrack(), 0);
+            self::assertSame($song->getAlbum()->getName(), $this->songInfo['album']);
+            self::assertSame($song->getArtist()->getName(), $this->songInfo['artist']);
+            self::assertSame($song->getLength(), $this->songInfo['length']);
+            self::assertSame($song->getTitle(), $this->songInfo['title']);
+            self::assertSame($song->getTrack(), 0);
         }
     }
 }

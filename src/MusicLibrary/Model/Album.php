@@ -136,7 +136,7 @@ class Album implements AlbumInterface
      */
     public function getCover()
     {
-        if (count($this->getArtworkCover()) !== 0) {
+        if (\count($this->getArtworkCover()) !== 0) {
             foreach ($this->getArtworkCover() as $covers) {
                 return '/uploads/album/' . $covers->getImage()->getName();
             }
@@ -144,7 +144,6 @@ class Album implements AlbumInterface
         if (mb_strpos($this->cover, 'http') !== 0 && $this->cover !== null) {
             return AlbumCoverHelper::getUploadDirectory() . $this->getArtist()->getSlug() . '/' . $this->cover;
         }
-
 
         return $this->cover;
     }
@@ -154,11 +153,11 @@ class Album implements AlbumInterface
      */
     public function setCover($cover)
     {
-        if (is_array($cover)) {
+        if (\is_array($cover)) {
             $helper = new AlbumCoverHelper();
             $helper->generateCover($this, $cover);
         }
-        if (is_string($cover)) {
+        if (\is_string($cover)) {
             if (filter_var($cover, FILTER_VALIDATE_URL)) {
                 // you're good
                 $helper = new AlbumCoverHelper();
@@ -220,7 +219,7 @@ class Album implements AlbumInterface
      */
     public function setMusicBrainzId($musicBrainzId)
     {
-        if (is_array($musicBrainzId)) {
+        if (\is_array($musicBrainzId)) {
             $musicBrainzId = $musicBrainzId[0];
         }
         $this->musicBrainzId = $musicBrainzId;

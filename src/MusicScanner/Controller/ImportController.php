@@ -30,7 +30,7 @@ class ImportController extends Controller
         $streamedOutput->setBufferSize($buffer);
 
         return new StreamedResponse(
-            function() use ($streamedOutput) {
+            function () use ($streamedOutput) {
                 $importer = $this->get('black_sheep_music_scanner.services.media_importer');
                 $importer->setOutputInterface($streamedOutput, false);
                 $importer->import('/Volumes/Data/Stack/Music');

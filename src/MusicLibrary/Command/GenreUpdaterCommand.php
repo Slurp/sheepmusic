@@ -40,7 +40,7 @@ class GenreUpdaterCommand extends ContainerAwareCommand
         /** @var ArtistInterface $artist */
         foreach ($artists as $artist) {
             $genres = $this->updateAlbumGenre($artist);
-            if (count($genres) > 0) {
+            if (\count($genres) > 0) {
                 $artist->setGenres($genres);
             }
         }

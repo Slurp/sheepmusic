@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BlackSheep\MusicLibrary\Entity\SimilarArtist;
 
 use BlackSheep\MusicLibrary\Entity\BaseEntity;
@@ -9,7 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity
  * @ORM\Table(name="artists_similar")
  */
 class SimilarArtistEntity extends SimilarArtists
@@ -33,7 +42,7 @@ class SimilarArtistEntity extends SimilarArtists
     protected $artist;
 
     /**
-     * @var $similar
+     * @var
      * @ORM\ManyToOne(targetEntity="BlackSheep\MusicLibrary\Entity\ArtistsEntity")
      * @ORM\JoinColumn(name="similar_id", referencedColumnName="id")
      * @Assert\NotNull

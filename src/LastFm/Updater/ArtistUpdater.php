@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BlackSheep Music.
+ *
+ * (c) Stephan Langeweg <slurpie@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace BlackSheep\LastFm\Updater;
 
 use BlackSheep\LastFm\Info\LastFmArtistInfo;
@@ -10,9 +19,7 @@ use LastFmApi\Exception\ApiFailedException;
 use LastFmApi\Exception\ConnectionException;
 
 /**
- * Class ArtistUpdater
- *
- * @package BlackSheep\LastFm\Updater
+ * Class ArtistUpdater.
  */
 class ArtistUpdater
 {
@@ -43,13 +50,13 @@ class ArtistUpdater
      */
     public function addSimilar(ArtistInterface $artist)
     {
-        if (empty($artist->getMusicBrainzId()) === false && count($artist->getSimilarArtists()) === 0) {
+        if (empty($artist->getMusicBrainzId()) === false && \count($artist->getSimilarArtists()) === 0) {
             try {
                 $similarArtists = $this->client->getSimilarByMusicBrainzId($artist->getMusicBrainzId());
                 if ($similarArtists) {
                     $artist->setSimilarArtists(
                         array_map(
-                            function($similarArtist) use ($artist) {
+                            function ($similarArtist) use ($artist) {
                                 $similar = $this->artistsRepository->getArtistByMusicBrainzId(
                                     $similarArtist['mbid']
                                 );
@@ -60,6 +67,7 @@ class ArtistUpdater
                                         $similarArtist['match']
                                     );
                                 }
+
                                 return null;
                             },
                             $similarArtists

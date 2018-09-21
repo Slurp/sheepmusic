@@ -20,8 +20,9 @@ use LastFmApi\Exception\InvalidArgumentException;
 class LastFmArtistInfo extends AbstractLastFmInfo implements LastFmInfo
 {
     /**
-     * @return ArtistApi
      * @throws InvalidArgumentException
+     *
+     * @return ArtistApi
      */
     protected function getApi()
     {

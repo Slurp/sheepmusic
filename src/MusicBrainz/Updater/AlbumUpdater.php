@@ -41,8 +41,8 @@ class AlbumUpdater
 
     /**
      * @param AlbumsRepository $albumsRepository
-     * @param ReleaseClient $client
-     * @param CoverartClient $coverartClient
+     * @param ReleaseClient    $client
+     * @param CoverartClient   $coverartClient
      */
     public function __construct(
         AlbumsRepository $albumsRepository,
@@ -81,7 +81,6 @@ class AlbumUpdater
     {
         if (empty($album->getMusicBrainzId()) === false && empty($album->getCover())) {
             try {
-
                 $musicBrainzInfo = json_decode(
                     $this->coverartClient->getCover($album->getMusicBrainzId())->getBody()->getContents()
                 );

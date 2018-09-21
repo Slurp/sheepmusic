@@ -57,22 +57,22 @@ class FanartTvResponse implements ArtistArtworkSetInterface, AlbumArtworkSetInte
     public function __construct($json)
     {
         //logo's
-        if (isset($json->hdmusiclogo) && is_array($json->hdmusiclogo)) {
+        if (isset($json->hdmusiclogo) && \is_array($json->hdmusiclogo)) {
             $this->logos = $json->hdmusiclogo;
         }
-        if (isset($json->musiclogo) && is_array($json->musiclogo) && $this->logos !== null) {
+        if (isset($json->musiclogo) && \is_array($json->musiclogo) && $this->logos !== null) {
             $this->logos = $json->musiclogo;
         }
-        if (isset($json->musicbanner) && is_array($json->musicbanner)) {
+        if (isset($json->musicbanner) && \is_array($json->musicbanner)) {
             $this->banners = $json->musicbanner;
         }
-        if (isset($json->artistbackground) && is_array($json->artistbackground)) {
+        if (isset($json->artistbackground) && \is_array($json->artistbackground)) {
             $this->backgrounds = $json->artistbackground;
         }
-        if (isset($json->artistthumb) && is_array($json->artistthumb)) {
+        if (isset($json->artistthumb) && \is_array($json->artistthumb)) {
             $this->thumbs = $json->artistthumb;
         }
-        if (isset($json->artistthumb) && is_array($json->artistthumb)) {
+        if (isset($json->artistthumb) && \is_array($json->artistthumb)) {
             $this->thumbs = $json->artistthumb;
         }
 

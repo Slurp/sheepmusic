@@ -28,9 +28,9 @@ class TranscodedSizeEstimatorTest extends TestCase
      */
     public function testEstimatedBytes()
     {
-        self::assertEquals(0, TranscodedSizeEstimator::estimatedBytes(0.0, 320));
-        self::assertEquals(24000000, TranscodedSizeEstimator::estimatedBytes(1000.0, 192));
-        self::assertEquals(40000000, TranscodedSizeEstimator::estimatedBytes(1000.0, 320));
-        self::assertEquals(22195672, TranscodedSizeEstimator::estimatedBytes(554.891791, 320));
+        self::assertSame(0, TranscodedSizeEstimator::estimatedBytes(0.0, 320));
+        self::assertSame(24000000, TranscodedSizeEstimator::estimatedBytes(1000.0, 192));
+        self::assertSame(40000000, TranscodedSizeEstimator::estimatedBytes(1000.0, 320));
+        self::assertSame(22195672, TranscodedSizeEstimator::estimatedBytes(554.891791, 320));
     }
 }

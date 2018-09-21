@@ -12,11 +12,8 @@
 namespace BlackSheep\LastFm\EventListener;
 
 use BlackSheep\LastFm\Updater\ArtistUpdater;
-use BlackSheep\MusicLibrary\Entity\SimilarArtist\SimilarArtistEntity;
 use BlackSheep\MusicLibrary\EventListener\ArtistEventListener;
 use BlackSheep\MusicLibrary\Events\ArtistEventInterface;
-use LastFmApi\Exception\ApiFailedException;
-use LastFmApi\Exception\ConnectionException;
 
 /**
  * ArtistEventSubscriber.

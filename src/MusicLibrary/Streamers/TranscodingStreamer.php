@@ -48,10 +48,10 @@ class TranscodingStreamer extends AbstractStreamer implements AudioStreamInterfa
 
     /**
      * @param SongInterface $song
-     * @param int $bitrate
-     * @param string $ffmpeg
-     * @param string $ffprobe
-     * @param int $startTime
+     * @param int           $bitrate
+     * @param string        $ffmpeg
+     * @param string        $ffprobe
+     * @param int           $startTime
      */
     public function __construct(SongInterface $song, $bitrate, $ffmpeg, $ffprobe, $startTime = 0)
     {
@@ -63,8 +63,9 @@ class TranscodingStreamer extends AbstractStreamer implements AudioStreamInterfa
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\Response|void
      * @throws Exception
+     *
+     * @return \Symfony\Component\HttpFoundation\Response|void
      */
     public function getStreamedResponse()
     {

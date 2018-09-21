@@ -18,8 +18,8 @@ class FfmpegArgumentBuilder
 {
     /**
      * @param string $path
-     * @param int $startTime
-     * @param int $bitRate
+     * @param int    $startTime
+     * @param int    $bitRate
      *
      * @return string
      */

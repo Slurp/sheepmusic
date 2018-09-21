@@ -27,12 +27,12 @@ use BlackSheep\MusicLibrary\Model\Media\ArtworkInterface;
 class ArtworkFactory extends AbstractMediaFactory
 {
     /**
-     * @param ArtistInterface $artist
+     * @param ArtistInterface  $artist
      * @param FanartTvResponse $artworkSet
      */
     public function addArtworkToArtist(ArtistInterface $artist, FanartTvResponse $artworkSet)
     {
-        if (count($artist->getArtworks()) === 0) {
+        if (\count($artist->getArtworks()) === 0) {
             $this->createArtwork($artist, ArtworkInterface::TYPE_LOGO, $artworkSet->getLogos());
             $this->createArtwork($artist, ArtworkInterface::TYPE_BACKGROUND, $artworkSet->getBackgrounds());
             $this->createArtwork($artist, ArtworkInterface::TYPE_BANNER, $artworkSet->getBanners());
@@ -42,7 +42,7 @@ class ArtworkFactory extends AbstractMediaFactory
     }
 
     /**
-     * @param ArtistInterface $artist
+     * @param ArtistInterface  $artist
      * @param FanartTvResponse $artworkSet
      */
     protected function updateAlbumsForArtist(ArtistInterface $artist, FanartTvResponse $artworkSet)
@@ -51,7 +51,7 @@ class ArtworkFactory extends AbstractMediaFactory
             foreach ($artist->getAlbums() as $album) {
                 if ($album->getMusicBrainzId() !== null) {
                     if (isset($artworkSet->getArtworkCover()[$album->getMusicBrainzReleaseGroupId()]) &&
-                        count($album->getArtworkCover()) === 0
+                        \count($album->getArtworkCover()) === 0
                     ) {
                         $this->createArtwork(
                             $album,
@@ -60,7 +60,7 @@ class ArtworkFactory extends AbstractMediaFactory
                         );
                     }
                     if (isset($artworkSet->getCdArt()[$album->getMusicBrainzReleaseGroupId()]) &&
-                        count($album->getCdArt()) === 0
+                        \count($album->getCdArt()) === 0
                     ) {
                         $this->createArtwork(
                             $album,
@@ -74,7 +74,7 @@ class ArtworkFactory extends AbstractMediaFactory
     }
 
     /**
-     * @param AlbumInterface $album
+     * @param AlbumInterface           $album
      * @param AlbumArtworkSetInterface $artworkSet
      */
     public function addArtworkToAlbum(AlbumInterface $album, AlbumArtworkSetInterface $artworkSet)
@@ -90,8 +90,8 @@ class ArtworkFactory extends AbstractMediaFactory
 
     /**
      * @param ArtworkCollectionInterface $artworkCollection
-     * @param string $type
-     * @param array $artworks
+     * @param string                     $type
+     * @param array                      $artworks
      */
     protected function createArtwork(
         ArtworkCollectionInterface $artworkCollection,
@@ -100,10 +100,10 @@ class ArtworkFactory extends AbstractMediaFactory
     ) {
         if ($artworks !== null) {
             foreach ($artworks as $artwork) {
-                if (is_array($artwork)) {
+                if (\is_array($artwork)) {
                     $this->createArtwork($artworkCollection, $type, $artwork);
                 }
-                if (is_object($artwork)) {
+                if (\is_object($artwork)) {
                     $media = $this->getArtworkEntity($artworkCollection, $type);
                     $media->setLikes($artwork->likes);
                     $this->copyExternalFile($media, $artwork->url, $artworkCollection->getSlug() . '-' . $type);
@@ -117,7 +117,7 @@ class ArtworkFactory extends AbstractMediaFactory
 
     /**
      * @param ArtworkCollectionInterface $artworkCollection
-     * @param string $type
+     * @param string                     $type
      *
      * @return AlbumArtworkEntity|ArtistArtworkEntity
      */

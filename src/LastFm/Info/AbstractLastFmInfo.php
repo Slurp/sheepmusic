@@ -58,7 +58,7 @@ abstract class AbstractLastFmInfo implements LastFmInfo
     }
 
     /**
-     * @param string $apiSecret
+     * @param string                $apiSecret
      * @param TokenStorageInterface $tokenStorage
      *
      * @return array

@@ -21,7 +21,7 @@ interface ArtistRepositoryInterface extends AbstractRepositoryInterface
 {
     /**
      * @param string $artistName
-     * @param null $musicBrainzId
+     * @param null   $musicBrainzId
      *
      * @return ArtistsEntity|null
      */
@@ -42,8 +42,8 @@ interface ArtistRepositoryInterface extends AbstractRepositoryInterface
     public function getArtistByMusicBrainzId($musicBrainzId = null);
 
     /**
-     * @param  ArtistInterface $artist
-     * @param  string $albumName
+     * @param ArtistInterface $artist
+     * @param string          $albumName
      *
      * @return object|null
      */

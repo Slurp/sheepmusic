@@ -46,7 +46,7 @@ trait GenreCollectionTrait
      */
     public function addGenre(GenreInterface $genre)
     {
-        if (in_array($genre, $this->genres, true) === false) {
+        if (\in_array($genre, $this->genres, true) === false) {
             $this->genres[] = $genre;
         }
 

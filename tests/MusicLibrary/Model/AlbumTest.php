@@ -33,14 +33,14 @@ class AlbumTest extends TestCase
     public function testCreateAlbumEmptyInfo()
     {
         $album = Album::createArtistAlbum('test', Artist::createNew('test'), []);
-        static::assertEquals('test', $album->getName());
-        static::assertEquals('test', $album->getArtist()->getName());
+        static::assertSame('test', $album->getName());
+        static::assertSame('test', $album->getArtist()->getName());
     }
 
     public function testCreateAlbum()
     {
         $extraInfo['cover'] = 'cover';
         $extraInfo['album_mbid'] = '';
-        self::assertEquals($this->album, Album::createArtistAlbum('test', Artist::createNew('test'), $extraInfo));
+        self::assertSame($this->album, Album::createArtistAlbum('test', Artist::createNew('test'), $extraInfo));
     }
 }

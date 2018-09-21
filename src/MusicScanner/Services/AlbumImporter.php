@@ -40,7 +40,7 @@ class AlbumImporter
 
     /**
      * @param ManagerRegistry $managerRegistry
-     * @param LastFmAlbum $lastFmAlbum
+     * @param LastFmAlbum     $lastFmAlbum
      */
     public function __construct(ManagerRegistry $managerRegistry, LastFmAlbum $lastFmAlbum)
     {
@@ -52,10 +52,11 @@ class AlbumImporter
 
     /**
      * @param ArtistInterface $artist
-     * @param array $songInfo
+     * @param array           $songInfo
+     *
+     * @throws \Doctrine\ORM\OptimisticLockException
      *
      * @return AlbumInterface
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function importAlbum(ArtistInterface $artist, &$songInfo): AlbumInterface
     {

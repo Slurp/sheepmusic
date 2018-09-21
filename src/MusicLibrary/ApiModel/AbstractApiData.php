@@ -42,7 +42,7 @@ abstract class AbstractApiData
     {
         $this->router = $router;
         $this->uploaderHelper = $uploaderHelper;
-        $this->baseUrl = $this->router->getContext()->getScheme(). '//' . $this->router->getContext()->getHost();
+        $this->baseUrl = $this->router->getContext()->getScheme() . '//' . $this->router->getContext()->getHost();
     }
 
     /**
