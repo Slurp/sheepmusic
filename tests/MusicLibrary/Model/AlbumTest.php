@@ -41,6 +41,6 @@ class AlbumTest extends TestCase
     {
         $extraInfo['cover'] = 'cover';
         $extraInfo['album_mbid'] = '';
-        self::assertSame($this->album, Album::createArtistAlbum('test', Artist::createNew('test'), $extraInfo));
+        self::assertSame($this->album->getApiData(), Album::createArtistAlbum('test', Artist::createNew('test'), $extraInfo)->getApiData());
     }
 }

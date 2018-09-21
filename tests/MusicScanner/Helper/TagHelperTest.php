@@ -91,11 +91,11 @@ class TagHelperTest extends TestCase
             'lyrics' => '',
             'path' => $file->getPathname(),
             'mTime' => $file->getMTime(),
+            'year' => '',
+            'genre' => 'Art Music > Classical > Classical',
             'track' => '',
             'artist_mbid' => '',
             'album_mbid' => '',
-            'year' => '',
-            'genre' => 'Art Music > Classical > Classical',
             'audio' => [
                 'dataformat' => 'flac',
                 'channels' => 2,
