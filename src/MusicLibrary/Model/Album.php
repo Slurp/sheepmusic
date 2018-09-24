@@ -136,7 +136,7 @@ class Album implements AlbumInterface
      */
     public function getCover()
     {
-        if (\count($this->getArtworkCover()) !== 0) {
+        if ($this->getArtworkCover() !== null && \count($this->getArtworkCover()) > 1) {
             foreach ($this->getArtworkCover() as $covers) {
                 return '/uploads/album/' . $covers->getImage()->getName();
             }

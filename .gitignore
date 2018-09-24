@@ -4,6 +4,7 @@
 /bin
 !/bin/console
 /public/bundles/
+/public/uploads
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
