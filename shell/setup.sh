@@ -3,6 +3,7 @@
 # some dirs to be setup
 rm -rf public/uploads
 rm -rf config/jwt
+mkdir -p config/jwt
 mkdir -p public/uploads/_temp
 
 # JWT
