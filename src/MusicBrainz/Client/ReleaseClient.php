@@ -28,7 +28,6 @@ class ReleaseClient extends JsonClient
     public function loadRelease($mbId): ResponseInterface
     {
         sleep(1);
-
-        return $this->getClient()->send($this->makeRequest(static::END_POINT . $mbId . '&fmt=json?inc=release-groups'));
+        return $this->getClient()->send($this->makeRequest(static::END_POINT . $mbId . '?inc=release-groups&fmt=json'));
     }
 }
