@@ -142,7 +142,7 @@ class Album implements AlbumInterface
             }
         }
         if (mb_strpos($this->cover, 'http') !== 0 && $this->cover !== null) {
-            return AlbumCoverHelper::getUploadDirectory() . $this->getArtist()->getSlug() . '/' . $this->cover;
+            return AlbumCoverHelper::getUploadDirectory() . $this->getArtist()->getSlug() . '/cover-' . $this->cover;
         }
 
         return $this->cover;
