@@ -2,7 +2,7 @@ fos_elastica:
     clients:
         default: { host: localhost, port: 9200 }
     indexes:
-        app:
+        sheepmusic:
             index_name: sheepmusic_%kernel.environment%
             settings:
                 index:

@@ -38,7 +38,7 @@ class SearchApiController extends Controller
             function (AlbumEntity $album) {
                 return $album->getApiData();
             },
-            $this->container->get('fos_elastica.finder.app.album')->find(
+            $this->container->get('fos_elastica.finder.sheepmusic.album')->find(
                 $this->buildNameQuery($query)
             )
         );
@@ -47,7 +47,7 @@ class SearchApiController extends Controller
             function (ArtistsEntity $artist) {
                 return $artist->getApiData();
             },
-            $this->container->get('fos_elastica.finder.app.artist')->find(
+            $this->container->get('fos_elastica.finder.sheepmusic.artist')->find(
                 $this->buildNameQuery($query)
             )
         );
@@ -56,7 +56,7 @@ class SearchApiController extends Controller
             function (SongEntity $song) {
                 return $song->getApiData();
             },
-            $this->container->get('fos_elastica.finder.app.song')->find(
+            $this->container->get('fos_elastica.finder.sheepmusic.song')->find(
                 $this->buildTitleQuery($query),
                 1000
             )
