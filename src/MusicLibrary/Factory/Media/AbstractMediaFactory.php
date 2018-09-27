@@ -51,7 +51,7 @@ class AbstractMediaFactory
     {
         $ext = mb_substr($url, mb_strrpos($url, '.') + 1);
         $tempFile = $this->kernelRootDir . '/public/uploads/_temp/' . str_replace('/', '_', $name) . '.' . $ext;
-        if (@copy($url, $tempFile)) {
+        if (copy($url, $tempFile)) {
             $entity->setImageFile(
                 new UploadedFile(
                     $tempFile,

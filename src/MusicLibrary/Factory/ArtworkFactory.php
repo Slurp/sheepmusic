@@ -107,9 +107,12 @@ class ArtworkFactory extends AbstractMediaFactory
                     $media = $this->getArtworkEntity($artworkCollection, $type);
                     $media->setLikes($artwork->likes);
                     $this->copyExternalFile($media, $artwork->url, $artworkCollection->getSlug() . '-' . $type);
+                    error_log("------");
+                    error_log($media->getImageFile());
                     if ($media->getImageFile() !== null) {
                         $artworkCollection->addArtwork($media);
                     }
+                    error_log("------");
                 }
             }
         }
