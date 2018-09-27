@@ -67,7 +67,7 @@ class ArtistUpdater
                     )
                 );
                 $this->artworkFactory->addArtworkToArtist($artist, $fanArt);
-                $this->artistsRepository->update($artist);
+                $this->artistsRepository->save($artist);
                 unset($fanArt);
             } catch (ClientException $e) {
                 error_log($e->getMessage());
