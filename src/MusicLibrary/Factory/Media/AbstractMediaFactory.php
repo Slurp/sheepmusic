@@ -12,6 +12,7 @@
 namespace BlackSheep\MusicLibrary\Factory\Media;
 
 use BlackSheep\MusicLibrary\Entity\Media\AbstractMediaInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Handler\UploadHandler;
 
@@ -31,6 +32,11 @@ class AbstractMediaFactory
     protected $kernelRootDir;
 
     /**
+     * @var
+     */
+    protected $filesystem;
+
+    /**
      * AbstractMediaFactory constructor.
      *
      * @param UploadHandler $uploadHandler
@@ -40,6 +46,7 @@ class AbstractMediaFactory
     {
         $this->uploadHandler = $uploadHandler;
         $this->kernelRootDir = $projectDir;
+        $this->filesystem = new Filesystem();
     }
 
     /**
@@ -51,7 +58,9 @@ class AbstractMediaFactory
     {
         $ext = mb_substr($url, mb_strrpos($url, '.') + 1);
         $tempFile = $this->kernelRootDir . '/public/uploads/_temp/' . str_replace('/', '_', $name) . '.' . $ext;
-        if (copy($url, $tempFile)) {
+
+        try {
+            $this->filesystem->copy($url, $tempFile);
             $entity->setImageFile(
                 new UploadedFile(
                     $tempFile,
@@ -63,7 +72,9 @@ class AbstractMediaFactory
                 )
             );
             $this->uploadHandler->upload($entity, 'imageFile');
-        } else {
+        } catch (\Exception $exception) {
+            error_log($exception->getMessage());
+        } finally {
             @unlink($tempFile);
         }
     }
