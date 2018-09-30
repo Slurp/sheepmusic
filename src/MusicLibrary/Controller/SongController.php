@@ -38,6 +38,7 @@ class SongController extends Controller
         try {
             return $this->get('black_sheep_music_library.services.streamer_service')->getStreamerForSong(
                 $song,
+                $this->getUser(),
                 $request->get('time', 0)
             );
         } catch (FileNotFoundException $exception) {

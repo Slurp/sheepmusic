@@ -14,6 +14,7 @@ namespace BlackSheep\MusicLibrary\Services;
 use BlackSheep\MusicLibrary\Model\SongInterface;
 use BlackSheep\MusicLibrary\Streamers\DefaultStreamer;
 use BlackSheep\MusicLibrary\Streamers\TranscodingStreamer;
+use BlackSheep\User\Entity\SheepUser;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -50,21 +51,14 @@ class StreamerService implements StreamerServiceInterface
     }
 
     /**
-     * Play a song.
-     *
-     * @param SongInterface $song
-     * @param int           $startTime
-     *
-     * @throws \Exception
-     *
-     * @return Response
+     * {@inheritdoc}
      */
-    public function getStreamerForSong(SongInterface $song, $startTime = 0): Response
+    public function getStreamerForSong(SongInterface $song, SheepUser $user = null, $startTime = 0): Response
     {
         $songFile = new File(mb_convert_encoding($song->getPath(), 'UTF-8'));
         $streamer = new DefaultStreamer($song);
         // If transcode parameter isn't passed, the default is to only transcode flac
-        if ($songFile->getExtension() === 'flac') {
+        if ($songFile->getExtension() === 'flac' && $user->getPlayerSettings()->hasFlacSupport() === false) {
             $streamer = new TranscodingStreamer(
                 $song,
                 $this->bitrate,
