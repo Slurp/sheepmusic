@@ -58,7 +58,8 @@ class StreamerService implements StreamerServiceInterface
         $songFile = new File(mb_convert_encoding($song->getPath(), 'UTF-8'));
         $streamer = new DefaultStreamer($song);
         // If transcode parameter isn't passed, the default is to only transcode flac
-        if ($songFile->getExtension() === 'flac' && $user->getPlayerSettings()->hasFlacSupport() === false) {
+        if ($songFile->getExtension() === 'flac' &&
+            ($user !== null && $user->getPlayerSettings()->hasFlacSupport() === false)) {
             $streamer = new TranscodingStreamer(
                 $song,
                 $this->bitrate,
