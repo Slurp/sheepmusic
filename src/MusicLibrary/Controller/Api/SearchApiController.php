@@ -17,6 +17,7 @@ use BlackSheep\MusicLibrary\Entity\SongEntity;
 use Elastica\Query;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -34,33 +35,32 @@ class SearchApiController extends Controller
     public function search($query)
     {
         $results = [];
-        $results['albums'] = array_map(
-            function (AlbumEntity $album) {
-                return $album->getApiData();
-            },
-            $this->container->get('fos_elastica.finder.sheepmusic.album')->find(
-                $this->buildNameQuery($query)
-            )
-        );
-
         $results['artists'] = array_map(
             function (ArtistsEntity $artist) {
                 return $artist->getApiData();
             },
-            $this->container->get('fos_elastica.finder.sheepmusic.artist')->find(
+            $this->container->get('fos_elastica.finder.sheepmusic_artists.artist')->find(
                 $this->buildNameQuery($query)
             )
         );
-
+        $results['albums'] = array_map(
+            function (AlbumEntity $album) {
+                return $album->getApiData();
+            },
+            $this->container->get('fos_elastica.finder.sheepmusic_albums.album')->find(
+                $this->buildNameQuery($query)
+            )
+        );
         $results['songs'] = array_map(
             function (SongEntity $song) {
                 return $song->getApiData();
             },
-            $this->container->get('fos_elastica.finder.sheepmusic.song')->find(
+            $this->container->get('fos_elastica.finder.sheepmusic_songs.song')->find(
                 $this->buildTitleQuery($query),
                 1000
             )
         );
+
 
         return $this->json(
             $results
@@ -70,32 +70,58 @@ class SearchApiController extends Controller
     /**
      * @param string $searchTerm
      *
-     * @return Query\Match
+     * @return Query\BoolQuery
      */
     protected function buildNameQuery($searchTerm)
     {
-        $nameQuery = new Query\Match();
+        $boolQuery = new Query\BoolQuery();
+        $boolQuery->addShould($this->getQueryStringQuery($searchTerm));
+        $boolQuery->addShould($this->getMatchQuery('name', $searchTerm));
 
-        $nameQuery->setFieldQuery('name', $searchTerm);
-        $nameQuery->setFieldFuzziness('name', 'AUTO');
-        $nameQuery->setFieldMinimumShouldMatch('name', '80%');
-
-        return $nameQuery;
+        return $boolQuery;
     }
 
     /**
      * @param string $searchTerm
      *
-     * @return Query\Match
+     * @return Query\BoolQuery
      */
     protected function buildTitleQuery($searchTerm)
     {
-        $titleQuery = new Query\Match();
+        $boolQuery = new Query\BoolQuery();
+        $boolQuery->addShould($this->getQueryStringQuery($searchTerm));
+        $boolQuery->addShould($this->getMatchQuery('title', $searchTerm));
 
-        $titleQuery->setFieldQuery('title', $searchTerm);
-        $titleQuery->setFieldFuzziness('title', 'AUTO');
-        $titleQuery->setFieldMinimumShouldMatch('title', '80%');
+        return $boolQuery;
+    }
 
-        return $titleQuery;
+    /**
+     * @param $searchTerm
+     *
+     * @return Query\QueryString
+     */
+    protected function getQueryStringQuery($searchTerm)
+    {
+        $matchQuery = new Query\QueryString($searchTerm);
+        $matchQuery->setBoost(2.0);
+
+        return $matchQuery;
+    }
+
+    /**
+     * @param $field
+     * @param $searchTerm
+     *
+     * @return Query\Match
+     */
+    protected function getMatchQuery($field, $searchTerm)
+    {
+        $matchQuery = new Query\Match();
+        $matchQuery->setFieldQuery($field, $searchTerm);
+        $matchQuery->setFieldFuzziness($field, 'AUTO');
+        $matchQuery->setFieldMinimumShouldMatch($field, '95%');
+        $matchQuery->setFieldBoost($field, 1.0);
+
+        return $matchQuery;
     }
 }
