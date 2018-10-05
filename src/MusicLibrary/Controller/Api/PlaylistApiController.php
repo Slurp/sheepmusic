@@ -43,9 +43,12 @@ class PlaylistApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getList()
+    public function getPlaylists()
     {
-        return $this->getList();
+        if($this->getUser() === null) {
+            return $this->getList();
+        }
+        return $this->json($this->getRepository()->getListForUser($this->getUser()));
     }
 
     /**
@@ -74,7 +77,8 @@ class PlaylistApiController extends BaseApiController
             $songs = $this->get('black_sheep_music_library.repository.songs_repository')->findById($songs);
             $playlist = $this->getRepository()->savePlaylistWithSongs(
                 $request->get('name'),
-                $songs
+                $songs,
+                $this->getUser()
             );
             if ($playlist) {
                 return $this->getDetail($playlist);

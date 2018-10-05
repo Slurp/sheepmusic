@@ -15,6 +15,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use BlackSheep\MusicLibrary\Model\Playlist;
 use BlackSheep\MusicLibrary\Model\PlaylistInterface;
 use BlackSheep\MusicLibrary\Model\PlaylistsSongsInterface;
+use BlackSheep\User\Entity\SheepUser;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -26,6 +27,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 class PlaylistEntity extends Playlist
 {
     use BaseEntity;
+
+    /**
+     * @var SheepUser
+     * @ORM\ManyToMany(targetEntity="BlackSheep\User\Entity\SheepUser")
+     * @ORM\JoinTable(name="user_playlists",
+     *      joinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id", unique=true)},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=false)}
+     *      )
+     */
+    protected $user;
 
     /**
      * @ORM\Column(type="string", nullable=true)
@@ -52,6 +63,7 @@ class PlaylistEntity extends Playlist
     public function __construct()
     {
         $this->songs = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
     /**
@@ -117,6 +129,17 @@ class PlaylistEntity extends Playlist
         }
 
         return $this;
+    }
+
+    public function getUser(): \BlackSheep\User\Model\SheepUser
+    {
+        return $this->user->first();
+    }
+
+    public function setUser(\BlackSheep\User\Model\SheepUser $user = null): void
+    {
+        $this->user = new ArrayCollection();
+        $this->user->add($user);
     }
 
     /**

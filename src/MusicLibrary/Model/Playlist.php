@@ -11,8 +11,17 @@
 
 namespace BlackSheep\MusicLibrary\Model;
 
+use BlackSheep\User\Model\SheepUser;
+use Doctrine\ORM\Mapping as ORM;
+
 class Playlist implements PlaylistInterface, ApiInterface
 {
+    /**
+     * @var SheepUser
+     * @ORM\Column(type="string")
+     */
+    protected $user;
+
     /**
      * @var string
      */
@@ -47,9 +56,25 @@ class Playlist implements PlaylistInterface, ApiInterface
     }
 
     /**
+     * @return SheepUser
+     */
+    public function getUser(): SheepUser
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param SheepUser $user
+     */
+    public function setUser(SheepUser $user = null): void
+    {
+        $this->user = $user;
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -57,7 +82,7 @@ class Playlist implements PlaylistInterface, ApiInterface
     /**
      * {@inheritdoc}
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
 
@@ -80,7 +105,7 @@ class Playlist implements PlaylistInterface, ApiInterface
     /**
      * @return string
      */
-    public function getCover()
+    public function getCover(): string
     {
         return $this->cover;
     }
@@ -90,7 +115,7 @@ class Playlist implements PlaylistInterface, ApiInterface
      *
      * @return PlaylistInterface
      */
-    public function setCover($cover)
+    public function setCover(string $cover)
     {
         $this->cover = $cover;
 
