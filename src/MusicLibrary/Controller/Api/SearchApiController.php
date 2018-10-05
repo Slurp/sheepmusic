@@ -40,7 +40,8 @@ class SearchApiController extends Controller
                 return $artist->getApiData();
             },
             $this->container->get('fos_elastica.finder.sheepmusic_artists.artist')->find(
-                $this->buildNameQuery($query)
+                $this->buildNameQuery($query),
+                100
             )
         );
         $results['albums'] = array_map(
@@ -48,7 +49,8 @@ class SearchApiController extends Controller
                 return $album->getApiData();
             },
             $this->container->get('fos_elastica.finder.sheepmusic_albums.album')->find(
-                $this->buildNameQuery($query)
+                $this->buildNameQuery($query),
+                100
             )
         );
         $results['songs'] = array_map(
@@ -57,7 +59,7 @@ class SearchApiController extends Controller
             },
             $this->container->get('fos_elastica.finder.sheepmusic_songs.song')->find(
                 $this->buildTitleQuery($query),
-                1000
+                100
             )
         );
 
@@ -89,7 +91,7 @@ class SearchApiController extends Controller
     protected function buildTitleQuery($searchTerm)
     {
         $boolQuery = new Query\BoolQuery();
-        $boolQuery->addShould($this->getQueryStringQuery($searchTerm));
+        $boolQuery->addMust($this->getQueryStringQuery($searchTerm));
         $boolQuery->addShould($this->getMatchQuery('title', $searchTerm));
 
         return $boolQuery;

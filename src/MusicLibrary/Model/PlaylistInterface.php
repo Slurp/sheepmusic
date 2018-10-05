@@ -11,6 +11,7 @@
 
 namespace BlackSheep\MusicLibrary\Model;
 
+use BlackSheep\User\Model\SheepUser;
 use Doctrine\Common\Collections\ArrayCollection;
 
 interface PlaylistInterface
@@ -23,16 +24,26 @@ interface PlaylistInterface
     public static function create($name = null);
 
     /**
-     * @return mixed
+     * @return SheepUser
      */
-    public function getName();
+    public function getUser(): SheepUser;
+
+    /**
+     * @param SheepUser $user
+     */
+    public function setUser(SheepUser $user = null): void;
+
+    /**
+     * @return string
+     */
+    public function getName(): string;
 
     /**
      * @param mixed $name
      *
      * @return $this
      */
-    public function setName($name);
+    public function setName(string $name);
 
     /**
      * @return AlbumInterface[]
@@ -42,14 +53,14 @@ interface PlaylistInterface
     /**
      * @return string
      */
-    public function getCover();
+    public function getCover(): string;
 
     /**
      * @param string $cover
      *
      * @return PlaylistInterface
      */
-    public function setCover($cover);
+    public function setCover(string $cover);
 
     /**
      * @return PlaylistsSongsInterface[]

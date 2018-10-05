@@ -76,13 +76,17 @@ class PlaylistCoverHelper extends AbstractUploadHelper
      */
     public function calculateColumnsAndRows($covers)
     {
-        $sqrRoot = sqrt(\count($covers));
-        $rows = $columns = round($sqrRoot, 0, PHP_ROUND_HALF_UP);
-        if ($columns < $sqrRoot) {
-            if (static::COVER_DIRECTION_PRIORITY === 'rows') {
-                ++$columns;
-            } else {
-                ++$rows;
+        $rows = \count($covers);
+        $columns = 1;
+        if(\count($covers) >= static::COVER_GRID_NUMBER) {
+            $sqrRoot = sqrt(\count($covers));
+            $rows = $columns = round($sqrRoot);
+            if ($columns < $sqrRoot) {
+                if (static::COVER_DIRECTION_PRIORITY === 'rows') {
+                    ++$columns;
+                } else {
+                    ++$rows;
+                }
             }
         }
 
@@ -116,8 +120,8 @@ class PlaylistCoverHelper extends AbstractUploadHelper
      */
     protected function getBackground($rows, $columns)
     {
-        $bgWidth = max((int) $this->coverThumbWidth * $columns, $this->coverMaxWidth);
-        $bgHeight = max((int) $this->coverThumbHeight * $rows, $this->coverMaxHeight);
+        $bgWidth = min((int) $this->coverThumbWidth * $columns, $this->coverMaxWidth);
+        $bgHeight = min((int) $this->coverThumbHeight * $rows, $this->coverMaxHeight);
 
         return imagecreatetruecolor($bgWidth, $bgHeight); // setting canvas size
     }
@@ -171,8 +175,8 @@ class PlaylistCoverHelper extends AbstractUploadHelper
         // Merge Images
         $step = 0;
         if (\count($covers) > 0) {
-            for ($x = 0; $x < $columns; ++$x) {
-                for ($y = 0; $y < $rows; ++$y) {
+            for ($x = 0; $x < $columns && isset($covers[$step]); ++$x) {
+                for ($y = 0; $y < $rows && isset($covers[$step]); ++$y) {
                     imagecopymerge(
                         $background,
                         $covers[$step],
