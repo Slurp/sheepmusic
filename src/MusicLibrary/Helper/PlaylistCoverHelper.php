@@ -76,11 +76,11 @@ class PlaylistCoverHelper extends AbstractUploadHelper
      */
     public function calculateColumnsAndRows($covers)
     {
-        $rows = round(\count($covers), 0, PHP_ROUND_HALF_UP);
+        $rows = \count($covers);
         $columns = 1;
-        if(\count($covers) > static::COVER_GRID_NUMBER) {
+        if(\count($covers) >= static::COVER_GRID_NUMBER) {
             $sqrRoot = sqrt(\count($covers));
-            $rows = $columns = round($sqrRoot, 0, PHP_ROUND_HALF_UP);
+            $rows = $columns = round($sqrRoot);
             if ($columns < $sqrRoot) {
                 if (static::COVER_DIRECTION_PRIORITY === 'rows') {
                     ++$columns;
