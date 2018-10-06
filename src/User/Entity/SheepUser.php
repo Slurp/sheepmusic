@@ -13,8 +13,8 @@ namespace BlackSheep\User\Entity;
 
 use BlackSheep\LastFm\Entity\Embeddable\LastFmUser;
 use BlackSheep\MusicLibrary\User\UserSettings;
-use Doctrine\ORM\Mapping as ORM;
 use BlackSheep\User\Model\SheepUser as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity

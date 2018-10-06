@@ -23,10 +23,9 @@ interface StreamerServiceInterface
     /**
      * Play a song.
      *
-     * @param SongInterface $song
+     * @param SongInterface  $song
      * @param SheepUser|null $user
-     *
-     * @param int $startTime
+     * @param int            $startTime
      *
      * @return Response
      */

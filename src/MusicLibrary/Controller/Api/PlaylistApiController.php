@@ -45,9 +45,10 @@ class PlaylistApiController extends BaseApiController
      */
     public function getPlaylists()
     {
-        if($this->getUser() === null) {
+        if ($this->getUser() === null) {
             return $this->getList();
         }
+
         return $this->json($this->getRepository()->getListForUser($this->getUser()));
     }
 

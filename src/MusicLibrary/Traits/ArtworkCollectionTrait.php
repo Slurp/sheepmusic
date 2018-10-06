@@ -67,7 +67,7 @@ trait ArtworkCollectionTrait
      */
     protected function filterArtwork($type)
     {
-        if($this->artworks !== null) {
+        if ($this->artworks !== null) {
             return array_filter(
                 $this->artworks,
                 function (ArtworkInterface $artwork) use ($type) {
@@ -75,6 +75,7 @@ trait ArtworkCollectionTrait
                 }
             );
         }
+
         return [];
     }
 }

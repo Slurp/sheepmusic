@@ -17,7 +17,6 @@ use BlackSheep\MusicLibrary\Entity\SongEntity;
 use Elastica\Query;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -62,7 +61,6 @@ class SearchApiController extends Controller
                 100
             )
         );
-
 
         return $this->json(
             $results
