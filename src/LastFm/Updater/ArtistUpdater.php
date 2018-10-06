@@ -76,9 +76,9 @@ class ArtistUpdater
                     $this->artistsRepository->save($artist);
                 }
             } catch (ConnectionException $connectionException) {
-                error_log(__METHOD__.$connectionException->getMessage());
+                error_log(__METHOD__ . $connectionException->getMessage());
             } catch (ApiFailedException $apiFailedException) {
-                error_log(__METHOD__.$apiFailedException->getMessage());
+                error_log(__METHOD__ . $apiFailedException->getMessage());
             }
         }
     }

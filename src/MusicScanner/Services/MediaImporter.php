@@ -83,7 +83,7 @@ class MediaImporter
 
     /**
      * @param string $path
-     * @param boolean $fullImport
+     * @param bool   $fullImport
      */
     public function import(string $path, $fullImport)
     {
