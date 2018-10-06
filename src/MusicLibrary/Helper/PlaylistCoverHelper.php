@@ -78,7 +78,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
     {
         $rows = \count($covers);
         $columns = 1;
-        if(\count($covers) >= static::COVER_GRID_NUMBER) {
+        if (\count($covers) >= static::COVER_GRID_NUMBER) {
             $sqrRoot = sqrt(\count($covers));
             $rows = $columns = round($sqrRoot);
             if ($columns < $sqrRoot) {

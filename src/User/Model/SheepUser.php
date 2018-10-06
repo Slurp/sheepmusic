@@ -15,15 +15,12 @@ use BlackSheep\LastFm\Entity\Embeddable\LastFmUser;
 use BlackSheep\LastFm\Entity\LastFmUserEmbed;
 use BlackSheep\MusicLibrary\User\UserSettings;
 use BlackSheep\User\Entity\PlayerSettings;
-use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use FOS\UserBundle\Model\UserInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 
 class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, UserInterface
 {
-    /**
-     */
     protected $id;
 
     /**
