@@ -37,7 +37,7 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
 
     public function getUserPlaylist(SheepUser $user)
     {
-        $qb = $this->createQueryBuilder("p")
+        $qb = $this->createQueryBuilder('p')
             ->where(':user MEMBER OF p.user')
             ->setParameter('user', $user);
 
@@ -52,7 +52,7 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
     }
 
     /**
-     * @param string $name
+     * @param string         $name
      * @param SheepUser|null $user
      *
      * @return PlaylistInterface
@@ -101,8 +101,11 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
      */
     public function getListForUser(SheepUser $user)
     {
-        return $this->getListQueryBuilder()->where(':user MEMBER OF a.user')
+        return $this->getListQueryBuilder()
+            ->where(':user MEMBER OF a.user')
+            ->orWhere('a.type = :type')
             ->setParameter('user', $user)
+            ->setParameter('type', PlaylistInterface::SYSTEM_TYPE)
             ->getQuery()
             ->execute(
                 [],
@@ -113,14 +116,14 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
     /**
      * @param $name
      * @param SongInterface[] $songs
-     * @param SheepUser $user
+     * @param SheepUser       $user
      *
      * @return PlaylistInterface|bool
      */
     public function savePlaylistWithSongs($name, $songs, SheepUser $user = null)
     {
         $playlist = $this->getByName($name, $user);
-        if ($songs !== null) {
+        if ($songs !== null && count($songs) >= 1) {
             $position = 0;
             $playlist->setUser($user);
             $playlist->setSongs(new ArrayCollection());

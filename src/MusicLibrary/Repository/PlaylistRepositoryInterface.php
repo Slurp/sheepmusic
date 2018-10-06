@@ -12,6 +12,8 @@
 namespace BlackSheep\MusicLibrary\Repository;
 
 use BlackSheep\MusicLibrary\Model\PlaylistInterface;
+use BlackSheep\MusicLibrary\Model\SongInterface;
+use BlackSheep\User\Entity\SheepUser;
 
 /**
  * Interface AlbumsRepositoryInterface.
@@ -24,4 +26,13 @@ interface PlaylistRepositoryInterface extends AbstractRepositoryInterface
      * @return PlaylistInterface
      */
     public function getByName($name);
+
+    /**
+     * @param $name
+     * @param SongInterface[] $songs
+     * @param SheepUser       $user
+     *
+     * @return PlaylistInterface|bool
+     */
+    public function savePlaylistWithSongs($name, $songs, SheepUser $user = null);
 }

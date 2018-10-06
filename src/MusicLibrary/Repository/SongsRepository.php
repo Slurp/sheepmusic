@@ -55,4 +55,21 @@ class SongsRepository extends AbstractRepository implements SongsRepositoryInter
 
         return $lastImportDate;
     }
+
+    /**
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function getMostPlayed(int $limit = 50)
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+        return $queryBuilder
+            ->where('s.playCount > 0')
+            ->andWhere('s.playCount IS NOT NULL')
+            ->orderBy('s.playCount', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 }

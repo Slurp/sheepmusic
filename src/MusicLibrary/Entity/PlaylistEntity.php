@@ -15,7 +15,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use BlackSheep\MusicLibrary\Model\Playlist;
 use BlackSheep\MusicLibrary\Model\PlaylistInterface;
 use BlackSheep\MusicLibrary\Model\PlaylistsSongsInterface;
-use BlackSheep\User\Entity\SheepUser;
+use BlackSheep\User\Model\SheepUser;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -32,9 +32,9 @@ class PlaylistEntity extends Playlist
      * @var SheepUser
      * @ORM\ManyToMany(targetEntity="BlackSheep\User\Entity\SheepUser")
      * @ORM\JoinTable(name="user_playlists",
-     *      joinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id", unique=true)},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=false)}
-     *      )
+     *     joinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id", unique=true)},
+     *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=false)}
+     * )
      */
     protected $user;
 
@@ -56,14 +56,22 @@ class PlaylistEntity extends Playlist
     protected $songs;
 
     /**
+     * @ORM\Column(type="string", nullable=false)
+     * @Assert\Choice(callback="getTypes")
+     */
+    protected $type;
+
+    /**
      * @ORM\Column(type="string", nullable=true)
      */
     protected $cover;
 
     public function __construct()
     {
+        parent::__construct();
         $this->songs = new ArrayCollection();
         $this->user = new ArrayCollection();
+
     }
 
     /**
@@ -131,15 +139,18 @@ class PlaylistEntity extends Playlist
         return $this;
     }
 
-    public function getUser(): \BlackSheep\User\Model\SheepUser
+    public function getUser(): SheepUser
     {
         return $this->user->first();
     }
 
-    public function setUser(\BlackSheep\User\Model\SheepUser $user = null): void
+    public function setUser(SheepUser $user = null): void
     {
-        $this->user = new ArrayCollection();
-        $this->user->add($user);
+        if ($user !== null) {
+            $this->user = new ArrayCollection();
+            $this->user->add($user);
+            $this->setType(static::USER_TYPE);
+        }
     }
 
     /**

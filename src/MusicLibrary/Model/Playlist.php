@@ -38,6 +38,16 @@ class Playlist implements PlaylistInterface, ApiInterface
     protected $songs;
 
     /**
+     * @var string;
+     */
+    protected $type;
+
+    public function __construct()
+    {
+        $this->setType(static::SYSTEM_TYPE);
+    }
+
+    /**
      * @param string|null $name
      *
      * @return PlaylistInterface
@@ -87,6 +97,32 @@ class Playlist implements PlaylistInterface, ApiInterface
         $this->name = $name;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getTypes(): array
+    {
+        return [static::SYSTEM_TYPE, static::USER_TYPE];
+    }
+
+    /**
+     * @return string
+     */
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void
+    {
+        if (in_array($type, static::getTypes())) {
+            $this->type = $type;
+        }
     }
 
     /**

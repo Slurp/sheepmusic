@@ -16,6 +16,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 interface PlaylistInterface
 {
+    const USER_TYPE = 'user';
+    const SYSTEM_TYPE = 'system';
+
     /**
      * @param string|null $name
      *
@@ -44,6 +47,16 @@ interface PlaylistInterface
      * @return $this
      */
     public function setName(string $name);
+
+    /**
+     * @return string
+     */
+    public function getType(): string;
+
+    /**
+     * @param string $type
+     */
+    public function setType(string $type): void;
 
     /**
      * @return AlbumInterface[]

@@ -146,4 +146,17 @@ class AlbumsRepository extends AbstractRepository implements AlbumsRepositoryInt
             Query::HYDRATE_ARRAY
         );
     }
+
+    /**
+     * @return AlbumEntity[]
+     */
+    public function getLatestAlbums()
+    {
+        return $this->createQueryBuilder('a')
+            ->select()
+            ->addOrderBy('a.createdAt', 'DESC')
+            ->setMaxResults(9)
+            ->getQuery()
+            ->getResult();
+    }
 }
