@@ -75,4 +75,15 @@ class PlaylistFactory
             $this->songsRepository->getMostPlayed()
         );
     }
+
+    /**
+     * @return PlaylistInterface|bool
+     */
+    public function createLastPlayedPlaylist()
+    {
+        return $this->playlistRepository->savePlaylistWithSongs(
+            'Last Played',
+            $this->songsRepository->getLastPlayed()
+        );
+    }
 }

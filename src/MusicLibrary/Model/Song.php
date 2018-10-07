@@ -13,6 +13,7 @@ namespace BlackSheep\MusicLibrary\Model;
 
 use BlackSheep\MusicLibrary\Traits\HasGenreTrait;
 use BlackSheep\MusicLibrary\Traits\PlayCountTrait;
+use DateTime;
 
 /**
  * Model for a Song.
@@ -71,6 +72,11 @@ class Song implements SongInterface
      * @var SongAudioInfoInterface
      */
     protected $audio;
+
+    /**
+     * @var DateTime
+     */
+    protected $lastPlayedDate;
 
     /**
      * {@inheritdoc}
@@ -303,6 +309,22 @@ class Song implements SongInterface
     public function setAudio(SongAudioInfoInterface $audio)
     {
         $this->audio = $audio;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLastPlayedDate(): DateTime
+    {
+        return $this->lastPlayedDate;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setLastPlayedDate(DateTime $lastPlayedDate): void
+    {
+        $this->lastPlayedDate = $lastPlayedDate;
     }
 
     /**

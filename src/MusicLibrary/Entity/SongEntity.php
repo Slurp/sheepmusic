@@ -101,6 +101,11 @@ class SongEntity extends Song implements SongInterface
     protected $artists;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    protected $lastPlayedDate;
+
+    /**
      * @ORM\ManyToOne(targetEntity="BlackSheep\MusicLibrary\Entity\GenreEntity")
      */
     protected $genre;

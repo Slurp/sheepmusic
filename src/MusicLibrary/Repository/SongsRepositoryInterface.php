@@ -29,4 +29,18 @@ interface SongsRepositoryInterface extends AbstractRepositoryInterface
      * @return null|object
      */
     public function lastImportDate();
+
+    /**
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function getMostPlayed(int $limit = 50): array;
+
+    /**
+     * @param int $limit
+     *
+     * @return array
+     */
+    public function getLastPlayed(int $limit = 50): array;
 }

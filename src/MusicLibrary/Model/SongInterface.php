@@ -11,6 +11,8 @@
 
 namespace BlackSheep\MusicLibrary\Model;
 
+use DateTime;
+
 /**
  * Interface SongInterface.
  */
@@ -166,4 +168,14 @@ interface SongInterface extends ApiInterface, PlayCountInterface, HasGenreInterf
      * @param SongAudioInfoInterface $audio
      */
     public function setAudio(SongAudioInfoInterface $audio);
+
+    /**
+     * @return DateTime
+     */
+    public function getLastPlayedDate(): DateTime;
+
+    /**
+     * @param DateTime $lastPlayedDate
+     */
+    public function setLastPlayedDate(DateTime $lastPlayedDate): void;
 }

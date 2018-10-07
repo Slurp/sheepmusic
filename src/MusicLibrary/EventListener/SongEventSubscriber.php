@@ -12,6 +12,7 @@
 namespace BlackSheep\MusicLibrary\EventListener;
 
 use BlackSheep\MusicLibrary\Events\SongEventInterface;
+use BlackSheep\MusicLibrary\Factory\PlaylistFactory;
 use BlackSheep\MusicLibrary\Model\PlayCountInterface;
 use BlackSheep\MusicLibrary\Repository\SongsRepositoryInterface;
 
@@ -26,11 +27,18 @@ class SongEventSubscriber implements SongEventListener
     protected $songsRepository;
 
     /**
-     * @param SongsRepositoryInterface $songsRepository
+     * @var PlaylistFactory
      */
-    public function __construct(SongsRepositoryInterface $songsRepository)
+    protected $playlistFactory;
+
+    /**
+     * @param SongsRepositoryInterface $songsRepository
+     * @param PlaylistFactory $playlistFactory
+     */
+    public function __construct(SongsRepositoryInterface $songsRepository, PlaylistFactory $playlistFactory)
     {
         $this->songsRepository = $songsRepository;
+        $this->playlistFactory = $playlistFactory;
     }
 
     /**
@@ -50,21 +58,23 @@ class SongEventSubscriber implements SongEventListener
     public function playedSong(SongEventInterface $songEvent)
     {
         $song = $songEvent->getSong();
+        $song->setLastPlayedDate(new \DateTime());
         if ($song instanceof PlayCountInterface) {
             $song->updatePlayCount();
         }
         if ($song->getAlbum() instanceof PlayCountInterface) {
             $song->getAlbum()->updatePlayCount();
+            $this->songsRepository->save($song->getAlbum());
         }
         if ($song->getGenre() instanceof PlayCountInterface) {
             $song->getGenre()->updatePlayCount();
+            $this->songsRepository->save($song->getGenre());
         }
         if ($song->getArtist() instanceof PlayCountInterface) {
             $song->getArtist()->updatePlayCount();
+            $this->songsRepository->save($song->getArtist());
         }
         $this->songsRepository->save($song);
-        $this->songsRepository->save($song->getArtist());
-        $this->songsRepository->save($song->getGenre());
-        $this->songsRepository->save($song->getAlbum());
+        $this->playlistFactory->createMostPlayedPlaylist();
     }
 }
