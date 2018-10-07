@@ -11,6 +11,7 @@
 
 namespace BlackSheep\LastFm\Controller\Api;
 
+use BlackSheep\LastFm\Auth\LastFmAuth;
 use BlackSheep\LastFm\Entity\LastFmUserEmbed;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -23,6 +24,17 @@ use Symfony\Component\HttpFoundation\Response;
 class ApiLastFmController extends Controller
 {
     /**
+     * @var LastFmAuth
+     */
+    protected $lastFmAuth;
+
+    public function __construct(LastFmAuth $lastFmAuth)
+    {
+
+        $this->lastFmAuth = $lastFmAuth;
+    }
+
+    /**
      * @Route("/lastfm/token/{refresh}", name="lastfm_token")
      *
      * @param bool $refresh
@@ -34,7 +46,7 @@ class ApiLastFmController extends Controller
         $theUser = $this->getUser();
         if ($theUser instanceof LastFmUserEmbed) {
             return $this->json(
-                $this->get('black_sheep.last_fm.auth')->tokenForUser($theUser, $refresh)
+                $this->lastFmAuth->tokenForUser($theUser, $refresh)
             );
         }
 
@@ -51,7 +63,7 @@ class ApiLastFmController extends Controller
         $theUser = $this->getUser();
         if ($theUser instanceof LastFmUserEmbed && $theUser->getLastFm()->hasLastFmConnected() === false) {
             try {
-                $this->get('black_sheep.last_fm.auth')->sessionForUser($theUser);
+                $this->lastFmAuth->sessionForUser($theUser);
 
                 return new JsonResponse(['connected' => true]);
             } catch (\Exception $e) {
@@ -74,7 +86,7 @@ class ApiLastFmController extends Controller
         $theUser = $this->getUser();
         if ($theUser instanceof LastFmUserEmbed) {
             return $this->json(
-                ['disconnected' => $this->get('black_sheep.last_fm.auth')->disconnectUser($theUser, $token)]
+                ['disconnected' => $this->lastFmAuth->disconnectUser($theUser, $token)]
             );
         }
 

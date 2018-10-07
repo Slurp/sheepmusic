@@ -12,10 +12,10 @@
 namespace BlackSheep\LastFm\Auth;
 
 use BlackSheep\LastFm\Entity\LastFmUserEmbed;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\EntityManagerInterface;
 use LastFmApi\Api\AuthApi;
 use LastFmApi\Exception\ApiFailedException;
+use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 
 /**
  * LastFm auth.
@@ -38,19 +38,18 @@ class LastFmAuth
     protected $apiSecret;
 
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     private $entityManager;
 
     /**
-     * @param string        $apiKey
-     * @param string        $apiSecret
-     * @param EntityManager $entityManager
+     * @param ContainerBagInterface $containerBag
+     * @param EntityManagerInterface $entityManager
      */
-    public function __construct($apiKey, $apiSecret, EntityManager $entityManager)
+    public function __construct(ContainerBagInterface $containerBag, EntityManagerInterface $entityManager)
     {
-        $this->apiKey = $apiKey;
-        $this->apiSecret = $apiSecret;
+        $this->apiKey = $containerBag->get('black_sheep_music_library.last_fm_api_key');
+        $this->apiSecret = $containerBag->get('black_sheep_music_library.last_fm_api_secret');
         $this->entityManager = $entityManager;
     }
 
@@ -64,9 +63,10 @@ class LastFmAuth
 
     /**
      * @param LastFmUserEmbed $user
-     * @param bool            $refresh
+     * @param bool $refresh
      *
      * @return array
+     * @throws \LastFmApi\Exception\InvalidArgumentException
      */
     public function tokenForUser(LastFmUserEmbed $user, $refresh = false)
     {
@@ -76,11 +76,7 @@ class LastFmAuth
                 ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret]
             );
             $user->getLastFm()->setLastFmToken((string) $auth->token);
-            try {
-                $this->entityManager->flush($user);
-            } catch (OptimisticLockException $e) {
-                return [];
-            }
+            $this->entityManager->flush();
         }
         if ($user->getLastFm()->hasLastFmConnected() === false) {
             return [
@@ -101,11 +97,7 @@ class LastFmAuth
     public function disconnectUser(LastFmUserEmbed $user, $token)
     {
         $disconnected = $user->getLastFm()->disconnect($token);
-        try {
-            $this->entityManager->flush($user);
-        } catch (OptimisticLockException $e) {
-            return false;
-        }
+        $this->entityManager->flush();
 
         return $disconnected;
     }
@@ -128,7 +120,7 @@ class LastFmAuth
             $user->getLastFm()->setLastFmKey($auth->sessionKey);
             $user->getLastFm()->setLastFmUserName($auth->username);
             $user->getLastFm()->setLastFmSubscriber($auth->subscriber);
-            $this->entityManager->flush($user);
+            $this->entityManager->flush();
         } catch (ApiFailedException $exception) {
             $this->resetLastFmUser($user);
             throw $exception;
@@ -144,6 +136,6 @@ class LastFmAuth
         $user->getLastFm()->setLastFmUserName('');
         $user->getLastFm()->setLastFmSubscriber(false);
         $user->getLastFm()->setLastFmToken('');
-        $this->entityManager->flush($user);
+        $this->entityManager->flush();
     }
 }

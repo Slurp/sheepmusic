@@ -30,7 +30,7 @@ class PlayerSettings
     /**
      * @return bool
      */
-    public function hasFlacSupport(): bool
+    public function hasFlacSupport(): ?bool
     {
         return $this->hasFlacSupport;
     }
