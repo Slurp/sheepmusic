@@ -1,10 +1,4 @@
 services:
-    black_sheep_music_library.song_event_subscriber:
-        class: BlackSheep\MusicLibrary\EventListener\SongEventSubscriber
-        public: true
-        arguments: ['@black_sheep_music_library.repository.songs_repository']
-        tags:
-            - { name: kernel.event_subscriber }
     black_sheep_music_library.album_event_subscriber:
         class: BlackSheep\MusicLibrary\EventListener\AlbumEventSubscriber
         public: true
