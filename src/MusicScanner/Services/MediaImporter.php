@@ -13,9 +13,11 @@ namespace BlackSheep\MusicScanner\Services;
 
 use BlackSheep\MusicLibrary\Entity\SongEntity;
 use BlackSheep\MusicLibrary\Repository\SongsRepository;
+use BlackSheep\MusicScanner\Event\ImportEventInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -60,20 +62,28 @@ class MediaImporter
     protected $debug;
 
     /**
-     * @param ManagerRegistry $managerRegistry
-     * @param SongImporter    $songImporter
-     *
-     * @internal param EntityManager $entityManager
+     * @var EventDispatcher
      */
-    public function __construct(ManagerRegistry $managerRegistry, SongImporter $songImporter)
-    {
+    protected $eventDispatcher;
+
+    /**
+     * @param ManagerRegistry $managerRegistry
+     * @param SongImporter $songImporter
+     * @param EventDispatcher $eventDispatcher
+     */
+    public function __construct(
+        ManagerRegistry $managerRegistry,
+        SongImporter $songImporter,
+        EventDispatcher $eventDispatcher
+    ) {
         $this->managerRegistry = $managerRegistry;
         $this->songImporter = $songImporter;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
      * @param OutputInterface $output
-     * @param bool            $debug
+     * @param bool $debug
      */
     public function setOutputInterface(OutputInterface $output, bool $debug = true)
     {
@@ -83,7 +93,7 @@ class MediaImporter
 
     /**
      * @param string $path
-     * @param bool   $fullImport
+     * @param bool $fullImport
      */
     public function import(string $path, $fullImport)
     {
@@ -108,20 +118,20 @@ class MediaImporter
                 } catch (\Exception $exception) {
                     $this->output->writeln([$exception->getMessage(), $exception->getLine(), $exception->getFile()]);
                     $this->output->write($exception->getTraceAsString());
-                    die();
                 }
                 $this->debugStep('imported', $file->getFilename());
                 unset($file);
             }
             $this->managerRegistry->getManager()->flush();
         }
+        $this->eventDispatcher->dispatch(ImportEventInterface::IMPORTED_COMPLETE);
         $this->debugEnd();
     }
 
     /**
      * Gather all applicable files in a given directory.
      *
-     * @param string         $path           The directory's full path
+     * @param string $path The directory's full path
      * @param \DateTime|null $lastImportDate
      *
      * @return Finder An array of SplFileInfo objects
