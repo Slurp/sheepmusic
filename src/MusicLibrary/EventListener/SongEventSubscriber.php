@@ -11,6 +11,7 @@
 
 namespace BlackSheep\MusicLibrary\EventListener;
 
+use BlackSheep\MusicLibrary\Events\SongEvent;
 use BlackSheep\MusicLibrary\Events\SongEventInterface;
 use BlackSheep\MusicLibrary\Factory\PlaylistFactory;
 use BlackSheep\MusicLibrary\Model\PlayCountInterface;
@@ -57,6 +58,16 @@ class SongEventSubscriber implements SongEventListener
      */
     public function playedSong(SongEventInterface $songEvent)
     {
+        $this->addPlayCount($songEvent);
+        $this->playlistFactory->createMostPlayedPlaylist();
+        $this->playlistFactory->createLastPlayedPlaylist();
+    }
+
+    /**
+     * @param SongEventInterface $songEvent
+     */
+    protected function addPlayCount(SongEventInterface $songEvent)
+    {
         $song = $songEvent->getSong();
         $song->setLastPlayedDate(new \DateTime());
         if ($song instanceof PlayCountInterface) {
@@ -75,6 +86,5 @@ class SongEventSubscriber implements SongEventListener
             $this->songsRepository->save($song->getArtist());
         }
         $this->songsRepository->save($song);
-        $this->playlistFactory->createMostPlayedPlaylist();
     }
 }
