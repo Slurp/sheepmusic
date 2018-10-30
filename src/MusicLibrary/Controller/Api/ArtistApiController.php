@@ -15,6 +15,7 @@ use BlackSheep\MusicLibrary\Entity\ArtistsEntity;
 use BlackSheep\MusicLibrary\Events\AlbumEvent;
 use BlackSheep\MusicLibrary\Events\ArtistEvent;
 use BlackSheep\MusicLibrary\Events\ArtistEventInterface;
+use BlackSheep\MusicLibrary\Factory\PlaylistFactory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +25,16 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class ArtistApiController extends BaseApiController
 {
+    /**
+     * @var PlaylistFactory
+     */
+    protected $playlistFactory;
+
+    public function __construct(PlaylistFactory $playlistFactory)
+    {
+        $this->playlistFactory = $playlistFactory;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -72,6 +83,18 @@ class ArtistApiController extends BaseApiController
     public function getArtist(ArtistsEntity $artist)
     {
         return $this->getDetail($artist);
+    }
+
+    /**
+     * @Route("/artist/playlist/{artist}", name="get_artist_playlist")
+     *
+     * @param ArtistsEntity $artist
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function getSmartPlaylistForArtist(ArtistsEntity $artist)
+    {
+        return $this->json($this->get('black_sheep.music_library.api_model.api_playlist_data')->getApiData($this->playlistFactory->createSmartPlaylistForArtist($artist)));
     }
 
     /**

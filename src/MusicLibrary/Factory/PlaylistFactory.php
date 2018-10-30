@@ -11,6 +11,8 @@
 
 namespace BlackSheep\MusicLibrary\Factory;
 
+use BlackSheep\MusicLibrary\Entity\SimilarArtist\SimilarArtistEntity;
+use BlackSheep\MusicLibrary\Model\ArtistInterface;
 use BlackSheep\MusicLibrary\Model\PlaylistInterface;
 use BlackSheep\MusicLibrary\Repository\AlbumsRepository;
 use BlackSheep\MusicLibrary\Repository\PlaylistRepository;
@@ -85,5 +87,70 @@ class PlaylistFactory
             'Last Played',
             $this->songsRepository->getLastPlayed()
         );
+    }
+
+    /**
+     * @param ArtistInterface $artist
+     *
+     * @return PlaylistInterface|bool
+     */
+    public function createSmartPlaylistForArtist(ArtistInterface $artist)
+    {
+        $artistSongs = [];
+        $usedArtists = [$artist->getSlug()];
+        $this->randomSongsForArtist($artist, $artistSongs);
+
+        return $this->playlistRepository->savePlaylistWithSongs(
+            'Based on ' . $artist->getName(),
+            $this->getSongsFromSimilarArtist(
+                $artist,
+                $usedArtists,
+                $artistSongs
+            )
+        );
+    }
+
+    /**
+     * @param ArtistInterface $artist
+     * @param array $usedArtists
+     * @param array $songList
+     * @param int $level
+     *
+     * @return array|null
+     */
+    protected function getSongsFromSimilarArtist(
+        ArtistInterface $artist,
+        array &$usedArtists,
+        array &$songList,
+        int $level = 0
+    ): ?array {
+        if ($level < 3) {
+            /** @var SimilarArtistEntity $similarArtist */
+            foreach ($artist->getSimilarArtists()->slice(0,3) as $similarArtist) {
+                if (in_array($similarArtist->getSimilar()->getSlug(), $usedArtists) === false) {
+                    $usedArtists[] = $similarArtist->getSimilar()->getSlug();
+                    $this->randomSongsForArtist($similarArtist->getSimilar(), $songList);
+                    $this->getSongsFromSimilarArtist(
+                        $similarArtist->getSimilar(),
+                        $usedArtists,
+                        $songList,
+                        ++$level);
+                }
+            }
+        }
+        return $songList;
+    }
+
+    /**
+     * @param $songList
+     * @param ArtistInterface $artist
+     * @param int $amount
+     */
+    protected function randomSongsForArtist(ArtistInterface $artist, &$songList, $amount = 3)
+    {
+        $artistsSongs = $artist->getSongs()->toArray();
+        foreach (array_rand($artistsSongs, $amount) as $songIndex) {
+            $songList[] = $artistsSongs[$songIndex];
+        }
     }
 }
