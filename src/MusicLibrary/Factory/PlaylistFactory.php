@@ -114,6 +114,7 @@ class PlaylistFactory
      * @param ArtistInterface $artist
      * @param array $usedArtists
      * @param array $songList
+     * @param int $depth
      * @param int $level
      *
      * @return array|null
@@ -122,11 +123,12 @@ class PlaylistFactory
         ArtistInterface $artist,
         array &$usedArtists,
         array &$songList,
+        int $depth = 5,
         int $level = 0
     ): ?array {
-        if ($level < 3) {
+        if ($level < $depth) {
             /** @var SimilarArtistEntity $similarArtist */
-            foreach ($artist->getSimilarArtists()->slice(0,3) as $similarArtist) {
+            foreach ($artist->getSimilarArtists() as $similarArtist) {
                 if (in_array($similarArtist->getSimilar()->getSlug(), $usedArtists) === false) {
                     $usedArtists[] = $similarArtist->getSimilar()->getSlug();
                     $this->randomSongsForArtist($similarArtist->getSimilar(), $songList);
@@ -134,6 +136,7 @@ class PlaylistFactory
                         $similarArtist->getSimilar(),
                         $usedArtists,
                         $songList,
+                        $depth,
                         ++$level);
                 }
             }
@@ -146,10 +149,10 @@ class PlaylistFactory
      * @param ArtistInterface $artist
      * @param int $amount
      */
-    protected function randomSongsForArtist(ArtistInterface $artist, &$songList, $amount = 3)
+    protected function randomSongsForArtist(ArtistInterface $artist, &$songList)
     {
         $artistsSongs = $artist->getSongs()->toArray();
-        foreach (array_rand($artistsSongs, $amount) as $songIndex) {
+        foreach (array_rand($artistsSongs, mt_rand(3,min((count($artistsSongs) / 3) ,6))) as $songIndex) {
             $songList[] = $artistsSongs[$songIndex];
         }
     }
