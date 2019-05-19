@@ -19,8 +19,26 @@ use BlackSheep\MusicLibrary\Model\SongInterface;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @ApiResource(
+ *     shortName="Song",
+ *     collectionOperations={
+ *         "get"={
+ *
+ *             "access_control"="is_granted('ROLE_USER')",
+ *             "access_control_message"="Access to other users is forbidden."
+ *         },
+ *     },
+ *     itemOperations={
+ *         "get"={
+ *             "access_control"="is_granted('ROLE_USER')",
+ *             "access_control_message"="Access to other users is forbidden."
+ *         },
+ *     }
+ * )
+ *
  * @ORM\Table(indexes={
  *     @ORM\Index(name="album_index", columns={"album_id"}),
  *     @ORM\Index(name="index_import", columns={"m_time"}),
@@ -28,34 +46,37 @@ use Doctrine\ORM\Mapping as ORM;
  *     @ORM\Index(name="index_update", columns={"updated_at"})
  * }))
  * @ORM\Entity(repositoryClass="BlackSheep\MusicLibrary\Repository\SongsRepository")
- *
- * @ApiResource
  */
 class SongEntity extends Song implements SongInterface
 {
     use BaseEntity;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $track;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\Column(type="string", nullable=true)
      */
     protected $title;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\Column(type="bigint", nullable=true)
      */
     protected $length;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\Column(type="bigint")
      */
     protected $mTime;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\Column(type="text", length=4096)
      */
     protected $path;
@@ -66,6 +87,7 @@ class SongEntity extends Song implements SongInterface
     protected $album;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $playCount;
@@ -81,6 +103,7 @@ class SongEntity extends Song implements SongInterface
     protected $playlists;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\Column(type="string", nullable=true)
      */
     protected $year;
@@ -101,6 +124,7 @@ class SongEntity extends Song implements SongInterface
     protected $artists;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $lastPlayedDate;

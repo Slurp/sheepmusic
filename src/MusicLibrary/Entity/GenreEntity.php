@@ -18,13 +18,28 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
+ * @ApiResource(
+ *     shortName="Genre",
+ *     collectionOperations={
+ *         "get"={
+ *             "access_control"="is_granted('ROLE_USER')",
+ *             "access_control_message"="Access to other users is forbidden."
+ *         },
+ *     },
+ *     itemOperations={
+ *         "get"={
+ *             "access_control"="is_granted('ROLE_USER')",
+ *             "access_control_message"="Access to other users is forbidden."
+ *         },
+ *     }
+ * )
+ *
  * @ORM\Table(indexes={
  *     @ORM\Index(name="index_create", columns={"created_at"}),
  *     @ORM\Index(name="index_update", columns={"updated_at"})
  * }))
  * @ORM\Entity(repositoryClass="BlackSheep\MusicLibrary\Repository\GenresRepository")
  *
- * @ApiResource;
  */
 class GenreEntity extends Genre implements GenreInterface
 {

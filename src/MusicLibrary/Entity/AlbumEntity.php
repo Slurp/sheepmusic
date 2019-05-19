@@ -23,8 +23,26 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ * @ApiResource(
+ *     shortName="Album",
+ *     collectionOperations={
+ *         "get"={
+ *             "access_control"="is_granted('ROLE_USER')",
+ *             "access_control_message"="Access to other users is forbidden.",
+ *             "normalization_context"={"groups"={"collection","album_collection"}},
+ *         },
+ *     },
+ *     itemOperations={
+ *         "get"={
+ *             "access_control"="is_granted('ROLE_USER')",
+ *             "access_control_message"="Access to other users is forbidden."
+ *         },
+ *     }
+ * )
+ *
  * @ORM\Table(indexes={
  *     @ORM\Index(name="index_artist_album", columns={"artist_id", "name"}),
  *     @ORM\Index(name="index_create", columns={"created_at"}),
@@ -33,7 +51,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="BlackSheep\MusicLibrary\Repository\AlbumsRepository")
  * @UniqueEntity("musicBrainzId")
  *
- * @ApiResource
  */
 class AlbumEntity extends Album implements AlbumInterface
 {
@@ -41,6 +58,7 @@ class AlbumEntity extends Album implements AlbumInterface
     use ArtworkCollectionEntityTrait;
 
     /**
+     * @Groups({"album_collection"})
      * @Gedmo\Slug(handlers={
      *     @Gedmo\SlugHandler(class="Gedmo\Sluggable\Handler\RelativeSlugHandler", options={
      *         @Gedmo\SlugHandlerOption(name="relationField", value="artist"),
@@ -53,27 +71,32 @@ class AlbumEntity extends Album implements AlbumInterface
     protected $slug;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\Column(type="string", nullable=false)
      */
     protected $name;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\Column(type="datetime", nullable=true)
      */
     protected $releaseDate;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\Column(type="string", nullable=true)
      */
     protected $cover;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\OneToMany(targetEntity="SongEntity", mappedBy="album", cascade={"all"})
      * @ORM\OrderBy({"track": "ASC"})
      */
     protected $songs;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\ManyToOne(targetEntity="ArtistsEntity", inversedBy="albums", cascade={"all"})
      */
     protected $artist;
@@ -99,6 +122,7 @@ class AlbumEntity extends Album implements AlbumInterface
     protected $lastFmUrl;
 
     /**
+     * @Groups({"album_collection"})
      * @ORM\Column(type="integer", nullable=true)
      */
     protected $playCount;

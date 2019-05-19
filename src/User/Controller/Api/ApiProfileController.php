@@ -17,8 +17,7 @@ use FOS\UserBundle\Event\GetResponseUserEvent;
 use FOS\UserBundle\FOSUserEvents;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormInterface;
@@ -27,7 +26,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * Profile for a user.
@@ -45,23 +43,15 @@ class ApiProfileController extends AbstractController
     private $userManager;
 
     /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
      * @param EventDispatcherInterface $eventDispatcher
-     * @param UserManagerInterface     $userManager
-     * @param TranslatorInterface      $translator
+     * @param UserManagerInterface $userManager
      */
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        UserManagerInterface $userManager,
-        TranslatorInterface $translator
+        UserManagerInterface $userManager
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->userManager = $userManager;
-        $this->translator = $translator;
     }
 
     /**
@@ -89,8 +79,7 @@ class ApiProfileController extends AbstractController
     }
 
     /**
-     * @Route("/user/save/profile", name="save_user_profile")
-     * @Method({"PUT", "POST", "PATCH"})
+     * @Route("/user/save/profile", name="save_user_profile", methods={"PUT", "POST", "PATCH"})
      *
      * @param Request $request
      *
@@ -131,10 +120,10 @@ class ApiProfileController extends AbstractController
     }
 
     /**
-     * @param FormInterface            $form
-     * @param Request                  $request
+     * @param FormInterface $form
+     * @param Request $request
      * @param EventDispatcherInterface $dispatcher
-     * @param UserInterface            $user
+     * @param UserInterface $user
      *
      * @return null|RedirectResponse|Response
      */
@@ -165,7 +154,7 @@ class ApiProfileController extends AbstractController
     protected function getUser()
     {
         $user = parent::getUser();
-        if (!\is_object($user) || !$user instanceof UserInterface) {
+        if (!is_object($user) || !$user instanceof UserInterface) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 

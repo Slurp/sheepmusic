@@ -21,8 +21,23 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @ApiResource(
+ *     shortName="Playlist",
+ *     collectionOperations={
+ *         "get"={
+ *             "access_control"="is_granted('ROLE_USER')",
+ *             "access_control_message"="Access to other users is forbidden."
+ *         },
+ *     },
+ *     itemOperations={
+ *         "get"={
+ *             "access_control"="is_granted('ROLE_USER')",
+ *             "access_control_message"="Access to other users is forbidden."
+ *         },
+ *     }
+ * )
+ *
  * @ORM\Entity(repositoryClass="BlackSheep\MusicLibrary\Repository\PlaylistRepository")
- * @ApiResource
  */
 class PlaylistEntity extends Playlist
 {

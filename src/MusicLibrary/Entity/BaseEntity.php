@@ -14,6 +14,7 @@ namespace BlackSheep\MusicLibrary\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Makes a entity timestampable. Thanks to GEDMO!
@@ -28,13 +29,15 @@ trait BaseEntity
 
     /**
      * @ORM\Id
+     * @Groups({"collection"})
      * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="UUID")
      */
     protected $id;
 
     /**
      * @var \DateTime
+     * @Groups({"collection"})
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
@@ -42,6 +45,7 @@ trait BaseEntity
 
     /**
      * @var \DateTime
+     * @Groups({"collection"})
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime")
      */

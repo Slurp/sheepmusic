@@ -25,9 +25,19 @@ services:
 
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
-    BlackSheep\Controller\:
-        resource: '../src/Controller'
+    BlackSheep\MusicLibrary\Controller\:
+        resource: '../src/MusicLibrary/Controller'
         tags: ['controller.service_arguments']
+    BlackSheep\LastFm\Controller\:
+        resource: '../src/LastFm/Controller'
+        tags: ['controller.service_arguments']
+    BlackSheep\MusicScanner\Controller\:
+        resource: '../src/MusicScanner/Controller'
+        tags: ['controller.service_arguments']
+    BlackSheep\User\Controller\:
+        resource: '../src/User/Controller'
+        tags: ['controller.service_arguments']
+
     black_sheep_music_scanner.services.media_importer:
         alias: BlackSheep\MusicScanner\Services\MediaImporter
         public: true

@@ -18,6 +18,13 @@ security:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
+
+        swagger:
+            pattern:   ^/api$
+            stateless: true
+            anonymous: false
+            security: false
+
         refresh:
             pattern:  ^/api/token/refresh
             stateless: true

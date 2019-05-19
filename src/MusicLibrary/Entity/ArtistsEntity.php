@@ -26,9 +26,24 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @ApiResource(
+ *     shortName="Artist",
+ *     collectionOperations={
+ *         "get"={
+ *             "access_control"="is_granted('ROLE_USER')",
+ *             "access_control_message"="Access to other users is forbidden."
+ *         },
+ *     },
+ *     itemOperations={
+ *         "get"={
+ *             "access_control"="is_granted('ROLE_USER')",
+ *             "access_control_message"="Access to other users is forbidden."
+ *         },
+ *     }
+ * )
+ *
  * @ORM\Entity(repositoryClass="BlackSheep\MusicLibrary\Repository\ArtistRepository")
  * @UniqueEntity("musicBrainzId")
- * @ApiResource
  */
 class ArtistsEntity extends Artist implements ArtistInterface
 {
