@@ -45,7 +45,7 @@ install:
 - openssl rsa -pubout -in config/jwt/test/private.pem -out config/jwt/test/public.pem
 - export SYMFONY_DEPRECATIONS_HELPER=weak
 script:
-- phpunit --configuration phpunit.xml.dist
+#- phpunit --configuration phpunit.xml.dist
 - "./bin/console lint:yaml config"
 - "./bin/console lint:twig templates"
 - "./bin/console lint:xliff translations"
