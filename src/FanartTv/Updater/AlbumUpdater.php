@@ -41,8 +41,8 @@ class AlbumUpdater
 
     /**
      * @param AlbumsRepositoryInterface $albumsRepository
-     * @param MusicClient               $client
-     * @param ArtworkFactory            $logoFactory
+     * @param MusicClient $client
+     * @param ArtworkFactory $logoFactory
      */
     public function __construct(
         AlbumsRepositoryInterface $albumsRepository,
@@ -59,7 +59,12 @@ class AlbumUpdater
      */
     public function updateArtWork(AlbumInterface $album)
     {
-        if (empty($album->getMusicBrainzId()) === false && empty($album->getCover()) === false) {
+        if (
+            empty($album->getMusicBrainzId()) === false
+            && empty($album->getCover()) === false
+            && empty($album->getCdArt()) === false
+            && empty($album->getArtworkCover()) === false
+        ) {
             try {
                 $fanart = new FanartTvResponse(
                     json_decode(

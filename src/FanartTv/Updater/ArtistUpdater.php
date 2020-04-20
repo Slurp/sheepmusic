@@ -59,7 +59,11 @@ class ArtistUpdater
      */
     public function updateArtWork(ArtistInterface $artist)
     {
-        if (empty($artist->getMusicBrainzId()) === false) {
+        if (
+            empty($artist->getMusicBrainzId()) === false
+            && empty($artist->getLogos()) === false
+            && empty($artist->getBackgrounds()) === false
+        ) {
             try {
                 $fanArt = new FanartTvResponse(
                     json_decode(
