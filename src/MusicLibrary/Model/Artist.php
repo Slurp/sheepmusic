@@ -200,7 +200,7 @@ class Artist implements ArtistInterface
     /**
      * {@inheritdoc}
      */
-    public function getAlbumArt()
+    public function getAlbumArt(): ?string
     {
         /** @var Album $album */
         foreach ($this->getAlbums() as $album) {

@@ -63,7 +63,7 @@ class AlbumArtworkEntity extends AbstractArtworkEntity implements AlbumArtworkEn
     /**
      * @param AlbumInterface $album
      */
-    public function setAlbum(AlbumInterface $album)
+    public function setAlbum(?AlbumInterface $album)
     {
         $this->album = $album;
     }

@@ -65,7 +65,7 @@ trait ArtworkCollectionTrait
      *
      * @return array|ArtworkInterface[]
      */
-    protected function filterArtwork($type)
+    public function filterArtwork($type)
     {
         if ($this->artworks !== null) {
             return array_filter(

@@ -26,5 +26,5 @@ interface ArtistArtworkEntityInterface
     /**
      * @param ArtistInterface $artist
      */
-    public function setArtist(ArtistInterface $artist);
+    public function setArtist(?ArtistInterface $artist);
 }

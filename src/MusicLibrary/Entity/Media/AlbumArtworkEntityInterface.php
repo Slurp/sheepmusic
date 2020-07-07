@@ -26,5 +26,5 @@ interface AlbumArtworkEntityInterface
     /**
      * @param AlbumInterface $album
      */
-    public function setAlbum(AlbumInterface $album);
+    public function setAlbum(?AlbumInterface $album);
 }

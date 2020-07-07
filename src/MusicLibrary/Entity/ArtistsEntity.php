@@ -108,6 +108,7 @@ class ArtistsEntity extends Artist implements ArtistInterface
      *     mappedBy="artist",
      *     cascade={"all"}
      * )
+     * @ORM\OrderBy({"likes" = "DESC"})
      */
     protected $artworks;
 

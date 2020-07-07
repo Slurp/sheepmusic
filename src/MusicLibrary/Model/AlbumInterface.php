@@ -48,7 +48,7 @@ interface AlbumInterface extends ApiInterface, SongCollectionInterface, PlayCoun
     public function getCover();
 
     /**
-     * @param string $cover
+     * @param string|array $cover
      *
      * @return AlbumInterface
      */

@@ -98,9 +98,9 @@ interface ArtistInterface extends ApiInterface, MusicBrainzModelInterface, SongC
     public function setPlayCount($playCount);
 
     /**
-     * @return mixed
+     * @return string|null
      */
-    public function getAlbumArt();
+    public function getAlbumArt(): ?string;
 
     /**
      * @return SimilarArtistsInterface[]

@@ -117,8 +117,9 @@ class AlbumEntity extends Album implements AlbumInterface
      * @ORM\OneToMany(
      *     targetEntity="BlackSheep\MusicLibrary\Entity\Media\AlbumArtworkEntity",
      *     mappedBy="album",
-     *     cascade={"all"}
+     *     cascade={"all"},
      * )
+     * @ORM\OrderBy({"likes" = "DESC"})
      */
     protected $artworks;
 

@@ -62,7 +62,7 @@ class ArtistArtworkEntity extends AbstractArtworkEntity implements ArtistArtwork
     /**
      * @param ArtistInterface $artist
      */
-    public function setArtist(ArtistInterface $artist)
+    public function setArtist(?ArtistInterface $artist)
     {
         $this->artist = $artist;
     }

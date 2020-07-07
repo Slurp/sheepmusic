@@ -11,7 +11,14 @@
 
 namespace BlackSheep\MusicLibrary\Entity\Traits;
 
+use BlackSheep\MusicLibrary\Entity\AlbumEntity;
+use BlackSheep\MusicLibrary\Entity\ArtistsEntity;
+use BlackSheep\MusicLibrary\Entity\Media\AlbumArtworkEntity;
+use BlackSheep\MusicLibrary\Entity\Media\ArtistArtworkEntity;
+use BlackSheep\MusicLibrary\Model\Album;
 use BlackSheep\MusicLibrary\Model\Media\ArtworkInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
  * Class ArtworkCollectionEntityTrait.
@@ -19,11 +26,26 @@ use BlackSheep\MusicLibrary\Model\Media\ArtworkInterface;
 trait ArtworkCollectionEntityTrait
 {
     /**
+     * @param ArtworkInterface $artwork
+     */
+    public function removeArtwork(ArtworkInterface $artwork)
+    {
+        if($this->artworks instanceof Collection && $this->artworks->contains($artwork)) {
+            if($artwork instanceof AlbumArtworkEntity) {
+                $artwork->setAlbum(null);
+            }
+            if($artwork instanceof ArtistArtworkEntity) {
+                $artwork->setArtist(null);
+            }
+        }
+    }
+
+    /**
      * @param $type
      *
      * @return array|ArtworkInterface[]
      */
-    protected function filterArtwork($type)
+    public function filterArtwork($type)
     {
         return array_filter(
             $this->artworks->toArray(),

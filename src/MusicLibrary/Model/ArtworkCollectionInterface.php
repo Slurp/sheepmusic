@@ -44,4 +44,11 @@ interface ArtworkCollectionInterface extends Sluggable
      * @return $this
      */
     public function removeArtwork(ArtworkInterface $artwork);
+
+    /**
+     * @param string $type
+     *
+     * @return array|ArtworkInterface[]
+     */
+    public function filterArtwork($type);
 }

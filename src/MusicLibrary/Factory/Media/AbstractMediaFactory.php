@@ -64,9 +64,8 @@ class AbstractMediaFactory
             $entity->setImageFile(
                 new UploadedFile(
                     $tempFile,
-                    uniqid($name, true) . '.' . $ext,
+                    $name. '.' . $ext,
                     mime_content_type($tempFile),
-                    filesize($tempFile),
                     null,
                     true
                 )
