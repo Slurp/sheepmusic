@@ -12,7 +12,7 @@
 namespace BlackSheep\LastFm\Entity;
 
 use BlackSheep\LastFm\Entity\Embeddable\LastFmUser;
-use FOS\UserBundle\Model\UserInterface;
+use BlackSheep\User\Model\SheepUser;
 
 /**
  * Interface for the LastFm  User.
@@ -27,7 +27,7 @@ interface LastFmUserEmbed
     /**
      * @param LastFmUser $lastFm
      *
-     * @return UserInterface
+     * @return SheepUser
      */
     public function setLastFm(LastFmUser $lastFm);
 }

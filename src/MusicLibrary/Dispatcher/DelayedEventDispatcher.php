@@ -11,9 +11,8 @@
 
 namespace BlackSheep\MusicLibrary\Dispatcher;
 
-use Symfony\Component\EventDispatcher\Event;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
@@ -63,9 +62,15 @@ class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscribe
     }
 
     /**
-     * {@inheritdoc}
+     * Dispatches an event to all registered listeners.
+     *
+     * @param object      $event     The event to pass to the event handlers/listeners
+     * @param string|null $eventName The name of the event to dispatch. If not supplied,
+     *                               the class of $event should be used instead.
+     *
+     * @return object The passed $event MUST be returned
      */
-    public function dispatch($eventName, Event $event = null)
+    public function dispatch(object $event, string $eventName = null): object
     {
         if (!$this->ready) {
             $this->queue[] = ['name' => $eventName, 'instance' => $event];
@@ -73,7 +78,7 @@ class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscribe
             return $event;
         }
 
-        return $this->dispatcher->dispatch($eventName, $event);
+        return $this->dispatcher->dispatch($event, $eventName);
     }
 
     /**
@@ -125,7 +130,7 @@ class DelayedEventDispatcher implements EventDispatcherInterface, EventSubscribe
     /**
      * {@inheritdoc}
      */
-    public function getListeners($eventName = null)
+    public function getListeners(string $eventName = null)
     {
         return $this->dispatcher->getListeners($eventName);
     }
