@@ -15,11 +15,9 @@ use BlackSheep\LastFm\Entity\Embeddable\LastFmUser;
 use BlackSheep\LastFm\Entity\LastFmUserEmbed;
 use BlackSheep\MusicLibrary\User\UserSettings;
 use BlackSheep\User\Entity\PlayerSettings;
-use FOS\UserBundle\Model\User as BaseUser;
-use FOS\UserBundle\Model\UserInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 
-class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, UserInterface
+class SheepUser implements LastFmUserEmbed, JWTUserInterface
 {
     protected $id;
 
@@ -126,5 +124,30 @@ class SheepUser extends BaseUser implements LastFmUserEmbed, JWTUserInterface, U
         }
 
         return $user;
+    }
+
+    public function getRoles()
+    {
+        // TODO: Implement getRoles() method.
+    }
+
+    public function getPassword()
+    {
+        // TODO: Implement getPassword() method.
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function getUsername()
+    {
+        // TODO: Implement getUsername() method.
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }

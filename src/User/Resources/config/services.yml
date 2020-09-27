@@ -1,13 +1,4 @@
 services:
-    BlackSheep\User\Controller\Api\ApiProfileController:
-        autowire: false
-        autoconfigure: false
-        arguments: ['@event_dispatcher', '@fos_user.user_manager', '@translator']
-
-    BlackSheep\User\Controller\ProfileController:
-        arguments: ['@service_container']
-        public: true
-
     blacksheep_user.event.jwt_expired_listener:
         autowire: false
         class: BlackSheep\User\EventListener\JWTExpiredListener

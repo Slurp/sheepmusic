@@ -12,7 +12,7 @@
 namespace BlackSheep\MusicLibrary\Events;
 
 use BlackSheep\MusicLibrary\Model\SongInterface;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
 class SongEvent extends Event implements SongEventInterface
 {
