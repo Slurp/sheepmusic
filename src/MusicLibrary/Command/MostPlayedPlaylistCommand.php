@@ -12,15 +12,14 @@
 namespace BlackSheep\MusicLibrary\Command;
 
 use BlackSheep\MusicLibrary\Factory\PlaylistFactory;
-use BlackSheep\MusicScanner\Event\ImportEventInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Commando: music import.
  */
-class MostPlayedPlaylistCommand extends ContainerAwareCommand
+class MostPlayedPlaylistCommand extends Command
 {
     private $playlistFactory;
 

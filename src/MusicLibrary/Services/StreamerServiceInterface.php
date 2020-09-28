@@ -12,7 +12,7 @@
 namespace BlackSheep\MusicLibrary\Services;
 
 use BlackSheep\MusicLibrary\Model\SongInterface;
-use BlackSheep\User\Entity\SheepUser;
+use BlackSheep\User\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

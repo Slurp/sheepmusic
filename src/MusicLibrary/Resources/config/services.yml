@@ -28,31 +28,31 @@ services:
         public: true
         arguments:
         - '@router'
-        - '@vich_uploader.templating.helper.uploader_helper'
+        - '@@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
     black_sheep.music_library.api_model.api_song_data:
         class: BlackSheep\MusicLibrary\ApiModel\ApiSongData
         public: true
         arguments:
         - '@router'
-        - '@vich_uploader.templating.helper.uploader_helper'
+        - '@@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
     black_sheep.music_library.api_model.api_album_data:
         class: BlackSheep\MusicLibrary\ApiModel\ApiAlbumData
         public: true
         arguments:
         - '@router'
-        - '@vich_uploader.templating.helper.uploader_helper'
+        - '@@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
     black_sheep.music_library.api_model.api_playlist_data:
         class: BlackSheep\MusicLibrary\ApiModel\ApiPlaylistData
         public: true
         arguments:
         - '@router'
-        - '@vich_uploader.templating.helper.uploader_helper'
+        - '@@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
     black_sheep.music_library.api_model.api_genre_data:
         class: BlackSheep\MusicLibrary\ApiModel\ApiGenreData
         public: true
         arguments:
         - '@router'
-        - '@vich_uploader.templating.helper.uploader_helper'
+        - '@@Vich\UploaderBundle\Templating\Helper\UploaderHelper'
         - '@doctrine'
     black_sheep_music_library.naming.slug_directory_namer:
         class: BlackSheep\MusicLibrary\Naming\SluggableDirectoryNamer

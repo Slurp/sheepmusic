@@ -11,7 +11,7 @@
 
 namespace BlackSheep\User\Security;
 
-use BlackSheep\User\Entity\SheepUser;
+use BlackSheep\User\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\AuthorizationHeaderTokenExtractor;

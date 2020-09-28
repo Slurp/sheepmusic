@@ -17,9 +17,24 @@ use BlackSheep\MusicLibrary\User\UserSettings;
 use BlackSheep\User\Entity\PlayerSettings;
 use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 
-class SheepUser implements LastFmUserEmbed, JWTUserInterface
+class SheepUser implements LastFmUserEmbed, JWTUserInterface, UserInterface
 {
+    /**
+     * @var int|string
+     */
     protected $id;
+
+    /**
+     * @var string
+     */
+    protected $username;
+
+    /**
+     * Encrypted password. Must be persisted.
+     *
+     * @var string
+     */
+    protected $password;
 
     /**
      * @var LastFmUser
@@ -35,6 +50,99 @@ class SheepUser implements LastFmUserEmbed, JWTUserInterface
      * @var PlayerSettings
      */
     protected $playerSettings;
+
+    /**
+     * @var array
+     */
+    protected $roles;
+
+    /**
+     * @param string $username
+     * @param array $payload
+     *
+     * @return SheepUser
+     */
+    public static function createFromPayload($username, array $payload)
+    {
+        $user = new static();
+        $user->setUsername($username);
+        if (isset($payload['roles'])) {
+            $user->setRoles($payload['roles']);
+        }
+        if (isset($payload['email'])) {
+            $user->setEmail($payload['email']);
+        }
+
+        return $user;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->username;
+    }
+
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getPassword(): string
+    {
+        return (string) $this->password;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getSalt()
+    {
+        // not needed when using the "bcrypt" algorithm in security.yaml
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
 
     /**
      * @return LastFmUser
@@ -99,55 +207,9 @@ class SheepUser implements LastFmUserEmbed, JWTUserInterface
     {
         return [
             'user_name' => $this->getUsername(),
-            'email' => $this->getEmail(),
             'last_fm' => $this->getLastFm()->getApiData(),
             'settings' => $this->getSettings()->getApiData(),
             'player' => $this->getPlayerSettings()->getApiData(),
         ];
-    }
-
-    /**
-     * @param string $username
-     * @param array  $payload
-     *
-     * @return SheepUser
-     */
-    public static function createFromPayload($username, array $payload)
-    {
-        $user = new static();
-        $user->setUsername($username);
-        if (isset($payload['roles'])) {
-            $user->setRoles($payload['roles']);
-        }
-        if (isset($payload['email'])) {
-            $user->setEmail($payload['email']);
-        }
-
-        return $user;
-    }
-
-    public function getRoles()
-    {
-        // TODO: Implement getRoles() method.
-    }
-
-    public function getPassword()
-    {
-        // TODO: Implement getPassword() method.
-    }
-
-    public function getSalt()
-    {
-        // TODO: Implement getSalt() method.
-    }
-
-    public function getUsername()
-    {
-        // TODO: Implement getUsername() method.
-    }
-
-    public function eraseCredentials()
-    {
-        // TODO: Implement eraseCredentials() method.
     }
 }

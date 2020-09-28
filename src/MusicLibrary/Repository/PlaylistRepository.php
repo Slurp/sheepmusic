@@ -16,7 +16,7 @@ use BlackSheep\MusicLibrary\Entity\PlaylistsSongsEntity;
 use BlackSheep\MusicLibrary\Helper\PlaylistCoverHelper;
 use BlackSheep\MusicLibrary\Model\PlaylistInterface;
 use BlackSheep\MusicLibrary\Model\SongInterface;
-use BlackSheep\User\Entity\SheepUser;
+use BlackSheep\User\Model\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\Query;
@@ -52,7 +52,7 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
     }
 
     /**
-     * @param string         $name
+     * @param string $name
      * @param SheepUser|null $user
      *
      * @return PlaylistInterface
@@ -116,11 +116,11 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
     /**
      * @param $name
      * @param SongInterface[] $songs
-     * @param SheepUser       $user
+     * @param UserInterface $user
      *
      * @return PlaylistInterface|bool
      */
-    public function savePlaylistWithSongs($name, $songs, SheepUser $user = null)
+    public function savePlaylistWithSongs($name, $songs, UserInterface $user = null)
     {
         $playlist = $this->getByName($name, $user);
         if ($songs !== null && count($songs) >= 1) {

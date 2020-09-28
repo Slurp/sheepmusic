@@ -17,6 +17,7 @@ use BlackSheep\MusicScanner\Event\ImportEventInterface;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Contracts\EventDispatcher\Event;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -124,7 +125,7 @@ class MediaImporter
             }
             $this->managerRegistry->getManager()->flush();
         }
-        $this->eventDispatcher->dispatch(ImportEventInterface::IMPORTED_COMPLETE);
+        $this->eventDispatcher->dispatch(new Event(),ImportEventInterface::IMPORTED_COMPLETE);
         $this->debugEnd();
     }
 

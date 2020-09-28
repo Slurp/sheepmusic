@@ -12,15 +12,33 @@
 namespace BlackSheep\MusicLibrary\Command;
 
 use BlackSheep\MusicLibrary\Model\ArtistInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use BlackSheep\MusicLibrary\Repository\ArtistRepository;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class GenreUpdaterCommand.
  */
-class GenreUpdaterCommand extends ContainerAwareCommand
+class GenreUpdaterCommand extends Command
 {
+    /**
+     * @var ArtistRepository
+     */
+    protected $artistRepository;
+
+    /**
+     * GenreUpdaterCommand constructor.
+     *
+     * @param ArtistRepository $artistRepository
+     */
+    public function __construct(
+        ArtistRepository $artistRepository
+    ) {
+        parent::__construct();
+        $this->artistRepository = $artistRepository;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -36,9 +54,8 @@ class GenreUpdaterCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $artists = $this->getContainer()->get('black_sheep_music_library.repository.artists_repository')->findAll();
         /** @var ArtistInterface $artist */
-        foreach ($artists as $artist) {
+        foreach ($this->artistRepository->findAll() as $artist) {
             $genres = $this->updateAlbumGenre($artist);
             if (\count($genres) > 0) {
                 $artist->setGenres($genres);

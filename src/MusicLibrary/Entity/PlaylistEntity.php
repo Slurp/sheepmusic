@@ -30,7 +30,7 @@ class PlaylistEntity extends Playlist
 
     /**
      * @var SheepUser
-     * @ORM\ManyToMany(targetEntity="BlackSheep\User\Entity\SheepUser")
+     * @ORM\ManyToMany(targetEntity="BlackSheep\User\Entity\User")
      * @ORM\JoinTable(name="user_playlists",
      *     joinColumns={@ORM\JoinColumn(name="playlist_id", referencedColumnName="id", unique=true)},
      *     inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id", unique=false)}
