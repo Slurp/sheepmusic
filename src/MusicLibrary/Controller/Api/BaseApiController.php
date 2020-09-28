@@ -14,13 +14,13 @@ namespace BlackSheep\MusicLibrary\Controller\Api;
 use BlackSheep\MusicLibrary\ApiModel\ApiDataInterface;
 use BlackSheep\MusicLibrary\Model\ApiInterface;
 use BlackSheep\MusicLibrary\Repository\AbstractRepositoryInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class BaseApiController.
  */
-abstract class BaseApiController extends Controller
+abstract class BaseApiController extends AbstractController
 {
     /**
      * @return AbstractRepositoryInterface

@@ -1,6 +1,9 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
+    encoders:
+        BlackSheep\User\Entity\User:
+            algorithm: auto
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -9,7 +12,12 @@ security:
     providers:
         jwt:
             lexik_jwt:
-                class: BlackSheep\User\Entity\SheepUser
+                class: BlackSheep\User\Entity\User
+        # used to reload user from session & other features (e.g. switch_user)
+        blacksheep_user_provider:
+            entity:
+                class: BlackSheep\User\Entity\User
+                property: username
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
@@ -20,7 +28,7 @@ security:
             anonymous: true
             provider: jwt
         login:
-            provider: jwt
+            provider: blacksheep_user_provider
             pattern:  ^/api/login
             stateless: true
             anonymous: true
@@ -29,12 +37,19 @@ security:
                 success_handler:          lexik_jwt_authentication.handler.authentication_success
                 failure_handler:          lexik_jwt_authentication.handler.authentication_failure
                 require_previous_session: false
+            guard:
+                authenticators:
+                    - BlackSheep\User\Security\FormLoginAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
         api:
             logout: true
             pattern:  ^/api
             stateless: true
             anonymous: false
-            provider: jwt
+            provider: blacksheep_user_provider
             guard:
                 authenticators:
                     - BlackSheep\User\Security\Guard\JWTTokenAuthenticator

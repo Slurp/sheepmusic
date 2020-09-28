@@ -15,31 +15,51 @@ use BlackSheep\MusicLibrary\Events\AlbumEvent;
 use BlackSheep\MusicLibrary\Events\ArtistEvent;
 use BlackSheep\MusicLibrary\Events\ArtistEventInterface;
 use BlackSheep\MusicLibrary\Model\ArtistInterface;
+use BlackSheep\MusicLibrary\Repository\AlbumsRepository;
+use BlackSheep\MusicLibrary\Repository\ArtistRepository;
 use Doctrine\ORM\OptimisticLockException;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class UpdaterCommand.
  */
-class UpdaterCommand extends ContainerAwareCommand
+class UpdaterCommand extends AbstractProgressCommand
 {
     /**
-     * @var OutputInterface
+     * @var ArtistRepository
      */
-    protected $output;
+    protected $artistRepository;
 
     /**
-     * @var ProgressBar
+     * @var EventDispatcher
      */
-    protected $progress;
+    protected $eventDispatcher;
 
     /**
-     * @var bool
+     * @var AlbumsRepository
      */
-    protected $debug;
+    protected $albumsRepository;
+
+    /**
+     * UpdaterCommand constructor.
+     *
+     * @param ArtistRepository $artistRepository
+     * @param AlbumsRepository $albumsRepository
+     * @param EventDispatcherInterface $eventDispatcher
+     */
+    public function __construct(
+        ArtistRepository $artistRepository,
+        AlbumsRepository $albumsRepository,
+        EventDispatcherInterface $eventDispatcher
+    ) {
+        parent::__construct();
+        $this->artistRepository = $artistRepository;
+        $this->eventDispatcher = $eventDispatcher;
+        $this->albumsRepository = $albumsRepository;
+    }
 
     /**
      * {@inheritdoc}
@@ -57,8 +77,7 @@ class UpdaterCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->setOutputInterface($output);
-        $artistRepository = $this->getContainer()->get('black_sheep_music_library.repository.artists_repository');
-        $artists = $artistRepository->findAll();
+        $artists = $this->artistRepository->findAll();
         /* @var ArtistInterface $artist */
         $this->setupProgressBar(\count($artists));
         foreach ($artists as $artist) {
@@ -67,20 +86,22 @@ class UpdaterCommand extends ContainerAwareCommand
                 if (\count($genres) > 0) {
                     $artist->setGenres($genres);
                 }
-                $this->getContainer()->get('event_dispatcher')->dispatch(
+                $this->eventDispatcher->dispatch(
+                    new ArtistEvent($artist),
                     ArtistEventInterface::ARTIST_EVENT_UPDATED,
-                    new ArtistEvent($artist)
                 );
-                $artistRepository->save($artist);
+                $this->artistRepository->save($artist);
                 $this->debugStep('updated', $artist->getName());
             } catch (OptimisticLockException $e) {
             }
         }
+
+        return 0;
     }
 
     /**
      * @param OutputInterface $output
-     * @param bool            $debug
+     * @param bool $debug
      */
     public function setOutputInterface(OutputInterface $output, $debug = true)
     {
@@ -91,9 +112,9 @@ class UpdaterCommand extends ContainerAwareCommand
     /**
      * @param ArtistInterface $artist
      *
+     * @return array
      * @throws \Doctrine\ORM\OptimisticLockException
      *
-     * @return array
      */
     protected function updateAlbumGenre(ArtistInterface $artist)
     {
@@ -108,54 +129,13 @@ class UpdaterCommand extends ContainerAwareCommand
                     $genres[$album->getGenre()->getSlug()] = $album->getGenre();
                 }
             }
-            $this->getContainer()->get('event_dispatcher')->dispatch(
+            $this->eventDispatcher->dispatch(
+                new AlbumEvent($album),
                 AlbumEvent::ALBUM_EVENT_UPDATED,
-                new AlbumEvent($album)
             );
-            $this->getContainer()->get('doctrine.orm.default_entity_manager')->flush($album);
+            $this->albumsRepository->save($album);
         }
 
         return $genres;
-    }
-
-    /**
-     * @param int $max
-     */
-    protected function setupProgressBar($max)
-    {
-        $this->progress = null;
-        if ($this->output !== null) {
-            // create a new progress bar (50 units)
-            $this->progress = new ProgressBar($this->output, $max);
-            // start and displays the progress bar
-            $this->progress->start($max);
-            $this->progress->setRedrawFrequency(1);
-            $this->progress->setFormat('debug');
-            if ($this->debug) {
-                $this->progress->setFormat('%current%/%max% %elapsed:6s%/%estimated:-6s% %message% : %filename%');
-            }
-        }
-    }
-
-    /**
-     * @param string $operation
-     * @param string $info
-     */
-    protected function debugStep($operation, $info)
-    {
-        if ($this->progress !== null) {
-            if ($this->debug) {
-                $this->progress->setMessage("\n" . $operation);
-                $this->progress->setMessage($info, 'filename');
-            }
-            $this->progress->advance();
-        }
-    }
-
-    protected function debugEnd()
-    {
-        if ($this->progress !== null) {
-            $this->progress->finish();
-        }
     }
 }

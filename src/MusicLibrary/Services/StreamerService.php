@@ -14,7 +14,7 @@ namespace BlackSheep\MusicLibrary\Services;
 use BlackSheep\MusicLibrary\Model\SongInterface;
 use BlackSheep\MusicLibrary\Streamers\DefaultStreamer;
 use BlackSheep\MusicLibrary\Streamers\TranscodingStreamer;
-use BlackSheep\User\Entity\SheepUser;
+use BlackSheep\User\Entity\User;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Response;
 

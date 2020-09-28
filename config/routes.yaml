@@ -12,8 +12,6 @@ black_sheep_user:
     resource: "@BlackSheepUser/Resources/config/routing.yml"
 black_sheep_last_fm:
     resource: "@BlackSheepLastFm/Resources/config/routing.yml"
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 gesdinet_jwt_refresh_token:
     path:     /api/token/refresh
     defaults: { _controller: gesdinet.jwtrefreshtoken:refresh }

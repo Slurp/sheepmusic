@@ -11,7 +11,6 @@
 
 namespace BlackSheep\MusicLibrary\Command;
 
-use BlackSheep\MusicLibrary\Events\AlbumEvent;
 use BlackSheep\MusicLibrary\Helper\AlbumCoverHelper;
 use BlackSheep\MusicLibrary\Model\ArtistInterface;
 use BlackSheep\MusicLibrary\Model\ArtworkCollectionInterface;
@@ -21,8 +20,6 @@ use BlackSheep\MusicLibrary\Repository\AlbumsRepository;
 use BlackSheep\MusicLibrary\Repository\ArtistRepository;
 use BlackSheep\MusicScanner\Helper\TagHelper;
 use Doctrine\ORM\OptimisticLockException;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\File\File;
@@ -31,23 +28,8 @@ use Vich\UploaderBundle\Handler\UploadHandler;
 /**
  * Class UpdaterCommand.
  */
-class CleanupCommand extends Command
+class CleanupCommand extends AbstractProgressCommand
 {
-    /**
-     * @var OutputInterface
-     */
-    protected $output;
-
-    /**
-     * @var ProgressBar
-     */
-    protected $progress;
-
-    /**
-     * @var bool
-     */
-    protected $debug;
-
     /**
      * @var ArtistRepository
      */
@@ -128,13 +110,12 @@ class CleanupCommand extends Command
                         file_exists($this->albumCoverHelper->getWebDirectory() . $album->getCover()) === false
                     ) {
                         $song = $album->getSongs()->first();
-                        if($song instanceof SongInterface) {
+                        if ($song instanceof SongInterface) {
                             $songInfo = $this->tagHelper->getInfo(new File($song->getPath()));
                             $album->setCover($songInfo['cover']);
                             $this->albumsRepository->save($album);
                         }
                     }
-
                 }
                 $this->artistRepository->save($artist);
                 $this->debugStep('cleaned', $artist->getName());
@@ -159,61 +140,9 @@ class CleanupCommand extends Command
                     } catch (\Exception $exception) {
                         $this->output->writeln($exception->getMessage());
                     }
-
                 }
                 $initArtwork = $artwork;
             }
-        }
-    }
-
-    /**
-     * @param OutputInterface $output
-     * @param bool $debug
-     */
-    public function setOutputInterface(OutputInterface $output, $debug = true)
-    {
-        $this->debug = $debug;
-        $this->output = $output;
-    }
-
-    /**
-     * @param int $max
-     */
-    protected function setupProgressBar($max)
-    {
-        $this->progress = null;
-        if ($this->output !== null) {
-            // create a new progress bar (50 units)
-            $this->progress = new ProgressBar($this->output, $max);
-            // start and displays the progress bar
-            $this->progress->start($max);
-            $this->progress->setRedrawFrequency(1);
-            $this->progress->setFormat('debug');
-            if ($this->debug) {
-                $this->progress->setFormat('%current%/%max% %elapsed:6s%/%estimated:-6s% %message% : %filename%');
-            }
-        }
-    }
-
-    /**
-     * @param string $operation
-     * @param string $info
-     */
-    protected function debugStep($operation, $info)
-    {
-        if ($this->progress !== null) {
-            if ($this->debug) {
-                $this->progress->setMessage("\n" . $operation);
-                $this->progress->setMessage($info, 'filename');
-            }
-            $this->progress->advance();
-        }
-    }
-
-    protected function debugEnd()
-    {
-        if ($this->progress !== null) {
-            $this->progress->finish();
         }
     }
 }

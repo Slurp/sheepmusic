@@ -14,14 +14,14 @@ namespace BlackSheep\LastFm\Controller\Api;
 use BlackSheep\LastFm\Auth\LastFmAuth;
 use BlackSheep\LastFm\Entity\LastFmUserEmbed;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class ApiLastFmController.
  */
-class ApiLastFmController extends Controller
+class ApiLastFmController extends AbstractController
 {
     /**
      * @var LastFmAuth

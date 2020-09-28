@@ -13,7 +13,7 @@ namespace BlackSheep\MusicLibrary\Controller;
 
 use BlackSheep\MusicLibrary\Entity\SongEntity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\Response;
 /**
  * A controller to stream a song to someone.
  */
-class SongController extends Controller
+class SongController extends AbstractController
 {
     /**
      * @Route("/play/{song}", name="song_play")

@@ -15,13 +15,13 @@ use BlackSheep\MusicLibrary\Entity\SongEntity;
 use BlackSheep\MusicLibrary\Events\SongEvent;
 use BlackSheep\MusicLibrary\Events\SongEventInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Song Api.
  */
-class SongApiController extends Controller
+class SongApiController extends AbstractController
 {
     /**
      * @Route("/announce/{song}", name="post_announce_song")

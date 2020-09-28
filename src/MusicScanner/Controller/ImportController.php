@@ -13,10 +13,10 @@ namespace BlackSheep\MusicScanner\Controller;
 
 use BlackSheep\MusicScanner\Output\StreamedResponseOutput;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class ImportController extends Controller
+class ImportController extends AbstractController
 {
     /**
      * @Route("/import", name="import")

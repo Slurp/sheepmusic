@@ -16,13 +16,13 @@ use BlackSheep\MusicLibrary\Entity\ArtistsEntity;
 use BlackSheep\MusicLibrary\Entity\SongEntity;
 use Elastica\Query;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Search Api.
  */
-class SearchApiController extends Controller
+class SearchApiController extends AbstractController
 {
     /**
      * @Route("/search/{query}", name="search")

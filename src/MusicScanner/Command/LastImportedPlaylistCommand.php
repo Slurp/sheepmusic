@@ -12,23 +12,34 @@
 namespace BlackSheep\MusicScanner\Command;
 
 use BlackSheep\MusicScanner\Event\ImportEventInterface;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Contracts\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Commando: music import.
  */
-class LastImportedPlaylistCommand extends ContainerAwareCommand
+class LastImportedPlaylistCommand extends Command
 {
+    /**
+     * @var EventDispatcherInterface
+     */
+    protected $eventDispatcher;
+
+    public function __construct(EventDispatcherInterface $eventDispatcher)
+    {
+        parent::__construct('music_scanner:last_imported_playlist');
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
     /**
      * {@inheritdoc}
      */
     protected function configure()
     {
-        $this
-            ->setName('music_scanner:last_imported_playlist')
-            ->setDescription('generates a playlist for the last imported items');
+        $this->setDescription('generates a playlist for the last imported items');
     }
 
     /**
@@ -36,6 +47,6 @@ class LastImportedPlaylistCommand extends ContainerAwareCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->getContainer()->get('event_dispatcher')->dispatch(ImportEventInterface::IMPORTED_COMPLETE);
+        $this->eventDispatcher->dispatch(new Event(),ImportEventInterface::IMPORTED_COMPLETE);
     }
 }
