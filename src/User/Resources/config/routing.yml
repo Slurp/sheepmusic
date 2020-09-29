@@ -2,3 +2,7 @@ black_sheep_user_security:
     resource: "@BlackSheepUser/Controller/SecurityController.php"
     type:     annotation
     prefix:   /api/
+black_sheep_user_me:
+    resource: "@BlackSheepUser/Controller/MeController.php"
+    type:     annotation
+    prefix:   /api/

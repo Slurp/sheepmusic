@@ -14,7 +14,7 @@ namespace BlackSheep\MusicLibrary\Services;
 use BlackSheep\MusicLibrary\Model\SongInterface;
 use BlackSheep\MusicLibrary\Streamers\DefaultStreamer;
 use BlackSheep\MusicLibrary\Streamers\TranscodingStreamer;
-use BlackSheep\User\Entity\User;
+use BlackSheep\User\Model\UserInterface;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,17 +26,17 @@ class StreamerService implements StreamerServiceInterface
     /**
      * @var string
      */
-    protected $ffmpegPath;
+    protected string $ffmpegPath;
 
     /**
      * @var string
      */
-    protected $bitrate;
+    protected string $bitrate;
 
     /**
      * @var string
      */
-    protected $ffprobePath;
+    protected string $ffprobePath;
 
     /**
      * @param string $ffmpegPath
@@ -53,7 +53,7 @@ class StreamerService implements StreamerServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function getStreamerForSong(SongInterface $song, SheepUser $user = null, $startTime = 0): Response
+    public function getStreamerForSong(SongInterface $song, UserInterface $user = null, $startTime = 0): Response
     {
         $songFile = new File(mb_convert_encoding($song->getPath(), 'UTF-8'));
         $streamer = new DefaultStreamer($song);

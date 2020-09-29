@@ -61,6 +61,7 @@ class GenreUpdaterCommand extends Command
                 $artist->setGenres($genres);
             }
         }
+        return self::SUCCESS;
     }
 
     /**

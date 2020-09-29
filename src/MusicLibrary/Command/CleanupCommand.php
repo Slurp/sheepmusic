@@ -123,6 +123,7 @@ class CleanupCommand extends AbstractProgressCommand
                 $this->output->writeln($exception->getMessage());
             }
         }
+        return self::SUCCESS;
     }
 
     protected function cleanupArtworkType(ArtworkCollectionInterface $artworkCollection, $type)

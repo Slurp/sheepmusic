@@ -67,5 +67,6 @@ class LogoUpdaterCommand extends Command
                 ArtistEventInterface::ARTIST_EVENT_FETCHED
             );
         }
+        return self::SUCCESS;
     }
 }

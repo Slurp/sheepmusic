@@ -96,7 +96,7 @@ class UpdaterCommand extends AbstractProgressCommand
             }
         }
 
-        return 0;
+        return self::SUCCESS;
     }
 
     /**

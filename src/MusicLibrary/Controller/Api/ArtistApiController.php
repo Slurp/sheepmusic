@@ -11,11 +11,14 @@
 
 namespace BlackSheep\MusicLibrary\Controller\Api;
 
+use BlackSheep\MusicLibrary\ApiModel\ApiArtistData;
+use BlackSheep\MusicLibrary\ApiModel\ApiPlaylistData;
 use BlackSheep\MusicLibrary\Entity\ArtistsEntity;
 use BlackSheep\MusicLibrary\Events\AlbumEvent;
 use BlackSheep\MusicLibrary\Events\ArtistEvent;
 use BlackSheep\MusicLibrary\Events\ArtistEventInterface;
 use BlackSheep\MusicLibrary\Factory\PlaylistFactory;
+use BlackSheep\MusicLibrary\Repository\ArtistRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,25 +33,14 @@ class ArtistApiController extends BaseApiController
      */
     protected $playlistFactory;
 
-    public function __construct(PlaylistFactory $playlistFactory)
-    {
+    public function __construct(
+        PlaylistFactory $playlistFactory,
+        ArtistRepository $repository,
+        ApiPlaylistData $apiData
+    ) {
+        $this->repository = $repository;
+        $this->apiData = $apiData;
         $this->playlistFactory = $playlistFactory;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getRepository()
-    {
-        return $this->get('black_sheep_music_library.repository.artists_repository');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getApiDataModel()
-    {
-        return $this->get('black_sheep.music_library.api_model.api_artist_data');
     }
 
     /**

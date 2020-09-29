@@ -11,8 +11,10 @@
 
 namespace BlackSheep\MusicLibrary\Controller\Api;
 
+use BlackSheep\MusicLibrary\ApiModel\ApiPlaylistData;
 use BlackSheep\MusicLibrary\Entity\PlaylistEntity;
 use BlackSheep\MusicLibrary\Repository\PlaylistRepository;
+use BlackSheep\MusicLibrary\Repository\SongsRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,19 +25,25 @@ use Symfony\Component\HttpFoundation\Response;
 class PlaylistApiController extends BaseApiController
 {
     /**
-     * @return PlaylistRepository
+     * @var SongsRepository
      */
-    protected function getRepository()
-    {
-        return $this->get('black_sheep_music_library.repository.playlist_repository');
-    }
+    protected $songsRepository;
 
     /**
-     * {@inheritdoc}
+     * PlaylistApiController constructor.
+     *
+     * @param PlaylistRepository $repository
+     * @param ApiPlaylistData $apiData
+     * @param SongsRepository $songsRepository
      */
-    protected function getApiDataModel()
-    {
-        return $this->get('black_sheep.music_library.api_model.api_playlist_data');
+    public function __construct(
+        PlaylistRepository $repository,
+        ApiPlaylistData $apiData,
+        SongsRepository $songsRepository
+    ) {
+        $this->repository = $repository;
+        $this->apiData = $apiData;
+        $this->songsRepository = $songsRepository;
     }
 
     /**
@@ -75,7 +83,7 @@ class PlaylistApiController extends BaseApiController
     {
         $songs = $request->get('songs');
         if ($songs !== null && is_array($songs)) {
-            $songs = $this->get('black_sheep_music_library.repository.songs_repository')->findById($songs);
+            $songs = $this->songsRepository->findById($songs);
             $playlist = $this->getRepository()->savePlaylistWithSongs(
                 $request->get('name'),
                 $songs,

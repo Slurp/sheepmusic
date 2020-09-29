@@ -67,5 +67,6 @@ class ImportMusicCommand extends Command
             $this->param->get('black_sheep_music_library.import_path'),
             $input->getOption('full')
         );
+        return self::SUCCESS;
     }
 }

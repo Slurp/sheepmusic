@@ -12,6 +12,8 @@
 namespace BlackSheep\MusicLibrary\Helper;
 
 use BlackSheep\MusicLibrary\Model\PlaylistInterface;
+use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * Generates a cover for a playlist.
@@ -49,7 +51,9 @@ class PlaylistCoverHelper extends AbstractUploadHelper
      */
     public function createCoverForPlaylist(PlaylistInterface $playlist, $useCache = true)
     {
-        $fileName = $this->getUploadRootDirectory() . $playlist->getName() . '.jpg';
+        $slugger = new AsciiSlugger();
+        $name = $slugger->slug($playlist->getName())->toString();
+        $fileName = $this->getUploadRootDirectory() . $name . '.jpg';
         if (file_exists($fileName) === false || $useCache === false) {
             $covers = $this->collectAllAlbumCovers($playlist);
             $grid = $this->calculateColumnsAndRows($covers);
@@ -66,7 +70,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
             imagedestroy($background);
         }
 
-        return static::getUploadDirectory() . $playlist->getName() . '.jpg';
+        return static::getUploadDirectory() . $name . '.jpg';
     }
 
     /**

@@ -35,7 +35,7 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
         return PlaylistEntity::class;
     }
 
-    public function getUserPlaylist(SheepUser $user)
+    public function getUserPlaylist(UserInterface $user)
     {
         $qb = $this->createQueryBuilder('p')
             ->where(':user MEMBER OF p.user')
@@ -44,7 +44,7 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
         return $qb;
     }
 
-    public function getUserPlaylistByName($name, SheepUser $user)
+    public function getUserPlaylistByName($name, UserInterface $user)
     {
         $qb = $this->getUserPlaylist($user)->andWhere('p.name = :name')->setParameter('name', $name);
 
@@ -53,11 +53,11 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
 
     /**
      * @param string $name
-     * @param SheepUser|null $user
+     * @param UserInterface|null $user
      *
      * @return PlaylistInterface
      */
-    public function getByName($name, SheepUser $user = null)
+    public function getByName($name, UserInterface $user = null)
     {
         $playlist = null;
         if ($user !== null) {
@@ -95,11 +95,11 @@ class PlaylistRepository extends AbstractRepository implements PlaylistRepositor
     }
 
     /**
-     * @param SheepUser $user
+     * @param UserInterface $user
      *
      * @return array
      */
-    public function getListForUser(SheepUser $user)
+    public function getListForUser(UserInterface $user)
     {
         return $this->getListQueryBuilder()
             ->where(':user MEMBER OF a.user')

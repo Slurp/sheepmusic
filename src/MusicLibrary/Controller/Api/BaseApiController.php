@@ -12,10 +12,15 @@
 namespace BlackSheep\MusicLibrary\Controller\Api;
 
 use BlackSheep\MusicLibrary\ApiModel\ApiDataInterface;
+use BlackSheep\MusicLibrary\Helper\AlbumCoverHelper;
 use BlackSheep\MusicLibrary\Model\ApiInterface;
 use BlackSheep\MusicLibrary\Repository\AbstractRepositoryInterface;
+use BlackSheep\MusicLibrary\Repository\AlbumsRepository;
+use BlackSheep\MusicLibrary\Repository\ArtistRepository;
+use BlackSheep\MusicScanner\Helper\TagHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Vich\UploaderBundle\Handler\UploadHandler;
 
 /**
  * Class BaseApiController.
@@ -23,14 +28,30 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class BaseApiController extends AbstractController
 {
     /**
+     * @var AbstractRepositoryInterface
+     */
+    protected $repository;
+
+    /**
+     * @var ApiDataInterface;
+     */
+    protected $apiData;
+
+    /**
      * @return AbstractRepositoryInterface
      */
-    abstract protected function getRepository();
+    protected function getRepository()
+    {
+        return $this->repository;
+    }
 
     /**
      * @return ApiDataInterface
      */
-    abstract protected function getApiDataModel();
+    protected function getApiDataModel()
+    {
+        return $this->apiData;
+    }
 
     /**
      * @return Response
