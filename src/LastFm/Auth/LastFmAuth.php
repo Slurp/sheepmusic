@@ -70,19 +70,22 @@ class LastFmAuth
      */
     public function tokenForUser(LastFmUserEmbed $user, $refresh = false)
     {
-        if ($refresh || $user->getLastFm()->getLastFmToken() === '' || $user->getLastFm()->getLastFmToken() === null) {
-            $auth = new AuthApi(
-                'gettoken',
-                ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret]
-            );
-            $user->getLastFm()->setLastFmToken((string) $auth->token);
-            $this->entityManager->flush();
-        }
-        if ($user->getLastFm()->hasLastFmConnected() === false) {
-            return [
-                'lastfm_token' => $user->getLastFm()->getLastFmToken(),
-                'key' => $this->getApiKey(),
-            ];
+        if(!empty($this->apiSecret)) {
+            if ($refresh || $user->getLastFm()->getLastFmToken() === '' || $user->getLastFm()->getLastFmToken(
+                ) === null) {
+                $auth = new AuthApi(
+                    'gettoken',
+                    ['apiKey' => $this->apiKey, 'apiSecret' => $this->apiSecret]
+                );
+                $user->getLastFm()->setLastFmToken((string) $auth->token);
+                $this->entityManager->flush();
+            }
+            if ($user->getLastFm()->hasLastFmConnected() === false) {
+                return [
+                    'lastfm_token' => $user->getLastFm()->getLastFmToken(),
+                    'key' => $this->getApiKey(),
+                ];
+            }
         }
 
         return [];
