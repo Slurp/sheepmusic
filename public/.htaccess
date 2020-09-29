@@ -16,7 +16,9 @@ DirectoryIndex index.php
 <IfModule mod_negotiation.c>
     Options -MultiViews
 </IfModule>
-
+<IfModule mod_headers.c>
+    RequestHeader set X-Sendfile-Type X-Sendfile
+  </IfModule>
 <IfModule mod_rewrite.c>
     RewriteEngine On
 

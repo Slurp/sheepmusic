@@ -16,13 +16,6 @@ services:
             - '@event_dispatcher'
         tags:
             - { name: "kernel.event_subscriber" }
-    black_sheep_music_library.services.streamer_service:
-        class: BlackSheep\MusicLibrary\Services\StreamerService
-        public: true
-        arguments:
-            - "%black_sheep_music_library.ffmpeg_path%"
-            - "%black_sheep_music_library.ffprobe_path%"
-            - "%black_sheep_music_library.bitrate%"
     black_sheep.music_library.api_model.api_artist_data:
         class: BlackSheep\MusicLibrary\ApiModel\ApiArtistData
         public: true

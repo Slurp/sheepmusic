@@ -48,5 +48,6 @@ class LastImportedPlaylistCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->eventDispatcher->dispatch(new Event(),ImportEventInterface::IMPORTED_COMPLETE);
+        return self::SUCCESS;
     }
 }

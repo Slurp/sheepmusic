@@ -13,6 +13,7 @@ namespace BlackSheep\MusicLibrary\Services;
 
 use BlackSheep\MusicLibrary\Model\SongInterface;
 use BlackSheep\User\Entity\User;
+use BlackSheep\User\Model\UserInterface;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -24,10 +25,10 @@ interface StreamerServiceInterface
      * Play a song.
      *
      * @param SongInterface  $song
-     * @param SheepUser|null $user
+     * @param UserInterface|null $user
      * @param int            $startTime
      *
      * @return Response
      */
-    public function getStreamerForSong(SongInterface $song, SheepUser $user = null, $startTime = 0): Response;
+    public function getStreamerForSong(SongInterface $song, UserInterface $user = null, $startTime = 0): Response;
 }

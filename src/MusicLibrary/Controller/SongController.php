@@ -12,6 +12,7 @@
 namespace BlackSheep\MusicLibrary\Controller;
 
 use BlackSheep\MusicLibrary\Entity\SongEntity;
+use BlackSheep\MusicLibrary\Services\StreamerService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
@@ -23,6 +24,21 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class SongController extends AbstractController
 {
+    /**
+     * @var StreamerService
+     */
+    protected StreamerService $streamerService;
+
+    /**
+     * SongController constructor.
+     *
+     * @param StreamerService $streamerService
+     */
+    public function __construct(StreamerService $streamerService)
+    {
+        $this->streamerService = $streamerService;
+    }
+
     /**
      * @Route("/play/{song}", name="song_play")
      *
@@ -36,7 +52,7 @@ class SongController extends AbstractController
     public function play(SongEntity $song, Request $request)
     {
         try {
-            return $this->get('black_sheep_music_library.services.streamer_service')->getStreamerForSong(
+            return $this->streamerService->getStreamerForSong(
                 $song,
                 $this->getUser(),
                 $request->get('time', 0)

@@ -42,7 +42,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator implements Authentic
 
     /**
      * @param JWTEncoderInterface $jwtEncoder
-     * @param EntityManager       $em
+     * @param EntityManager $em
      */
     public function __construct(JWTEncoderInterface $jwtEncoder, EntityManager $em)
     {
@@ -83,7 +83,7 @@ class TokenAuthenticator extends AbstractGuardAuthenticator implements Authentic
         $username = $data['username'];
 
         return $this->em
-            ->getRepository(SheepUser::class)
+            ->getRepository(User::class)
             ->findOneBy(['username' => $username]);
     }
 

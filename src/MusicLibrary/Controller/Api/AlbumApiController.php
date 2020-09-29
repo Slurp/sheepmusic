@@ -11,10 +11,15 @@
 
 namespace BlackSheep\MusicLibrary\Controller\Api;
 
+use BlackSheep\MusicLibrary\ApiModel\ApiAlbumData;
 use BlackSheep\MusicLibrary\Entity\AlbumEntity;
+use BlackSheep\MusicLibrary\Helper\AlbumCoverHelper;
+use BlackSheep\MusicLibrary\Repository\AlbumsRepository;
+use BlackSheep\MusicLibrary\Repository\ArtistRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Vich\UploaderBundle\Handler\UploadHandler;
 
 /**
  * Album api.
@@ -22,20 +27,20 @@ use Symfony\Component\HttpFoundation\Response;
 class AlbumApiController extends BaseApiController
 {
     /**
-     * {@inheritdoc}
+     * constructor.
+     *
+     * @param AlbumsRepository $repository
+     * @param ApiAlbumData $apiData
      */
-    protected function getRepository()
-    {
-        return $this->get('black_sheep_music_library.repository.albums_repository');
+    public function __construct(
+        AlbumsRepository $repository,
+        ApiAlbumData $apiData
+    ) {
+        $this->repository = $repository;
+        $this->apiData = $apiData;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function getApiDataModel()
-    {
-        return $this->get('black_sheep.music_library.api_model.api_album_data');
-    }
+
 
     /**
      * @Route("/album_list", name="get_album_list")

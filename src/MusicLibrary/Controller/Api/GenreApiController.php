@@ -11,7 +11,9 @@
 
 namespace BlackSheep\MusicLibrary\Controller\Api;
 
+use BlackSheep\MusicLibrary\ApiModel\ApiGenreData;
 use BlackSheep\MusicLibrary\Entity\GenreEntity;
+use BlackSheep\MusicLibrary\Repository\GenresRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -20,20 +22,12 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class GenreApiController extends BaseApiController
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getRepository()
-    {
-        return $this->get('black_sheep_music_library.repository.genre_repository');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getApiDataModel()
-    {
-        return $this->get('black_sheep.music_library.api_model.api_genre_data');
+    public function __construct(
+        GenresRepository $repository,
+        ApiGenreData $apiData
+    ) {
+        $this->repository = $repository;
+        $this->apiData = $apiData;
     }
 
     /**

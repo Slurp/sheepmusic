@@ -46,5 +46,6 @@ class MostPlayedPlaylistCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->playlistFactory->createMostPlayedPlaylist();
+        return self::SUCCESS;
     }
 }
