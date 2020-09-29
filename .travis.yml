@@ -49,7 +49,6 @@ script:
 #- phpunit --configuration phpunit.xml.dist
 - "./bin/console lint:yaml config"
 - "./bin/console lint:twig templates"
-- "./bin/console lint:xliff translations"
 - composer validate --strict
 - "./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction"
 deploy:
