@@ -1,10 +1,9 @@
 ###> symfony/framework-bundle ###
-/.idea
-/.env
-/bin
-!/bin/console
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/public/uploads
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
@@ -12,11 +11,6 @@
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem
 ###< lexik/jwt-authentication-bundle ###
-
-###> symfony/web-server-bundle ###
-/.web-server-pid
-###< symfony/web-server-bundle ###
-
 ###> symfony/phpunit-bridge ###
 .phpunit
 /phpunit.xml
@@ -27,7 +21,8 @@
 ###> node ###
 config/jwt/test/private.pem
 config/jwt/test/public.pem
-public/uploads/artist/marianne-thorsen/cover-mozart-violin-concertos-cd-resolution.jpg
 travis_rsa
 acl.sh
-src/.preload.php
+/src/.preload.php
+/public/uploads
+/.idea

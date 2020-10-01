@@ -68,3 +68,5 @@ DirectoryIndex index.php
         # RedirectTemp cannot be used instead
     </IfModule>
 </IfModule>
+
+php_value opcache.preload /Users/slangeweg/private/sheepmusic/src/.preload.php
