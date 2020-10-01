@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "ffmpeg-binaries": "^3.2.2-3"
+    "ffmpeg-static": "^4.2.7" ,
+    "ffprobe-static": "3.0.0"
   }
 }

@@ -16,9 +16,9 @@ use Symfony\Component\Finder\Finder;
 
 class SongImporterTest extends KernelTestCase
 {
-    protected $songInfo;
+    protected array $songInfo;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $file = new \SplFileInfo(__DIR__ . '/../../flac-file.flac');
         $this->songInfo = [
@@ -36,15 +36,13 @@ class SongImporterTest extends KernelTestCase
 
     public function testSongImport()
     {
-        //start the symfony kernel
-        $kernel = static::createKernel();
-        $kernel->boot();
+        self::bootKernel();
 
-        $songImporter = $kernel->getContainer()->get('black_sheep_music_scanner.services.song_importer');
+        $songImporter = static::$container->get('black_sheep_music_scanner.services.song_importer');
         $finder = Finder::create()
             ->files()
             ->name('/\.(mp3|ogg|m4a|flac)$/i')
-            ->in(__DIR__ . '/../../../');
+            ->in(__DIR__ . '/../../');
         foreach ($finder as $file) {
             $song = $songImporter->importSong($file);
             self::assertSame($song->getAlbum()->getName(), $this->songInfo['album']);

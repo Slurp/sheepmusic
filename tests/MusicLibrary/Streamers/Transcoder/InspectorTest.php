@@ -22,24 +22,17 @@ class InspectorTest extends TestCase
     /**
      * @var string
      */
-    protected $flacPath;
+    protected string $flacPath;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->flacPath = __DIR__ . '/../../../flac-file.flac';
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function tearDown()
-    {
-        parent::tearDown();
-    }
 
     public function testGetLength()
     {
-        $ffprobe = __DIR__ . '/../../../../node_modules/ffmpeg-binaries/bin/ffprobe';
+        $ffprobe = __DIR__ . '/../../../../node_modules/ffprobe-static/bin/darwin/x64/ffprobe';
         if (is_readable($ffprobe) === false || is_executable($ffprobe) === false) {
             $ffprobe = null;
         }

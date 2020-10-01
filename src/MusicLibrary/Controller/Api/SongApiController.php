@@ -14,7 +14,7 @@ namespace BlackSheep\MusicLibrary\Controller\Api;
 use BlackSheep\MusicLibrary\Entity\SongEntity;
 use BlackSheep\MusicLibrary\Events\SongEvent;
 use BlackSheep\MusicLibrary\Events\SongEventInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 

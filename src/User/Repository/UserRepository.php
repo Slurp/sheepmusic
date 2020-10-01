@@ -56,6 +56,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
      * @param string $username
      * @param string $password
      *
+     * @return User
      * @throws ORMException
      * @throws OptimisticLockException
      */
@@ -66,5 +67,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
         $this->_em->persist($user);
         $this->_em->flush();
+
+        return $user;
     }
 }

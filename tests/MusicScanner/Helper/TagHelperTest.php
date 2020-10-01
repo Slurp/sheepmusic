@@ -13,26 +13,27 @@ namespace BlackSheep\Tests\MusicScanner\Helper;
 
 use BlackSheep\MusicScanner\Helper\TagHelper;
 use PHPUnit\Framework\TestCase;
+use TypeError;
 
 class TagHelperTest extends TestCase
 {
     /**
      * @var string
      */
-    protected $flacPath;
+    protected string $flacPath;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->flacPath = __DIR__ . '/../../flac-file.flac';
     }
 
     /**
-     * @expectedException \TypeError
-     * @expectedExceptionMessage Argument 1 passed to BlackSheep\MusicScanner\Helper\TagHelper::getInfo() must be
-     *     an instance of SplFileInfo, string given
+     *
      */
     public function testGetInfoNoFile()
     {
+        static::expectException(TypeError::class);
+        static::expectExceptionMessage('Argument 1 passed to BlackSheep\MusicScanner\Helper\TagHelper::getInfo() must be an instance of SplFileInfo, string given');
         $tagHelper = new TagHelper();
         $tagHelper->getInfo('');
     }

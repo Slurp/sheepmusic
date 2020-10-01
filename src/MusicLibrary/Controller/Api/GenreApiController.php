@@ -14,7 +14,7 @@ namespace BlackSheep\MusicLibrary\Controller\Api;
 use BlackSheep\MusicLibrary\ApiModel\ApiGenreData;
 use BlackSheep\MusicLibrary\Entity\GenreEntity;
 use BlackSheep\MusicLibrary\Repository\GenresRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

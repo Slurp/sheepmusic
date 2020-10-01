@@ -16,7 +16,7 @@ class AlbumsControllerTest extends ApiTestCaseBase
     public function testGETAlbumsForUser()
     {
         $token = $this->getToken();
-        $this->client->request(
+        static::$staticClient->request(
             'GET',
             '/api/album_list',
             [],
@@ -25,16 +25,15 @@ class AlbumsControllerTest extends ApiTestCaseBase
             'HTTP_AUTHORIZATION' => 'Bearer ' . $token, ]
         );
 
-        $content = $this->client->getResponse()->getContent();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $content = static::$staticClient->getResponse()->getContent();
+        $this->assertSame(200, static::$staticClient->getResponse()->getStatusCode());
         $this->assertSame([], json_decode($content, true));
     }
 
     public function testGETAlbumsForUserRefreshToken()
     {
-        static::markTestSkipped('waiting of fix for deprecated gesdinet.jwtrefreshtoken" service');
         $token = $this->refreshedToken();
-        $this->client->request(
+        static::$staticClient->request(
             'GET',
             '/api/album_list',
             [],
@@ -43,14 +42,14 @@ class AlbumsControllerTest extends ApiTestCaseBase
                 'HTTP_AUTHORIZATION' => 'Bearer ' . $token, ]
         );
 
-        $content = $this->client->getResponse()->getContent();
-        $this->assertSame(200, $this->client->getResponse()->getStatusCode());
+        $content = static::$staticClient->getResponse()->getContent();
+        $this->assertSame(200, static::$staticClient->getResponse()->getStatusCode());
         $this->assertSame([], json_decode($content, true));
     }
 
     public function testGETAlbumsAsUnauthorizedUser()
     {
-        $this->client->request(
+        static::$staticClient->request(
             'GET',
             '/api/album_list',
             [],
@@ -58,7 +57,7 @@ class AlbumsControllerTest extends ApiTestCaseBase
             ['CONTENT_TYPE' => 'application/json']
         );
 
-        $this->assertSame(403, $this->client->getResponse()->getStatusCode());
-        $this->assertSame('{"status":"403 Forbidden","message":"No token. Missing token! Look for it!"}', $this->client->getResponse()->getContent());
+        $this->assertSame(403, static::$staticClient->getResponse()->getStatusCode());
+        $this->assertSame('{"status":"403 Forbidden","message":"No token. Missing token! Look for it!"}', static::$staticClient->getResponse()->getContent());
     }
 }

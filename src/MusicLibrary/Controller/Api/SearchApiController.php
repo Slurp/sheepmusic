@@ -15,7 +15,7 @@ use BlackSheep\MusicLibrary\Entity\AlbumEntity;
 use BlackSheep\MusicLibrary\Entity\ArtistsEntity;
 use BlackSheep\MusicLibrary\Entity\SongEntity;
 use Elastica\Query;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 

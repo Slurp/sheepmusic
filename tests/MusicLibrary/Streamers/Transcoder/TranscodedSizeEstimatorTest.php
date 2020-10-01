@@ -19,10 +19,6 @@ use PHPUnit\Framework\TestCase;
  */
 class TranscodedSizeEstimatorTest extends TestCase
 {
-    protected function setUp()
-    {
-    }
-
     /**
      * testEstimatedBytes.
      */

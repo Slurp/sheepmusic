@@ -76,7 +76,7 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
     public function save($entity)
     {
         $this->getEntityManager()->persist($entity);
-        $this->getEntityManager()->flush($entity);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -86,7 +86,7 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
      */
     public function update($entity = null)
     {
-        $this->getEntityManager()->flush($entity);
+        $this->getEntityManager()->flush();
     }
 
     /**
@@ -97,6 +97,6 @@ abstract class AbstractRepository extends ServiceEntityRepository implements Abs
     public function remove($entity)
     {
         $this->getEntityManager()->remove($entity);
-        $this->getEntityManager()->flush($entity);
+        $this->getEntityManager()->flush();
     }
 }

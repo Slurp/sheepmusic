@@ -13,8 +13,8 @@ black_sheep_user:
 black_sheep_last_fm:
     resource: "@BlackSheepLastFm/Resources/config/routing.yml"
 gesdinet_jwt_refresh_token:
-    path:     /api/token/refresh
-    defaults: { _controller: gesdinet.jwtrefreshtoken:refresh }
+    path:       /api/token/refresh
+    controller: gesdinet.jwtrefreshtoken::refresh
 
 
 
