@@ -13,9 +13,6 @@ namespace BlackSheep\MusicLibrary\Model\Media;
 
 /**
  * Interface ArtworkInterface.
- *
- * @ORM\Table
- * @ORM\Entity
  */
 interface ArtworkInterface
 {
