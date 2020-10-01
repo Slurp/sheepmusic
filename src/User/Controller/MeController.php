@@ -2,6 +2,7 @@
 
 namespace BlackSheep\User\Controller;
 
+use BlackSheep\User\Entity\User;
 use BlackSheep\User\Model\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -12,9 +13,9 @@ use Symfony\Component\Security\Core\Security;
 class MeController extends AbstractController
 {
     /**
-     * @var Security
+     * @var User|null
      */
-    protected Security $security;
+    protected ?User $user;
 
     /**
      * IntrospectionController constructor.
@@ -23,8 +24,11 @@ class MeController extends AbstractController
      */
     public function __construct(Security $security)
     {
+        $this->user = $security->getUser();
 
-        $this->security = $security;
+        if (!$this->user instanceof UserInterface) {
+            throw new AccessDeniedException();
+        }
     }
 
     /**
@@ -33,16 +37,19 @@ class MeController extends AbstractController
      */
     public function getAction()
     {
-        $user = $this->security->getUser();
-
-        if (!$user instanceof UserInterface) {
-            throw new AccessDeniedException();
-        }
-
         return new JsonResponse(
             [
-                'id' => $user->getId(),
+                'id' => $this->user->getId(),
             ]
         );
+    }
+
+    /**
+     * @Route(name="user_profile", path="user/profile", methods={"GET"})
+     * @return JsonResponse
+     */
+    public function profileAction()
+    {
+        return new JsonResponse($this->user->getApiData());
     }
 }
