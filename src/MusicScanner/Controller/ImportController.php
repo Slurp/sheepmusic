@@ -12,7 +12,7 @@
 namespace BlackSheep\MusicScanner\Controller;
 
 use BlackSheep\MusicScanner\Output\StreamedResponseOutput;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 

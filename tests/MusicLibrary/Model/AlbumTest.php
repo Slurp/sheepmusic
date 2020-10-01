@@ -12,17 +12,18 @@
 namespace BlackSheep\Tests\MusicLibrary\Model;
 
 use BlackSheep\MusicLibrary\Model\Album;
+use BlackSheep\MusicLibrary\Model\AlbumInterface;
 use BlackSheep\MusicLibrary\Model\Artist;
 use PHPUnit\Framework\TestCase;
 
 class AlbumTest extends TestCase
 {
-    protected $album;
+    protected AlbumInterface $album;
 
     /**
      * {@inheritdoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $extraInfo['cover'] = 'cover';
         $extraInfo['album_mbid'] = '';

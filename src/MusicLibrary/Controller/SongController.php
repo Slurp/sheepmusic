@@ -13,7 +13,7 @@ namespace BlackSheep\MusicLibrary\Controller;
 
 use BlackSheep\MusicLibrary\Entity\SongEntity;
 use BlackSheep\MusicLibrary\Services\StreamerService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\Request;

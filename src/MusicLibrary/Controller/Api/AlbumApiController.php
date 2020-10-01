@@ -16,7 +16,7 @@ use BlackSheep\MusicLibrary\Entity\AlbumEntity;
 use BlackSheep\MusicLibrary\Helper\AlbumCoverHelper;
 use BlackSheep\MusicLibrary\Repository\AlbumsRepository;
 use BlackSheep\MusicLibrary\Repository\ArtistRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Vich\UploaderBundle\Handler\UploadHandler;

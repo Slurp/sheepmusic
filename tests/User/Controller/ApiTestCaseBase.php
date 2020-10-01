@@ -12,38 +12,32 @@
 namespace BlackSheep\Tests\User\Controller;
 
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Symfony\Bundle\FrameworkBundle\Client;
+use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ApiTestCaseBase extends WebTestCase
 {
     /**
-     * @var Client
+     * @var KernelBrowser
      */
-    protected static $staticClient;
+    protected static KernelBrowser $staticClient;
 
     /**
-     * @var Client
+     * @var ContainerInterface
      */
-    protected $client;
+    protected static $staticContainer;
 
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
-        self::$staticClient = static::createClient(['environment' => 'test']);
+        static::$staticClient = static::createClient(['environment' => 'test']);
+        self::$staticContainer = static::$container;
 
-        // kernel boot, so we can get the container and use our services
-        self::bootKernel();
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->client = self::$staticClient;
         $this->purgeDatabase();
-    }
-
-    protected function tearDown()
-    {
-        // purposefully not calling parent class, which shuts down the kernel
     }
 
     /**
@@ -53,8 +47,8 @@ class ApiTestCaseBase extends WebTestCase
      */
     protected function getService($id)
     {
-        return self::$kernel->getContainer()
-            ->get($id);
+        static::bootKernel();
+        return static::$container->get($id);
     }
 
     /**
@@ -66,21 +60,8 @@ class ApiTestCaseBase extends WebTestCase
      */
     protected function createUser($userName, $password, $addOnEmail = null)
     {
-        $userManager = $this->getService('fos_user.user_manager');
-        $user = $userManager->createUser();
-        $user->setEnabled(true);
-        $user->setPlainPassword($password);
-        $user->setUsername($userName);
-        $user->setEmail('email@email.com');
-        $user->setEnabled(true);
-        $userManager->updateUser($user);
-
-        if (null !== $addOnEmail) {
-            $user->addEmail($addOnEmail);
-            $userManager->updateUser($user);
-        }
-
-        return $user;
+        $userManager = $this->getService('BlackSheep\User\Repository\UserRepository');
+        return $userManager->createUser($userName, $password);
     }
 
     /**
@@ -89,13 +70,13 @@ class ApiTestCaseBase extends WebTestCase
      * @param string $username
      * @param string $password
      *
-     * @return \Symfony\Bundle\FrameworkBundle\Client
+     * @return mixed
      */
     protected function getToken($username = 'user', $password = 'password')
     {
         $this->createUser($username, $password);
         $parameter = '{"username":"' . $username . '","password":"' . $password . '"}';
-        $this->client->request(
+        static::$staticClient->request(
             'POST',
             '/api/login_check',
             [],
@@ -106,7 +87,7 @@ class ApiTestCaseBase extends WebTestCase
             $parameter
         );
 
-        $response = $this->client->getResponse()->getContent();
+        $response = static::$staticClient->getResponse()->getContent();
         $data = json_decode($response, true);
 
         return $data['token'];
@@ -124,7 +105,7 @@ class ApiTestCaseBase extends WebTestCase
     {
         $this->createUser($username, $password);
         $parameter = '{"username":"' . $username . '","password":"' . $password . '"}';
-        $this->client->request(
+        static::$staticClient->request(
             'POST',
             '/api/login_check',
             [],
@@ -135,14 +116,14 @@ class ApiTestCaseBase extends WebTestCase
             $parameter
         );
 
-        $response = $this->client->getResponse()->getContent();
+        $response = static::$staticClient->getResponse()->getContent();
         $data = json_decode($response, true);
 
-        $this->client->request(
+        static::$staticClient->request(
             'GET',
             '/api/token/refresh?refresh_token=' . $data['refresh_token']
         );
-        $refreshReponse = $this->client->getResponse()->getContent();
+        $refreshReponse = static::$staticClient->getResponse()->getContent();
         $refreshData = json_decode($refreshReponse, true);
 
         return $refreshData['token'];

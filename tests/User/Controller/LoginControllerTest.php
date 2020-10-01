@@ -20,7 +20,7 @@ class LoginControllerTest extends ApiTestCaseBase
 
         $this->createUser($userName, $password);
         $parameter = '{"username":"' . $userName . '","password":"' . $password . '"}';
-        $this->client->request(
+        static::$staticClient->request(
             'POST',
             '/api/login_check',
             [],
@@ -30,7 +30,7 @@ class LoginControllerTest extends ApiTestCaseBase
             ],
             $parameter
         );
-        $reponse = $this->client->getResponse();
+        $reponse = static::$staticClient->getResponse();
         $content = $reponse->getContent();
         $responseArr = json_decode($content, true);
         $this->assertSame(200, $reponse->getStatusCode());
@@ -47,7 +47,7 @@ class LoginControllerTest extends ApiTestCaseBase
         $user = $this->createUser($userName, $password);
 
         $parameter = '{"username":"' . $userName . '_nope","password":"' . $password . '"}';
-        $this->client->request(
+        static::$staticClient->request(
             'POST',
             '/api/login_check',
             [],
@@ -58,8 +58,8 @@ class LoginControllerTest extends ApiTestCaseBase
             $parameter
         );
 
-        $this->assertSame(401, $this->client->getResponse()->getStatusCode());
-        $responseArr = json_decode($this->client->getResponse()->getContent(), true);
-        $this->assertSame('Bad credentials', $responseArr['message']);
+        $this->assertSame(401, static::$staticClient->getResponse()->getStatusCode());
+        $responseArr = json_decode(static::$staticClient->getResponse()->getContent(), true);
+        $this->assertSame('Invalid credentials.', $responseArr['message']);
     }
 }

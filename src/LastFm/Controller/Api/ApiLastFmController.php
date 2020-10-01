@@ -13,7 +13,8 @@ namespace BlackSheep\LastFm\Controller\Api;
 
 use BlackSheep\LastFm\Auth\LastFmAuth;
 use BlackSheep\LastFm\Entity\LastFmUserEmbed;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use LastFmApi\Exception\InvalidArgumentException;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,6 +41,7 @@ class ApiLastFmController extends AbstractController
      * @param bool $refresh
      *
      * @return Response
+     * @throws InvalidArgumentException
      */
     public function getToken($refresh = false): Response
     {

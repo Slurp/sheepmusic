@@ -19,7 +19,7 @@ use BlackSheep\MusicLibrary\Events\ArtistEvent;
 use BlackSheep\MusicLibrary\Events\ArtistEventInterface;
 use BlackSheep\MusicLibrary\Factory\PlaylistFactory;
 use BlackSheep\MusicLibrary\Repository\ArtistRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
