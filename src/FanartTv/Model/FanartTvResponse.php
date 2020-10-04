@@ -57,40 +57,40 @@ class FanartTvResponse implements ArtistArtworkSetInterface, AlbumArtworkSetInte
     public function __construct($json)
     {
         //logo's
-        if (isset($json->hdmusiclogo) && \is_array($json->hdmusiclogo)) {
-            $this->logos = $json->hdmusiclogo;
-        }
-        if (isset($json->musiclogo) && \is_array($json->musiclogo) && $this->logos !== null) {
-            $this->logos = $json->musiclogo;
-        }
-        if (isset($json->musicbanner) && \is_array($json->musicbanner)) {
-            $this->banners = $json->musicbanner;
-        }
-        if (isset($json->artistbackground) && \is_array($json->artistbackground)) {
-            $this->backgrounds = $json->artistbackground;
-        }
-        if (isset($json->artistthumb) && \is_array($json->artistthumb)) {
-            $this->thumbs = $json->artistthumb;
-        }
-        if (isset($json->artistthumb) && \is_array($json->artistthumb)) {
-            $this->thumbs = $json->artistthumb;
-        }
+        $this->getMostLiked($json, 'musiclogo', 'logos');
+        $this->getMostLiked($json, 'musicbanner', 'banners');
+        $this->getMostLiked($json, 'artistbackground', 'backgrounds');
+        $this->getMostLiked($json, 'artistthumb', 'thumbs');
+        $this->getMostLiked($json, 'cdart', 'cdart');
+        $this->getMostLiked($json, 'albumcover', 'albumcover');
 
         if (isset($json->albums)) {
             foreach ($json->albums as $mbid => $album) {
                 if (isset($album->cdart)) {
-                    $this->cdart[$mbid] = $album->cdart;
+                    $this->cdart[$mbid] = $this->getMostLiked($album, 'cdart');
                 }
                 if (isset($album->albumcover)) {
-                    $this->albumcover[$mbid] = $album->albumcover;
+                    $this->albumcover[$mbid] = $this->getMostLiked($album, 'albumcover');
                 }
             }
         }
-        if (isset($json->cdart)) {
-            $this->cdart = $json->cdart;
-        }
-        if (isset($json->albumcover)) {
-            $this->albumcover = $json->albumcover;
+    }
+
+    /**
+     * @param $json
+     * @param $key
+     * @param null $classProp
+     *
+     * @return mixed
+     */
+    protected function getMostLiked($json, string $key, string $classProp = null)
+    {
+        if (isset($json->{$key}) && \is_array($json->{$key})) {
+            usort($json->{$key}, function ($first, $second) { return $first->likes <= $second->likes; });
+            if($classProp !== null) {
+                return  $this->{$classProp} = $json->{$key}[0];
+            }
+            return $json->{$key}[0];
         }
     }
 

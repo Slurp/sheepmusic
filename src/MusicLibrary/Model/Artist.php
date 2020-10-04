@@ -204,8 +204,9 @@ class Artist implements ArtistInterface
     {
         /** @var Album $album */
         foreach ($this->getAlbums() as $album) {
-            if ($album->getCover() !== null) {
-                return $album->getCover();
+            $cover = $album->getCover();
+            if ($cover !== null) {
+                return $cover;
             }
         }
 

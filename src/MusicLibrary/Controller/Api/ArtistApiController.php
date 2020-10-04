@@ -36,7 +36,7 @@ class ArtistApiController extends BaseApiController
     public function __construct(
         PlaylistFactory $playlistFactory,
         ArtistRepository $repository,
-        ApiPlaylistData $apiData
+        ApiArtistData $apiData
     ) {
         $this->repository = $repository;
         $this->apiData = $apiData;
@@ -48,7 +48,7 @@ class ArtistApiController extends BaseApiController
      *
      * @return Response
      */
-    public function getAlbumList()
+    public function getArtistList()
     {
         return $this->getList();
     }

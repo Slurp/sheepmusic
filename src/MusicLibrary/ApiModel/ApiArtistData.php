@@ -14,6 +14,7 @@ namespace BlackSheep\MusicLibrary\ApiModel;
 use BlackSheep\MusicLibrary\ApiModel\Helper\ApiArtworkHelper;
 use BlackSheep\MusicLibrary\Model\ArtistInterface;
 use BlackSheep\MusicLibrary\Model\SimilarArtist\SimilarArtistsInterface;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Generates a array for the API.

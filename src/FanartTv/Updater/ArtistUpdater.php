@@ -18,6 +18,7 @@ use BlackSheep\MusicLibrary\Model\ArtistInterface;
 use BlackSheep\MusicLibrary\Repository\ArtistRepository;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\ServerException;
 
 /**
  * Class ArtistUpdater.
@@ -61,8 +62,8 @@ class ArtistUpdater
     {
         if (
             empty($artist->getMusicBrainzId()) === false
-            && empty($artist->getLogos()) === false
-            && empty($artist->getBackgrounds()) === false
+            // && empty($artist->getLogos()) === true
+            // && empty($artist->getBackgrounds()) === true
         ) {
             try {
                 $fanArt = new FanartTvResponse(
@@ -74,8 +75,8 @@ class ArtistUpdater
                 $this->artistsRepository->save($artist);
                 unset($fanArt);
             } catch (ClientException $e) {
-                error_log($e->getMessage());
             } catch (ConnectException $e) {
+            } catch (ServerException $e) {
                 error_log($e->getMessage());
             }
         }

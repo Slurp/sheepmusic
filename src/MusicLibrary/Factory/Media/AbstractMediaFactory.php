@@ -13,6 +13,7 @@ namespace BlackSheep\MusicLibrary\Factory\Media;
 
 use BlackSheep\MusicLibrary\Entity\Media\AbstractMediaInterface;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Handler\UploadHandler;
 
@@ -27,14 +28,14 @@ class AbstractMediaFactory
     protected $uploadHandler;
 
     /**
-     * @var
+     * @var string
      */
-    protected $kernelRootDir;
+    protected string $kernelRootDir;
 
     /**
-     * @var
+     * @var Filesystem
      */
-    protected $filesystem;
+    protected Filesystem $filesystem;
 
     /**
      * AbstractMediaFactory constructor.
@@ -42,7 +43,7 @@ class AbstractMediaFactory
      * @param UploadHandler $uploadHandler
      * @param $projectDir
      */
-    public function __construct(UploadHandler $uploadHandler, string $projectDir)
+    public function __construct(UploadHandler $uploadHandler, $projectDir)
     {
         $this->uploadHandler = $uploadHandler;
         $this->kernelRootDir = $projectDir;
@@ -57,24 +58,24 @@ class AbstractMediaFactory
     public function copyExternalFile(AbstractMediaInterface &$entity, string $url, string $name)
     {
         $ext = mb_substr($url, mb_strrpos($url, '.') + 1);
-        $tempFile = $this->kernelRootDir . '/public/uploads/_temp/' . str_replace('/', '_', $name) . '.' . $ext;
-
+        $fileName = str_replace('/', '_', $name) . '.' . $ext;
+        $tempFile = $this->kernelRootDir . '/public/uploads/_temp/' . $fileName;
         try {
-            $this->filesystem->copy($url, $tempFile);
+            $this->filesystem->dumpFile(
+                $tempFile,
+                file_get_contents($url)
+            );
             $entity->setImageFile(
                 new UploadedFile(
                     $tempFile,
-                    $name. '.' . $ext,
+                    $fileName,
                     mime_content_type($tempFile),
                     null,
                     true
                 )
             );
-            $this->uploadHandler->upload($entity, 'imageFile');
         } catch (\Exception $exception) {
-            error_log($exception->getMessage());
-        } finally {
-            @unlink($tempFile);
+            var_dump($exception->getMessage());
         }
     }
 }

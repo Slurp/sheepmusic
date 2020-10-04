@@ -11,6 +11,8 @@
 
 namespace BlackSheep\MusicLibrary\Naming;
 
+use BlackSheep\MusicLibrary\Entity\AlbumEntity;
+use BlackSheep\MusicLibrary\Model\AlbumInterface;
 use BlackSheep\MusicLibrary\Model\Media\AbstractMediaInterface;
 use Psr\Log\InvalidArgumentException;
 use Vich\UploaderBundle\Mapping\PropertyMapping;
@@ -26,6 +28,9 @@ class SluggableDirectoryNamer implements DirectoryNamerInterface
      */
     public function directoryName($object, PropertyMapping $mapping): string
     {
+        if ($object instanceof AlbumInterface) {
+            return `{$object->getArtist()->getSlug()}/{$object->getSlug()}`;
+        }
         if ($object instanceof AbstractMediaInterface) {
             return $object->getSlug();
         }
