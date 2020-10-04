@@ -25,8 +25,7 @@ class ApiAlbumData extends ApiSongData implements ApiDataInterface
     {
         if ($object instanceof AlbumInterface) {
             $albumData = $object->getApiData();
-            $this->getCover($object, $albumData);
-
+            $this->getCover($albumData);
             return array_merge(
                 [
                     'id' => $object->getId(),
@@ -47,10 +46,9 @@ class ApiAlbumData extends ApiSongData implements ApiDataInterface
     }
 
     /**
-     * @param AlbumInterface $object
      * @param $albumData
      */
-    protected function getCover(AlbumInterface $object, &$albumData)
+    protected function getCover(&$albumData)
     {
         if (empty($albumData['cover']) === false &&
             mb_strpos($albumData['cover'], 'http') !== 0

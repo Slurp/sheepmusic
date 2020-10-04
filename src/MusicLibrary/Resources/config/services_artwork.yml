@@ -3,4 +3,4 @@ services:
         class: BlackSheep\MusicLibrary\Factory\ArtworkFactory
         arguments:
             - '@vich_uploader.upload_handler'
-            - '%kernel.root_dir%'
+            - '%kernel.project_dir%'

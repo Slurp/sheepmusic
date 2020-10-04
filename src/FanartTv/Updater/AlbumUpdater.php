@@ -68,7 +68,7 @@ class AlbumUpdater
             try {
                 $fanart = new FanartTvResponse(
                     json_decode(
-                        $this->client->loadAlbum($album->getMusicBrainzId())->getBody()
+                        $this->client->loadAlbum($album->getMusicBrainzReleaseGroupId())->getBody()
                     )
                 );
                 $this->artworkFactory->addArtworkToAlbum($album, $fanart);

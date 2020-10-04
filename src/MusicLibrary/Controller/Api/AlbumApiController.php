@@ -11,15 +11,15 @@
 
 namespace BlackSheep\MusicLibrary\Controller\Api;
 
+use BlackSheep\FanartTv\Client\MusicClient;
+use BlackSheep\FanartTv\Model\FanartTvResponse;
 use BlackSheep\MusicLibrary\ApiModel\ApiAlbumData;
 use BlackSheep\MusicLibrary\Entity\AlbumEntity;
-use BlackSheep\MusicLibrary\Helper\AlbumCoverHelper;
 use BlackSheep\MusicLibrary\Repository\AlbumsRepository;
-use BlackSheep\MusicLibrary\Repository\ArtistRepository;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Vich\UploaderBundle\Handler\UploadHandler;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Album api.
@@ -27,20 +27,26 @@ use Vich\UploaderBundle\Handler\UploadHandler;
 class AlbumApiController extends BaseApiController
 {
     /**
+     * @var MusicClient
+     */
+    protected MusicClient $client;
+
+    /**
      * constructor.
      *
      * @param AlbumsRepository $repository
      * @param ApiAlbumData $apiData
+     * @param MusicClient $client
      */
     public function __construct(
         AlbumsRepository $repository,
-        ApiAlbumData $apiData
+        ApiAlbumData $apiData,
+        MusicClient $client
     ) {
         $this->repository = $repository;
         $this->apiData = $apiData;
+        $this->client = $client;
     }
-
-
 
     /**
      * @Route("/album_list", name="get_album_list")
@@ -74,5 +80,29 @@ class AlbumApiController extends BaseApiController
     public function getAlbum(AlbumEntity $album)
     {
         return $this->getDetail($album);
+    }
+
+    /**
+     * @Route("/album/{album}/artwork", name="get_album_artwork")
+     *
+     * @param AlbumEntity $album
+     *
+     * @return Response
+     */
+    public function getAlbumArtwork(AlbumEntity $album)
+    {
+        if ($album->getMusicBrainzId() !== null) {
+
+                $fanart = new FanartTvResponse(
+                    json_decode(
+                        $this->client->loadAlbum($album->getMusicBrainzReleaseGroupId())->getBody()
+                    )
+                );
+
+                return new JsonResponse($fanart->getArtworkCover());
+
+        }
+
+        return new JsonResponse(['']);
     }
 }

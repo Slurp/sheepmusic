@@ -34,7 +34,7 @@ class JsonClient
      *
      * @param string $apiKey
      */
-    public function __construct($apiKey = '29133f7285818dcf83d712fabd9b5d2e')
+    public function __construct($apiKey = 'b624cd6523fbe1cee6de39a292e65917')
     {
         $this->apiKey = $apiKey;
     }

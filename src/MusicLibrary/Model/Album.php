@@ -136,9 +136,9 @@ class Album implements AlbumInterface
      */
     public function getCover()
     {
-        if ($this->getArtworkCover() !== null && \count($this->getArtworkCover()) > 1) {
+        if ($this->getArtworkCover() !== null && \count($this->getArtworkCover()) >= 1) {
             foreach ($this->getArtworkCover() as $covers) {
-                return '/uploads/album/' . $covers->getImage()->getName();
+                return '/uploads/artist/' . $this->getSlug() . "/" . $covers->getImage()->getName();
             }
         }
         if (mb_strpos($this->cover, 'http') !== 0 && $this->cover !== null) {

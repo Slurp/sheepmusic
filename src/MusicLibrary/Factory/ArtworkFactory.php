@@ -27,7 +27,7 @@ use BlackSheep\MusicLibrary\Model\Media\ArtworkInterface;
 class ArtworkFactory extends AbstractMediaFactory
 {
     /**
-     * @param ArtistInterface  $artist
+     * @param ArtistInterface $artist
      * @param FanartTvResponse $artworkSet
      */
     public function addArtworkToArtist(ArtistInterface $artist, FanartTvResponse $artworkSet)
@@ -42,14 +42,15 @@ class ArtworkFactory extends AbstractMediaFactory
     }
 
     /**
-     * @param ArtistInterface  $artist
+     * @param ArtistInterface $artist
      * @param FanartTvResponse $artworkSet
      */
     protected function updateAlbumsForArtist(ArtistInterface $artist, FanartTvResponse $artworkSet)
     {
+
         if ($artworkSet->getArtworkCover() !== null || $artworkSet->getCdArt() !== null) {
             foreach ($artist->getAlbums() as $album) {
-                if ($album->getMusicBrainzId() !== null) {
+                if ($album->getMusicBrainzReleaseGroupId() !== null) {
                     if (isset($artworkSet->getArtworkCover()[$album->getMusicBrainzReleaseGroupId()]) &&
                         \count($album->getArtworkCover()) === 0
                     ) {
@@ -74,7 +75,7 @@ class ArtworkFactory extends AbstractMediaFactory
     }
 
     /**
-     * @param AlbumInterface           $album
+     * @param AlbumInterface $album
      * @param AlbumArtworkSetInterface $artworkSet
      */
     public function addArtworkToAlbum(AlbumInterface $album, AlbumArtworkSetInterface $artworkSet)
@@ -90,8 +91,8 @@ class ArtworkFactory extends AbstractMediaFactory
 
     /**
      * @param ArtworkCollectionInterface $artworkCollection
-     * @param string                     $type
-     * @param array                      $artworks
+     * @param string $type
+     * @param array $artworks
      */
     protected function createArtwork(
         ArtworkCollectionInterface $artworkCollection,
@@ -99,25 +100,37 @@ class ArtworkFactory extends AbstractMediaFactory
         $artworks = null
     ) {
         if ($artworks !== null) {
-            foreach ($artworks as $artwork) {
-                if (\is_array($artwork)) {
-                    $this->createArtwork($artworkCollection, $type, $artwork);
-                }
-                if (\is_object($artwork)) {
-                    $media = $this->getArtworkEntity($artworkCollection, $type);
-                    $media->setLikes($artwork->likes);
-                    $this->copyExternalFile($media, $artwork->url, $artworkCollection->getSlug() . '-' . $type);
-                    if ($media->getImageFile() !== null) {
-                        $artworkCollection->addArtwork($media);
+            if (\is_iterable($artworks)) {
+                foreach ($artworks as $artwork) {
+                    if (\is_array($artwork)) {
+                        $this->createArtwork($artworkCollection, $type, $artwork[0]);
+                    }
+                    if (\is_object($artwork)) {
+                        $this->addArtworkToCollection($artwork, $artworkCollection, $type);
                     }
                 }
+            } else {
+                $this->addArtworkToCollection($artworks, $artworkCollection, $type);
             }
+        }
+    }
+
+    private function addArtworkToCollection(
+        object $artwork,
+        ArtworkCollectionInterface $artworkCollection,
+        $type
+    ) {
+        $media = $this->getArtworkEntity($artworkCollection, $type);
+        $media->setLikes($artwork->likes);
+        $this->copyExternalFile($media, $artwork->url, $artworkCollection->getSlug() . '-' . $type);
+        if ($media->getImageFile() !== null) {
+            $artworkCollection->addArtwork($media);
         }
     }
 
     /**
      * @param ArtworkCollectionInterface $artworkCollection
-     * @param string                     $type
+     * @param string $type
      *
      * @return AlbumArtworkEntity|ArtistArtworkEntity
      */
