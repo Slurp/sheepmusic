@@ -17,12 +17,29 @@ use BlackSheep\MusicLibrary\Events\SongEventInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Song Api.
  */
 class SongApiController extends AbstractController
 {
+    /**
+     * @var EventDispatcherInterface
+     */
+    protected EventDispatcherInterface $dispatcher;
+
+    /**
+     * SongApiController constructor.
+     *
+     * @param EventDispatcherInterface $dispatcher
+     */
+    public function __construct(EventDispatcherInterface $dispatcher)
+    {
+
+        $this->dispatcher = $dispatcher;
+    }
+
     /**
      * @Route("/announce/{song}", name="post_announce_song")
      *
@@ -32,7 +49,7 @@ class SongApiController extends AbstractController
      */
     public function postAnnounceSong(SongEntity $song)
     {
-        $this->get('delayed_event_dispatcher')->dispatch(SongEventInterface::SONG_EVENT_PLAYING, new SongEvent($song));
+        $this->dispatcher->dispatch(new SongEvent($song),SongEventInterface::SONG_EVENT_PLAYING);
 
         return $this->json(['played' => $song->getPlayCount()]);
     }
@@ -46,7 +63,7 @@ class SongApiController extends AbstractController
      */
     public function postPlayedSong(SongEntity $song)
     {
-        $this->get('event_dispatcher')->dispatch(SongEventInterface::SONG_EVENT_PLAYED, new SongEvent($song));
+        $this->dispatcher->dispatch( new SongEvent($song), SongEventInterface::SONG_EVENT_PLAYED);
 
         return $this->json(['played' => $song->getPlayCount()]);
     }
