@@ -37,8 +37,8 @@ install:
 - yarn install
 - cp .env.dist .env
 - mkdir -p var/bin
-- cp node_modules/ffmpeg-binaries/bin/ffmpeg var/bin/
-- cp node_modules/ffmpeg-binaries/bin/ffprobe var/bin/
+- cp node_modules/ffmpeg-static/ffmpeg var/bin/
+- cp node_modules/ffmpeg-static/bin/linux/ffprobe var/bin/
 - php bin/console doctrine:database:create --env=test
 - php bin/console doctrine:schema:create --env=test
 - mkdir -p config/jwt/test
