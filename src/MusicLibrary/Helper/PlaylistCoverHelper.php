@@ -156,7 +156,7 @@ class PlaylistCoverHelper extends AbstractUploadHelper
         // Creating image objects
         $coverObjects = [];
         for ($i = 0; $i < ($rows * $columns); ++$i) {
-            if (!empty($covers[$i])) {
+            if (!empty($covers[$i]) && file_exists($covers[$i])) {
                 $coverObjects[$i] = imagescale(
                     imagecreatefromstring(file_get_contents($covers[$i])),
                     $this->coverThumbWidth,

@@ -22,11 +22,11 @@ abstract class AbstractUploadHelper implements FilesystemCoverInterface
     protected $webDirectory;
 
     /**
-     * @param string|null $webDirectory
+     * @param string|null $projectDir
      */
-    public function __construct($webDirectory = null)
+    public function __construct($projectDir = null)
     {
-        $this->webDirectory = $webDirectory;
+        $this->webDirectory = $projectDir;
         if ($this->webDirectory === null) {
             $this->webDirectory = __DIR__ . '/../../../public';
         }
