@@ -12,16 +12,16 @@
 namespace BlackSheep\MusicLibrary\Controller\Api;
 
 use BlackSheep\MusicLibrary\ApiModel\ApiArtistData;
-use BlackSheep\MusicLibrary\ApiModel\ApiPlaylistData;
 use BlackSheep\MusicLibrary\Entity\ArtistsEntity;
 use BlackSheep\MusicLibrary\Events\AlbumEvent;
 use BlackSheep\MusicLibrary\Events\ArtistEvent;
 use BlackSheep\MusicLibrary\Events\ArtistEventInterface;
 use BlackSheep\MusicLibrary\Factory\PlaylistFactory;
 use BlackSheep\MusicLibrary\Repository\ArtistRepository;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Artist Api controller.
@@ -33,14 +33,21 @@ class ArtistApiController extends BaseApiController
      */
     protected $playlistFactory;
 
+    /**
+     * @var EventDispatcherInterface
+     */
+    protected EventDispatcherInterface $eventDispatcher;
+
     public function __construct(
         PlaylistFactory $playlistFactory,
         ArtistRepository $repository,
-        ApiArtistData $apiData
+        ApiArtistData $apiData,
+        EventDispatcherInterface $eventDispatcher
     ) {
         $this->repository = $repository;
         $this->apiData = $apiData;
         $this->playlistFactory = $playlistFactory;
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -86,7 +93,11 @@ class ArtistApiController extends BaseApiController
      */
     public function getSmartPlaylistForArtist(ArtistsEntity $artist)
     {
-        return $this->json($this->get('black_sheep.music_library.api_model.api_playlist_data')->getApiData($this->playlistFactory->createSmartPlaylistForArtist($artist)));
+        return $this->json(
+            $this->get('black_sheep.music_library.api_model.api_playlist_data')->getApiData(
+                $this->playlistFactory->createSmartPlaylistForArtist($artist)
+            )
+        );
     }
 
     /**
@@ -99,18 +110,18 @@ class ArtistApiController extends BaseApiController
     public function updateMetaData(ArtistsEntity $artist)
     {
         foreach ($artist->getAlbums() as $album) {
-            $this->get('event_dispatcher')->dispatch(
+            $this->eventDispatcher->dispatch(
+                new AlbumEvent($album),
                 AlbumEvent::ALBUM_EVENT_UPDATED,
-                new AlbumEvent($album)
             );
-            $this->get('event_dispatcher')->dispatch(
+            $this->eventDispatcher->dispatch(
+                new AlbumEvent($album),
                 AlbumEvent::ALBUM_EVENT_VALIDATE_SONGS,
-                new AlbumEvent($album)
             );
         }
-        $this->get('event_dispatcher')->dispatch(
+        $this->eventDispatcher->dispatch(
+            new ArtistEvent($artist),
             ArtistEventInterface::ARTIST_EVENT_UPDATED,
-            new ArtistEvent($artist)
         );
 
         return $this->getDetail($artist);
