@@ -15,6 +15,7 @@ use BlackSheep\MusicLibrary\Entity\AlbumEntity;
 use BlackSheep\MusicLibrary\Entity\ArtistsEntity;
 use BlackSheep\MusicLibrary\Entity\SongEntity;
 use Elastica\Query;
+use FOS\ElasticaBundle\Manager\RepositoryManagerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +25,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class SearchApiController extends AbstractController
 {
+    protected RepositoryManagerInterface $finder;
+
+    public function __construct(RepositoryManagerInterface $finder)
+    {
+        $this->finder = $finder;
+    }
+
     /**
      * @Route("/search/{query}", name="search")
      *
@@ -38,7 +46,7 @@ class SearchApiController extends AbstractController
             function (ArtistsEntity $artist) {
                 return $artist->getApiData();
             },
-            $this->container->get('fos_elastica.finder.sheepmusic_artists.artist')->find(
+            $this->finder->getRepository(ArtistsEntity::class)->find(
                 $this->buildNameQuery($query),
                 100
             )
@@ -47,7 +55,7 @@ class SearchApiController extends AbstractController
             function (AlbumEntity $album) {
                 return $album->getApiData();
             },
-            $this->container->get('fos_elastica.finder.sheepmusic_albums.album')->find(
+            $this->finder->getRepository(AlbumEntity::class)->find(
                 $this->buildNameQuery($query),
                 100
             )
@@ -56,7 +64,7 @@ class SearchApiController extends AbstractController
             function (SongEntity $song) {
                 return $song->getApiData();
             },
-            $this->container->get('fos_elastica.finder.sheepmusic_songs.song')->find(
+            $this->finder->getRepository(SongEntity::class)->find(
                 $this->buildTitleQuery($query),
                 100
             )
