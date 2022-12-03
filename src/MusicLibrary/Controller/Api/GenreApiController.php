@@ -14,6 +14,7 @@ namespace BlackSheep\MusicLibrary\Controller\Api;
 use BlackSheep\MusicLibrary\ApiModel\ApiGenreData;
 use BlackSheep\MusicLibrary\Entity\GenreEntity;
 use BlackSheep\MusicLibrary\Repository\GenresRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -38,6 +39,18 @@ class GenreApiController extends BaseApiController
     public function getGenreList()
     {
         return $this->getList();
+    }
+
+    /**
+     * @Route("/genre_collection", name="get_genre_collection")
+     *
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function getGenreCollection(Request $request)
+    {
+        return $this->getCollection($request->get('objects'));
     }
 
     /**
